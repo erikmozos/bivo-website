@@ -9,13 +9,25 @@ const Navbar = () => {
   return (
     <nav className="fixed w-full bg-black z-50 py-4 shadow-sm">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link to="/" className="flex items-center">
+        <a
+          href="#hero"
+          className="flex items-center cursor-pointer"
+          onClick={e => {
+            e.preventDefault();
+            const hero = document.getElementById('hero');
+            if (hero) {
+              hero.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
+        >
           <img 
             src="/brand/logo-bivo-verde.png" 
             alt="Bivo Training Logo" 
             className="h-8 w-auto object-contain"
           />
-        </Link>
+        </a>
 
         {/* Mobile menu button */}
         <button
