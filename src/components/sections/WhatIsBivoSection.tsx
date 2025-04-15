@@ -26,13 +26,13 @@ const WhatIsBivoSection = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-20 bg-black text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-round text-3xl font-bold mb-4">
             ¿Qué es <span className="text-bivo-green">Bivo</span>?
           </h2>
-          <p className="text-gray-600 max-w-3xl mx-auto mb-8">
+          <p className="text-gray-300 max-w-3xl mx-auto mb-8">
             Bivo es una plataforma innovadora que combina tecnología y experiencia deportiva para 
             revolucionar el entrenamiento en deportes de raqueta como pádel, tenis y pickleball.
           </p>
@@ -50,12 +50,12 @@ const WhatIsBivoSection = () => {
           </div>
           <div className="md:w-1/2 flex flex-col justify-center">
             <h3 className="font-round text-2xl font-semibold mb-4">Entrena como los profesionales</h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-300 mb-6">
               Nuestra plataforma te permite acceder a entrenamientos diseñados por profesionales, 
               adaptados a tu nivel y objetivos. Ya sea que estés comenzando o busques perfeccionar tu 
               técnica, Bivo te ofrece las herramientas para mejorar tu juego.
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-300">
               Utilizamos tecnología avanzada para analizar tu técnica, movimientos y rendimiento, 
               proporcionándote feedback personalizado y ejercicios específicos para mejorar en cada 
               aspecto de tu juego.
@@ -65,10 +65,10 @@ const WhatIsBivoSection = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
-            <div key={index} className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow">
+            <div key={index} className="bg-gray-800 rounded-lg p-6 hover:shadow-lg transition-shadow">
               <div className="mb-4">{feature.icon}</div>
               <h3 className="font-round text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <p className="text-gray-300">{feature.description}</p>
             </div>
           ))}
         </div>
