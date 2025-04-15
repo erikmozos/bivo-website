@@ -11,9 +11,9 @@ const Navbar = () => {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" className="flex items-center">
           <img 
-            src="/lovable-uploads/ae81dd97-39dd-44ef-bc78-0461ec0a0cfb.png" 
+            src="/brand/logo-bivo-verde.png" 
             alt="Bivo Training Logo" 
-            className="h-10 w-auto object-contain"
+            className="h-8 w-auto object-contain"
           />
         </Link>
 
