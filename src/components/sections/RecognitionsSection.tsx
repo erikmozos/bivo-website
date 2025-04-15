@@ -4,25 +4,16 @@ import { Award, Trophy, Star, Medal } from "lucide-react";
 const RecognitionsSection = () => {
   const reconocimientos = [
     {
-      titulo: "Finalista StartUp Mallorca 2023",
-      icono: <Trophy className="w-10 h-10 text-bivo-green" />,
-      descripcion: "Reconocimiento en el concurso de startups más importante de las islas."
+      titulo: "Premio Nacional a la Mejor Startup – Programa Impulsa Crea y Crece 2024",
+      icono: <Trophy className="w-10 h-10 text-bivo-green" />, 
+      descripcion: "Cámara de Comercio de España, 2 abril 2025"
     },
     {
-      titulo: "Premio Innovación Deportiva",
-      icono: <Award className="w-10 h-10 text-bivo-green" />,
-      descripcion: "Otorgado por el Consejo Superior de Deportes como plataforma innovadora."
-    },
-    {
-      titulo: "Top 10 SportsTech España",
-      icono: <Star className="w-10 h-10 text-bivo-green" />,
-      descripcion: "Reconocida entre las 10 mejores startups deportivas españolas de 2023."
-    },
-    {
-      titulo: "Mención de excelencia técnica",
-      icono: <Medal className="w-10 h-10 text-bivo-green" />,
-      descripcion: "Reconocimiento por la calidad de análisis técnico deportivo."
+      titulo: "Mejor idea de negocio – Cámara de Comercio de Menorca",
+      icono: <Medal className="w-10 h-10 text-bivo-green" />, 
+      descripcion: "14 enero 2025"
     }
+  
   ];
 
   return (
