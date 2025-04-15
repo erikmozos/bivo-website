@@ -10,9 +10,11 @@ const Navbar = () => {
     <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 py-4 shadow-sm">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" className="flex items-center">
-          <span className="text-2xl font-bold text-bivo-black">
-            <span className="text-bivo-green">Bivo</span>
-          </span>
+          <img 
+            src="/lovable-uploads/ae81dd97-39dd-44ef-bc78-0461ec0a0cfb.png" 
+            alt="Bivo Training Logo" 
+            className="h-10 w-auto object-contain"
+          />
         </Link>
 
         {/* Mobile menu button */}
