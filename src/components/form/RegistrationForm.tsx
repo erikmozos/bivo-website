@@ -1,12 +1,11 @@
-
 import { useState } from "react";
-import Step1Demographics from "./formSteps/Step1Demographics"; 
-import Step2Personal from "./formSteps/Step1Personal";
-import Step3Sports from "./formSteps/Step2Sports";
-import Step4PhysicalTraining from "./formSteps/Step3PhysicalTraining";
-import Step5Training from "./formSteps/Step3Training";
-import Step6Experience from "./formSteps/Step4Experience";
-import Step7Final from "./formSteps/Step5Final";
+import Step1Demographics from "./formSteps/Step1Demographics";
+import Step1Personal from "./formSteps/Step1Personal";
+import Step2Sports from "./formSteps/Step2Sports";
+import Step3PhysicalTraining from "./formSteps/Step3PhysicalTraining";
+import Step3Training from "./formSteps/Step3Training";
+import Step4Experience from "./formSteps/Step4Experience";
+import Step5Final from "./formSteps/Step5Final";
 import FormProgress from "./FormProgress";
 
 export interface FormData {
@@ -86,7 +85,6 @@ const RegistrationForm = () => {
   const nextStep = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
-      // Scroll to form section again
       document.getElementById("form")?.scrollIntoView({ behavior: "smooth" });
     }
   };
@@ -94,7 +92,6 @@ const RegistrationForm = () => {
   const prevStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
-      // Scroll to form section again
       document.getElementById("form")?.scrollIntoView({ behavior: "smooth" });
     }
   };
@@ -111,16 +108,10 @@ const RegistrationForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Here you would integrate with Google Sheets or any backend API
-      // For this demo, we'll simulate a successful submission
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       console.log("Form submitted successfully:", formData);
       setSubmitSuccess(true);
-      
-      // Reset form after submission
-      // setFormData(initialFormData);
-      // setCurrentStep(1);
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
@@ -155,7 +146,7 @@ const RegistrationForm = () => {
                 )}
                 
                 {currentStep === 2 && (
-                  <Step2Personal 
+                  <Step1Personal 
                     formData={formData} 
                     handleChange={handleChange} 
                     nextStep={nextStep}
@@ -164,7 +155,7 @@ const RegistrationForm = () => {
                 )}
                 
                 {currentStep === 3 && (
-                  <Step3Sports
+                  <Step2Sports
                     formData={formData}
                     handleChange={handleChange}
                     nextStep={nextStep}
@@ -173,7 +164,7 @@ const RegistrationForm = () => {
                 )}
                 
                 {currentStep === 4 && (
-                  <Step4PhysicalTraining
+                  <Step3PhysicalTraining
                     formData={formData}
                     handleChange={handleChange}
                     nextStep={nextStep}
@@ -182,7 +173,7 @@ const RegistrationForm = () => {
                 )}
                 
                 {currentStep === 5 && (
-                  <Step5Training
+                  <Step3Training
                     formData={formData}
                     handleChange={handleChange}
                     nextStep={nextStep}
@@ -191,7 +182,7 @@ const RegistrationForm = () => {
                 )}
                 
                 {currentStep === 6 && (
-                  <Step6Experience
+                  <Step4Experience
                     formData={formData}
                     handleChange={handleChange}
                     nextStep={nextStep}
@@ -200,7 +191,7 @@ const RegistrationForm = () => {
                 )}
                 
                 {currentStep === 7 && (
-                  <Step7Final
+                  <Step5Final
                     formData={formData}
                     handleChange={handleChange}
                     prevStep={prevStep}

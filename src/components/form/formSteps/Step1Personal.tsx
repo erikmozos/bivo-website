@@ -5,9 +5,10 @@ interface Step1PersonalProps {
   formData: FormData;
   handleChange: (fieldName: keyof FormData, value: string | string[] | boolean) => void;
   nextStep: () => void;
+  prevStep?: () => void; // Added as optional since it might not be needed in step 1
 }
 
-const Step1Personal: React.FC<Step1PersonalProps> = ({ formData, handleChange, nextStep }) => {
+const Step1Personal: React.FC<Step1PersonalProps> = ({ formData, handleChange, nextStep, prevStep }) => {
   const validateAndContinue = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -90,14 +91,25 @@ const Step1Personal: React.FC<Step1PersonalProps> = ({ formData, handleChange, n
         </div>
       </div>
       
-      <div className="mt-8 flex justify-end">
-        <button
-          type="button"
-          onClick={validateAndContinue}
-          className="bg-bivo-green text-black px-6 py-2 rounded-md font-medium hover:bg-opacity-90 transition-colors"
-        >
-          Siguiente
-        </button>
+      <div className="mt-8 flex justify-between">
+        {prevStep && (
+          <button
+            type="button"
+            onClick={prevStep}
+            className="text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            Atrás
+          </button>
+        )}
+        <div className={!prevStep ? 'w-full flex justify-end' : ''}>
+          <button
+            type="button"
+            onClick={validateAndContinue}
+            className="bg-bivo-green text-black px-6 py-2 rounded-md font-medium hover:bg-opacity-90 transition-colors"
+          >
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
   );
