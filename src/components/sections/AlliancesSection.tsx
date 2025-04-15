@@ -41,10 +41,13 @@ const AlliancesSection = () => {
                   src={alianza.imagen}
                   alt={alianza.nombre}
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = "https://via.placeholder.com/300x150/f0f0f0/808080?text=Deportes+de+Raqueta";
+                  onError={e => {
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/brand/placeholder-profile.png')) {
+                      target.src = '/brand/placeholder-profile.png';
+                    } else {
+                      target.onerror = null;
+                    }
                   }}
                 />
               </div>

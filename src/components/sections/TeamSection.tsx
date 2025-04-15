@@ -60,10 +60,13 @@ const TeamSection = () => {
                   src={miembro.imagen}
                   alt={miembro.nombre}
                   className="w-full h-full object-cover object-center"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = "https://via.placeholder.com/300x400/f0f0f0/808080?text=Perfil+Deportivo";
+                  onError={e => {
+                    const target = e.currentTarget;
+                    if (!target.src.endsWith('/brand/placeholder-profile.png')) {
+                      target.src = '/brand/placeholder-profile.png';
+                    } else {
+                      target.onerror = null;
+                    }
                   }}
                 />
               </div>

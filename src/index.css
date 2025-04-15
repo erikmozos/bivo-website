@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Round:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,13 +8,23 @@
 
 /* Since we don't have exact "Round" and "Arbeit" fonts, we'll use similar alternatives */
 @layer base {
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Nunito Round', 'Nunito', sans-serif; /* Using Nunito Round as alternative for Round font */
-  }
-  body {
-    font-family: 'Work Sans', sans-serif; /* Using Work Sans as alternative for Arbeit font */
+  h1, h2, h3, h4, h5, h6, body, p, span, a, li, ul, ol, div, input, button, textarea {
+    font-family: 'Nunito Sans', sans-serif;
+    font-optical-sizing: auto;
   }
 }
+
+/* Nunito Sans utility class for custom font settings */
+.nunito-sans-bivo {
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Change as needed */
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100,
+    "YTLC" 500;
+}
+
 
 @layer base {
   :root {

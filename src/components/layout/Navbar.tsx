@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed w-full bg-white/90 backdrop-blur-sm z-50 py-4 shadow-sm">
+    <nav className="fixed w-full bg-black z-50 py-4 shadow-sm">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" className="flex items-center">
           <img 
@@ -28,19 +28,19 @@ const Navbar = () => {
 
         {/* Desktop menu */}
         <div className="hidden lg:flex items-center space-x-8">
-          <a href="#form" className="text-black hover:text-bivo-green transition-colors">
+          <a href="#form" className="text-white hover:text-bivo-green transition-colors">
             Registrarse
           </a>
-          <a href="#alianzas" className="text-black hover:text-bivo-green transition-colors">
+          <a href="#alianzas" className="text-white hover:text-bivo-green transition-colors">
             Alianzas
           </a>
-          <a href="#reconocimientos" className="text-black hover:text-bivo-green transition-colors">
+          <a href="#reconocimientos" className="text-white hover:text-bivo-green transition-colors">
             Reconocimientos
           </a>
-          <a href="#equipo" className="text-black hover:text-bivo-green transition-colors">
+          <a href="#equipo" className="text-white hover:text-bivo-green transition-colors">
             Equipo
           </a>
-          <a href="#contacto" className="text-black hover:text-bivo-green transition-colors">
+          <a href="#contacto" className="text-white hover:text-bivo-green transition-colors">
             Contacto
           </a>
         </div>
@@ -48,39 +48,39 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-md py-4 px-4">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-black shadow-md py-4 px-4">
           <div className="flex flex-col space-y-4">
             <a 
               href="#form" 
-              className="text-black hover:text-bivo-green transition-colors py-2"
+              className="text-white hover:text-bivo-green transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Registrarse
             </a>
             <a 
               href="#alianzas" 
-              className="text-black hover:text-bivo-green transition-colors py-2"
+              className="text-white hover:text-bivo-green transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Alianzas
             </a>
             <a 
               href="#reconocimientos" 
-              className="text-black hover:text-bivo-green transition-colors py-2"
+              className="text-white hover:text-bivo-green transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Reconocimientos
             </a>
             <a 
               href="#equipo" 
-              className="text-black hover:text-bivo-green transition-colors py-2"
+              className="text-white hover:text-bivo-green transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Equipo
             </a>
             <a 
               href="#contacto" 
-              className="text-black hover:text-bivo-green transition-colors py-2"
+              className="text-white hover:text-bivo-green transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Contacto
