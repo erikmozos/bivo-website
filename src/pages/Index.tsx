@@ -2,6 +2,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
+import WhatIsBivoSection from "@/components/sections/WhatIsBivoSection";
 import RegistrationForm from "@/components/form/RegistrationForm";
 import AlliancesSection from "@/components/sections/AlliancesSection";
 import RecognitionsSection from "@/components/sections/RecognitionsSection";
@@ -30,6 +31,7 @@ const Index = () => {
       
       <main className="flex-grow">
         <HeroSection />
+        <WhatIsBivoSection />
         <RegistrationForm />
         <AlliancesSection />
         <RecognitionsSection />
