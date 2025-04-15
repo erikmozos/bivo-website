@@ -7,8 +7,23 @@ import AlliancesSection from "@/components/sections/AlliancesSection";
 import RecognitionsSection from "@/components/sections/RecognitionsSection";
 import TeamSection from "@/components/sections/TeamSection";
 import ContactSection from "@/components/sections/ContactSection";
+import { useEffect } from "react";
 
 const Index = () => {
+  // Ensure images have fallbacks
+  useEffect(() => {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+      if (!img.hasAttribute('onerror')) {
+        img.onerror = function() {
+          const imgElement = this as HTMLImageElement;
+          imgElement.onerror = null;
+          imgElement.src = "https://via.placeholder.com/400x300/f0f0f0/808080?text=Deporte+de+Raqueta";
+        };
+      }
+    });
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

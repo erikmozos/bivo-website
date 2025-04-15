@@ -21,6 +21,12 @@ const Step5Final: React.FC<Step5FinalProps> = ({ formData, handleChange, prevSte
           
           <div className="bg-gray-50 p-4 rounded-lg space-y-3 text-sm">
             <div>
+              <span className="font-semibold">Sexo:</span> {formData.sexo || "No especificado"}
+            </div>
+            <div>
+              <span className="font-semibold">Edad:</span> {formData.edad || "No especificado"}
+            </div>
+            <div>
               <span className="font-semibold">Nombre:</span> {formData.nombre} {formData.apellido}
             </div>
             <div>
@@ -38,6 +44,17 @@ const Step5Final: React.FC<Step5FinalProps> = ({ formData, handleChange, prevSte
             </div>
             <div>
               <span className="font-semibold">Frecuencia:</span> {formData.frecuencia}
+            </div>
+            <div>
+              <span className="font-semibold">Preparación física:</span> {formData.preparacionFisica || "No especificado"}
+            </div>
+            {formData.preparacionFisica === 'Sí' && (
+              <div>
+                <span className="font-semibold">Tipo de preparación:</span> {formData.tipoPrepFisica || "No especificado"}
+              </div>
+            )}
+            <div>
+              <span className="font-semibold">Material en casa:</span> {formData.materialEnCasa || "No especificado"}
             </div>
             <div>
               <span className="font-semibold">Tipos de entrenamiento:</span> {formData.tipoEntrenamiento.join(", ")}

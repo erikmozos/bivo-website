@@ -1,13 +1,19 @@
 
 import { useState } from "react";
-import Step1Personal from "./formSteps/Step1Personal";
-import Step2Sports from "./formSteps/Step2Sports";
-import Step3Training from "./formSteps/Step3Training";
-import Step4Experience from "./formSteps/Step4Experience";
-import Step5Final from "./formSteps/Step5Final";
+import Step1Demographics from "./formSteps/Step1Demographics"; 
+import Step2Personal from "./formSteps/Step1Personal";
+import Step3Sports from "./formSteps/Step2Sports";
+import Step4PhysicalTraining from "./formSteps/Step3PhysicalTraining";
+import Step5Training from "./formSteps/Step3Training";
+import Step6Experience from "./formSteps/Step4Experience";
+import Step7Final from "./formSteps/Step5Final";
 import FormProgress from "./FormProgress";
 
 export interface FormData {
+  // Demographics
+  sexo: string;
+  edad: string;
+  
   // Personal info
   nombre: string;
   apellido: string;
@@ -18,6 +24,11 @@ export interface FormData {
   deportePrincipal: string;
   otrosDeportes: string[];
   frecuencia: string;
+  
+  // Physical Training
+  preparacionFisica: string;
+  tipoPrepFisica: string;
+  materialEnCasa: string;
   
   // Training preferences
   tipoEntrenamiento: string[];
@@ -36,6 +47,9 @@ export interface FormData {
 }
 
 const initialFormData: FormData = {
+  sexo: "",
+  edad: "",
+  
   nombre: "",
   apellido: "",
   email: "",
@@ -44,6 +58,10 @@ const initialFormData: FormData = {
   deportePrincipal: "",
   otrosDeportes: [],
   frecuencia: "",
+  
+  preparacionFisica: "",
+  tipoPrepFisica: "",
+  materialEnCasa: "",
   
   tipoEntrenamiento: [],
   horarioPreferido: "",
@@ -63,7 +81,7 @@ const RegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   
-  const totalSteps = 5;
+  const totalSteps = 7;
   
   const nextStep = () => {
     if (currentStep < totalSteps) {
@@ -129,7 +147,7 @@ const RegistrationForm = () => {
             {!submitSuccess ? (
               <form onSubmit={handleSubmit}>
                 {currentStep === 1 && (
-                  <Step1Personal 
+                  <Step1Demographics 
                     formData={formData} 
                     handleChange={handleChange} 
                     nextStep={nextStep} 
@@ -137,16 +155,16 @@ const RegistrationForm = () => {
                 )}
                 
                 {currentStep === 2 && (
-                  <Step2Sports
-                    formData={formData}
-                    handleChange={handleChange}
+                  <Step2Personal 
+                    formData={formData} 
+                    handleChange={handleChange} 
                     nextStep={nextStep}
                     prevStep={prevStep}
                   />
                 )}
                 
                 {currentStep === 3 && (
-                  <Step3Training
+                  <Step3Sports
                     formData={formData}
                     handleChange={handleChange}
                     nextStep={nextStep}
@@ -155,7 +173,7 @@ const RegistrationForm = () => {
                 )}
                 
                 {currentStep === 4 && (
-                  <Step4Experience
+                  <Step4PhysicalTraining
                     formData={formData}
                     handleChange={handleChange}
                     nextStep={nextStep}
@@ -164,7 +182,25 @@ const RegistrationForm = () => {
                 )}
                 
                 {currentStep === 5 && (
-                  <Step5Final
+                  <Step5Training
+                    formData={formData}
+                    handleChange={handleChange}
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                  />
+                )}
+                
+                {currentStep === 6 && (
+                  <Step6Experience
+                    formData={formData}
+                    handleChange={handleChange}
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                  />
+                )}
+                
+                {currentStep === 7 && (
+                  <Step7Final
                     formData={formData}
                     handleChange={handleChange}
                     prevStep={prevStep}

@@ -6,7 +6,7 @@ const TeamSection = () => {
     {
       nombre: "Alejandro Rodríguez",
       cargo: "CEO & Co-fundador",
-      imagen: "https://randomuser.me/api/portraits/men/32.jpg",
+      imagen: "https://images.unsplash.com/photo-1558391743-ca83be23f286?auto=format&fit=crop&q=80&w=1976&ixlib=rb-4.0.3",
       bio: "Ex-jugador profesional de pádel con más de 15 años de experiencia en entrenamiento deportivo.",
       linkedin: "#",
       twitter: "#"
@@ -14,7 +14,7 @@ const TeamSection = () => {
     {
       nombre: "Marta Gómez",
       cargo: "CTO & Co-fundadora",
-      imagen: "https://randomuser.me/api/portraits/women/44.jpg",
+      imagen: "https://images.unsplash.com/photo-1573497019707-1c04de26e58c?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3",
       bio: "Ingeniera informática especializada en visión artificial y análisis de movimiento deportivo.",
       linkedin: "#",
       twitter: "#"
@@ -22,7 +22,7 @@ const TeamSection = () => {
     {
       nombre: "Carlos Martínez",
       cargo: "Director Deportivo",
-      imagen: "https://randomuser.me/api/portraits/men/85.jpg",
+      imagen: "https://images.unsplash.com/photo-1507398941619-c08bd3ff5144?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3",
       bio: "Entrenador nacional de tenis y pádel con experiencia en la formación de jugadores de élite.",
       linkedin: "#",
       twitter: "#"
@@ -30,7 +30,7 @@ const TeamSection = () => {
     {
       nombre: "Laura Fernández",
       cargo: "Directora de Marketing",
-      imagen: "https://randomuser.me/api/portraits/women/63.jpg",
+      imagen: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=1961&ixlib=rb-4.0.3",
       bio: "Especialista en marketing deportivo con experiencia en grandes eventos de raqueta.",
       linkedin: "#",
       twitter: "#"
@@ -55,11 +55,18 @@ const TeamSection = () => {
               key={index} 
               className="bg-white rounded-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1"
             >
-              <img 
-                src={miembro.imagen}
-                alt={miembro.nombre}
-                className="w-full h-64 object-cover object-center"
-              />
+              <div className="h-64 bg-gray-200 relative overflow-hidden">
+                <img 
+                  src={miembro.imagen}
+                  alt={miembro.nombre}
+                  className="w-full h-full object-cover object-center"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = "https://via.placeholder.com/300x400/f0f0f0/808080?text=Perfil+Deportivo";
+                  }}
+                />
+              </div>
               <div className="p-6">
                 <h3 className="font-round text-xl font-semibold mb-1">{miembro.nombre}</h3>
                 <p className="text-bivo-green text-sm font-medium mb-3">{miembro.cargo}</p>
