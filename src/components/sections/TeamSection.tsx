@@ -38,13 +38,13 @@ const TeamSection = () => {
   ];
 
   return (
-    <section id="equipo" className="py-20 bg-white">
+    <section id="equipo" className="py-20 bg-black">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="font-round text-3xl font-bold mb-4">
+          <h2 className="font-round text-3xl font-bold mb-4 text-white">
             Nuestro <span className="text-bivo-green">equipo</span>
           </h2>
-          <p className="text-gray-600 max-w-3xl mx-auto">
+          <p className="text-white/80 max-w-3xl mx-auto">
             Un grupo de apasionados por los deportes de raqueta y la tecnología, unidos para revolucionar el entrenamiento deportivo.
           </p>
         </div>
@@ -53,7 +53,7 @@ const TeamSection = () => {
           {equipo.map((miembro, index) => (
             <div 
               key={index} 
-              className="bg-white rounded-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1"
+              className="bg-neutral-900 rounded-lg overflow-hidden hover:shadow-xl transition-all transform hover:-translate-y-1"
             >
               <div className="h-64 bg-gray-200 relative overflow-hidden">
                 <img 
@@ -71,14 +71,14 @@ const TeamSection = () => {
                 />
               </div>
               <div className="p-6">
-                <h3 className="font-round text-xl font-semibold mb-1">{miembro.nombre}</h3>
+                <h3 className="font-round text-xl font-semibold mb-1 text-white">{miembro.nombre}</h3>
                 <p className="text-bivo-green text-sm font-medium mb-3">{miembro.cargo}</p>
-                <p className="text-gray-600 text-sm mb-4">{miembro.bio}</p>
+                <p className="text-white/80 text-sm mb-4">{miembro.bio}</p>
                 
                 <div className="flex space-x-3">
                   <a 
                     href={miembro.linkedin} 
-                    className="text-gray-500 hover:text-bivo-green transition-colors"
+                    className="text-gray-300 hover:text-bivo-green transition-colors"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`LinkedIn de ${miembro.nombre}`}
@@ -87,7 +87,7 @@ const TeamSection = () => {
                   </a>
                   <a 
                     href={miembro.twitter} 
-                    className="text-gray-500 hover:text-bivo-green transition-colors"
+                    className="text-gray-300 hover:text-bivo-green transition-colors"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Twitter de ${miembro.nombre}`}
