@@ -1,15 +1,32 @@
 
 import { ArrowDown } from "lucide-react";
 
+import { useMemo } from "react";
+
+const HERO_IMAGES = [
+  // Replace these with your actual image filenames in /public/img
+  "Fitness-dona.jpg",
+  "Fitness-home.jpg",
+  "padel.jpg",
+  "Pickleball.jpg",
+  "Tenis.jpg"
+];
+
 const HeroSection = () => {
+  // Pick a random image only once per mount
+  const randomImage = useMemo(() => {
+    const idx = Math.floor(Math.random() * HERO_IMAGES.length);
+    return `/img/${HERO_IMAGES[idx]}`;
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center bg-white py-20 pt-28">
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-black/40"></div>
-        <div 
-          className="h-full w-full bg-cover bg-center" 
-          style={{ 
-            backgroundImage: "url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3')",
+        <div
+          className="h-full w-full bg-cover bg-center"
+          style={{
+            backgroundImage: `url('${randomImage}')`,
             backgroundPosition: "center 40%"
           }}
         ></div>

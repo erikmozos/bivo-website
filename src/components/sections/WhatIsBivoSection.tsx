@@ -42,7 +42,7 @@ const WhatIsBivoSection = () => {
           <div className="md:w-1/2">
             <div className="rounded-xl overflow-hidden h-full">
               <img 
-                src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3" 
+                src="/img/bivo-train-at-home.jpg" 
                 alt="Entrenamiento Bivo" 
                 className="w-full h-full object-cover"
               />
