@@ -53,10 +53,8 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <a 
-                  href="https://docs.google.com/document/d/1KZb6JAKiW8XIJHxpRvoWk_6NugizGiYZqnbIYxjNdog/edit?usp=sharing" 
+                  href="/privacidad" 
                   className="text-gray-300 hover:text-bivo-green transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
                 >
                   Política de privacidad
                 </a>
