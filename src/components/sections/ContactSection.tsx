@@ -1,6 +1,6 @@
-
 import { useState } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +11,8 @@ const ContactSection = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -23,23 +25,47 @@ const ContactSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(false);
+    setErrorMessage("");
     
     try {
-      // Here you would integrate with your backend API
-      // For this demo, we'll simulate a successful submission
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // EmailJS configuration
+      const serviceId = "YOUR_EMAILJS_SERVICE_ID"; // Replace with your actual service ID
+      const templateId = "YOUR_EMAILJS_TEMPLATE_ID"; // Replace with your actual template ID
+      const publicKey = "YOUR_EMAILJS_PUBLIC_KEY"; // Replace with your actual public key
       
-      console.log("Contact form submitted:", formData);
-      setSubmitSuccess(true);
+      // Prepare template parameters from form data
+      const templateParams = {
+        from_name: formData.nombre,
+        from_email: formData.email,
+        message: formData.mensaje
+      };
       
-      // Reset form
-      setFormData({
-        nombre: "",
-        email: "",
-        mensaje: ""
-      });
+      // Send the email using EmailJS
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+      
+      if (response.status === 200) {
+        console.log("Contact form submitted:", formData);
+        setSubmitSuccess(true);
+        
+        // Reset form
+        setFormData({
+          nombre: "",
+          email: "",
+          mensaje: ""
+        });
+      } else {
+        throw new Error("Failed to send email");
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
+      setSubmitError(true);
+      setErrorMessage("No pudimos enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.");
     } finally {
       setIsSubmitting(false);
     }
@@ -109,6 +135,12 @@ const ContactSection = () => {
                         required
                       ></textarea>
                     </div>
+                    
+                    {submitError && (
+                      <div className="text-red-500 text-sm py-2">
+                        {errorMessage}
+                      </div>
+                    )}
                     
                     <div>
                       <button
