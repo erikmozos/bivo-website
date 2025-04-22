@@ -9,7 +9,7 @@ interface Step2SportsProps {
 }
 
 const Step2Sports: React.FC<Step2SportsProps> = ({ formData, handleChange, nextStep, prevStep }) => {
-  const deportes = ["Pádel", "Tenis", "Pickleball", "Squash", "Bádminton"];
+  const deportes = ["Pádel", "Tenis", "Pickleball", "Squash", "Bádminton","Tenis playa"];
   const frecuencias = ["Diariamente", "2-3 veces por semana", "1 vez por semana", "Ocasionalmente"];
   
   const handleOtrosDeportes = (deporte: string) => {
