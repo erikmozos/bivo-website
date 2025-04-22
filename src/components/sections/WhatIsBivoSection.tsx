@@ -11,7 +11,7 @@ const WhatIsBivoSection = () => {
     {
       icon: <Video className="w-10 h-10 text-bivo-green" />,
       title: "Análisis técnico profesional",
-      description: "Recibe feedback detallado de tus movimientos y técnica para mejorar tu rendimiento."
+      description: "Recibe indicaciones precisas sobre la ejecución de movimientos y la técnica adecuada para mejorar tu rendimiento físico de forma segura y eficiente."
     },
     {
       icon: <Award className="w-10 h-10 text-bivo-green" />,
@@ -33,8 +33,8 @@ const WhatIsBivoSection = () => {
             ¿Qué es <span className="text-bivo-green">Bivo</span>?
           </h2>
           <p className="text-gray-300 max-w-3xl mx-auto mb-8">
-            Bivo es una plataforma innovadora que combina tecnología y experiencia deportiva para 
-            revolucionar el entrenamiento en deportes de raqueta como pádel, tenis y pickleball.
+          Bivo es la primera smart app creada para quienes viven los deportes de raqueta con pasión. Tecnología, experiencia y preparación física especializada para pádel, tenis y pickleball. Cambiando las reglas del juego.
+
           </p>
         </div>
         
@@ -51,14 +51,17 @@ const WhatIsBivoSection = () => {
           <div className="md:w-1/2 flex flex-col justify-center">
             <h3 className="font-round text-2xl font-semibold mb-4">Entrena como los profesionales</h3>
             <p className="text-gray-300 mb-6">
-              Nuestra plataforma te permite acceder a entrenamientos diseñados por profesionales, 
-              adaptados a tu nivel y objetivos. Ya sea que estés comenzando o busques perfeccionar tu 
-              técnica, Bivo te ofrece las herramientas para mejorar tu juego.
+            Con Bivo accedes a entrenamientos diseñados por preparadores físicos que trabajan con jugadores de élite, adaptados a tu nivel y objetivos. 
+            Tanto si estás empezando como si eres un amateur muy exigente, en Bivo encuentras lo mejor de la preparación profesional, 
+            ajustado a tu ritmo y tus necesidades.
+            </p>
+            <p className="text-gray-300 mb-6">
+            Tomamos lo mejor del entrenamiento de los profesionales y lo ponemos al alcance de cualquier jugador o jugadora, 
+            con programas personalizados que te ayudan a mejorar tu rendimiento, prevenir lesiones y cuidar tu salud mientras disfrutas 
+            del pádel, tenis o pickleball.
             </p>
             <p className="text-gray-300">
-              Utilizamos tecnología avanzada para analizar tu técnica, movimientos y rendimiento, 
-              proporcionándote feedback personalizado y ejercicios específicos para mejorar en cada 
-              aspecto de tu juego.
+            Nuestra tecnología se adapta a ti para que entrenes con inteligencia, independientemente de tu punto de partida.
             </p>
           </div>
         </div>
