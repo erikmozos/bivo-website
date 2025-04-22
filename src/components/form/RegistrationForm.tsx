@@ -80,6 +80,7 @@ const RegistrationForm = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   
   const totalSteps = 7;
   
@@ -107,6 +108,7 @@ const RegistrationForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(false);
     
     try {
       // Submit to Google Sheets using Apps Script
@@ -120,7 +122,7 @@ const RegistrationForm = () => {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      // You might want to show an error message to the user
+      setSubmitError(true);
     } finally {
       setIsSubmitting(false);
     }

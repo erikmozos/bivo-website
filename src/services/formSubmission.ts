@@ -4,23 +4,13 @@ export async function submitToGoogleSheets(formData: FormData) {
   // Google Apps Script Web App URL
   const scriptUrl = "https://script.google.com/macros/s/AKfycbxjYF7iacx0r_bY1bKh1mGcqqmxs5yaYG37YYkBik4ROUeRsQpEktC3Hlo40FUQHVI5sg/exec";
   
+  // Check if we're in production (deployed on Vercel)
+  const isProduction = window.location.hostname.includes('vercel.app') || 
+                      !window.location.hostname.includes('localhost');
+  
   try {
-    // First try with regular CORS
-    try {
-      const response = await fetch(scriptUrl, {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      
-      const result = await response.json();
-      return result.result === 'success';
-    } catch (corsError) {
-      console.log("CORS error, falling back to no-cors mode");
-      
-      // Fall back to no-cors mode
+    // In production, directly use no-cors to avoid the CORS error completely
+    if (isProduction) {
       await fetch(scriptUrl, {
         method: "POST",
         mode: "no-cors",
@@ -33,6 +23,36 @@ export async function submitToGoogleSheets(formData: FormData) {
       // Since we can't read the response in no-cors mode,
       // we'll just assume success
       return true;
+    } else {
+      // In development, try regular CORS first
+      try {
+        const response = await fetch(scriptUrl, {
+          method: "POST",
+          body: JSON.stringify(formData),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        
+        const result = await response.json();
+        return result.result === 'success';
+      } catch (corsError) {
+        console.log("CORS error, falling back to no-cors mode");
+        
+        // Fall back to no-cors mode
+        await fetch(scriptUrl, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify(formData),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        
+        // Since we can't read the response in no-cors mode,
+        // we'll just assume success
+        return true;
+      }
     }
   } catch (error) {
     console.error("Error submitting to Google Sheets:", error);
