@@ -7,6 +7,7 @@ import Step3Training from "./formSteps/Step3Training";
 import Step4Experience from "./formSteps/Step4Experience";
 import Step5Final from "./formSteps/Step5Final";
 import FormProgress from "./FormProgress";
+import { submitToGoogleSheets } from "../../services/formSubmission";
 
 export interface FormData {
   // Demographics
@@ -108,12 +109,18 @@ const RegistrationForm = () => {
     setIsSubmitting(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Submit to Google Sheets using Apps Script
+      const success = await submitToGoogleSheets(formData);
       
-      console.log("Form submitted successfully:", formData);
-      setSubmitSuccess(true);
+      if (success) {
+        console.log("Form submitted successfully:", formData);
+        setSubmitSuccess(true);
+      } else {
+        throw new Error("Form submission failed");
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
+      // You might want to show an error message to the user
     } finally {
       setIsSubmitting(false);
     }
@@ -136,7 +143,13 @@ const RegistrationForm = () => {
           
           <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
             {!submitSuccess ? (
-              <form onSubmit={handleSubmit}>
+              <form 
+                name="registration" 
+                method="POST" 
+                data-netlify="true" 
+                onSubmit={handleSubmit}
+              >
+                <input type="hidden" name="form-name" value="registration" />
                 {currentStep === 1 && (
                   <Step1Demographics 
                     formData={formData} 
