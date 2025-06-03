@@ -5,39 +5,87 @@ const PrivacyPolicy = () => (
   <Layout>
     <div className="min-h-screen bg-white text-black py-16 px-4">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Política de Privacidad y Cookies</h1>
+        <h1 className="text-3xl font-bold mb-6">Aviso Legal y Política de Privacidad</h1>
         
-        {/* Privacy Policy Section */}
+        {/* Legal Notice and Privacy Policy Section */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Política de Privacidad</h2>
+          <h2 className="text-2xl font-semibold mb-4">1. Aviso Legal y Política de Privacidad</h2>
+          
+          <h3 className="text-xl font-semibold mt-6 mb-3">Información del titular</h3>
           <p className="mb-4">
-            En Bivo, valoramos tu privacidad y nos comprometemos a proteger tus datos personales. Esta política describe cómo recopilamos, usamos y protegemos tu información.
+            En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa que esta página web es gestionada por Bivo, proyecto en fase de desarrollo, con sede en Mahón, Menorca (Islas Baleares).
+          </p>
+          <p className="mb-4">
+            <strong>Correo electrónico de contacto:</strong> hello@bivotraining.com
+          </p>
+
+          <h3 className="text-xl font-semibold mt-8 mb-3">Propiedad intelectual e industrial</h3>
+          <p className="mb-4">
+            Todos los contenidos de este sitio web (textos, imágenes, logotipos, vídeos, diseño, estructura…) están protegidos por derechos de propiedad intelectual o industrial, titularidad de Bivo o de terceros autorizados. Queda prohibida su reproducción, distribución, comunicación pública o transformación sin autorización previa y por escrito.
+          </p>
+
+          <h3 className="text-xl font-semibold mt-8 mb-3">Responsabilidad</h3>
+          <p className="mb-2">Bivo no se hace responsable de:</p>
+          <ul className="list-disc list-inside ml-4 mb-4 text-gray-700">
+            <li>El uso indebido de los contenidos de esta web.</li>
+            <li>Los daños derivados del acceso o mal uso del sitio.</li>
+            <li>La veracidad o actualidad de los contenidos enlazados a sitios externos.</li>
+          </ul>
+          <p className="mb-4">
+            Nos reservamos el derecho de modificar o eliminar cualquier contenido sin previo aviso.
+          </p>
+
+          <h3 className="text-xl font-semibold mt-8 mb-3">Protección de datos personales</h3>
+          <p className="mb-4">
+            Bivo garantiza el cumplimiento del Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica de Protección de Datos Personales (LOPDGDD).
           </p>
           
-          <h3 className="text-xl font-semibold mt-8 mb-2">1. Información que recopilamos</h3>
-          <p className="mb-4">
-            Recopilamos información que nos proporcionas directamente, como tu nombre, correo electrónico y cualquier mensaje enviado a través de nuestros formularios de contacto. También podemos recopilar información automáticamente mediante cookies y tecnologías similares.
-          </p>
-          
-          <h3 className="text-xl font-semibold mt-8 mb-2">2. Uso de la información</h3>
-          <p className="mb-4">
-            Utilizamos tus datos para responder a tus consultas, mejorar nuestros servicios, analizar el uso de nuestro sitio web y, si lo autorizas, enviarte comunicaciones comerciales.
-          </p>
-          
-          <h3 className="text-xl font-semibold mt-8 mb-2">3. Protección de datos</h3>
-          <p className="mb-4">
-            Implementamos medidas de seguridad para proteger tu información contra accesos no autorizados, alteraciones o divulgación.
-          </p>
-          
-          <h3 className="text-xl font-semibold mt-8 mb-2">4. Derechos del usuario</h3>
-          <p className="mb-4">
-            Puedes ejercer tus derechos de acceso, rectificación, cancelación y oposición contactándonos en hello@bivotraining.com.
-          </p>
-          
-          <h3 className="text-xl font-semibold mt-8 mb-2">5. Cambios en la política</h3>
-          <p className="mb-4">
-            Nos reservamos el derecho de modificar esta política para adaptarla a novedades legislativas o mejoras del servicio.
-          </p>
+          <div className="mb-4">
+            <p className="mb-2"><strong>Responsable del tratamiento:</strong> Bivo</p>
+            <p className="mb-4"><strong>Email de contacto:</strong> hello@bivotraining.com</p>
+          </div>
+
+          <div className="mb-6">
+            <h4 className="text-lg font-medium mb-2">Finalidad del tratamiento:</h4>
+            <ul className="list-disc list-inside ml-4 mb-4 text-gray-700">
+              <li>Atender solicitudes recibidas a través de formularios.</li>
+              <li>Gestionar el acceso a nuestra app de entrenamiento físico.</li>
+              <li>Enviar comunicaciones comerciales (en caso de consentimiento previo).</li>
+              <li>Mejorar la experiencia de navegación.</li>
+            </ul>
+          </div>
+
+          <div className="mb-6">
+            <h4 className="text-lg font-medium mb-2">Base jurídica:</h4>
+            <ul className="list-disc list-inside ml-4 mb-4 text-gray-700">
+              <li>Consentimiento expreso del usuario.</li>
+              <li>Ejecución de medidas precontractuales o contrato (en caso de registro en la app).</li>
+            </ul>
+          </div>
+
+          <div className="mb-6">
+            <h4 className="text-lg font-medium mb-2">Conservación de datos:</h4>
+            <ul className="list-disc list-inside ml-4 mb-4 text-gray-700">
+              <li>Mientras dure la relación o hasta que el usuario solicite su supresión.</li>
+              <li>Los datos de la app se conservarán mientras el usuario mantenga su cuenta activa o según plazos legales.</li>
+            </ul>
+          </div>
+
+          <div className="mb-6">
+            <h4 className="text-lg font-medium mb-2">Destinatarios:</h4>
+            <p className="ml-4 mb-4 text-gray-700">
+              No se cederán datos salvo obligación legal o prestación técnica necesaria.
+            </p>
+          </div>
+
+          <div className="mb-6">
+            <h4 className="text-lg font-medium mb-2">Derechos del usuario:</h4>
+            <ul className="list-disc list-inside ml-4 mb-4 text-gray-700">
+              <li>Acceder, rectificar, suprimir, oponerse, limitar y solicitar portabilidad.</li>
+              <li>Puedes ejercerlos escribiendo a hello@bivotraining.com.</li>
+              <li>En caso de disconformidad, puedes reclamar ante la Agencia Española de Protección de Datos (www.aepd.es).</li>
+            </ul>
+          </div>
         </section>
 
         {/* Cookies Section */}

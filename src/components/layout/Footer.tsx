@@ -59,16 +59,7 @@ const Footer = () => {
                   Política de privacidad
                 </a>
               </li>
-              <li>
-                <a 
-                  href="https://docs.google.com/document/d/1KZb6JAKiW8XIJHxpRvoWk_6NugizGiYZqnbIYxjNdog/edit?usp=sharing" 
-                  className="text-gray-300 hover:text-bivo-green transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Términos y condiciones
-                </a>
-              </li>
+              
             </ul>
           </div>
         </div>
