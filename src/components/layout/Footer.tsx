@@ -56,7 +56,7 @@ const Footer = () => {
                   href="/privacidad" 
                   className="text-gray-300 hover:text-bivo-green transition-colors"
                 >
-                  Política de privacidad
+                  Política de privacidad y cookies
                 </a>
               </li>
               
