@@ -9,12 +9,12 @@ const AlliancesSection = () => {
     {
       nombre: "Bivo para entrenadores",
       imagen: "/img/monitor-padel.jpg",
-      descripcion: "En Bivo optimizamos el rendimiento de tus alumnos con preparación física adaptada y preventiva. ¡Complementa tus clases con nuestro apoyo! Colabora haciendo clic aquí."
+      descripcion: "En Bivo optimizamos el rendimiento de tus alumnos con preparación física adaptada y preventiva. ¡Complementa tus clases con nuestro apoyo! Descubre como podemos ayudarte."
     },
     {
       nombre: "Club Pdpadel",
-      imagen: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3",
-      descripcion: "Pdpadel, uno de los clubes más importantes de Baleares, ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info aquí!"
+      imagen: "/img/pdpadel.jpg",
+      descripcion: "Pdpadel, uno de los clubes más importantes de Baleares, ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info!"
     }
   ];
 
