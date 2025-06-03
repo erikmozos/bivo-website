@@ -19,14 +19,6 @@ const TeamSection = () => {
       twitter: "#"
     },
     {
-      nombre: "Xavi Hidalgo",
-      cargo: "CTO",
-      imagen: "/img/team/Xavi.png",
-      bio: "Ex CTO de una división de Alibaba, ingeniero experto en IA y desarrollo de apps de alto rendimiento.",
-      linkedin: "https://www.linkedin.com/in/xavireloaded/",
-      twitter: "#"
-    },
-    {
       nombre: "Marta Pons",
       cargo: "CDO",
       imagen: "/img/team/Marta.png",
