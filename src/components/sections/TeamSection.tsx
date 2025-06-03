@@ -4,7 +4,7 @@ const TeamSection = () => {
   const equipo = [
     {
       nombre: "Lluis Vila",
-      cargo: "CEO & Co-founder",
+      cargo: "Estrategia y liderazgo",
       imagen: "/img/team/Lluis.png",
       bio: "Ex deportista de alto nivel reconocido por el BOE, economista, apasionado del deporte y amante del marketing y el emprendimiento.",
       linkedin: "https://www.linkedin.com/in/lluisvilasalord/",
@@ -12,15 +12,23 @@ const TeamSection = () => {
     },
     {
       nombre: "Toni Bota",
-      cargo: "CSO & Co-founder",
+      cargo: "Desarrollo deportivo y producto",
       imagen: "/img/team/Toni.png",
       bio: "Graduado en CAFYD, preparador físico de jugadores ATP y atletas de élite, Readaptador, apasionado del deporte y el emprendimiento.",
       linkedin: "https://www.linkedin.com/in/toni-bota-reyn%C3%A9s-a44774133/ ",
       twitter: "#"
     },
     {
+      nombre: "Andres Spitzer",
+      cargo: "Asesor en producto e ingeniería",
+      imagen: "/img/team/Andres.png",
+      bio: "Ex ejecutivo en Amazon, CPO en Civitatis y mentor de startups con amplia experiencia en escalado de producto e ingeniería.",
+      linkedin: "https://www.linkedin.com/in/andresspitzer/ ",
+      twitter: "#"
+    },
+    {
       nombre: "Marta Pons",
-      cargo: "CDO",
+      cargo: "Diseño y experiencia visual",
       imagen: "/img/team/Marta.png",
       bio: "Licenciada en Bellas Artes, especialista en diseño y defensora de la armonía visual y funcional.",
       linkedin: "#",
@@ -28,7 +36,7 @@ const TeamSection = () => {
     },
     {
       nombre: "Ferran Sánchez",
-      cargo: "CCO",
+      cargo: "Branding y creatividad",
       imagen: "/img/team/Ferran.png",
       bio: "Emprendedor creativo, apasionado del branding, el diseño estratégico y la experiencia de usuario.",
       linkedin: "https://www.linkedin.com/in/ferran-st/ ",
@@ -36,20 +44,13 @@ const TeamSection = () => {
     },
     {
       nombre: "Josep Pons",
-      cargo: "CFO",
+      cargo: "Finanzas y estrategia empresarial",
       imagen: "/img/team/Bep.png",
       bio: "Consultor y Auditor, experto en finanzas, planificación estratégica y crecimiento empresarial.",
       linkedin: "https://www.linkedin.com/in/jponsf/",
       twitter: "#"
-    },
-    {
-      nombre: "Andres Spitzer",
-      cargo: "Advisor",
-      imagen: "/img/team/Andres.png",
-      bio: "Ex ejecutivo en Amazon, CPO en Civitatis y mentor de startups con amplia experiencia en escalado de producto",
-      linkedin: "https://www.linkedin.com/in/andresspitzer/ ",
-      twitter: "#"
     }
+    
   ];
 
   const isValidLink = (link: string) => {
