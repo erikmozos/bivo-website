@@ -5,6 +5,8 @@ const PrivacyPolicy = () => (
   <Layout>
     <div className="min-h-screen bg-white text-black py-16 px-4">
       <div className="max-w-3xl mx-auto">
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
         <h1 className="text-3xl font-bold mb-6">Aviso Legal y Política de Privacidad</h1>
         
         {/* Legal Notice and Privacy Policy Section */}
