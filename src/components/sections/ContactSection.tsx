@@ -29,16 +29,22 @@ const ContactSection = () => {
     setErrorMessage("");
     
     try {
-      // EmailJS configuration
-      const serviceId = "YOUR_EMAILJS_SERVICE_ID"; // Replace with your actual service ID
-      const templateId = "YOUR_EMAILJS_TEMPLATE_ID"; // Replace with your actual template ID
-      const publicKey = "YOUR_EMAILJS_PUBLIC_KEY"; // Replace with your actual public key
+      // EmailJS configuration from environment variables
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      
+      // Check if environment variables are set
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS no está configurado correctamente. Por favor, configura las variables de entorno.");
+      }
       
       // Prepare template parameters from form data
       const templateParams = {
         from_name: formData.nombre,
         from_email: formData.email,
-        message: formData.mensaje
+        message: formData.mensaje,
+        to_email: "hello@bivotraining.com"
       };
       
       // Send the email using EmailJS
@@ -50,7 +56,7 @@ const ContactSection = () => {
       );
       
       if (response.status === 200) {
-        console.log("Contact form submitted:", formData);
+        console.log("Contact form submitted successfully:", response);
         setSubmitSuccess(true);
         
         // Reset form
@@ -65,10 +71,26 @@ const ContactSection = () => {
     } catch (error) {
       console.error("Error submitting form:", error);
       setSubmitError(true);
-      setErrorMessage("No pudimos enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.");
+      
+      // More specific error messages
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage("No pudimos enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.");
+      }
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleNewMessage = () => {
+    setSubmitSuccess(false);
+    setSubmitError(false);
+    setFormData({
+      nombre: "",
+      email: "",
+      mensaje: ""
+    });
   };
 
   return (
@@ -137,7 +159,7 @@ const ContactSection = () => {
                     </div>
                     
                     {submitError && (
-                      <div className="text-red-500 text-sm py-2">
+                      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
                         {errorMessage}
                       </div>
                     )}
@@ -150,7 +172,7 @@ const ContactSection = () => {
                         }`}
                         disabled={isSubmitting}
                       >
-                        {isSubmitting ? "Enviando..." : "Enviar mensaje"}
+                        {isSubmitting ? "Enviando mensaje..." : "Enviar mensaje"}
                       </button>
                     </div>
                   </div>
@@ -163,9 +185,15 @@ const ContactSection = () => {
                     </svg>
                   </div>
                   <h3 className="font-round text-xl font-semibold mb-2">¡Mensaje enviado!</h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 mb-4">
                     Gracias por contactarnos. Te responderemos lo antes posible.
                   </p>
+                  <button
+                    onClick={handleNewMessage}
+                    className="bg-bivo-green text-black py-2 px-4 rounded-md font-medium hover:bg-opacity-90 transition-colors"
+                  >
+                    Enviar otro mensaje
+                  </button>
                 </div>
               )}
             </div>
@@ -173,22 +201,49 @@ const ContactSection = () => {
           
           <div>
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="font-round text-xl font-semibold mb-6">Síguenos en redes sociales</h3>
-              <div className="mt-8">
-                <div className="flex flex-wrap gap-4">
-                  <a href="https://www.instagram.com/bivotraining" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-bivo-green transition-colors">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
-                    Instagram
-                  </a>
-                  <a href="https://www.youtube.com/@BivoTraining" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-bivo-green transition-colors">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="7" ry="7"/></svg>
-                    Youtube
-                  </a>
-                  <a href="https://www.linkedin.com/company/bivotraining" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-bivo-green transition-colors">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><line x1="16" y1="11" x2="16" y2="16"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8"/><line x1="16" y1="8" x2="16" y2="8"/></svg>
-                    Linkedin
-                  </a>
+              <h3 className="font-round text-xl font-semibold mb-6">Información de contacto</h3>
+              
+              <div className="space-y-4 mb-8">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-bivo-green rounded-full flex items-center justify-center">
+                    <Mail className="w-5 h-5 text-black" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900">Email</p>
+                    <a 
+                      href="mailto:hello@bivotraining.com" 
+                      className="text-bivo-green hover:underline"
+                    >
+                      hello@bivotraining.com
+                    </a>
+                  </div>
                 </div>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-bivo-green rounded-full flex items-center justify-center">
+                    <MapPin className="w-5 h-5 text-black" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-900">Ubicación</p>
+                    <p className="text-gray-600">Mahón, Menorca (Islas Baleares)</p>
+                  </div>
+                </div>
+              </div>
+
+              <h4 className="font-round text-lg font-semibold mb-4">Síguenos en redes sociales</h4>
+              <div className="flex flex-wrap gap-4">
+                <a href="https://www.instagram.com/bivotraining" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-bivo-green transition-colors">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+                  Instagram
+                </a>
+                <a href="https://www.youtube.com/@BivoTraining" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-bivo-green transition-colors">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="7" ry="7"/></svg>
+                  Youtube
+                </a>
+                <a href="https://www.linkedin.com/company/bivotraining" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-bivo-green transition-colors">
+                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><line x1="16" y1="11" x2="16" y2="16"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8"/><line x1="16" y1="8" x2="16" y2="8"/></svg>
+                  Linkedin
+                </a>
               </div>
             </div>
           </div>
