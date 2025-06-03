@@ -2,19 +2,19 @@
 const AlliancesSection = () => {
   const alianzas = [
     {
-      nombre: "Federación Balear de Pádel",
+      nombre: "MQC",
+      imagen: "/img/mqc.png",
+      descripcion: "Movement Quality Center, referente en entrenamiento para deportistas exigentes y de alto nivel, es nuestro partner desde el inicio y base presencial de Bivo."
+    },
+    {
+      nombre: "Bivo para entrenadores",
+      imagen: "/img/monitor-padel.jpg",
+      descripcion: "En Bivo optimizamos el rendimiento de tus alumnos con preparación física adaptada y preventiva. ¡Complementa tus clases con nuestro apoyo! Colabora haciendo clic aquí."
+    },
+    {
+      nombre: "Club Pdpadel",
       imagen: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3",
-      descripcion: "Colaboración oficial con la Federación Balear de Pádel para el desarrollo de jugadores."
-    },
-    {
-      nombre: "Club Deportivo Padelma",
-      imagen: "https://images.unsplash.com/photo-1622279488866-19f1bb0d8d0f?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3",
-      descripcion: "Programa de entrenamiento exclusivo para miembros del club más grande de Mallorca."
-    },
-    {
-      nombre: "Asociación de Tenis de Baleares",
-      imagen: "https://images.unsplash.com/photo-1599786095546-ac225acc2b09?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3",
-      descripcion: "Proveedor oficial de análisis técnico para la asociación de tenis regional."
+      descripcion: "Pdpadel, uno de los clubes más importantes de Baleares, ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info aquí!"
     }
   ];
 
