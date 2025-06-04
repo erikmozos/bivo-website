@@ -1,10 +1,20 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    // If we're on the home page, scroll to top
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // If we're on another page, the Link will handle navigation to home
+  };
 
   return (
     <nav className="fixed w-full bg-black z-50 py-4 shadow-sm">
@@ -12,6 +22,7 @@ const Navbar = () => {
         <Link
           to="/"
           className="flex items-center cursor-pointer"
+          onClick={handleLogoClick}
         >
           <img 
             src="/brand/logo-bivo-verde.png" 
