@@ -15,7 +15,7 @@ const PrivacyPolicy = () => (
           
           <h3 className="text-xl font-semibold mt-6 mb-3">Información del titular</h3>
           <p className="mb-4">
-            En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa que esta página web es gestionada por Bivo, proyecto en fase de desarrollo, con sede en Mahón, Menorca (Islas Baleares).
+            En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa que esta página web es gestionada por Bivo Training S.L., con CIF B-22728117, y domicilio social en Av. des Camp Verd, 4, Parc Bit Menorca (Alaior), Islas Baleares.
           </p>
           <p className="mb-4">
             <strong>Correo electrónico de contacto:</strong> hello@bivotraining.com
@@ -157,7 +157,7 @@ const PrivacyPolicy = () => (
 
         <div className="border-t pt-6">
           <p className="text-sm text-gray-600">
-            <strong>Última actualización:</strong> 16 de abril de 2025
+            <strong>Última actualización:</strong> 02 de agosto de 2025
           </p>
           <p className="text-sm text-gray-600 mt-2">
             Para cualquier consulta sobre esta política, contacta con nosotros en:{" "}

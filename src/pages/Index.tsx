@@ -9,9 +9,28 @@ import RecognitionsSection from "@/components/sections/RecognitionsSection";
 import TeamSection from "@/components/sections/TeamSection";
 import ContactSection from "@/components/sections/ContactSection";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Index = () => {
-    return (
+  const location = useLocation();
+
+  useEffect(() => {
+    // Handle navigation from other pages with scroll target
+    if (location.state?.scrollTo) {
+      const sectionId = location.state.scrollTo;
+      const element = document.getElementById(sectionId);
+      if (element) {
+        // Small delay to ensure the page has loaded
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+      // Clear the state to prevent re-scrolling on page refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
+
+  return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       
