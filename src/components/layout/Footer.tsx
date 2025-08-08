@@ -1,8 +1,23 @@
 
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleQuickLink = (sectionId: string) => {
+    if (location.pathname === "/") {
+      // If we're already on the main page, scroll to the section
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If we're on another page, navigate to main page with scroll target
+      navigate(`/#${sectionId}`);
+    }
+  };
 
   return (
     <footer className="bg-black text-white py-12">
@@ -21,29 +36,44 @@ const Footer = () => {
             <h4 className="font-round text-lg font-bold mb-4">Enlaces rápidos</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#form" className="text-gray-300 hover:text-bivo-green transition-colors">
+                <button 
+                  onClick={() => handleQuickLink("form")}
+                  className="text-gray-300 hover:text-bivo-green transition-colors text-left"
+                >
                   Registrarse
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#alianzas" className="text-gray-300 hover:text-bivo-green transition-colors">
+                <button 
+                  onClick={() => handleQuickLink("alianzas")}
+                  className="text-gray-300 hover:text-bivo-green transition-colors text-left"
+                >
                   Alianzas
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#reconocimientos" className="text-gray-300 hover:text-bivo-green transition-colors">
+                <button 
+                  onClick={() => handleQuickLink("reconocimientos")}
+                  className="text-gray-300 hover:text-bivo-green transition-colors text-left"
+                >
                   Reconocimientos
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#equipo" className="text-gray-300 hover:text-bivo-green transition-colors">
+                <button 
+                  onClick={() => handleQuickLink("equipo")}
+                  className="text-gray-300 hover:text-bivo-green transition-colors text-left"
+                >
                   Equipo
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#contacto" className="text-gray-300 hover:text-bivo-green transition-colors">
+                <button 
+                  onClick={() => handleQuickLink("contacto")}
+                  className="text-gray-300 hover:text-bivo-green transition-colors text-left"
+                >
                   Contacto
-                </a>
+                </button>
               </li>
             </ul>
           </div>

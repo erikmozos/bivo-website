@@ -1,35 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { hasGivenConsent, setCookiePreferences, initializeAnalytics } from '@/lib/cookieUtils';
 
 const CookieConsent = () => {
   const [showBanner, setShowBanner] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Check if user has already made a choice
-    if (!hasGivenConsent()) {
-      setShowBanner(true);
-    }
+    // Ensure we're on the client side
+    setIsClient(true);
+    
+    // Simple check for cookie consent
+    const timer = setTimeout(() => {
+      try {
+        const hasConsent = localStorage.getItem('bivo-cookie-consent');
+        if (!hasConsent) {
+          setShowBanner(true);
+        }
+      } catch (error) {
+        console.error('Error checking cookie consent:', error);
+        setShowBanner(true);
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleAcceptAll = () => {
-    setCookiePreferences({
-      essential: true,
-      analytics: true,
-    });
-    setShowBanner(false);
-    initializeAnalytics();
+    try {
+      localStorage.setItem('bivo-cookie-consent', 'set');
+      localStorage.setItem('bivo-analytics-enabled', 'true');
+      setShowBanner(false);
+    } catch (error) {
+      console.error('Error accepting cookies:', error);
+      setShowBanner(false);
+    }
   };
 
   const handleRejectAll = () => {
-    setCookiePreferences({
-      essential: true,
-      analytics: false,
-    });
-    setShowBanner(false);
-    initializeAnalytics();
+    try {
+      localStorage.setItem('bivo-cookie-consent', 'set');
+      localStorage.setItem('bivo-analytics-enabled', 'false');
+      setShowBanner(false);
+    } catch (error) {
+      console.error('Error rejecting cookies:', error);
+      setShowBanner(false);
+    }
   };
 
+  // Don't render anything until we're on the client side
+  if (!isClient) return null;
   if (!showBanner) return null;
 
   return (

@@ -28,7 +28,19 @@ const Index = () => {
       // Clear the state to prevent re-scrolling on page refresh
       window.history.replaceState({}, document.title);
     }
-  }, [location.state]);
+    
+    // Handle hash-based navigation (from footer links)
+    if (location.hash) {
+      const sectionId = location.hash.substring(1); // Remove the # symbol
+      const element = document.getElementById(sectionId);
+      if (element) {
+        // Small delay to ensure the page has loaded
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location.state, location.hash]);
 
   return (
     <div className="min-h-screen flex flex-col">

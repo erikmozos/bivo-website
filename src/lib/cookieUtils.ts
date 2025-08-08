@@ -14,14 +14,24 @@ export const ANALYTICS_ENABLED_KEY = 'bivo-analytics-enabled';
  * Check if user has given consent for cookies
  */
 export const hasGivenConsent = (): boolean => {
-  return localStorage.getItem(COOKIE_CONSENT_KEY) !== null;
+  try {
+    return localStorage.getItem(COOKIE_CONSENT_KEY) !== null;
+  } catch (error) {
+    console.error('Error accessing localStorage:', error);
+    return false;
+  }
 };
 
 /**
  * Check if analytics cookies are enabled
  */
 export const isAnalyticsEnabled = (): boolean => {
-  return localStorage.getItem(ANALYTICS_ENABLED_KEY) === 'true';
+  try {
+    return localStorage.getItem(ANALYTICS_ENABLED_KEY) === 'true';
+  } catch (error) {
+    console.error('Error accessing localStorage:', error);
+    return false;
+  }
 };
 
 /**
@@ -38,8 +48,12 @@ export const getCookiePreferences = (): CookiePreferences => {
  * Set cookie preferences
  */
 export const setCookiePreferences = (preferences: CookiePreferences): void => {
-  localStorage.setItem(COOKIE_CONSENT_KEY, 'set');
-  localStorage.setItem(ANALYTICS_ENABLED_KEY, preferences.analytics.toString());
+  try {
+    localStorage.setItem(COOKIE_CONSENT_KEY, 'set');
+    localStorage.setItem(ANALYTICS_ENABLED_KEY, preferences.analytics.toString());
+  } catch (error) {
+    console.error('Error setting cookie preferences:', error);
+  }
 };
 
 /**
@@ -61,6 +75,10 @@ export const initializeAnalytics = (): void => {
  * Reset all cookie preferences (useful for testing)
  */
 export const resetCookiePreferences = (): void => {
-  localStorage.removeItem(COOKIE_CONSENT_KEY);
-  localStorage.removeItem(ANALYTICS_ENABLED_KEY);
+  try {
+    localStorage.removeItem(COOKIE_CONSENT_KEY);
+    localStorage.removeItem(ANALYTICS_ENABLED_KEY);
+  } catch (error) {
+    console.error('Error resetting cookie preferences:', error);
+  }
 }; 
