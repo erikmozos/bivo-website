@@ -9,6 +9,8 @@
 - **Added missing og:site_name** for better social media sharing
 - **Enhanced image metadata** with secure_url, type, width, and height properties
 - **Updated URLs to absolute paths** for better sharing consistency across platforms
+- **Updated domain references** from bivo.app to bivotraining.com
+- **Changed image format** from JPG to PNG for better quality and transparency support
 
 #### Navigation & User Experience
 - **Refactored cookie consent handling** with improved component naming and functionality
@@ -30,7 +32,7 @@
 ### 📁 File Changes Summary
 
 #### Updated Files
-- `index.html` - Enhanced meta tags and social media metadata
+- `index.html` - Enhanced meta tags, social media metadata, and updated domain/image references
 - `src/App.tsx` - Updated consent banner import
 - `src/components/ConsentBanner.tsx` - Refactored from CookieConsent.tsx
 - `src/components/layout/Footer.tsx` - Enhanced navigation with React Router
@@ -49,6 +51,8 @@
 - Footer navigation now works seamlessly across all pages
 - Meta tags updated for better social media sharing
 - Enhanced error handling for better user experience
+- Domain updated from bivo.app to bivotraining.com
+- Social media images changed from JPG to PNG format
 
 ### 📈 Performance Improvements
 - **Reduced content blocker interference** through component renaming
