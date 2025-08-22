@@ -1,5 +1,63 @@
 # Bivo Landing Page - Release Notes
 
+## Version 1.2.6 - August 22, 2025
+
+### 🚀 New Features
+
+#### SEO & Social Media Enhancements
+- **Enhanced meta tags** with improved Open Graph and Twitter Card metadata
+- **Added missing og:site_name** for better social media sharing
+- **Enhanced image metadata** with secure_url, type, width, and height properties
+- **Updated URLs to absolute paths** for better sharing consistency across platforms
+
+#### Navigation & User Experience
+- **Refactored cookie consent handling** with improved component naming and functionality
+- **Enhanced footer navigation** with smooth scrolling and cross-page navigation support
+- **Improved hash-based navigation** for better user experience when accessing sections from different pages
+
+### 🔧 Technical Improvements
+
+#### Component Refactoring
+- **Renamed CookieConsent to ConsentBanner** to avoid content blocker interference
+- **Enhanced cookie utility functions** with robust error handling for localStorage access
+- **Improved footer quick links** with React Router integration for seamless navigation
+
+#### SEO & Performance
+- **Updated meta tags** in index.html for better search engine optimization
+- **Enhanced social media sharing** with comprehensive Open Graph metadata
+- **Improved content blocker compatibility** by renaming components
+
+### 📁 File Changes Summary
+
+#### Updated Files
+- `index.html` - Enhanced meta tags and social media metadata
+- `src/App.tsx` - Updated consent banner import
+- `src/components/ConsentBanner.tsx` - Refactored from CookieConsent.tsx
+- `src/components/layout/Footer.tsx` - Enhanced navigation with React Router
+- `src/lib/cookieUtils.ts` - Improved error handling
+- `src/pages/Index.tsx` - Added hash-based navigation support
+- `docs/fixes-and-improvements.md` - Comprehensive documentation of fixes
+
+### 🐛 Bug Fixes
+- **Fixed content blocker interference** that was preventing page loading
+- **Resolved footer navigation issues** when accessing from Privacy Policy page
+- **Improved localStorage error handling** for better browser compatibility
+- **Enhanced cross-page navigation** with proper hash-based routing
+
+### 🔄 Migration Notes
+- Cookie consent component renamed to avoid content blocker issues
+- Footer navigation now works seamlessly across all pages
+- Meta tags updated for better social media sharing
+- Enhanced error handling for better user experience
+
+### 📈 Performance Improvements
+- **Reduced content blocker interference** through component renaming
+- **Improved navigation performance** with optimized scrolling
+- **Enhanced SEO** with comprehensive meta tags
+- **Better error resilience** with robust localStorage handling
+
+---
+
 ## Version 1.2.5 - August 2, 2025
 
 ### 🚀 New Features
