@@ -51,18 +51,16 @@ const WhatIsBivoSection = () => {
           <div className="md:w-1/2 flex flex-col justify-center">
             <h3 className="font-round text-2xl font-semibold mb-4">Entrena como los profesionales</h3>
             <p className="text-gray-300 mb-6">
-            Con Bivo accedes a entrenamientos diseñados por preparadores físicos que trabajan con jugadores de élite, adaptados a tu nivel y objetivos. 
-            Tanto si estás empezando como si eres un amateur muy exigente, en Bivo encuentras lo mejor de la preparación profesional, 
-            ajustado a tu ritmo y tus necesidades.
+            Con Bivo accedes a entrenamientos diseñados por preparadores físicos que trabajan con jugadores de élite, adaptados a tu nivel y objetivos. Tanto si estás empezando como si eres un amateur muy exigente, en Bivo encuentras lo mejor de la preparación profesional, ajustado a tu ritmo y a tus necesidades.
             </p>
             <p className="text-gray-300 mb-6">
-            Tomamos lo mejor del entrenamiento de los profesionales y lo ponemos al alcance de cualquier jugador o jugadora, 
-            con programas personalizados que te ayudan a mejorar tu rendimiento, prevenir lesiones y cuidar tu salud mientras disfrutas 
-            del pádel, tenis o pickleball.
+           Tomamos lo mejor del entrenamiento de los profesionales y lo ponemos al alcance de cualquier jugador o jugadora, con programas personalizados que te ayudan a mejorar tu rendimiento, prevenir lesiones y cuidar tu salud mientras disfrutas del pádel, tenis o pickleball.
             </p>
             <p className="text-gray-300">
             Nuestra tecnología se adapta a ti para que entrenes con inteligencia, independientemente de tu punto de partida.
+            
             </p>
+            <p><span className="text-bivo-green">Esa es nuestra esencia: vivir como una persona, entrenar como un profesional.</span></p>
           </div>
         </div>
         

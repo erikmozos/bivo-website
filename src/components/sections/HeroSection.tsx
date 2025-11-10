@@ -35,10 +35,14 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 z-10 text-white">
         <div className="max-w-3xl">
           <h1 className="font-round text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Entrena como un profesional. <span className="text-bivo-green">Donde quieras, cuando quieras.</span>
+            Primera smart app con IA de preparación física en deportes de raqueta.
+            <br></br>
+            <span className="text-bivo-green">Live like a person, train like a pro.</span>
           </h1>
           <p className="text-xl mb-8 text-white/90">
             Pádel, tenis o pickleball: Bivo se adapta a ti.
+            <br></br>
+            <span className="text-bivo-green">Entrena mejor, vive mejor.</span>
           </p>
           
           <div className="mb-10">

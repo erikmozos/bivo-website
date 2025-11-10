@@ -28,8 +28,10 @@ const Footer = () => {
               <span className="text-bivo-green">Bivo</span>
             </h3>
             <p className="text-gray-300 mb-4">
-              Entrena como un profesional. Donde quieras, cuando quieras.
+              Entrenamientos inteligentes con IA para deportes de raqueta. Donde quieras, cuando quieras.
             </p>
+            <span className="text-bivo-green">Live like a person, train like a pro.</span>
+
           </div>
           
           <div>
