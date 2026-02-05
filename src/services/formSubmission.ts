@@ -4,6 +4,41 @@ export async function submitToGoogleSheets(formData: FormData) {
   // Google Apps Script Web App URL
   const scriptUrl = "https://script.google.com/macros/s/AKfycbxjYF7iacx0r_bY1bKh1mGcqqmxs5yaYG37YYkBik4ROUeRsQpEktC3Hlo40FUQHVI5sg/exec";
   
+  // Check if it's the new simplified form format (has deporteRaqueta)
+  const isNewFormat = 'deporteRaqueta' in formData && formData.deporteRaqueta !== undefined;
+  
+  // Map new form data to the format expected by Google Apps Script
+  let dataToSend: any;
+  
+  if (isNewFormat) {
+    // New simplified form - map to old format for compatibility
+    dataToSend = {
+      deportePrincipal: formData.deporteRaqueta || "",
+      nombre: formData.nombre || "",
+      apellido: formData.apellido || "",
+      email: formData.email || "",
+      telefono: formData.telefono || "",
+      // Set empty values for fields not in new form
+      sexo: "",
+      edad: "",
+      otrosDeportes: [],
+      frecuencia: "",
+      preparacionFisica: "",
+      tipoPrepFisica: "",
+      materialEnCasa: "",
+      tipoEntrenamiento: [],
+      horarioPreferido: "",
+      nivelExperiencia: "",
+      clubActual: "",
+      comoNosConocio: "",
+      aceptaMarketing: false,
+      aceptaTerminos: false
+    };
+  } else {
+    // Old format - send as is
+    dataToSend = formData;
+  }
+  
   // Check if we're in production (deployed on Vercel)
   const isProduction = window.location.hostname.includes('vercel.app') || 
                       !window.location.hostname.includes('localhost');
@@ -14,7 +49,7 @@ export async function submitToGoogleSheets(formData: FormData) {
       await fetch(scriptUrl, {
         method: "POST",
         mode: "no-cors",
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
         headers: {
           "Content-Type": "application/json"
         }
@@ -28,7 +63,7 @@ export async function submitToGoogleSheets(formData: FormData) {
       try {
         const response = await fetch(scriptUrl, {
           method: "POST",
-          body: JSON.stringify(formData),
+          body: JSON.stringify(dataToSend),
           headers: {
             "Content-Type": "application/json"
           }
@@ -43,7 +78,7 @@ export async function submitToGoogleSheets(formData: FormData) {
         await fetch(scriptUrl, {
           method: "POST",
           mode: "no-cors",
-          body: JSON.stringify(formData),
+          body: JSON.stringify(dataToSend),
           headers: {
             "Content-Type": "application/json"
           }

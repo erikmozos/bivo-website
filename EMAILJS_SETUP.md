@@ -46,6 +46,8 @@ Este mensaje fue enviado desde el formulario de contacto de bivotraining.com
    - `{{to_email}}` - Tu email (hello@bivotraining.com)
 
 5. Set the **To Email** to: `hello@bivotraining.com`
+   - ⚠️ **IMPORTANTE**: Este es el campo que determina a dónde llegan los emails realmente
+   - Si actualmente está configurado como `lluis@bivotraining.com`, cámbialo a `hello@bivotraining.com`
 6. Save the template and note the **Template ID**
 
 ### Step 4: Get Your Credentials
