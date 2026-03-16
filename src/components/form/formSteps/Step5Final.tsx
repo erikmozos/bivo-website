@@ -100,13 +100,16 @@ const Step5Final: React.FC<Step5FinalProps> = ({ formData, handleChange, prevSte
             </div>
             <label htmlFor="aceptaTerminos" className="ml-3 text-sm text-gray-600">
               He leído y acepto la{" "}
-              <a
-                href="https://docs.google.com/document/d/1KZb6JAKiW8XIJHxpRvoWk_6NugizGiYZqnbIYxjNdog/edit?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-bivo-green hover:underline"
-              >
-                Política de Privacidad y Términos y Condiciones
+              <a href="/privacidad" target="_blank" rel="noopener noreferrer" className="text-bivo-green hover:underline">
+                Política de Privacidad
+              </a>
+              , la{" "}
+              <a href="/cookies" target="_blank" rel="noopener noreferrer" className="text-bivo-green hover:underline">
+                Política de Cookies
+              </a>
+              {" y los "}
+              <a href="/terminos" target="_blank" rel="noopener noreferrer" className="text-bivo-green hover:underline">
+                Términos y Condiciones
               </a>{" "}
               <span className="text-red-500">*</span>
             </label>

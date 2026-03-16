@@ -1,5 +1,5 @@
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { openCookiePreferences } from "@/components/ConsentBanner";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -84,14 +84,37 @@ const Footer = () => {
             <h4 className="font-round text-lg font-bold mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <a 
-                  href="/privacidad" 
+                <Link
+                  to="/privacidad"
                   className="text-gray-300 hover:text-bivo-green transition-colors"
                 >
-                  Política de privacidad y cookies
-                </a>
+                  Política de privacidad
+                </Link>
               </li>
-              
+              <li>
+                <Link
+                  to="/cookies"
+                  className="text-gray-300 hover:text-bivo-green transition-colors"
+                >
+                  Política de cookies
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/terminos"
+                  className="text-gray-300 hover:text-bivo-green transition-colors"
+                >
+                  Términos y condiciones
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={openCookiePreferences}
+                  className="text-gray-300 hover:text-bivo-green transition-colors text-left"
+                >
+                  Configurar cookies
+                </button>
+              </li>
             </ul>
           </div>
         </div>
