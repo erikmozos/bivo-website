@@ -3,7 +3,7 @@ import Layout from "@/components/layout/Layout";
 
 const PrivacyPolicy = () => (
   <Layout>
-    <div className="min-h-screen bg-white text-black py-16 px-4">
+    <div className="min-h-screen bg-white text-black pt-28 pb-16 px-6 md:px-8 lg:px-12">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">POLÍTICA DE PRIVACIDAD</h1>
 
@@ -19,7 +19,7 @@ const PrivacyPolicy = () => (
         </p>
 
         <p className="mb-8 text-sm text-gray-600">
-          La presente Política de Privacidad fue modificada el 15/02/2026.
+          La presente Política de Privacidad fue modificada el 13/03/2025.
         </p>
 
         <section className="mb-12">
@@ -461,7 +461,7 @@ const PrivacyPolicy = () => (
 
         <div className="border-t pt-6">
           <p className="text-sm text-gray-600">
-            <strong>Última actualización:</strong> 15 de febrero de 2026
+            <strong>Última actualización:</strong> 13 de marzo de 2025
           </p>
           <p className="text-sm text-gray-600 mt-2">
             Para cualquier consulta sobre esta política, contacta con nosotros en:{" "}

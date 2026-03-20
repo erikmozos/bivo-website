@@ -3,7 +3,7 @@ import Layout from "@/components/layout/Layout";
 
 const TermsConditions = () => (
   <Layout>
-    <div className="min-h-screen bg-white text-black py-16 px-4">
+    <div className="min-h-screen bg-white text-black pt-28 pb-16 px-6 md:px-8 lg:px-12">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">TÉRMINOS Y CONDICIONES E INFORMACIÓN LEGAL</h1>
 
@@ -509,7 +509,7 @@ const TermsConditions = () => (
 
         <div className="border-t pt-6">
           <p className="text-sm text-gray-600">
-            <strong>Fecha de actualización:</strong> 15 de febrero de 2025
+            <strong>Fecha de actualización:</strong> 13 de marzo de 2025
           </p>
           <p className="text-sm text-gray-600 mt-2">
             Para cualquier consulta, contacta con nosotros en:{" "}
