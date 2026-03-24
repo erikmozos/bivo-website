@@ -48,11 +48,12 @@ const Navbar = () => {
 
         {/* Mobile menu button */}
         <button
-          className="lg:hidden p-2"
+          type="button"
+          className="lg:hidden p-2 text-white hover:text-bivo-green transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={24} strokeWidth={2} aria-hidden /> : <Menu size={24} strokeWidth={2} aria-hidden />}
         </button>
 
         {/* Desktop menu */}

@@ -3,8 +3,8 @@ import Layout from "@/components/layout/Layout";
 
 const TermsConditions = () => (
   <Layout>
-    <div className="min-h-screen bg-white text-black pt-28 pb-16 px-6 md:px-8 lg:px-12">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-white text-black pt-28 pb-16 px-4 sm:px-6 md:px-8 lg:px-12 w-full min-w-0 box-border">
+      <div className="max-w-3xl mx-auto w-full min-w-0 [&_a]:break-all">
         <h1 className="text-3xl font-bold mb-6">TÉRMINOS Y CONDICIONES E INFORMACIÓN LEGAL</h1>
 
         <p className="mb-6">
