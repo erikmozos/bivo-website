@@ -39,7 +39,7 @@ const CookiePolicy = () => {
         </p>
 
         <p className="mb-8 text-sm text-gray-600">
-          La presente política de cookies fue modificada el 13/03/2025.
+          La presente política de cookies fue modificada el 13/03/2026.
         </p>
 
         <section className="mb-12">
@@ -366,7 +366,7 @@ const CookiePolicy = () => {
 
         <div className="border-t pt-6">
           <p className="text-sm text-gray-600">
-            <strong>Última actualización:</strong> 13 de marzo de 2025
+            <strong>Última actualización:</strong> 13 de marzo de 2026
           </p>
           <p className="text-sm text-gray-600 mt-2">
             Para cualquier consulta sobre esta política, contacta con nosotros en:{" "}

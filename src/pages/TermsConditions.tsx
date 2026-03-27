@@ -509,7 +509,7 @@ const TermsConditions = () => (
 
         <div className="border-t pt-6">
           <p className="text-sm text-gray-600">
-            <strong>Fecha de actualización:</strong> 13 de marzo de 2025
+            <strong>Fecha de actualización:</strong> 13 de marzo de 2026
           </p>
           <p className="text-sm text-gray-600 mt-2">
             Para cualquier consulta, contacta con nosotros en:{" "}
