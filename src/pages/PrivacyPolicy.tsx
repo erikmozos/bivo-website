@@ -13,13 +13,9 @@ const PrivacyPolicy = () => (
           Training S.L., Av. des Camp Verd, 4, Centre Bit Menorca (Alaior), Illes Balears, España.
         </p>
 
-        <p className="mb-4">
+        <p className="mb-8">
           Esta política está sujeta a cambios por lo que es conveniente consultarla cada vez que
           Usted decida visitarnos.
-        </p>
-
-        <p className="mb-8 text-sm text-gray-600">
-          La presente Política de Privacidad fue modificada el 13/03/2026.
         </p>
 
         <section className="mb-12">
@@ -45,6 +41,77 @@ const PrivacyPolicy = () => (
           <p className="mb-4">
             A continuación, le informamos de manera general sobre los usos de su información
             personal. Posteriormente se detallan dichos usos y tratamientos.
+          </p>
+        </section>
+
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4">
+            USO DE LA APLICACIÓN MÓVIL BIVO TRAINING (IOS Y ANDROID)
+          </h2>
+          <p className="mb-4">
+            La presente Política de Privacidad también se aplica al uso de la aplicación móvil BIVO
+            TRAINING, disponible para dispositivos con sistemas operativos Android, a través de
+            Google Play Store, y iOS, a través de Apple App Store.
+          </p>
+          <p className="mb-4">
+            Cuando el Usuario descarga, instala, se registra o utiliza la aplicación móvil, BIVO
+            TRAINING podrá tratar los datos personales necesarios para la prestación del servicio, la
+            creación y gestión de la cuenta de usuario, el funcionamiento técnico de la aplicación,
+            la personalización de entrenamientos y funcionalidades y la mejora continua del servicio,
+            conforme a lo dispuesto en esta Política de Privacidad.
+          </p>
+
+          <h3 className="text-xl font-semibold mb-3">Permisos del dispositivo</h3>
+          <p className="mb-4">
+            La aplicación podrá solicitar acceso a determinadas funciones del dispositivo únicamente
+            cuando sea necesario para el funcionamiento de sus servicios. Estos permisos pueden
+            incluir, entre otros:
+          </p>
+          <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
+            <li>notificaciones</li>
+            <li>acceso a la cámara</li>
+            <li>acceso a fotos o almacenamiento del dispositivo</li>
+          </ul>
+          <p className="mb-4">
+            Estos permisos se solicitarán siempre con el consentimiento del Usuario y podrán ser
+            aceptados, rechazados o revocados en cualquier momento desde la configuración del
+            dispositivo.
+          </p>
+          <p className="mb-4">
+            El uso de estos permisos se limitará exclusivamente a la prestación del servicio y no se
+            realizará un uso distinto sin el consentimiento del Usuario.
+          </p>
+
+          <h3 className="text-xl font-semibold mb-3">Suscripciones y periodo de prueba</h3>
+          <p className="mb-4">
+            BIVO TRAINING podrá ofrecer al Usuario un periodo de prueba gratuito para acceder a
+            determinadas funcionalidades de la aplicación.
+          </p>
+          <p className="mb-4">
+            La duración del periodo de prueba podrá variar en función de promociones, campañas o
+            condiciones específicas informadas en cada momento.
+          </p>
+          <p className="mb-4">
+            Una vez finalizado el periodo de prueba, el acceso a determinadas funcionalidades podrá
+            requerir la contratación de una suscripción.
+          </p>
+          <p className="mb-4">
+            Las suscripciones podrán tener periodicidad mensual o anual y se renovarán
+            automáticamente por periodos sucesivos iguales, salvo que el Usuario cancele la
+            suscripción antes de la fecha de renovación.
+          </p>
+          <p className="mb-4">
+            El Usuario podrá cancelar la suscripción en cualquier momento desde la configuración de
+            su cuenta en la plataforma correspondiente (Google Play Store o Apple App Store).
+          </p>
+          <p className="mb-4">
+            Los pagos, renovaciones, cancelaciones y facturación de las suscripciones realizadas a
+            través de Google Play Store o Apple App Store serán gestionados directamente por dichas
+            plataformas conforme a sus propias condiciones y políticas.
+          </p>
+          <p className="mb-4">
+            BIVO TRAINING no almacena ni procesa directamente los datos de pago del Usuario cuando la
+            contratación se realiza a través de dichas plataformas.
           </p>
         </section>
 
@@ -88,38 +155,69 @@ const PrivacyPolicy = () => (
 
           <p className="mb-2 font-medium">Recopilamos su información personal por varios motivos:</p>
           <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
-            <li>Cuando crea una cuenta, nos proporciona sus datos de inicio de sesión, información básica del perfil (por ejemplo, género, fecha de nacimiento).</li>
-            <li>Cuando la contratación se realice a través de App Store, Google Play o cualquier otra tienda de aplicaciones para dispositivos móviles, la información de pago es gestionada por dichas plataformas conforme a sus propias políticas.</li>
+            <li>
+              Cuando crea una cuenta, nos proporciona sus datos de inicio de sesión, información
+              básica del perfil (por ejemplo, género, fecha de nacimiento).
+            </li>
+            <li>
+              Cuando la contratación se realice a través de App Store, Google Play o cualquier otra
+              tienda de aplicaciones para dispositivos móviles, la información de pago es gestionada
+              por dichas plataformas conforme a sus propias políticas.
+            </li>
             <li>Atender solicitudes de servicios</li>
             <li>Realización de los servicios</li>
             <li>Enviarle mensajes de estado de los servicios en curso</li>
             <li>Envío de promociones que consideramos interesantes para nuestros clientes</li>
-            <li>Encuestas de calidad y de satisfacción para la mejora de los servicios que realiza Bivo Training S.L.</li>
+            <li>
+              Encuestas de calidad y de satisfacción para la mejora de los servicios que realiza Bivo
+              Training S.L.
+            </li>
           </ul>
 
           <p className="mb-2 font-medium">Información que recibimos de otros:</p>
           <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
-            <li>Otros miembros pueden proporcionar información sobre usted cuando interactúan con nuestros servicios.</li>
+            <li>
+              Otros miembros pueden proporcionar información sobre usted cuando interactúan con
+              nuestros servicios.
+            </li>
             <li>Podemos recibir información de socios para fines publicitarios y de seguridad.</li>
           </ul>
 
           <p className="mb-2 font-medium">Información recopilada automáticamente:</p>
           <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
             <li>Recopilamos datos sobre sus actividades dentro de nuestros servicios.</li>
-            <li>Recopilamos información sobre los dispositivos que utiliza para acceder a nuestros servicios.</li>
-            <li>Utilizamos cookies para reconocer e identificar sus dispositivos. Para obtener más detalles, consulte nuestra{" "}
-              <a href="/cookies" className="text-bivo-green hover:underline">Política de cookies</a>.
+            <li>
+              Recopilamos información sobre los dispositivos que utiliza para acceder a nuestros
+              servicios.
             </li>
-            <li>En caso de que la Plataforma incorpore funciones que requieran geolocalización, los datos solo se recopilarán con consentimiento del Usuario y podrán desactivarse en cualquier momento desde el dispositivo.</li>
+            <li>
+              Utilizamos cookies para reconocer e identificar sus dispositivos. Para obtener más
+              detalles, consulte nuestra{" "}
+              <a href="/cookies" className="text-bivo-green hover:underline">
+                Política de cookies
+              </a>
+              .
+            </li>
+            <li>
+              En caso de que la Plataforma incorpore funciones que requieran geolocalización, los
+              datos solo se recopilarán con consentimiento del Usuario y podrán desactivarse en
+              cualquier momento desde el dispositivo.
+            </li>
             <li>Con su consentimiento, recopilamos información adicional, como fotos y videos.</li>
-            <li>En caso de que la Plataforma incorpore funcionalidades que impliquen el uso de la cámara, las imágenes o vídeos solo serán tratados con el consentimiento previo del Usuario y para finalidades técnicas, deportivas, analíticas o de mejora del servicio, informándose previamente de los detalles del tratamiento. El Usuario podrá revocar dicho permiso en cualquier momento.</li>
+            <li>
+              En caso de que la Plataforma incorpore funcionalidades que impliquen el uso de la
+              cámara, las imágenes o vídeos solo serán tratados con el consentimiento previo del
+              Usuario y para finalidades técnicas, deportivas, analíticas o de mejora del servicio,
+              informándose previamente de los detalles del tratamiento. El Usuario podrá revocar
+              dicho permiso en cualquier momento.
+            </li>
           </ul>
 
           <p className="mb-4">
-            Podrá revocar este consentimiento en cualquier momento, así como ejercitar sus derechos de
-            acceso, rectificación, supresión, limitación del tratamiento, olvido, portabilidad de
-            datos y oposición por los medios indicados en el capítulo "EJERCICIO DE DERECHOS" del
-            presente documento.
+            Podrá revocar este consentimiento en cualquier momento, así como ejercitar sus derechos
+            de acceso, rectificación, supresión, limitación del tratamiento, olvido, portabilidad de
+            datos y oposición por los medios indicados en el capítulo &quot;EJERCICIO DE
+            DERECHOS&quot; del presente documento.
           </p>
         </section>
 
@@ -148,51 +246,92 @@ const PrivacyPolicy = () => (
             incluyen:
           </p>
           <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
-            <li>Utilizamos su información para crear y gestionar su cuenta, facilitando su acceso y uso efectivo de nuestra plataforma.</li>
-            <li>Su información nos permite ofrecerle soporte, responder a sus consultas y resolver cualquier problema que pueda surgir mientras utiliza nuestros servicios.</li>
-            <li>Utilizamos sus datos para mantenernos en contacto con usted respecto a nuestros servicios, incluidas actualizaciones, notificaciones y cambios en nuestros términos o políticas.</li>
-            <li>Adaptamos nuestros servicios a sus preferencias y comportamiento, mejorando su experiencia de usuario. Esto incluye recomendaciones personalizadas y la adaptación del contenido en función de sus intereses y actividades.</li>
-            <li>Podemos usar su información para ejecutar y medir la efectividad de nuestras campañas publicitarias, asegurando que los anuncios que vea sean relevantes para sus intereses.</li>
-            <li>Al analizar su uso de nuestros servicios, podemos identificar áreas de mejora y desarrollar nuevas funciones que satisfagan mejor sus necesidades.</li>
-            <li>Nos comprometemos a proteger a nuestros usuarios. Su información nos ayuda a prevenir, detectar y combatir el fraude, el abuso y otras actividades ilícitas en nuestra plataforma.</li>
-            <li>Procesamos su información para cumplir con nuestras obligaciones legales, incluyendo la colaboración con las autoridades cuando sea necesario, y para garantizar que nuestras prácticas estén alineadas con las regulaciones vigentes.</li>
+            <li>
+              Utilizamos su información para crear y gestionar su cuenta, facilitando su acceso y
+              uso efectivo de nuestra plataforma.
+            </li>
+            <li>
+              Su información nos permite ofrecerle soporte, responder a sus consultas y resolver
+              cualquier problema que pueda surgir mientras utiliza nuestros servicios.
+            </li>
+            <li>
+              Utilizamos sus datos para mantenernos en contacto con usted respecto a nuestros
+              servicios, incluidas actualizaciones, notificaciones y cambios en nuestros términos o
+              políticas.
+            </li>
+            <li>
+              Adaptamos nuestros servicios a sus preferencias y comportamiento, mejorando su
+              experiencia de usuario. Esto incluye recomendaciones personalizadas y la adaptación
+              del contenido en función de sus intereses y actividades.
+            </li>
+            <li>
+              Podemos usar su información para ejecutar y medir la efectividad de nuestras campañas
+              publicitarias, asegurando que los anuncios que vea sean relevantes para sus intereses.
+            </li>
+            <li>
+              Al analizar su uso de nuestros servicios, podemos identificar áreas de mejora y
+              desarrollar nuevas funciones que satisfagan mejor sus necesidades.
+            </li>
+            <li>
+              Nos comprometemos a proteger a nuestros usuarios. Su información nos ayuda a prevenir,
+              detectar y combatir el fraude, el abuso y otras actividades ilícitas en nuestra
+              plataforma.
+            </li>
+            <li>
+              Procesamos su información para cumplir con nuestras obligaciones legales, incluyendo
+              la colaboración con las autoridades cuando sea necesario, y para garantizar que
+              nuestras prácticas estén alineadas con las regulaciones vigentes.
+            </li>
           </ul>
 
           <h3 className="text-xl font-semibold mb-3">Procesamiento de datos personales</h3>
-          <p className="mb-2">La información que recopilamos se procesa para los siguientes propósitos:</p>
+          <p className="mb-2">
+            La información que recopilamos se procesa para los siguientes propósitos:
+          </p>
           <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
             <li>Para crear, gestionar y mantener su cuenta en nuestra plataforma.</li>
-            <li>Para adaptar nuestros servicios a sus preferencias, brindándole una experiencia atractiva y personalizada.</li>
-            <li>Para proteger a nuestros usuarios, previniendo, detectando y abordando amenazas de seguridad, fraude y actividades ilegales.</li>
-            <li>Para cumplir con nuestras obligaciones legales y normativas, asegurando que todas las actividades de procesamiento de datos se realicen conforme a las leyes aplicables.</li>
+            <li>
+              Para adaptar nuestros servicios a sus preferencias, brindándole una experiencia
+              atractiva y personalizada.
+            </li>
+            <li>
+              Para proteger a nuestros usuarios, previniendo, detectando y abordando amenazas de
+              seguridad, fraude y actividades ilegales.
+            </li>
+            <li>
+              Para cumplir con nuestras obligaciones legales y normativas, asegurando que todas las
+              actividades de procesamiento de datos se realicen conforme a las leyes aplicables.
+            </li>
           </ul>
           <p className="mb-4">
             Conservamos su información personal únicamente durante el tiempo necesario para cumplir
-            con los fines descritos anteriormente y de acuerdo con los requisitos legales. Una vez que
-            los datos ya no sean necesarios para estos fines, los eliminaremos de forma segura o los
-            anonimizaremos.
+            con los fines descritos anteriormente y de acuerdo con los requisitos legales. Una vez
+            que los datos ya no sean necesarios para estos fines, los eliminaremos de forma segura o
+            los anonimizaremos.
           </p>
 
           <h3 className="text-xl font-semibold mb-3">Base jurídica del tratamiento</h3>
           <p className="mb-4">
             El tratamiento de datos personales se realiza sobre las siguientes bases legales:
-            ejecución del contrato para la prestación del servicio; consentimiento del Usuario cuando
-            resulte necesario (por ejemplo, comunicaciones comerciales, geolocalización, cámara u
-            otros tratamientos opcionales); cumplimiento de obligaciones legales; e interés legítimo
-            para garantizar la seguridad, mejorar el servicio y prevenir usos indebidos, respetando en
-            todo caso los derechos del Usuario.
+            ejecución del contrato para la prestación del servicio; consentimiento del Usuario
+            cuando resulte necesario (por ejemplo, comunicaciones comerciales, geolocalización,
+            cámara u otros tratamientos opcionales); cumplimiento de obligaciones legales; e interés
+            legítimo para garantizar la seguridad, mejorar el servicio y prevenir usos indebidos,
+            respetando en todo caso los derechos del Usuario.
           </p>
 
           <h3 className="text-xl font-semibold mb-3">Tratamiento de datos de actividad deportiva</h3>
           <p className="mb-4">
             En el marco de la prestación del servicio, BIVO TRAINING podrá tratar datos relacionados
             con la actividad física, el progreso deportivo, el rendimiento, el uso de entrenamientos
-            y métricas asociadas al ejercicio con la finalidad de prestar el servicio, personalizar la
-            experiencia, realizar análisis técnicos y mejorar la Plataforma. Estos datos no tienen
-            carácter médico ni sanitario.
+            y métricas asociadas al ejercicio con la finalidad de prestar el servicio, personalizar
+            la experiencia, realizar análisis técnicos y mejorar la Plataforma. Estos datos no
+            tienen carácter médico ni sanitario.
           </p>
 
-          <h3 className="text-xl font-semibold mb-3">Personalización, análisis automatizado e inteligencia artificial</h3>
+          <h3 className="text-xl font-semibold mb-3">
+            Personalización, análisis automatizado e inteligencia artificial
+          </h3>
           <p className="mb-4">
             BIVO TRAINING podrá utilizar sistemas automatizados, incluidos algoritmos o tecnologías
             de inteligencia artificial, para analizar el uso de la Plataforma, adaptar contenidos,
@@ -210,11 +349,26 @@ const PrivacyPolicy = () => (
             servicios. Los detalles del intercambio de información incluyen:
           </p>
           <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
-            <li>Compartimos su información con otros miembros cuando usted la divulga a través del servicio (por ejemplo, en su perfil).</li>
-            <li>Compartimos datos con proveedores que respaldan nuestras operaciones, como aquellos encargados del alojamiento, análisis y atención al cliente.</li>
-            <li>Compartimos información con afiliados de BIVO TRAINING por motivos operativos y de seguridad.</li>
-            <li>Podemos divulgar información para cumplir con procesos legales o para proteger la seguridad de nuestros usuarios y servicios.</li>
-            <li>También podemos compartir su información con terceros cuando contamos con su consentimiento explícito.</li>
+            <li>
+              Compartimos su información con otros miembros cuando usted la divulga a través del
+              servicio (por ejemplo, en su perfil).
+            </li>
+            <li>
+              Compartimos datos con proveedores que respaldan nuestras operaciones, como aquellos
+              encargados del alojamiento, análisis y atención al cliente.
+            </li>
+            <li>
+              Compartimos información con afiliados de BIVO TRAINING por motivos operativos y de
+              seguridad.
+            </li>
+            <li>
+              Podemos divulgar información para cumplir con procesos legales o para proteger la
+              seguridad de nuestros usuarios y servicios.
+            </li>
+            <li>
+              También podemos compartir su información con terceros cuando contamos con su
+              consentimiento explícito.
+            </li>
           </ul>
         </section>
 
@@ -237,15 +391,26 @@ const PrivacyPolicy = () => (
             transferencias se realicen de conformidad con las regulaciones de protección de datos
             aplicables. Utilizamos las siguientes salvaguardas para proteger sus datos:
           </p>
-          <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
-            <li>Utilizamos las cláusulas contractuales estándar de la Comisión Europea, que están diseñadas para garantizar que sus datos personales reciban el mismo nivel de protección que recibirían dentro del EEE.</li>
-            <li>En algunos casos, podemos transferir sus datos a países que la Comisión Europea ha considerado que proporcionan un nivel adecuado de protección de datos.</li>
-            <li>Cuando es necesario, implementamos salvaguardas adicionales, como reglas corporativas vinculantes, para garantizar que sus datos estén protegidos durante las transferencias internacionales. Al emplear estos mecanismos y salvaguardas legales, nos esforzamos por garantizar que sus datos permanezcan seguros y que se respeten sus derechos de privacidad, sin importar dónde se procesen sus datos.</li>
+          <ul className="list-disc list-inside ml-4 mb-8 space-y-2">
+            <li>
+              Utilizamos las cláusulas contractuales estándar de la Comisión Europea, que están
+              diseñadas para garantizar que sus datos personales reciban el mismo nivel de
+              protección que recibirían dentro del EEE.
+            </li>
+            <li>
+              En algunos casos, podemos transferir sus datos a países que la Comisión Europea ha
+              considerado que proporcionan un nivel adecuado de protección de datos.
+            </li>
+            <li>
+              Cuando es necesario, implementamos salvaguardas adicionales, como reglas corporativas
+              vinculantes, para garantizar que sus datos estén protegidos durante las transferencias
+              internacionales. Al emplear estos mecanismos y salvaguardas legales, nos esforzamos por
+              garantizar que sus datos permanezcan seguros y que se respeten sus derechos de
+              privacidad, sin importar dónde se procesen sus datos.
+            </li>
           </ul>
-        </section>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Sus derechos y opciones</h2>
+          <h3 className="text-xl font-semibold mb-3 mt-8">Sus derechos y opciones</h3>
           <p className="mb-4">
             Nos comprometemos a brindarle opciones claras y accesibles para administrar sus datos
             personales. Dependiendo de su ubicación, puede tener ciertos derechos legales con
@@ -254,9 +419,19 @@ const PrivacyPolicy = () => (
           </p>
           <h3 className="text-xl font-semibold mb-3">Herramientas y configuraciones:</h3>
           <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
-            <li>Puede acceder y actualizar su información personal directamente dentro de nuestro servicio.</li>
-            <li>Tiene control sobre la configuración de su dispositivo, lo que le permite administrar la recopilación y el uso de sus datos por parte de nuestros servicios.</li>
-            <li>Si elige eliminar su cuenta, puede hacerlo directamente a través de la interfaz del servicio. Una vez que se elimine su cuenta, sus datos se manejarán de acuerdo con nuestra Política de retención de datos.</li>
+            <li>
+              Puede acceder y actualizar su información personal directamente dentro de nuestro
+              servicio.
+            </li>
+            <li>
+              Tiene control sobre la configuración de su dispositivo, lo que le permite administrar
+              la recopilación y el uso de sus datos por parte de nuestros servicios.
+            </li>
+            <li>
+              Si elige eliminar su cuenta, puede hacerlo directamente a través de la interfaz del
+              servicio. Una vez que se elimine su cuenta, sus datos se manejarán de acuerdo con
+              nuestra Política de retención de datos.
+            </li>
           </ul>
           <h3 className="text-xl font-semibold mb-3">Supresión de datos y eliminación de cuenta</h3>
           <p className="mb-4">
@@ -275,7 +450,9 @@ const PrivacyPolicy = () => (
             no podrá tener efecto retroactivo.
           </p>
 
-          <h3 className="text-xl font-semibold mb-3">Realización y gestión del servicio contratado y facturación</h3>
+          <h3 className="text-xl font-semibold mb-3">
+            Realización y gestión del servicio contratado y facturación
+          </h3>
           <p className="mb-2">Sin los datos solicitados no será posible la prestación del servicio.</p>
           <p className="mb-4">
             Los datos personales, así como los relativos al servicio, serán conservados durante el
@@ -285,8 +462,8 @@ const PrivacyPolicy = () => (
           </p>
           <p className="mb-4">
             En caso de que la contratación se realizara directamente con BIVO TRAINING, los datos
-            relativos a la facturación serán conservados durante el tiempo necesario para cumplir
-            con las obligaciones legales y fiscales aplicables, con carácter general durante el plazo
+            relativos a la facturación serán conservados durante el tiempo necesario para cumplir con
+            las obligaciones legales y fiscales aplicables, con carácter general durante el plazo
             establecido por la normativa tributaria vigente.
           </p>
           <p className="mb-4">
@@ -304,15 +481,27 @@ const PrivacyPolicy = () => (
 
           <h3 className="text-xl font-semibold mb-3">Tratamiento de consultas</h3>
           <p className="mb-4">
-            Los datos personales, de contacto, imágenes, serán conservados en nuestros ficheros durante
-            el tiempo necesario para poder realizar la gestión solicitada.
+            Los datos personales, de contacto, imágenes, serán conservados en nuestros ficheros
+            durante el tiempo necesario para poder realizar la gestión solicitada.
           </p>
-          <p className="mb-2">Sobre este tratamiento de datos, Usted podrá, en caso de que lo considere necesario, ejercer los siguientes derechos:</p>
+          <p className="mb-2">
+            Sobre este tratamiento de datos, Usted podrá, en caso de que lo considere necesario,
+            ejercer los siguientes derechos:
+          </p>
           <ul className="list-disc list-inside ml-4 mb-6 space-y-2">
             <li>De acceso para conocer qué datos conservamos y tratamos.</li>
-            <li>De oposición y limitación, para que los datos personales no sean tratados -desde que se tramite su solicitud- para la finalidad del servicio de información.</li>
-            <li>De rectificación en el caso que considere que los datos no son correctos o bien porque han cambiado.</li>
-            <li>De borrado o supresión en caso de que nos retire su consentimiento para este tratamiento.</li>
+            <li>
+              De oposición y limitación, para que los datos personales no sean tratados -desde que se
+              tramite su solicitud- para la finalidad del servicio de información.
+            </li>
+            <li>
+              De rectificación en el caso que considere que los datos no son correctos o bien porque
+              han cambiado.
+            </li>
+            <li>
+              De borrado o supresión en caso de que nos retire su consentimiento para este
+              tratamiento.
+            </li>
           </ul>
 
           <h3 className="text-xl font-semibold mb-3">Servicio de Calidad</h3>
@@ -323,8 +512,8 @@ const PrivacyPolicy = () => (
           </p>
           <p className="mb-4">
             Estas encuestas se efectúan por medios electrónicos (se recibe un e-mail con enlace a la
-            web donde se realiza la encuesta) y en ellas no se recoge ningún dato personal adicional
-            a los que Usted nos haya proporcionado previamente.
+            web donde se realiza la encuesta) y en ellas no se recoge ningún dato personal adicional a
+            los que Usted nos haya proporcionado previamente.
           </p>
           <p className="mb-4">
             En cualquier caso, los datos personales de contacto recopilados con el fin de enviarle la
@@ -335,10 +524,19 @@ const PrivacyPolicy = () => (
             Los datos personales referentes a este tratamiento serán conservados para ello durante 3
             meses.
           </p>
-          <p className="mb-2">Sobre este tratamiento de datos Usted podrá, en caso de que lo considere necesario, ejercer los siguientes derechos:</p>
+          <p className="mb-2">
+            Sobre este tratamiento de datos Usted podrá, en caso de que lo considere necesario,
+            ejercer los siguientes derechos:
+          </p>
           <ul className="list-disc list-inside ml-4 mb-6 space-y-2">
-            <li>De oposición y limitación, para que los datos personales no sean tratados -desde que se tramite su solicitud- para la finalidad del servicio de calidad.</li>
-            <li>De rectificación en el caso que considere que los datos no son correctos o bien porque han cambiado.</li>
+            <li>
+              De oposición y limitación, para que los datos personales no sean tratados -desde que se
+              tramite su solicitud- para la finalidad del servicio de calidad.
+            </li>
+            <li>
+              De rectificación en el caso que considere que los datos no son correctos o bien porque
+              han cambiado.
+            </li>
           </ul>
 
           <h3 className="text-xl font-semibold mb-3">Información sobre los servicios de Bivo Training S.L.</h3>
@@ -351,11 +549,23 @@ const PrivacyPolicy = () => (
             baja de las mismas; adicionalmente usted puede ejercer los derechos indicados a
             continuación en cualquier momento.
           </p>
-          <p className="mb-2">Sobre este tratamiento de datos Usted podrá, en caso de que lo considere necesario, ejercer los siguientes derechos:</p>
+          <p className="mb-2">
+            Sobre este tratamiento de datos Usted podrá, en caso de que lo considere necesario,
+            ejercer los siguientes derechos:
+          </p>
           <ul className="list-disc list-inside ml-4 mb-6 space-y-2">
-            <li>De oposición y limitación, para que los datos personales no sean tratados -desde que se tramite su solicitud- para la finalidad del servicio de información.</li>
-            <li>De rectificación en el caso que considere que los datos no son correctos o bien porque han cambiado.</li>
-            <li>De borrado o supresión en caso de que nos retire su consentimiento para este tratamiento.</li>
+            <li>
+              De oposición y limitación, para que los datos personales no sean tratados -desde que se
+              tramite su solicitud- para la finalidad del servicio de información.
+            </li>
+            <li>
+              De rectificación en el caso que considere que los datos no son correctos o bien porque
+              han cambiado.
+            </li>
+            <li>
+              De borrado o supresión en caso de que nos retire su consentimiento para este
+              tratamiento.
+            </li>
           </ul>
 
           <h3 className="text-xl font-semibold mb-3">Navegación</h3>
@@ -378,28 +588,28 @@ const PrivacyPolicy = () => (
           <p className="mb-4">
             Esta página web utiliza Google Analytics, un servicio analítico de web prestado por
             Google, Inc., una compañía de Delaware cuya oficina principal está en 1600 Amphitheatre
-            Parkway, Mountain View (California), CA 94043, Estados Unidos ("Google").
+            Parkway, Mountain View (California), CA 94043, Estados Unidos (&quot;Google&quot;).
           </p>
           <p className="mb-4">
-            Google Analytics utiliza "cookies", que son archivos de texto ubicados en su ordenador,
-            para ayudar al website a analizar el uso que hacen los usuarios del sitio web. La
-            información que genera la cookie acerca de su uso del website (incluyendo su dirección IP)
-            será directamente transmitida y archivada por Google en los servidores de Estados Unidos.
-            Google usará esta información por cuenta nuestra con el propósito de seguir la pista de
-            su uso del website, recopilando informes de la actividad del website y prestando otros
-            servicios relacionados con la actividad del website y el uso de Internet.
+            Google Analytics utiliza &quot;cookies&quot;, que son archivos de texto ubicados en su
+            ordenador, para ayudar al website a analizar el uso que hacen los usuarios del sitio web.
+            La información que genera la cookie acerca de su uso del website (incluyendo su dirección
+            IP) será directamente transmitida y archivada por Google en los servidores de Estados
+            Unidos. Google usará esta información por cuenta nuestra con el propósito de seguir la
+            pista de su uso del website, recopilando informes de la actividad del website y
+            prestando otros servicios relacionados con la actividad del website y el uso de Internet.
           </p>
           <p className="mb-4">
             Google podrá transmitir dicha información a terceros cuando así se lo requiera la
-            legislación, o cuando dichos terceros procesen la información por cuenta de Google.
-            Google no asociará su dirección IP con ningún otro dato del que disponga Google.
+            legislación, o cuando dichos terceros procesen la información por cuenta de Google. Google
+            no asociará su dirección IP con ningún otro dato del que disponga Google.
           </p>
           <p className="mb-4">
             Puede Usted rechazar el tratamiento de los datos o la información rechazando el uso de
             cookies mediante la selección de la configuración apropiada de su navegador, sin embargo,
-            debe Usted saber que si lo hace puede ser que no pueda usar la plena funcionalidad de
-            este website. Al utilizar este website Usted consiente el tratamiento de información
-            acerca de Usted por Google en la forma y para los fines arriba indicados.
+            debe Usted saber que si lo hace puede ser que no pueda usar la plena funcionalidad de este
+            website. Al utilizar este website Usted consiente el tratamiento de información acerca de
+            Usted por Google en la forma y para los fines arriba indicados.
           </p>
           <p className="mb-4">
             Utilizamos Google Analytics con funciones de anonimización de IP y, cuando corresponde,
@@ -441,9 +651,15 @@ const PrivacyPolicy = () => (
             en estas situaciones:
           </p>
           <ol className="list-decimal list-inside ml-4 mb-4 space-y-2">
-            <li>Si ha solicitado ejercer sus derechos y no ha recibido respuesta del responsable del tratamiento en un mes.</li>
+            <li>
+              Si ha solicitado ejercer sus derechos y no ha recibido respuesta del responsable del
+              tratamiento en un mes.
+            </li>
             <li>Si ha recibido respuesta, pero no está de acuerdo con ella.</li>
-            <li>Si cree que el responsable del tratamiento ha infringido la normativa de protección de datos en alguna de sus actividades.</li>
+            <li>
+              Si cree que el responsable del tratamiento ha infringido la normativa de protección de
+              datos en alguna de sus actividades.
+            </li>
           </ol>
           <p className="mb-4">
             En todo caso puede obtener información general sobre la privacidad y la Protección de
@@ -461,7 +677,7 @@ const PrivacyPolicy = () => (
 
         <div className="border-t pt-6">
           <p className="text-sm text-gray-600">
-            <strong>Última actualización:</strong> 13 de marzo de 2026
+            <strong>Última actualización:</strong> 10 de abril de 2026
           </p>
           <p className="text-sm text-gray-600 mt-2">
             Para cualquier consulta sobre esta política, contacta con nosotros en:{" "}
