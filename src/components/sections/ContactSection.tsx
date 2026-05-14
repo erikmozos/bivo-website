@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
-import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -29,50 +28,27 @@ const ContactSection = () => {
     setErrorMessage("");
     
     try {
-      // EmailJS configuration from environment variables
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-      
-      // Check if environment variables are set
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error("EmailJS no está configurado correctamente. Por favor, configura las variables de entorno.");
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: formData.nombre,
+          email: formData.email,
+          mensaje: formData.mensaje,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Error al enviar el mensaje");
       }
-      
-      // Prepare template parameters from form data
-      const templateParams = {
-        from_name: formData.nombre,
-        from_email: formData.email,
-        message: formData.mensaje,
-        to_email: "hello@bivotraining.com"
-      };
-      
-      // Send the email using EmailJS
-      const response = await emailjs.send(
-        serviceId,
-        templateId,
-        templateParams,
-        publicKey
-      );
-      
-      if (response.status === 200) {
-        console.log("Contact form submitted successfully:", response);
-        setSubmitSuccess(true);
-        
-        // Reset form
-        setFormData({
-          nombre: "",
-          email: "",
-          mensaje: ""
-        });
-      } else {
-        throw new Error("Failed to send email");
-      }
+
+      setSubmitSuccess(true);
+      setFormData({ nombre: "", email: "", mensaje: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
       setSubmitError(true);
-      
-      // More specific error messages
       if (error instanceof Error) {
         setErrorMessage(error.message);
       } else {
