@@ -46,31 +46,18 @@ const ContactSection = () => {
         success?: boolean;
       };
 
-      if (!response.ok) {
+      if (!response.ok || !data.success) {
         throw new Error(
           data.error ||
             "No pudimos enviar tu mensaje. Por favor, inténtalo de nuevo más tarde."
         );
       }
 
-      if (data.success) {
-        setSubmitSuccess(true);
-        setFormData({
-          nombre: "",
-          email: "",
-          mensaje: "",
-        });
-      } else {
-        throw new Error(
-          data.error ||
-            "No pudimos enviar tu mensaje. Por favor, inténtalo de nuevo más tarde."
-        );
-      }
+      setSubmitSuccess(true);
+      setFormData({ nombre: "", email: "", mensaje: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
       setSubmitError(true);
-      
-      // More specific error messages
       if (error instanceof Error) {
         setErrorMessage(error.message);
       } else {
