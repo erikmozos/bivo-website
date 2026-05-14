@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Mail, MapPin, Phone } from "lucide-react";
-import emailjs from '@emailjs/browser';
+import { Mail, MapPin } from "lucide-react";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -29,44 +28,43 @@ const ContactSection = () => {
     setErrorMessage("");
     
     try {
-      // EmailJS configuration from environment variables
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-      
-      // Check if environment variables are set
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error("EmailJS no está configurado correctamente. Por favor, configura las variables de entorno.");
-      }
-      
-      // Prepare template parameters from form data
-      const templateParams = {
-        from_name: formData.nombre,
-        from_email: formData.email,
-        message: formData.mensaje,
-        to_email: "hello@bivotraining.com"
+      const apiUrl =
+        import.meta.env.VITE_CONTACT_API_URL?.trim() || "/api/contact";
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: formData.nombre.trim(),
+          email: formData.email.trim(),
+          mensaje: formData.mensaje.trim(),
+        }),
+      });
+
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        success?: boolean;
       };
-      
-      // Send the email using EmailJS
-      const response = await emailjs.send(
-        serviceId,
-        templateId,
-        templateParams,
-        publicKey
-      );
-      
-      if (response.status === 200) {
-        console.log("Contact form submitted successfully:", response);
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+            "No pudimos enviar tu mensaje. Por favor, inténtalo de nuevo más tarde."
+        );
+      }
+
+      if (data.success) {
         setSubmitSuccess(true);
-        
-        // Reset form
         setFormData({
           nombre: "",
           email: "",
-          mensaje: ""
+          mensaje: "",
         });
       } else {
-        throw new Error("Failed to send email");
+        throw new Error(
+          data.error ||
+            "No pudimos enviar tu mensaje. Por favor, inténtalo de nuevo más tarde."
+        );
       }
     } catch (error) {
       console.error("Error submitting form:", error);

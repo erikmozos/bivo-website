@@ -1,0 +1,858 @@
+/* Scoped landing — solo afecta a .shoulder-landing */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+.shoulder-landing {
+  --ssl-black: #080808;
+  --ssl-green: #39ff14;
+  --ssl-gray: #141414;
+  --ssl-gray-mid: #252525;
+  --ssl-gray-card: #191919;
+  --ssl-text: #f0f0ee;
+  --ssl-text-muted: #888;
+  --ssl-font-display: "Bebas Neue", "ArbeitPro", sans-serif;
+  --ssl-font-body: -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+.shoulder-landing *,
+.shoulder-landing *::before,
+.shoulder-landing *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.shoulder-landing {
+  background: var(--ssl-black);
+  color: var(--ssl-text);
+  font-family: var(--ssl-font-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.shoulder-landing .ssl-text-logo {
+  font-family: var(--ssl-font-display);
+  font-size: 1.35rem;
+  letter-spacing: 0.35em;
+  color: var(--ssl-text);
+  text-decoration: none;
+  line-height: 1;
+  padding: 2px 0;
+}
+
+.shoulder-landing .ssl-footer .ssl-text-logo {
+  font-size: 1rem;
+  letter-spacing: 0.25em;
+  opacity: 0.6;
+  height: auto;
+}
+
+/* HEADER */
+.shoulder-landing .ssl-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(8, 8, 8, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.shoulder-landing .ssl-header-logo {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+
+.shoulder-landing .ssl-header-cta {
+  background: var(--ssl-green);
+  color: var(--ssl-black);
+  font-family: var(--ssl-font-body);
+  font-weight: 800;
+  font-size: 13px;
+  padding: 10px 20px;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 0 16px rgba(57, 255, 20, 0.22);
+  letter-spacing: 0.1px;
+}
+
+.shoulder-landing .ssl-header-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 26px rgba(57, 255, 20, 0.4);
+}
+
+/* HERO */
+.shoulder-landing .ssl-hero {
+  padding-top: 56px;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 56px;
+}
+
+.shoulder-landing .ssl-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1554068865-24cecd5e0d28?auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center 20%;
+  filter: blur(2px) brightness(0.52);
+  transform: scale(1.06);
+  z-index: 0;
+}
+
+.shoulder-landing .ssl-hero-glow {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 380px;
+  background: radial-gradient(ellipse, rgba(57, 255, 20, 0.14) 0%, transparent 68%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.shoulder-landing .ssl-hero-vignette {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 220px;
+  background: linear-gradient(to top, var(--ssl-black), transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.shoulder-landing .ssl-hero > *:not(.ssl-hero-bg):not(.ssl-hero-glow):not(.ssl-hero-vignette) {
+  position: relative;
+  z-index: 2;
+}
+
+.shoulder-landing .ssl-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(57, 255, 20, 0.09);
+  border: 1px solid rgba(57, 255, 20, 0.25);
+  color: var(--ssl-green);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  padding: 6px 15px;
+  border-radius: 100px;
+  margin-bottom: 22px;
+  animation: ssl-fadeUp 0.6s 0.1s both;
+}
+
+.shoulder-landing .ssl-badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--ssl-green);
+  border-radius: 50%;
+  animation: ssl-pulse 2s infinite;
+}
+
+@keyframes ssl-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+}
+
+.shoulder-landing .ssl-hero-title {
+  font-family: var(--ssl-font-display);
+  font-size: clamp(50px, 13vw, 96px);
+  line-height: 0.94;
+  letter-spacing: 0.5px;
+  max-width: 760px;
+  animation: ssl-fadeUp 0.6s 0.2s both;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.7);
+}
+
+.shoulder-landing .ssl-hero-title .ssl-accent {
+  color: var(--ssl-green);
+}
+
+.shoulder-landing .ssl-hero-sub {
+  font-size: clamp(15px, 4vw, 18px);
+  color: rgba(240, 240, 238, 0.75);
+  max-width: 460px;
+  margin: 20px auto 34px;
+  font-weight: 400;
+  line-height: 1.65;
+  animation: ssl-fadeUp 0.6s 0.3s both;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.8);
+}
+
+.shoulder-landing .ssl-hero-sub strong {
+  color: var(--ssl-text);
+  font-weight: 600;
+}
+
+.shoulder-landing .ssl-cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: ssl-fadeUp 0.6s 0.4s both;
+}
+
+.shoulder-landing .ssl-btn-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ssl-green);
+  color: var(--ssl-black);
+  font-family: var(--ssl-font-body);
+  font-weight: 800;
+  font-size: 16px;
+  padding: 18px 38px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 0 36px rgba(57, 255, 20, 0.4);
+  letter-spacing: 0.1px;
+}
+
+.shoulder-landing .ssl-btn-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 52px rgba(57, 255, 20, 0.6);
+}
+
+.shoulder-landing .ssl-btn-arrow {
+  font-size: 18px;
+  transition: transform 0.15s;
+}
+
+.shoulder-landing .ssl-btn-main:hover .ssl-btn-arrow {
+  transform: translateX(4px);
+}
+
+.shoulder-landing .ssl-cta-note {
+  font-size: 12px;
+  color: rgba(140, 140, 140, 0.9);
+  letter-spacing: 0.3px;
+}
+
+.shoulder-landing .ssl-cta-note span {
+  color: var(--ssl-green);
+  font-weight: 600;
+}
+
+.shoulder-landing .ssl-sport-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 44px;
+  animation: ssl-fadeUp 0.6s 0.5s both;
+}
+
+.shoulder-landing .ssl-sport-tag {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(240, 240, 238, 0.6);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 15px;
+  border-radius: 100px;
+  letter-spacing: 0.4px;
+  backdrop-filter: blur(8px);
+}
+
+.shoulder-landing .ssl-scroll-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: rgba(140, 140, 140, 0.6);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: ssl-fadeUp 0.6s 0.9s both;
+  z-index: 2;
+}
+
+.shoulder-landing .ssl-scroll-line {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(to bottom, rgba(57, 255, 20, 0.7), transparent);
+  animation: ssl-scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes ssl-scrollPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* PAIN */
+.shoulder-landing .ssl-pain {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 20px;
+  text-align: center;
+  border-top: 1px solid var(--ssl-gray-mid);
+  border-bottom: 1px solid var(--ssl-gray-mid);
+}
+
+.shoulder-landing .ssl-pain-img-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.shoulder-landing .ssl-pain-img {
+  height: 100%;
+  max-height: 110%;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom right;
+  opacity: 0.55;
+  mix-blend-mode: lighten;
+  filter: brightness(1.1) contrast(1.05);
+  transform: translateX(5%);
+}
+
+.shoulder-landing .ssl-pain > *:not(.ssl-pain-img-wrap) {
+  position: relative;
+  z-index: 2;
+}
+
+.shoulder-landing .ssl-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ssl-green);
+  margin-bottom: 14px;
+}
+
+.shoulder-landing .ssl-section-title {
+  font-family: var(--ssl-font-display);
+  font-size: clamp(32px, 8vw, 60px);
+  line-height: 1;
+  margin-bottom: 36px;
+}
+
+.shoulder-landing .ssl-pain-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 460px;
+  margin: 0 auto 36px;
+}
+
+.shoulder-landing .ssl-pain-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(8, 8, 8, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 15px;
+  backdrop-filter: blur(12px);
+  transition: border-color 0.2s;
+}
+
+.shoulder-landing .ssl-pain-card:hover {
+  border-color: rgba(57, 255, 20, 0.3);
+}
+
+.shoulder-landing .ssl-pain-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.shoulder-landing .ssl-pain-tagline {
+  font-family: var(--ssl-font-display);
+  font-size: clamp(26px, 6vw, 44px);
+  color: var(--ssl-green);
+  line-height: 1.05;
+  text-shadow: 0 0 40px rgba(57, 255, 20, 0.3);
+}
+
+/* VALUE */
+.shoulder-landing .ssl-value {
+  padding: 72px 20px;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.shoulder-landing .ssl-value-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.shoulder-landing .ssl-value-header .ssl-section-title {
+  font-size: clamp(28px, 7vw, 50px);
+  margin-bottom: 0;
+  line-height: 1.05;
+}
+
+.shoulder-landing .ssl-value-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.shoulder-landing .ssl-value-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--ssl-gray-card);
+  border: 1px solid var(--ssl-gray-mid);
+  border-radius: 16px;
+  padding: 18px 20px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.shoulder-landing .ssl-value-card:hover {
+  border-color: rgba(57, 255, 20, 0.3);
+  transform: translateX(4px);
+}
+
+.shoulder-landing .ssl-value-num {
+  min-width: 32px;
+  height: 32px;
+  background: rgba(57, 255, 20, 0.08);
+  border: 1px solid rgba(57, 255, 20, 0.22);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ssl-font-display);
+  font-size: 17px;
+  color: var(--ssl-green);
+  flex-shrink: 0;
+}
+
+.shoulder-landing .ssl-value-body strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.shoulder-landing .ssl-value-body span {
+  font-size: 13px;
+  color: var(--ssl-text-muted);
+}
+
+/* BONUS */
+.shoulder-landing .ssl-bonus-wrap {
+  padding: 0 20px 72px;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.shoulder-landing .ssl-bonus {
+  background: linear-gradient(135deg, rgba(57, 255, 20, 0.1) 0%, rgba(57, 255, 20, 0.03) 100%);
+  border: 1px solid rgba(57, 255, 20, 0.28);
+  border-radius: 22px;
+  padding: 34px 26px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.shoulder-landing .ssl-bonus::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(57, 255, 20, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.shoulder-landing .ssl-bonus-tag {
+  display: inline-block;
+  background: var(--ssl-green);
+  color: var(--ssl-black);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+
+.shoulder-landing .ssl-bonus-title {
+  font-family: var(--ssl-font-display);
+  font-size: clamp(28px, 7vw, 46px);
+  line-height: 1.05;
+  margin-bottom: 10px;
+}
+
+.shoulder-landing .ssl-bonus-title .ssl-accent {
+  color: var(--ssl-green);
+}
+
+.shoulder-landing .ssl-bonus-sub {
+  font-size: 13px;
+  color: var(--ssl-text-muted);
+  line-height: 1.65;
+}
+
+/* FORM */
+.shoulder-landing .ssl-form-section {
+  padding: 0 20px 80px;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.shoulder-landing .ssl-form-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.shoulder-landing .ssl-form-title {
+  font-family: var(--ssl-font-display);
+  font-size: clamp(30px, 7vw, 48px);
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+
+.shoulder-landing .ssl-form-title .ssl-accent {
+  color: var(--ssl-green);
+}
+
+.shoulder-landing .ssl-form-desc {
+  font-size: 14px;
+  color: var(--ssl-text-muted);
+}
+
+.shoulder-landing .ssl-form-card {
+  background: var(--ssl-gray-card);
+  border: 1px solid var(--ssl-gray-mid);
+  border-radius: 24px;
+  padding: 28px 22px;
+}
+
+.shoulder-landing .ssl-field-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--ssl-text-muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.shoulder-landing .ssl-req {
+  color: var(--ssl-green);
+}
+
+.shoulder-landing .ssl-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.shoulder-landing .ssl-chip {
+  background: var(--ssl-black);
+  border: 1.5px solid var(--ssl-gray-mid);
+  color: var(--ssl-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 17px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.shoulder-landing .ssl-chip:hover {
+  border-color: rgba(57, 255, 20, 0.4);
+  color: var(--ssl-text);
+}
+
+.shoulder-landing .ssl-chip.ssl-active {
+  background: rgba(57, 255, 20, 0.1);
+  border-color: var(--ssl-green);
+  color: var(--ssl-green);
+  font-weight: 700;
+}
+
+.shoulder-landing .ssl-divider {
+  height: 1px;
+  background: var(--ssl-gray-mid);
+  margin: 22px 0;
+}
+
+.shoulder-landing .ssl-info-block-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ssl-text);
+  margin-bottom: 18px;
+}
+
+.shoulder-landing .ssl-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 500px) {
+  .shoulder-landing .ssl-field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shoulder-landing .ssl-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.shoulder-landing .ssl-field label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--ssl-text-muted);
+}
+
+.shoulder-landing .ssl-field input {
+  background: var(--ssl-black);
+  border: 1.5px solid var(--ssl-gray-mid);
+  border-radius: 11px;
+  color: var(--ssl-text);
+  font-family: var(--ssl-font-body);
+  font-size: 16px;
+  padding: 14px 15px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  width: 100%;
+  -webkit-appearance: none;
+}
+
+.shoulder-landing .ssl-field input::placeholder {
+  color: #3a3a3a;
+}
+
+.shoulder-landing .ssl-field input:focus {
+  border-color: rgba(57, 255, 20, 0.5);
+  box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.07);
+}
+
+.shoulder-landing .ssl-field-hint {
+  font-size: 11px;
+  color: #484848;
+}
+
+.shoulder-landing .ssl-btn-submit {
+  width: 100%;
+  background: var(--ssl-green);
+  color: var(--ssl-black);
+  font-family: var(--ssl-font-body);
+  font-weight: 800;
+  font-size: 16px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  margin-top: 22px;
+  transition: transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 0 32px rgba(57, 255, 20, 0.28);
+  letter-spacing: 0.2px;
+}
+
+.shoulder-landing .ssl-btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 48px rgba(57, 255, 20, 0.5);
+}
+
+.shoulder-landing .ssl-btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.shoulder-landing .ssl-form-privacy {
+  font-size: 11px;
+  color: #484848;
+  text-align: center;
+  margin-top: 14px;
+}
+
+/* SUCCESS */
+.shoulder-landing .ssl-success-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 52px 24px;
+  gap: 18px;
+}
+
+.shoulder-landing .ssl-success-icon {
+  width: 76px;
+  height: 76px;
+  background: rgba(57, 255, 20, 0.1);
+  border: 2px solid var(--ssl-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  animation: ssl-scaleIn 0.4s ease both;
+}
+
+@keyframes ssl-scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.shoulder-landing .ssl-success-title {
+  font-family: var(--ssl-font-display);
+  font-size: 38px;
+  color: var(--ssl-green);
+  line-height: 1.05;
+}
+
+.shoulder-landing .ssl-success-sub {
+  font-size: 15px;
+  color: var(--ssl-text-muted);
+  max-width: 340px;
+}
+
+.shoulder-landing .ssl-success-bonus-box {
+  background: rgba(57, 255, 20, 0.07);
+  border: 1px solid rgba(57, 255, 20, 0.18);
+  border-radius: 16px;
+  padding: 18px 22px;
+  font-size: 14px;
+  max-width: 360px;
+  line-height: 1.6;
+}
+
+.shoulder-landing .ssl-success-bonus-box strong {
+  color: var(--ssl-green);
+  display: block;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+/* FOOTER */
+.shoulder-landing .ssl-footer {
+  padding: 32px 20px;
+  border-top: 1px solid var(--ssl-gray-mid);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.shoulder-landing .ssl-footer-logo {
+  height: 22px;
+  opacity: 0.6;
+  display: block;
+}
+
+.shoulder-landing .ssl-footer p {
+  font-size: 11px;
+  color: #3a3a3a;
+  text-align: center;
+}
+
+@keyframes ssl-fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.shoulder-landing .ssl-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.shoulder-landing .ssl-reveal.ssl-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes ssl-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+.shoulder-landing .ssl-shake {
+  animation: ssl-shake 0.35s ease;
+}

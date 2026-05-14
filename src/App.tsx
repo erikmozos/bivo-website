@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CookiePolicy from "./pages/CookiePolicy";
 import TermsConditions from "./pages/TermsConditions";
+import ShoulderStabilityLanding from "./pages/ShoulderStabilityLanding";
 import ConsentBanner from "./components/ConsentBanner";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/privacidad" element={<PrivacyPolicy />} />
           <Route path="/cookies" element={<CookiePolicy />} />
           <Route path="/terminos" element={<TermsConditions />} />
+          <Route path="/estabilidad-hombro" element={<ShoulderStabilityLanding />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
