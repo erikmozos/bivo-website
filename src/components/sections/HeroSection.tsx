@@ -50,7 +50,7 @@ const HeroSection = () => {
               href="#form"
               className="inline-flex items-center bg-bivo-green text-black px-8 py-3 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-all transform hover:scale-105"
             >
-              Quiero ser de los primeros
+              ¡OBTÉN 1 MES GRATIS!
             </a>
           </div>
           
