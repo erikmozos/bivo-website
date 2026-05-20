@@ -48,7 +48,7 @@ const HeroSection = () => {
           <div className="mb-10">
             <a 
               href="#form"
-              className="inline-flex items-center bg-bivo-green text-black px-8 py-3 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-all transform hover:scale-105"
+              className="inline-flex items-center bg-bivo-green text-black px-8 py-3 rounded-lg font-extrabold text-lg hover:bg-opacity-90 transition-all transform hover:scale-105"
             >
               ¡OBTÉN 1 MES GRATIS!
             </a>

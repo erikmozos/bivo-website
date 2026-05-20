@@ -292,7 +292,7 @@ const RegistrationForm = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className={`inline-flex items-center justify-center bg-bivo-green text-black px-8 py-3 rounded-lg font-semibold text-base sm:text-lg uppercase tracking-wide transition-all transform shadow-md ${
+                      className={`inline-flex items-center justify-center bg-bivo-green text-black px-8 py-3 rounded-lg font-extrabold text-base sm:text-lg uppercase tracking-wide transition-all transform shadow-md ${
                         isSubmitting
                           ? "opacity-70 cursor-not-allowed"
                           : "hover:bg-opacity-90 hover:scale-105"
@@ -314,17 +314,14 @@ const RegistrationForm = () => {
                     className="h-10 sm:h-12 w-auto object-contain"
                   />
                 </div>
-                <h3 className="font-round text-2xl sm:text-3xl font-bold mb-6 leading-tight">
-                  <span className="mr-2" role="img" aria-label="pelota de tenis">
-                    🎾
-                  </span>
+                <h3 className="font-round text-2xl sm:text-3xl font-extrabold mb-6 leading-tight">
                   ¡Ya casi formas parte de{" "}
-                  <span className="text-bivo-green">Bivo</span>!
+                  <span className="text-bivo-green font-extrabold">Bivo</span>!
                 </h3>
                 <p className="text-gray-700 mb-4 max-w-xl mx-auto leading-relaxed">
                   Te avisaremos en cuanto lancemos la app para que puedas
-                  disfrutar de tu{" "}
-                  <span className="text-bivo-green font-semibold">
+                  disfrutar de{" "}
+                  <span className="text-bivo-green font-bold">
                     1 mes gratis
                   </span>{" "}
                   de preparación física específica de raqueta.{" "}
@@ -334,12 +331,12 @@ const RegistrationForm = () => {
                 </p>
                 <p className="text-gray-700 mb-8 max-w-xl mx-auto">
                   Muy pronto recibirás tu{" "}
-                  <strong className="font-semibold">acceso anticipado</strong>.
+                  <strong className="font-bold">acceso anticipado</strong>.
                 </p>
                 <button
                   type="button"
                   onClick={handlePerfecto}
-                  className="inline-flex items-center justify-center bg-bivo-green text-black px-10 py-3 rounded-lg font-semibold text-base sm:text-lg uppercase tracking-wide shadow-md transition-all transform hover:bg-opacity-90 hover:scale-105"
+                  className="inline-flex items-center justify-center bg-bivo-green text-black px-10 py-3 rounded-lg font-extrabold text-base sm:text-lg uppercase tracking-wide shadow-md transition-all transform hover:bg-opacity-90 hover:scale-105"
                 >
                   Perfecto
                 </button>
