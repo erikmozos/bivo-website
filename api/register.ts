@@ -5,6 +5,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import {
   addEmailsToAddressBook,
   SendPulseError,
+  sendTemplateEmail,
 } from "./_lib/sendpulse.js";
 
 const MAX_TEXT = 200;
@@ -126,21 +127,25 @@ export default async function handler(
     Origen: "Web bivotraining.com",
   };
 
-  console.log("[SendPulse] Enviando contacto al address book", addressbookId, {
-    email,
-    variables,
-  });
-
   try {
     const result = await addEmailsToAddressBook(addressbookId, [
       { email, variables },
     ]);
 
-    console.log("[SendPulse] Respuesta de la API:", result);
-
     if (result?.result !== true) {
       console.warn("SendPulse devolvió result distinto de true:", result);
     }
+
+    // Envío del email de bienvenida usando la plantilla de SendPulse.
+    // Es "best-effort": si falla, el registro sigue considerándose exitoso
+    // para no perder el lead (ya está guardado en la lista).
+    await sendWelcomeEmail({
+      email,
+      nombre,
+      apellido,
+      deporte: deporteRaqueta,
+      variables,
+    });
 
     return res.status(200).json({ success: true });
   } catch (error) {
@@ -156,5 +161,74 @@ export default async function handler(
     return res.status(500).json({
       error: "Error interno al procesar el registro",
     });
+  }
+}
+
+type WelcomeEmailInput = {
+  email: string;
+  nombre: string;
+  apellido: string;
+  deporte: string;
+  variables: Record<string, string | number | boolean | undefined>;
+};
+
+// Envía la plantilla de bienvenida configurada en SendPulse.
+// Si SENDPULSE_WELCOME_TEMPLATE_ID no está configurado, no envía nada
+// (para poder desactivar el envío sin tocar código).
+// Cualquier error se loguea pero NO se propaga, así no rompe el registro.
+async function sendWelcomeEmail(input: WelcomeEmailInput): Promise<void> {
+  const templateId = process.env.SENDPULSE_WELCOME_TEMPLATE_ID;
+  if (!templateId) return;
+
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL;
+  if (!fromEmail) {
+    console.warn(
+      "No se envía email de bienvenida: SENDPULSE_FROM_EMAIL no configurado"
+    );
+    return;
+  }
+
+  const fromName =
+    process.env.SENDPULSE_FROM_NAME?.trim() || "Bivo Training";
+  const subject =
+    process.env.SENDPULSE_WELCOME_SUBJECT?.trim() ||
+    "¡Bienvenido a Bivo Training!";
+
+  try {
+    const result = await sendTemplateEmail({
+      templateId,
+      subject,
+      from: { name: fromName, email: fromEmail },
+      to: [
+        {
+          name: `${input.nombre} ${input.apellido}`.trim(),
+          email: input.email,
+        },
+      ],
+      variables: {
+        ...input.variables,
+        nombre: input.nombre,
+        apellido: input.apellido,
+        deporte: input.deporte,
+        email: input.email,
+      },
+    });
+
+    if (result?.result !== true) {
+      console.warn(
+        "SendPulse devolvió result distinto de true al enviar email:",
+        result
+      );
+    }
+  } catch (error) {
+    if (error instanceof SendPulseError) {
+      console.error(
+        "SendPulse error al enviar email de bienvenida:",
+        error.status,
+        error.details
+      );
+    } else {
+      console.error("Error inesperado al enviar email de bienvenida:", error);
+    }
   }
 }

@@ -93,9 +93,6 @@ async function sendToSendPulse(formData: FormData): Promise<boolean> {
       aceptaPoliticas: formData.aceptaPoliticas ?? false,
     };
 
-    console.log("[SendPulse] Enviando datos a /api/register:", payload);
-    console.table(payload);
-
     const response = await fetch("/api/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -109,17 +106,15 @@ async function sendToSendPulse(formData: FormData): Promise<boolean> {
 
     if (!response.ok || !data.success) {
       console.warn(
-        "[SendPulse] Registro fallido:",
+        "SendPulse register failed:",
         response.status,
         data.error || data
       );
       return false;
     }
-
-    console.log("[SendPulse] Registro guardado correctamente.");
     return true;
   } catch (error) {
-    console.error("[SendPulse] Error al enviar:", error);
+    console.error("Error submitting to SendPulse:", error);
     return false;
   }
 }

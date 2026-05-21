@@ -152,3 +152,41 @@ export function addEmailsToAddressBook(
     }
   );
 }
+
+export type EmailContact = { name?: string; email: string };
+
+export type SendTemplateEmailParams = {
+  templateId: number | string;
+  subject: string;
+  from: EmailContact;
+  to: EmailContact[];
+  variables?: EmailVariables;
+  replyTo?: EmailContact;
+};
+
+// Envía un email transaccional usando una plantilla almacenada en SendPulse.
+// Las variables se sustituyen en la plantilla (sintaxis {{nombre}}).
+export function sendTemplateEmail(
+  params: SendTemplateEmailParams
+): Promise<{ result?: boolean; id?: string }> {
+  const { templateId, subject, from, to, variables, replyTo } = params;
+
+  const email: Record<string, unknown> = {
+    subject,
+    template: {
+      id: Number(templateId),
+      ...(variables ? { variables } : {}),
+    },
+    from,
+    to,
+  };
+
+  if (replyTo) {
+    email.reply_to = replyTo;
+  }
+
+  return spFetch<{ result?: boolean; id?: string }>("/smtp/emails", {
+    method: "POST",
+    body: JSON.stringify({ email }),
+  });
+}
