@@ -1,9 +1,12 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+// Importamos con extensión `.js` porque Vercel ejecuta las funciones como
+// ESM (Node >=18) y la resolución sin extensión falla en runtime
+// (ERR_MODULE_NOT_FOUND). TypeScript resuelve este `.js` al `.ts` real.
 import {
   createAddressBook,
   listAddressBooks,
   SendPulseError,
-} from "./_lib/sendpulse";
+} from "./_lib/sendpulse.js";
 
 // Endpoint administrativo para configurar la integración con SendPulse.
 //
