@@ -4,7 +4,10 @@ import { FormData } from "../components/form/RegistrationForm";
 const GOOGLE_SHEETS_URL =
   "https://script.google.com/macros/s/AKfycbxjYF7iacx0r_bY1bKh1mGcqqmxs5yaYG37YYkBik4ROUeRsQpEktC3Hlo40FUQHVI5sg/exec";
 
-function buildGoogleSheetsPayload(formData: FormData) {
+// Payload "fuente de la verdad" del lead. Se usa tanto para Google Sheets
+// como para SendPulse, así la información se guarda de la misma forma en
+// ambos destinos.
+function buildLeadPayload(formData: FormData) {
   return {
     deportePrincipal: formData.deporteRaqueta || "",
     nombre: formData.nombre || "",
@@ -12,15 +15,16 @@ function buildGoogleSheetsPayload(formData: FormData) {
     email: formData.email || "",
     telefono: formData.telefono || "",
     // Campos no presentes en el formulario actual, los enviamos vacíos para
-    // mantener compatibilidad con la hoja de cálculo existente.
+    // mantener compatibilidad con la hoja de cálculo existente y para que
+    // SendPulse también tenga las mismas columnas/variables.
     sexo: "",
     edad: "",
-    otrosDeportes: [],
+    otrosDeportes: [] as string[],
     frecuencia: "",
     preparacionFisica: "",
     tipoPrepFisica: "",
     materialEnCasa: "",
-    tipoEntrenamiento: [],
+    tipoEntrenamiento: [] as string[],
     horarioPreferido: "",
     nivelExperiencia: "",
     clubActual: "",
@@ -39,7 +43,7 @@ function isProductionHost(): boolean {
 }
 
 async function sendToGoogleSheets(formData: FormData): Promise<boolean> {
-  const payload = buildGoogleSheetsPayload(formData);
+  const payload = buildLeadPayload(formData);
 
   try {
     if (isProductionHost()) {
@@ -78,17 +82,24 @@ async function sendToGoogleSheets(formData: FormData): Promise<boolean> {
 
 async function sendToSendPulse(formData: FormData): Promise<boolean> {
   try {
+    // Mandamos a SendPulse exactamente la misma información que a Google
+    // Sheets (mismo payload), para que las variables del contacto en
+    // SendPulse reflejen las columnas del Google Doc.
+    const payload = {
+      ...buildLeadPayload(formData),
+      // Mantenemos también la clave usada anteriormente por el endpoint
+      // para no romper compatibilidad y validar el deporte obligatorio.
+      deporteRaqueta: formData.deporteRaqueta || "",
+      aceptaPoliticas: formData.aceptaPoliticas ?? false,
+    };
+
+    console.log("[SendPulse] Enviando datos a /api/register:", payload);
+    console.table(payload);
+
     const response = await fetch("/api/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nombre: formData.nombre,
-        apellido: formData.apellido,
-        email: formData.email,
-        telefono: formData.telefono,
-        deporteRaqueta: formData.deporteRaqueta,
-        aceptaPoliticas: formData.aceptaPoliticas,
-      }),
+      body: JSON.stringify(payload),
     });
 
     const data = (await response.json().catch(() => ({}))) as {
@@ -98,15 +109,17 @@ async function sendToSendPulse(formData: FormData): Promise<boolean> {
 
     if (!response.ok || !data.success) {
       console.warn(
-        "SendPulse register failed:",
+        "[SendPulse] Registro fallido:",
         response.status,
         data.error || data
       );
       return false;
     }
+
+    console.log("[SendPulse] Registro guardado correctamente.");
     return true;
   } catch (error) {
-    console.error("Error submitting to SendPulse:", error);
+    console.error("[SendPulse] Error al enviar:", error);
     return false;
   }
 }

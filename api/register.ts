@@ -6,6 +6,7 @@ import {
 
 const MAX_TEXT = 200;
 const MAX_EMAIL = 254;
+const MAX_LIST = 500;
 
 function clean(value: unknown, max = MAX_TEXT): string {
   if (typeof value !== "string") return "";
@@ -13,6 +14,22 @@ function clean(value: unknown, max = MAX_TEXT): string {
     .replace(/[\r\n\u2028\u2029]/g, " ")
     .trim()
     .slice(0, max);
+}
+
+function cleanList(value: unknown, max = MAX_LIST): string {
+  if (Array.isArray(value)) {
+    return value
+      .map((v) => (typeof v === "string" ? v : ""))
+      .map((v) => v.replace(/[\r\n\u2028\u2029]/g, " ").trim())
+      .filter(Boolean)
+      .join(", ")
+      .slice(0, max);
+  }
+  return clean(value, max);
+}
+
+function toBool(value: unknown): boolean {
+  return value === true || value === "true";
 }
 
 export default async function handler(
@@ -30,9 +47,28 @@ export default async function handler(
   const apellido = clean(raw.apellido);
   const email = clean(raw.email, MAX_EMAIL).toLowerCase();
   const telefono = clean(raw.telefono);
-  const deporteRaqueta = clean(raw.deporteRaqueta);
-  const aceptaPoliticas =
-    raw.aceptaPoliticas === true || raw.aceptaPoliticas === "true";
+  // Aceptamos tanto `deporteRaqueta` (clave histórica del endpoint) como
+  // `deportePrincipal` (clave usada por el payload de Google Sheets).
+  const deporteRaqueta =
+    clean(raw.deporteRaqueta) || clean(raw.deportePrincipal);
+  const aceptaPoliticas = toBool(raw.aceptaPoliticas);
+
+  // Resto de campos del payload "Google Doc" para guardarlos también en
+  // SendPulse con los mismos nombres y mantener la información alineada.
+  const sexo = clean(raw.sexo);
+  const edad = clean(raw.edad, 20);
+  const otrosDeportes = cleanList(raw.otrosDeportes);
+  const frecuencia = clean(raw.frecuencia);
+  const preparacionFisica = clean(raw.preparacionFisica);
+  const tipoPrepFisica = clean(raw.tipoPrepFisica);
+  const materialEnCasa = clean(raw.materialEnCasa);
+  const tipoEntrenamiento = cleanList(raw.tipoEntrenamiento);
+  const horarioPreferido = clean(raw.horarioPreferido);
+  const nivelExperiencia = clean(raw.nivelExperiencia);
+  const clubActual = clean(raw.clubActual);
+  const comoNosConocio = clean(raw.comoNosConocio);
+  const aceptaMarketing = toBool(raw.aceptaMarketing);
+  const aceptaTerminos = toBool(raw.aceptaTerminos);
 
   if (!nombre || !apellido || !email || !deporteRaqueta) {
     return res.status(400).json({ error: "Faltan campos obligatorios" });
@@ -61,21 +97,43 @@ export default async function handler(
     });
   }
 
+  const variables = {
+    // Mismas variables/columnas que mandamos al Google Doc, para
+    // que la información en SendPulse quede igual.
+    deportePrincipal: deporteRaqueta,
+    nombre,
+    apellido,
+    telefono,
+    sexo,
+    edad,
+    otrosDeportes,
+    frecuencia,
+    preparacionFisica,
+    tipoPrepFisica,
+    materialEnCasa,
+    tipoEntrenamiento,
+    horarioPreferido,
+    nivelExperiencia,
+    clubActual,
+    comoNosConocio,
+    aceptaMarketing: (aceptaMarketing || aceptaPoliticas) ? "Sí" : "No",
+    aceptaTerminos: (aceptaTerminos || aceptaPoliticas) ? "Sí" : "No",
+    // Metadatos útiles que ya teníamos.
+    FechaRegistro: new Date().toISOString(),
+    Origen: "Web bivotraining.com",
+  };
+
+  console.log("[SendPulse] Enviando contacto al address book", addressbookId, {
+    email,
+    variables,
+  });
+
   try {
     const result = await addEmailsToAddressBook(addressbookId, [
-      {
-        email,
-        variables: {
-          Nombre: nombre,
-          Apellido: apellido,
-          Telefono: telefono,
-          Deporte: deporteRaqueta,
-          AceptaPoliticas: aceptaPoliticas ? "Si" : "No",
-          FechaRegistro: new Date().toISOString(),
-          Origen: "Web bivotraining.com",
-        },
-      },
+      { email, variables },
     ]);
+
+    console.log("[SendPulse] Respuesta de la API:", result);
 
     if (result?.result !== true) {
       console.warn("SendPulse devolvió result distinto de true:", result);
