@@ -36,6 +36,23 @@ function toBool(value: unknown): boolean {
   return value === true || value === "true";
 }
 
+// Normaliza nombres/apellidos a "Title Case" respetando acentos,
+// nombres compuestos con espacios, guiones y apóstrofes.
+// Ejemplos:
+//   "erik"           -> "Erik"
+//   "ERIK MOZOS"     -> "Erik Mozos"
+//   "maría josé"     -> "María José"
+//   "ana-belen"      -> "Ana-Belen"
+//   "d'angelo"       -> "D'Angelo"
+function toTitleCase(value: string): string {
+  if (!value) return value;
+  return value
+    .toLocaleLowerCase("es-ES")
+    .replace(/(^|[\s\-'])(\p{L})/gu, (_, sep: string, ch: string) =>
+      sep + ch.toLocaleUpperCase("es-ES")
+    );
+}
+
 export default async function handler(
   req: VercelRequest,
   res: VercelResponse
@@ -47,8 +64,8 @@ export default async function handler(
 
   const raw = (req.body || {}) as Record<string, unknown>;
 
-  const nombre = clean(raw.nombre);
-  const apellido = clean(raw.apellido);
+  const nombre = toTitleCase(clean(raw.nombre));
+  const apellido = toTitleCase(clean(raw.apellido));
   const email = clean(raw.email, MAX_EMAIL).toLowerCase();
   const telefono = clean(raw.telefono);
   // Aceptamos tanto `deporteRaqueta` (clave histórica del endpoint) como

@@ -17,6 +17,17 @@ function stripHeaderInjection(s: string): string {
   return s.replace(/[\r\n\u2028\u2029]/g, " ").trim();
 }
 
+// Normaliza nombres a "Title Case" respetando acentos, espacios,
+// guiones y apóstrofes. Ej: "erik mozos" -> "Erik Mozos".
+function toTitleCase(value: string): string {
+  if (!value) return value;
+  return value
+    .toLocaleLowerCase("es-ES")
+    .replace(/(^|[\s\-'])(\p{L})/gu, (_, sep: string, ch: string) =>
+      sep + ch.toLocaleUpperCase("es-ES")
+    );
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Método no permitido" });
@@ -24,7 +35,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const raw = req.body as Record<string, unknown> | undefined;
   const nombre =
-    typeof raw?.nombre === "string" ? stripHeaderInjection(raw.nombre).slice(0, MAX_NOMBRE) : "";
+    typeof raw?.nombre === "string"
+      ? toTitleCase(stripHeaderInjection(raw.nombre).slice(0, MAX_NOMBRE))
+      : "";
   const email =
     typeof raw?.email === "string" ? raw.email.trim().slice(0, MAX_EMAIL) : "";
   const mensaje =
