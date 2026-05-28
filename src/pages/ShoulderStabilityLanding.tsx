@@ -12,9 +12,6 @@ const SPORTS: { id: string; label: string }[] = [
   { id: "tenis", label: "🎾 Tenis" },
   { id: "pickleball", label: "🥒 Pickleball" },
   { id: "badminton", label: "🏸 Bádminton" },
-  { id: "squash", label: "🎱 Squash" },
-  { id: "tenis-playa", label: "🏖️ Tenis Playa" },
-  { id: "ping-pong", label: "🏓 Ping Pong" },
 ];
 
 const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -155,7 +152,7 @@ const ShoulderStabilityLanding = () => {
         </div>
 
         <div className="ssl-sport-tags">
-          {["🎾 Tenis", "🏓 Pádel", "🏸 Bádminton", "🥒 Pickleball", "🎱 Squash"].map((t) => (
+          {["🎾 Tenis", "🏓 Pádel", "🏸 Bádminton", "🥒 Pickleball"].map((t) => (
             <span key={t} className="ssl-sport-tag">
               {t}
             </span>

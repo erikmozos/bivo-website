@@ -30,9 +30,6 @@ const deportesRaqueta = [
   "Tenis",
   "Pickleball",
   "Bádminton",
-  "Squash",
-  "Tenis Playa",
-  "Ping Pong",
 ];
 
 const RegistrationForm = () => {
