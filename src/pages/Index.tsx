@@ -1,11 +1,12 @@
-
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 import WhatIsBivoSection from "@/components/sections/WhatIsBivoSection";
-import RegistrationForm from "@/components/form/RegistrationForm";
+import HowItWorksSection from "@/components/sections/HowItWorksSection";
 import AlliancesSection from "@/components/sections/AlliancesSection";
 import RecognitionsSection from "@/components/sections/RecognitionsSection";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import PricingSection from "@/components/sections/PricingSection";
 import TeamSection from "@/components/sections/TeamSection";
 import ContactSection from "@/components/sections/ContactSection";
 import { useEffect } from "react";
@@ -15,28 +16,23 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Handle navigation from other pages with scroll target
     if (location.state?.scrollTo) {
       const sectionId = location.state.scrollTo;
       const element = document.getElementById(sectionId);
       if (element) {
-        // Small delay to ensure the page has loaded
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
-      // Clear the state to prevent re-scrolling on page refresh
       window.history.replaceState({}, document.title);
     }
-    
-    // Handle hash-based navigation (from footer links)
+
     if (location.hash) {
-      const sectionId = location.hash.substring(1); // Remove the # symbol
+      const sectionId = location.hash.substring(1);
       const element = document.getElementById(sectionId);
       if (element) {
-        // Small delay to ensure the page has loaded
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
     }
@@ -45,17 +41,19 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      
+
       <main className="flex-grow">
         <HeroSection />
         <WhatIsBivoSection />
-        <RegistrationForm />
+        <HowItWorksSection />
         <AlliancesSection />
         <RecognitionsSection />
+        <TestimonialsSection />
+        <PricingSection />
         <TeamSection />
         <ContactSection />
       </main>
-      
+
       <Footer />
     </div>
   );
