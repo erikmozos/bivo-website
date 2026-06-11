@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation, Trans } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
 import { setCookiePreferences } from '@/lib/cookieUtils';
 
 const COOKIE_PREFERENCES_EVENT = 'bivo-open-cookie-preferences';
@@ -11,6 +13,8 @@ export const openCookiePreferences = () => {
 };
 
 const ConsentBanner = () => {
+  const { t } = useTranslation();
+  const { localePath } = useLocale();
   const [showBanner, setShowBanner] = useState(false);
   const [showPreferencesModal, setShowPreferencesModal] = useState(false);
   const [analyticsEnabled, setAnalyticsEnabled] = useState(false);
@@ -106,21 +110,19 @@ const ConsentBanner = () => {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
         <div className="bg-black text-white rounded-lg shadow-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
-          <h3 className="text-lg font-semibold mb-4">Configurar cookies</h3>
+          <h3 className="text-lg font-semibold mb-4">{t("consent.modal.title")}</h3>
 
           <div className="space-y-6 mb-6">
             <div>
-              <h4 className="font-medium mb-2">Cookies técnicas (siempre activas)</h4>
+              <h4 className="font-medium mb-2">{t("consent.modal.technical.title")}</h4>
               <p className="text-sm text-gray-300">
-                Estas cookies son necesarias para el funcionamiento básico del sitio web y no pueden
-                desactivarse. Incluyen, por ejemplo, cookies de sesión o de gestión del
-                consentimiento.
+                {t("consent.modal.technical.description")}
               </p>
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-2">
-                <h4 className="font-medium">Cookies analíticas</h4>
+                <h4 className="font-medium">{t("consent.modal.analytics.title")}</h4>
                 <button
                   type="button"
                   role="switch"
@@ -138,8 +140,7 @@ const ConsentBanner = () => {
                 </button>
               </div>
               <p className="text-sm text-gray-300">
-                Estas cookies permiten analizar el uso del sitio web con el fin de mejorar el
-                servicio. Solo se activan si el usuario lo consiente.
+                {t("consent.modal.analytics.description")}
               </p>
             </div>
           </div>
@@ -149,19 +150,19 @@ const ConsentBanner = () => {
               onClick={handleRejectAll}
               className="px-4 py-2 text-sm border border-gray-400 text-gray-300 hover:text-white hover:border-white transition-colors rounded-md"
             >
-              Solo esenciales
+              {t("consent.modal.buttons.essentialOnly")}
             </button>
             <button
               onClick={handleAcceptAll}
               className="px-4 py-2 text-sm border border-gray-400 text-gray-300 hover:text-white hover:border-white transition-colors rounded-md"
             >
-              Aceptar todas
+              {t("consent.modal.buttons.acceptAll")}
             </button>
             <button
               onClick={handleSavePreferences}
               className="px-6 py-2 text-sm bg-bivo-green text-black font-medium hover:bg-opacity-90 transition-all rounded-md flex-1 sm:flex-initial"
             >
-              Guardar preferencias
+              {t("consent.modal.buttons.savePreferences")}
             </button>
           </div>
 
@@ -169,7 +170,7 @@ const ConsentBanner = () => {
             onClick={handleClosePreferencesModal}
             className="mt-4 w-full text-sm text-gray-400 hover:text-white transition-colors"
           >
-            Cerrar
+            {t("consent.modal.buttons.close")}
           </button>
         </div>
       </div>
@@ -183,22 +184,18 @@ const ConsentBanner = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
           <div className="flex-1">
-            <h3 className="text-lg font-semibold mb-2">🍪 Usamos cookies</h3>
+            <h3 className="text-lg font-semibold mb-2">{t("consent.banner.title")}</h3>
             <p className="text-sm text-gray-300 mb-2">
-              Utilizamos cookies esenciales para el funcionamiento del sitio y, con su consentimiento,
-              cookies analíticas para mejorar la experiencia. Puede aceptar todas, rechazar las no
-              esenciales o configurar sus preferencias en cualquier momento.
+              {t("consent.banner.description")}
             </p>
             <p className="text-xs text-gray-400">
-              Consulta nuestra{' '}
-              <Link to="/privacidad" className="text-bivo-green hover:underline">
-                Política de Privacidad
-              </Link>
-              {' y '}
-              <Link to="/cookies" className="text-bivo-green hover:underline">
-                Política de Cookies
-              </Link>
-              {' para más información.'}
+              <Trans
+                i18nKey="consent.banner.policyLinks"
+                components={{
+                  privacyLink: <Link to={localePath("/privacidad")} className="text-bivo-green hover:underline" />,
+                  cookiesLink: <Link to={localePath("/cookies")} className="text-bivo-green hover:underline" />,
+                }}
+              />
             </p>
           </div>
 
@@ -208,25 +205,25 @@ const ConsentBanner = () => {
                 onClick={handleRejectAll}
                 className="px-4 py-2 text-sm border border-gray-400 text-gray-300 hover:text-white hover:border-white transition-colors rounded-md"
               >
-                Rechazar todas
+                {t("consent.banner.buttons.rejectAll")}
               </button>
               <button
                 onClick={handleRejectAll}
                 className="px-4 py-2 text-sm border border-gray-400 text-gray-300 hover:text-white hover:border-white transition-colors rounded-md"
               >
-                Solo esenciales
+                {t("consent.banner.buttons.essentialOnly")}
               </button>
               <button
                 onClick={handleOpenPreferences}
                 className="px-4 py-2 text-sm border border-gray-400 text-gray-300 hover:text-white hover:border-white transition-colors rounded-md"
               >
-                Configurar
+                {t("consent.banner.buttons.configure")}
               </button>
               <button
                 onClick={handleAcceptAll}
                 className="px-6 py-2 text-sm bg-bivo-green text-black font-medium hover:bg-opacity-90 transition-all rounded-md"
               >
-                Aceptar todas
+                {t("consent.banner.buttons.acceptAll")}
               </button>
             </div>
           </div>

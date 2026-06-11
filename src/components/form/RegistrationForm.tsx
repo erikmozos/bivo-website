@@ -1,18 +1,15 @@
 import { useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
 import { submitToGoogleSheets } from "../../services/formSubmission";
 import LegalDialog from "@/components/legal/LegalDialog";
 
 export interface FormData {
-  // Deporte de raqueta (obligatorio, selección única)
   deporteRaqueta: string;
-
-  // Información personal
   nombre: string;
   apellido: string;
   email: string;
   telefono: string;
-
-  // Aceptación de políticas legales (obligatorio)
   aceptaPoliticas: boolean;
 }
 
@@ -25,17 +22,14 @@ const initialFormData: FormData = {
   aceptaPoliticas: false,
 };
 
-const deportesRaqueta = [
-  "Pádel",
-  "Tenis",
-  "Pickleball",
-  "Bádminton",
-];
-
 const RegistrationForm = () => {
+  const { t } = useTranslation();
+  const { localePath } = useLocale();
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const deportesRaqueta = t("form.registration.sports", { returnObjects: true }) as string[];
 
   const handlePerfecto = () => {
     setSubmitSuccess(false);
@@ -64,20 +58,18 @@ const RegistrationForm = () => {
       !formData.apellido ||
       !formData.email
     ) {
-      alert("Por favor, completa todos los campos obligatorios.");
+      alert(t("form.registration.validation.requiredFields"));
       return false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      alert("Por favor, introduce un email válido.");
+      alert(t("form.registration.validation.invalidEmail"));
       return false;
     }
 
     if (!formData.aceptaPoliticas) {
-      alert(
-        "Debes aceptar la política de privacidad y los términos y condiciones para continuar."
-      );
+      alert(t("form.registration.validation.acceptPolicies"));
       return false;
     }
 
@@ -105,7 +97,7 @@ const RegistrationForm = () => {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.");
+      alert(t("form.registration.validation.submitError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -117,13 +109,10 @@ const RegistrationForm = () => {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="font-round text-3xl md:text-4xl font-bold mb-4">
-              ¡Sé de los Primeros en Probar la App{" "}
-              <span className="text-bivo-green">Bivo</span> y Obtén 1 Mes GRATIS!
+              {t("form.registration.heading")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Regístrate ahora para acceder antes que nadie a tu preparación
-              física específica y personalizada para tu deporte de raqueta.
-              ¡Empieza a entrenar como un pro!
+              {t("form.registration.description")}
             </p>
           </div>
 
@@ -135,14 +124,13 @@ const RegistrationForm = () => {
             {!submitSuccess ? (
               <form onSubmit={handleSubmit}>
                 <div className="space-y-8">
-                  {/* Deporte de raqueta */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-3">
-                      Tu Deporte de Raqueta para Entrenar{" "}
+                      {t("form.registration.sportLabel")}{" "}
                       <span className="text-red-500">*</span>
                     </label>
                     <div className="flex flex-wrap gap-3">
-                      {deportesRaqueta.map((deporte) => (
+                      {deportesRaqueta.map((deporte: string) => (
                         <button
                           key={deporte}
                           type="button"
@@ -159,10 +147,9 @@ const RegistrationForm = () => {
                     </div>
                   </div>
 
-                  {/* Información personal */}
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
                     <h3 className="font-round text-xl font-semibold mb-6">
-                      Información personal
+                      {t("form.registration.personalInfo")}
                     </h3>
 
                     <div className="space-y-4">
@@ -172,7 +159,7 @@ const RegistrationForm = () => {
                             htmlFor="nombre"
                             className="block text-sm font-medium text-gray-700 mb-1"
                           >
-                            Nombre <span className="text-red-500">*</span>
+                            {t("form.registration.fields.name.label")} <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="text"
@@ -191,7 +178,7 @@ const RegistrationForm = () => {
                             htmlFor="apellido"
                             className="block text-sm font-medium text-gray-700 mb-1"
                           >
-                            Apellido <span className="text-red-500">*</span>
+                            {t("form.registration.fields.lastname.label")} <span className="text-red-500">*</span>
                           </label>
                           <input
                             type="text"
@@ -211,7 +198,7 @@ const RegistrationForm = () => {
                           htmlFor="email"
                           className="block text-sm font-medium text-gray-700 mb-1"
                         >
-                          Email <span className="text-red-500">*</span>
+                          {t("form.registration.fields.email.label")} <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="email"
@@ -230,7 +217,7 @@ const RegistrationForm = () => {
                           htmlFor="telefono"
                           className="block text-sm font-medium text-gray-700 mb-1"
                         >
-                          Teléfono
+                          {t("form.registration.fields.phone.label")}
                         </label>
                         <input
                           type="tel"
@@ -245,7 +232,6 @@ const RegistrationForm = () => {
                     </div>
                   </div>
 
-                  {/* Aceptación legal */}
                   <div className="flex items-start gap-3">
                     <input
                       id="aceptaPoliticas"
@@ -261,30 +247,17 @@ const RegistrationForm = () => {
                       htmlFor="aceptaPoliticas"
                       className="text-sm text-gray-700 leading-relaxed cursor-pointer select-none"
                     >
-                      Acepto la{" "}
-                      <LegalDialog type="privacy">
-                        <button
-                          type="button"
-                          className="text-bivo-green font-semibold underline-offset-2 hover:underline focus:outline-none focus:underline"
-                        >
-                          política de privacidad
-                        </button>
-                      </LegalDialog>
-                      ,{" "}
-                      <LegalDialog type="terms">
-                        <button
-                          type="button"
-                          className="text-bivo-green font-semibold underline-offset-2 hover:underline focus:outline-none focus:underline"
-                        >
-                          términos y condiciones
-                        </button>
-                      </LegalDialog>{" "}
-                      y recibir noticias de Bivo{" "}
-                      <span className="text-red-500">*</span>
+                      <Trans
+                        i18nKey="form.registration.legal.checkbox"
+                        components={{
+                          privacy: <LegalDialog type="privacy"><button type="button" className="text-bivo-green font-semibold underline-offset-2 hover:underline focus:outline-none focus:underline" /></LegalDialog>,
+                          terms: <LegalDialog type="terms"><button type="button" className="text-bivo-green font-semibold underline-offset-2 hover:underline focus:outline-none focus:underline" /></LegalDialog>,
+                        }}
+                      />
+                      <span className="text-red-500"> *</span>
                     </label>
                   </div>
 
-                  {/* Botón de acceso */}
                   <div className="flex justify-center pt-2">
                     <button
                       type="submit"
@@ -296,8 +269,8 @@ const RegistrationForm = () => {
                       }`}
                     >
                       {isSubmitting
-                        ? "Enviando..."
-                        : "¡Obtener mi acceso anticipado y mes gratis!"}
+                        ? t("form.registration.submitting")
+                        : t("form.registration.submit")}
                     </button>
                   </div>
                 </div>
@@ -307,35 +280,25 @@ const RegistrationForm = () => {
                 <div className="flex justify-center mb-8">
                   <img
                     src="/brand/logo-bivo-verde.png"
-                    alt="Bivo Training Logo"
+                    alt={t("nav.logoAlt")}
                     className="h-10 sm:h-12 w-auto object-contain"
                   />
                 </div>
                 <h3 className="font-round text-2xl sm:text-3xl font-extrabold mb-6 leading-tight">
-                  ¡Ya casi formas parte de{" "}
-                  <span className="text-bivo-green font-extrabold">Bivo</span>!
+                  {t("form.registration.success.title")}
                 </h3>
                 <p className="text-gray-700 mb-4 max-w-xl mx-auto leading-relaxed">
-                  Te avisaremos en cuanto lancemos la app para que puedas
-                  disfrutar de{" "}
-                  <span className="text-bivo-green font-bold">
-                    1 mes gratis
-                  </span>{" "}
-                  de preparación física específica de raqueta.{" "}
-                  <span role="img" aria-label="brazo flexionando">
-                    💪
-                  </span>
+                  {t("form.registration.success.message", { freeMonths: 1 })}
                 </p>
                 <p className="text-gray-700 mb-8 max-w-xl mx-auto">
-                  Muy pronto recibirás tu{" "}
-                  <strong className="font-bold">acceso anticipado</strong>.
+                  {t("form.registration.success.earlyAccess")}
                 </p>
                 <button
                   type="button"
                   onClick={handlePerfecto}
                   className="inline-flex items-center justify-center bg-bivo-green text-black px-10 py-3 rounded-lg font-extrabold text-base sm:text-lg uppercase tracking-wide shadow-md transition-all transform hover:bg-opacity-90 hover:scale-105"
                 >
-                  Perfecto
+                  {t("form.registration.success.button")}
                 </button>
               </div>
             )}

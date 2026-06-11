@@ -1,38 +1,40 @@
 import { useRef, useState, useEffect } from "react";
 import { Smartphone, Video, Award, Target } from "lucide-react";
-
-const features = [
-  {
-    icon: <Smartphone className="w-10 h-10 text-bivo-green" />,
-    title: "Entrena desde cualquier lugar",
-    description:
-      "Accede a entrenamientos personalizados desde tu dispositivo móvil, sin importar dónde te encuentres.",
-  },
-  {
-    icon: <Video className="w-10 h-10 text-bivo-green" />,
-    title: "Análisis técnico profesional",
-    description:
-      "Recibe indicaciones precisas sobre la ejecución de movimientos y la técnica adecuada para mejorar tu rendimiento físico de forma segura y eficiente.",
-  },
-  {
-    icon: <Award className="w-10 h-10 text-bivo-green" />,
-    title: "Entrenadores de élite",
-    description:
-      "Aprende con metodologías desarrolladas por entrenadores profesionales de deportes de raqueta.",
-  },
-  {
-    icon: <Target className="w-10 h-10 text-bivo-green" />,
-    title: "Objetivos personalizados",
-    description:
-      "Establece metas y sigue un plan adaptado a tu nivel y necesidades específicas.",
-  },
-];
+import { useTranslation } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
 
 const WhatIsBivoSection = () => {
+  const { t } = useTranslation();
+  const { localePath } = useLocale();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
+
+  const paragraphs = t("whatIsBivo.paragraphs", { returnObjects: true }) as string[];
+
+  const features = [
+    {
+      icon: <Smartphone className="w-10 h-10 text-bivo-green" />,
+      title: t("whatIsBivo.features.0.title"),
+      description: t("whatIsBivo.features.0.description"),
+    },
+    {
+      icon: <Video className="w-10 h-10 text-bivo-green" />,
+      title: t("whatIsBivo.features.1.title"),
+      description: t("whatIsBivo.features.1.description"),
+    },
+    {
+      icon: <Award className="w-10 h-10 text-bivo-green" />,
+      title: t("whatIsBivo.features.2.title"),
+      description: t("whatIsBivo.features.2.description"),
+    },
+    {
+      icon: <Target className="w-10 h-10 text-bivo-green" />,
+      title: t("whatIsBivo.features.3.title"),
+      description: t("whatIsBivo.features.3.description"),
+    },
+  ];
 
   useEffect(() => {
     const video = videoRef.current;
@@ -55,7 +57,7 @@ const WhatIsBivoSection = () => {
   const togglePlay = () => {
     const v = videoRef.current;
     if (!v) return;
-    isPlaying ? v.pause() : v.play();
+    if (isPlaying) v.pause(); else v.play();
   };
 
   const toggleMute = () => {
@@ -85,24 +87,18 @@ const WhatIsBivoSection = () => {
     <section id="about" className="py-20 bg-black text-white">
       <div className="container mx-auto px-4">
 
-        {/* Encabezado */}
         <div className="text-center mb-12">
           <h2 className="font-round text-3xl font-bold mb-4">
-            ¿Qué es <span className="text-bivo-green">Bivo</span>?
+            {t("whatIsBivo.heading")}
           </h2>
           <p className="text-white/80 max-w-3xl mx-auto">
-            Bivo es la primera smart app creada para quienes viven los deportes de raqueta con pasión.
-            Tecnología, experiencia y preparación física especializada para pádel, tenis y pickleball.
-            Cambiando las reglas del juego.
+            {t("whatIsBivo.description")}
           </p>
         </div>
 
-        {/* Video + texto */}
         <div className="grid grid-cols-1 md:grid-cols-[minmax(280px,340px)_1fr] gap-9 items-center max-w-5xl mx-auto mb-14">
 
-          {/* Video portrait con glow y float */}
           <div className="relative flex justify-center items-center py-4">
-            {/* Glow verde detrás */}
             <div
               className="absolute w-[110%] h-[110%] top-[-5%] left-[-5%] rounded-full pointer-events-none z-0"
               style={{
@@ -113,7 +109,6 @@ const WhatIsBivoSection = () => {
               }}
             />
 
-            {/* Contenedor del video */}
             <div
               className="relative w-full max-w-[320px] z-10 group"
               style={{
@@ -137,7 +132,6 @@ const WhatIsBivoSection = () => {
                 className="w-full h-full object-cover block"
               />
 
-              {/* Overlay interno sutil */}
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
@@ -146,16 +140,14 @@ const WhatIsBivoSection = () => {
                 }}
               />
 
-              {/* Controles custom */}
               <div
                 className="absolute bottom-3 left-3 right-3 flex items-center gap-2 px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ background: "rgba(0,0,0,0.72)", backdropFilter: "blur(8px)" }}
               >
-                {/* Rewind */}
                 <button
                   type="button"
                   onClick={rewind}
-                  aria-label="Retroceder 5 segundos"
+                  aria-label={t("whatIsBivo.video.controls.rewind")}
                   className="text-white/80 hover:text-bivo-green transition-colors flex-shrink-0"
                 >
                   <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="w-4 h-4">
@@ -164,11 +156,10 @@ const WhatIsBivoSection = () => {
                   </svg>
                 </button>
 
-                {/* Play/Pause */}
                 <button
                   type="button"
                   onClick={togglePlay}
-                  aria-label={isPlaying ? "Pausar" : "Reproducir"}
+                  aria-label={isPlaying ? t("whatIsBivo.video.controls.pause") : t("whatIsBivo.video.controls.play")}
                   className="flex-shrink-0 w-7 h-7 rounded-full bg-bivo-green text-black flex items-center justify-center hover:scale-110 transition-transform"
                 >
                   {isPlaying ? (
@@ -183,11 +174,10 @@ const WhatIsBivoSection = () => {
                   )}
                 </button>
 
-                {/* Forward */}
                 <button
                   type="button"
                   onClick={forward}
-                  aria-label="Adelantar 5 segundos"
+                  aria-label={t("whatIsBivo.video.controls.forward")}
                   className="text-white/80 hover:text-bivo-green transition-colors flex-shrink-0"
                 >
                   <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="w-4 h-4">
@@ -196,7 +186,6 @@ const WhatIsBivoSection = () => {
                   </svg>
                 </button>
 
-                {/* Barra de progreso */}
                 <div
                   className="flex-1 h-1 bg-white/20 rounded-full cursor-pointer"
                   onClick={handleProgressClick}
@@ -207,11 +196,10 @@ const WhatIsBivoSection = () => {
                   />
                 </div>
 
-                {/* Mute */}
                 <button
                   type="button"
                   onClick={toggleMute}
-                  aria-label={isMuted ? "Activar sonido" : "Silenciar"}
+                  aria-label={isMuted ? t("whatIsBivo.video.controls.unmute") : t("whatIsBivo.video.controls.mute")}
                   className="text-white/80 hover:text-bivo-green transition-colors flex-shrink-0"
                 >
                   {isMuted ? (
@@ -232,32 +220,19 @@ const WhatIsBivoSection = () => {
             </div>
           </div>
 
-          {/* Texto */}
           <div className="flex flex-col justify-center">
-            <h3 className="font-round text-2xl font-semibold mb-4">Entrena como los profesionales</h3>
-            <p className="text-white/80 mb-5">
-              Con Bivo accedes a entrenamientos diseñados por preparadores físicos que trabajan con
-              jugadores de élite, adaptados a tu nivel y objetivos. Tanto si estás empezando como si
-              eres un amateur muy exigente, en Bivo encuentras lo mejor de la preparación profesional,
-              ajustado a tu ritmo y a tus necesidades.
-            </p>
-            <p className="text-white/80 mb-5">
-              Tomamos lo mejor del entrenamiento de los profesionales y lo ponemos al alcance de
-              cualquier jugador o jugadora, con programas personalizados que te ayudan a mejorar tu
-              rendimiento, prevenir lesiones y cuidar tu salud mientras disfrutas del pádel, tenis o
-              pickleball.
-            </p>
-            <p className="text-white/80 mb-4">
-              Nuestra tecnología se adapta a ti para que entrenes con inteligencia,
-              independientemente de tu punto de partida.
-            </p>
+            <h3 className="font-round text-2xl font-semibold mb-4">{t("whatIsBivo.subheading")}</h3>
+            {paragraphs.map((paragraph, i) => (
+              <p key={i} className="text-white/80 mb-5">
+                {paragraph}
+              </p>
+            ))}
             <p className="text-bivo-green">
-              Esa es nuestra esencia: vivir como una persona, entrenar como un profesional.
+              {t("whatIsBivo.essence")}
             </p>
           </div>
         </div>
 
-        {/* Feature cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <div
@@ -272,7 +247,6 @@ const WhatIsBivoSection = () => {
         </div>
       </div>
 
-      {/* Keyframes globales para esta sección */}
       <style>{`
         @keyframes aboutFloat {
           0%, 100% { transform: translateY(0); }

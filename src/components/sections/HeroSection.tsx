@@ -1,5 +1,7 @@
 import { ArrowDown } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
 
 const HERO_IMAGES = [
   "Fitness-dona.jpg",
@@ -23,6 +25,8 @@ const APP_SCREENS = [
 const SLIDE_INTERVAL_MS = 3000;
 
 const HeroSection = () => {
+  const { t } = useTranslation();
+  const { localePath } = useLocale();
   const [activeSlide, setActiveSlide] = useState(0);
 
   const randomImage = useMemo(() => {
@@ -54,14 +58,14 @@ const HeroSection = () => {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
           <div className="lg:w-1/2 max-w-3xl">
             <h1 className="font-round text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Primera smart app con IA de preparación física en deportes de raqueta.
+              {t("hero.title")}
               <br />
-              <span className="text-bivo-green">Live like a person, train like a pro.</span>
+              <span className="text-bivo-green">{t("hero.subtitle")}</span>
             </h1>
             <p className="text-xl mb-8 text-white/90">
-              Pádel, tenis, pickleball o bádminton: Bivo se adapta a ti.
+              {t("hero.description")}
               <br />
-              <span className="text-bivo-green">Entrena mejor, vive mejor.</span>
+              <span className="text-bivo-green">{t("hero.tagline")}</span>
             </p>
 
             <div className="mb-10">
@@ -69,7 +73,7 @@ const HeroSection = () => {
                 href="#precios"
                 className="inline-flex items-center bg-bivo-green text-black px-8 py-3 rounded-lg font-extrabold text-lg hover:bg-opacity-90 transition-all transform hover:scale-105"
               >
-                Pruébalo 7 días gratis
+                {t("hero.cta")}
               </a>
             </div>
 
@@ -89,7 +93,7 @@ const HeroSection = () => {
                     <img
                       key={src}
                       src={src}
-                      alt={`Pantalla de la app Bivo ${index + 1}`}
+                      alt={t("hero.appScreens.alt", { index: index + 1 })}
                       className={`absolute inset-0 w-full h-full object-cover object-top rounded-[2rem] transition-all duration-700 ease-in-out ${
                         index === activeSlide
                           ? "opacity-100 scale-100 translate-y-0"
@@ -107,7 +111,7 @@ const HeroSection = () => {
                   key={index}
                   type="button"
                   onClick={() => setActiveSlide(index)}
-                  aria-label={`Ir a pantalla ${index + 1}`}
+                  aria-label={t("hero.slideIndicator.aria", { index: index + 1 })}
                   className={`w-2.5 h-2.5 rounded-full transition-all ${
                     index === activeSlide
                       ? "bg-bivo-green scale-125"

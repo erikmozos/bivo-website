@@ -1,47 +1,38 @@
+import { useTranslation } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
+
+const partnerImages = [
+  "/img2/mqc.png",
+  "/img2/monitor-padel.jpg",
+  "/img2/pdpadel.jpg",
+  "/img2/emprenbit.png",
+  "/img2/fpib.png",
+];
+
 const AlliancesSection = () => {
-  const alianzas = [
-    {
-      nombre: "MQC",
-      imagen: "/img2/mqc.png",
-      descripcion:
-        "Movement Quality Center, referente en entrenamiento para deportistas exigentes y de alto nivel, es nuestro partner desde el inicio y base presencial de Bivo.",
-    },
-    {
-      nombre: "Bivo para entrenadores",
-      imagen: "/img2/monitor-padel.jpg",
-      descripcion:
-        "En Bivo optimizamos el rendimiento de tus alumnos con preparación física adaptada y preventiva. ¡Complementa tus clases con nuestro apoyo! Descubre como podemos ayudarte.",
-    },
-    {
-      nombre: "Club Pdpadel",
-      imagen: "/img2/pdpadel.jpg",
-      descripcion:
-        "Pdpadel, uno de los clubes más importantes de Baleares, ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info!",
-    },
-    {
-      nombre: "EmprenBIT",
-      imagen: "/img2/emprenbit.png",
-      descripcion:
-        "Formamos parte del programa EmprenBIT de la Fundació BIT, que acompaña a startups tecnológicas de las Islas Baleares en sus primeras etapas de crecimiento.",
-    },
-    {
-      nombre: "Federación Balear de Pádel",
-      imagen: "/img2/fpib.png",
-      descripcion:
-        "Acuerdo de colaboración con la FPIB para impulsar la preparación física de los jugadores y jugadoras de pádel de las Islas Baleares.",
-    },
-  ];
+  const { t } = useTranslation();
+  const { localePath } = useLocale();
+
+  const partnersData = t("alliances.partners", { returnObjects: true }) as {
+    name: string;
+    description: string;
+  }[];
+
+  const alianzas = partnersData.map((partner, index) => ({
+    nombre: partner.name,
+    imagen: partnerImages[index],
+    descripcion: partner.description,
+  }));
 
   return (
     <section id="alianzas" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-round text-3xl font-bold mb-4">
-            Alianzas y <span className="text-bivo-green">colaboraciones</span>
+            {t("alliances.heading")}
           </h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Bivo colabora con las principales organizaciones deportivas para garantizar la máxima
-            calidad en el entrenamiento de deportes de raqueta.
+            {t("alliances.description")}
           </p>
         </div>
 

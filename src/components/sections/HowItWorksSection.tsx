@@ -1,52 +1,39 @@
-const steps = [
-  {
-    number: 1,
-    title: "Bivo te valora y te conoce",
-    description:
-      "Test inicial para entender tu nivel, deporte, objetivos, lesiones previas y disponibilidad.",
-    image: "/img2/flow/01-valora.png",
-  },
-  {
-    number: 2,
-    title: "Entrenamiento personalizado",
-    description:
-      "Plan específico para tu deporte de raqueta basado en tus datos, sin plantillas genéricas.",
-    image: "/img2/flow/02-entrenamiento.jpg",
-  },
-  {
-    number: 3,
-    title: "Registra tu mejora",
-    description:
-      "Estadísticas claras de adherencia, velocidad y escudo de lesiones. Visualiza tu progreso.",
-    image: "/img2/flow/03-mejora.png",
-  },
-  {
-    number: 4,
-    title: "Gestiona tu calendario",
-    description:
-      "Organiza tus sesiones, partidos y descansos en un mismo lugar. Sin solapamientos.",
-    image: "/img2/flow/04-calendario.png",
-  },
-  {
-    number: 5,
-    title: "Se adapta a ti",
-    description:
-      "¿Cambias de objetivo, te lesionas o tienes menos tiempo? Bivo recalcula tu plan automáticamente.",
-    image: "/img2/flow/05-adapta.png",
-  },
+import { useTranslation } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
+
+const stepImages = [
+  { ext: "png", file: "01-valora" },
+  { ext: "jpg", file: "02-entrenamiento" },
+  { ext: "png", file: "03-mejora" },
+  { ext: "png", file: "04-calendario" },
+  { ext: "png", file: "05-adapta" },
 ];
 
 const HowItWorksSection = () => {
+  const { t } = useTranslation();
+  const { localePath } = useLocale();
+
+  const stepsData = t("howItWorks.steps", { returnObjects: true }) as {
+    title: string;
+    description: string;
+  }[];
+
+  const steps = stepsData.map((step, index) => ({
+    number: index + 1,
+    title: step.title,
+    description: step.description,
+    image: `/img2/flow/${stepImages[index].file}.${stepImages[index].ext}`,
+  }));
+
   return (
     <section id="como-funciona" className="py-20 bg-black text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <h2 className="font-round text-3xl font-bold mb-4">
-            Cómo <span className="text-bivo-green">funciona</span>
+            {t("howItWorks.heading")}
           </h2>
           <p className="text-white/80 max-w-3xl mx-auto">
-            En cinco pasos sencillos, Bivo te acompaña desde el primer test hasta tu progreso a largo
-            plazo. Todo se adapta a ti automáticamente.
+            {t("howItWorks.description")}
           </p>
         </div>
 
@@ -63,7 +50,6 @@ const HowItWorksSection = () => {
                 transition: "transform 0.35s, border-color 0.3s, box-shadow 0.3s",
               }}
             >
-              {/* Gradiente oscuro encima de la imagen */}
               <div
                 className="absolute inset-0 z-10 pointer-events-none"
                 style={{
@@ -72,7 +58,6 @@ const HowItWorksSection = () => {
                 }}
               />
 
-              {/* Badge número */}
               <span
                 className="absolute top-4 left-4 z-20 flex items-center justify-center font-round font-extrabold text-black text-base"
                 style={{
@@ -86,7 +71,6 @@ const HowItWorksSection = () => {
                 {step.number}
               </span>
 
-              {/* Texto en la parte inferior */}
               <div className="relative z-20">
                 <h3
                   className="font-round font-extrabold text-white mb-2 leading-tight"

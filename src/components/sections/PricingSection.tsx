@@ -1,11 +1,5 @@
-const includedFeatures = [
-  "Entrenamiento personalizado con IA",
-  "Adaptación automática a tu nivel y necesidades",
-  "Estadísticas y seguimiento de progreso",
-  "Calendario y planificación",
-  "Acceso completo a todas las funciones",
-  "Actualizaciones incluidas",
-];
+import { useTranslation } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
 
 const CheckIcon = () => (
   <span
@@ -30,53 +24,43 @@ const SavingsIcon = () => (
   </svg>
 );
 
-const plans = [
-  {
-    name: "Mensual",
-    desc: "Empieza hoy sin compromiso.",
-    amount: "14,99",
-    period: "/mes",
-    meta: "Sin compromiso",
-    metaBold: null,
-    savings: null,
-    savingsExtra: null,
-    badge: null,
-    featured: false,
-  },
-  {
-    name: "Trimestral",
-    desc: "Tiempo suficiente para notar cambios reales.",
-    amount: "34,99",
-    period: "/3 meses",
-    meta: "Equivale a ",
-    metaBold: "11,66 €/mes",
-    savings: "Ahorras 22%",
-    savingsExtra: null,
-    badge: { text: "Recomendado", gold: false },
-    featured: true,
-  },
-  {
-    name: "Anual",
-    desc: "La mejor inversión en tu rendimiento.",
-    amount: "89,99",
-    period: "/año",
-    meta: "Equivale a ",
-    metaBold: "7,50 €/mes",
-    savings: "Ahorras 50%",
-    savingsExtra: "Ahorras 89,89 € al año",
-    badge: { text: "Más popular", gold: true },
-    featured: false,
-  },
-];
-
 const PricingSection = () => {
+  const { t } = useTranslation();
+  const { localePath } = useLocale();
+
+  const includedFeatures = t("pricing.features", { returnObjects: true }) as string[];
+
+  const plansData = t("pricing.plans", { returnObjects: true }) as {
+    name: string;
+    description: string;
+    amount: string;
+    period: string;
+    meta: string;
+    metaBold: string;
+    savings: string;
+    savingsExtra: string;
+    badge: { text: string; gold: boolean } | null;
+  }[];
+
+  const plans = plansData.map((plan, index) => ({
+    name: plan.name,
+    desc: plan.description,
+    amount: plan.amount,
+    period: plan.period,
+    meta: plan.meta,
+    metaBold: plan.metaBold || null,
+    savings: plan.savings || null,
+    savingsExtra: plan.savingsExtra || null,
+    badge: plan.badge || null,
+    featured: index === 1,
+  }));
+
   return (
     <section
       id="precios"
       className="py-24 text-white relative overflow-hidden"
       style={{ background: "#050505" }}
     >
-      {/* Glow verde sutil arriba */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -86,18 +70,16 @@ const PricingSection = () => {
 
       <div className="container mx-auto px-4 relative z-10">
 
-        {/* Encabezado */}
         <div className="text-center mb-4">
           <h2 className="font-round text-3xl font-bold mb-4">
-            Empieza con <span className="text-bivo-green">7 días gratis</span>
+            {t("pricing.headingNormal")}
+            <span className="text-bivo-green">{t("pricing.headingGreen")}</span>
           </h2>
           <p style={{ color: "#d1d5db" }} className="max-w-2xl mx-auto">
-            Sin compromiso. Cancela cuando quieras. Todos los planes incluyen acceso completo a
-            todas las funciones de la app.
+            {t("pricing.description")}
           </p>
         </div>
 
-        {/* Panel features comunes */}
         <div
           className="max-w-5xl mx-auto mt-12 mb-14"
           style={{
@@ -110,7 +92,7 @@ const PricingSection = () => {
         >
           <p className="text-center mb-6 uppercase tracking-widest font-bold"
             style={{ fontSize: "13px", color: "#39ff14" }}>
-            Todos los planes incluyen
+            {t("pricing.featuresTitle")}
           </p>
           <ul className="grid gap-3"
             style={{ gridTemplateColumns: "repeat(1,1fr)", listStyle: "none", padding: 0, margin: 0 }}>
@@ -123,7 +105,6 @@ const PricingSection = () => {
           </ul>
         </div>
 
-        {/* Cards de planes */}
         <div className="grid gap-6 max-w-5xl mx-auto" style={{ gridTemplateColumns: "1fr" }}>
           {plans.map((plan) => (
             <div
@@ -144,7 +125,6 @@ const PricingSection = () => {
                 transition: "transform 0.35s cubic-bezier(0.23,1,0.32,1), border-color 0.3s, box-shadow 0.3s",
               }}
             >
-              {/* Badge */}
               {plan.badge && (
                 <div className="absolute font-round font-extrabold uppercase tracking-wider"
                   style={{
@@ -161,18 +141,15 @@ const PricingSection = () => {
                 </div>
               )}
 
-              {/* Nombre */}
               <div className="font-round font-extrabold uppercase tracking-widest mb-2"
                 style={{ fontSize: "13px", color: "#39ff14" }}>
                 {plan.name}
               </div>
 
-              {/* Descripción */}
               <p className="mb-7" style={{ color: "#a3a3a3", fontSize: "14px", lineHeight: 1.5, minHeight: "42px" }}>
                 {plan.desc}
               </p>
 
-              {/* Precio */}
               <div className="flex items-baseline gap-0.5 mb-1">
                 <span className="font-round font-extrabold text-white"
                   style={{ fontSize: "56px", letterSpacing: "-2.5px", lineHeight: 1 }}>
@@ -184,13 +161,11 @@ const PricingSection = () => {
                 </span>
               </div>
 
-              {/* Meta */}
               <p style={{ color: "#a3a3a3", fontSize: "13px", marginBottom: "14px" }}>
                 {plan.meta}
                 {plan.metaBold && <strong style={{ color: "#fff", fontWeight: 700 }}>{plan.metaBold}</strong>}
               </p>
 
-              {/* Callouts de ahorro */}
               <div className="flex flex-wrap gap-2 mb-1">
                 {plan.savings && (
                   <div className="inline-flex items-center gap-1.5 self-start"
@@ -220,10 +195,8 @@ const PricingSection = () => {
                 )}
               </div>
 
-              {/* Divisor */}
               <div className="my-6" style={{ height: "1px", background: "rgba(255,255,255,0.06)" }} />
 
-              {/* CTA */}
               <a
                 href="#contacto"
                 className="block text-center font-bold uppercase tracking-wider mt-auto transition-all"
@@ -261,16 +234,14 @@ const PricingSection = () => {
                   }
                 }}
               >
-                Empieza 7 días gratis
+                {t("pricing.cta")}
               </a>
             </div>
           ))}
         </div>
 
-        {/* Nota inferior */}
         <p className="text-center mt-10" style={{ color: "#6b7280", fontSize: "13px" }}>
-          Todos los planes incluyen{" "}
-          <strong style={{ color: "#39ff14" }}>7 días gratis</strong>. Sin permanencia. Cancela en un clic.
+          {t("pricing.note", { freeDays: 7 })}
         </p>
       </div>
 

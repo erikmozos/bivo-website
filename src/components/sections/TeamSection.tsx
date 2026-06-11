@@ -1,72 +1,47 @@
 import { Linkedin, Twitter } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
+
+const memberImages = [
+  "/img2/team/Lluis.png",
+  "/img2/team/Toni.png",
+  "/img2/team/Antonio.png",
+  "/img2/team/Erik.png",
+  "/img2/team/Andres.png",
+  "/img2/team/Marta.png",
+  "/img2/team/Ferran.png",
+  "/img2/team/Bep.png",
+];
+
+const memberLinks = [
+  { linkedin: "https://www.linkedin.com/in/lluisvilasalord/", twitter: "#" },
+  { linkedin: "https://www.linkedin.com/in/toni-bota-reyn%C3%A9s-a44774133/", twitter: "#" },
+  { linkedin: "https://www.linkedin.com/in/antonio-carretero-111a12328", twitter: "#" },
+  { linkedin: "https://www.linkedin.com/in/erikmozos", twitter: "#" },
+  { linkedin: "https://www.linkedin.com/in/andresspitzer/", twitter: "#" },
+  { linkedin: "#", twitter: "#" },
+  { linkedin: "https://www.linkedin.com/in/ferran-st/", twitter: "#" },
+  { linkedin: "https://www.linkedin.com/in/jponsf/", twitter: "#" },
+];
 
 const TeamSection = () => {
-  const equipo = [
-    {
-      nombre: "Lluis Vila",
-      cargo: "Estrategia y liderazgo",
-      imagen: "/img2/team/Lluis.png",
-      bio: "Ex deportista de alto nivel reconocido por el BOE, economista, apasionado del deporte y amante del marketing y el emprendimiento.",
-      linkedin: "https://www.linkedin.com/in/lluisvilasalord/",
-      twitter: "#",
-    },
-    {
-      nombre: "Toni Bota",
-      cargo: "Desarrollo deportivo y producto",
-      imagen: "/img2/team/Toni.png",
-      bio: "Graduado en CAFYD, preparador físico de jugadores ATP y atletas de élite, Readaptador, apasionado del deporte y el emprendimiento.",
-      linkedin: "https://www.linkedin.com/in/toni-bota-reyn%C3%A9s-a44774133/",
-      twitter: "#",
-    },
-    {
-      nombre: "Antonio Carretero",
-      cargo: "CTO — Tecnología y arquitectura",
-      imagen: "/img2/team/Antonio.png",
-      bio: "Experto en arquitectura de software y desarrollo de productos tecnológicos, liderando la plataforma técnica de Bivo.",
-      linkedin: "https://www.linkedin.com/in/antonio-carretero-111a12328",
-      twitter: "#",
-    },
-    {
-      nombre: "Erik Mozos",
-      cargo: "Developer — Frontend y experiencia",
-      imagen: "/img2/team/Erik.png",
-      bio: "Especialista en desarrollo frontend y diseño de experiencias de usuario, creando la interfaz de la app Bivo.",
-      linkedin: "https://www.linkedin.com/in/erikmozos",
-      twitter: "#",
-    },
-    {
-      nombre: "Andres Spitzer",
-      cargo: "Asesor en producto e ingeniería",
-      imagen: "/img2/team/Andres.png",
-      bio: "Ex ejecutivo en Amazon, CPO en Civitatis y mentor de startups con amplia experiencia en escalado de producto e ingeniería.",
-      linkedin: "https://www.linkedin.com/in/andresspitzer/",
-      twitter: "#",
-    },
-    {
-      nombre: "Marta Pons",
-      cargo: "Diseño y experiencia visual",
-      imagen: "/img2/team/Marta.png",
-      bio: "Licenciada en Bellas Artes, especialista en diseño y defensora de la armonía visual y funcional.",
-      linkedin: "#",
-      twitter: "#",
-    },
-    {
-      nombre: "Ferran Sánchez",
-      cargo: "Branding y creatividad",
-      imagen: "/img2/team/Ferran.png",
-      bio: "Emprendedor creativo, apasionado del branding, el diseño estratégico y la experiencia de usuario.",
-      linkedin: "https://www.linkedin.com/in/ferran-st/",
-      twitter: "#",
-    },
-    {
-      nombre: "Josep Pons",
-      cargo: "Finanzas y estrategia empresarial",
-      imagen: "/img2/team/Bep.png",
-      bio: "Consultor y Auditor, experto en finanzas, planificación estratégica y crecimiento empresarial.",
-      linkedin: "https://www.linkedin.com/in/jponsf/",
-      twitter: "#",
-    },
-  ];
+  const { t } = useTranslation();
+  const { localePath } = useLocale();
+
+  const membersData = t("team.members", { returnObjects: true }) as {
+    name: string;
+    role: string;
+    bio: string;
+  }[];
+
+  const equipo = membersData.map((member, index) => ({
+    nombre: member.name,
+    cargo: member.role,
+    imagen: memberImages[index],
+    bio: member.bio,
+    linkedin: memberLinks[index].linkedin,
+    twitter: memberLinks[index].twitter,
+  }));
 
   const isValidLink = (link: string) => {
     return link && link !== "#" && link.trim() !== "";
@@ -77,11 +52,10 @@ const TeamSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-round text-3xl font-bold mb-4 text-white">
-            Nuestro <span className="text-bivo-green">equipo</span>
+            {t("team.heading")}
           </h2>
           <p className="text-white/80 max-w-3xl mx-auto">
-            Un grupo de apasionados por los deportes de raqueta y la tecnología, unidos para
-            revolucionar el entrenamiento deportivo.
+            {t("team.description")}
           </p>
         </div>
 
@@ -120,7 +94,7 @@ const TeamSection = () => {
                       className="text-gray-300 hover:text-bivo-green transition-colors"
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`LinkedIn de ${miembro.nombre}`}
+                      aria-label={t("team.socialAria.linkedin", { name: miembro.nombre })}
                     >
                       <Linkedin size={18} />
                     </a>
@@ -131,7 +105,7 @@ const TeamSection = () => {
                       className="text-gray-300 hover:text-bivo-green transition-colors"
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`Twitter de ${miembro.nombre}`}
+                      aria-label={t("team.socialAria.twitter", { name: miembro.nombre })}
                     >
                       <Twitter size={18} />
                     </a>

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
 import "./ShoulderStabilityLanding.css";
 
 const FORMSPREE_URL =
@@ -7,16 +8,10 @@ const FORMSPREE_URL =
 const PAIN_IMAGE =
   "https://images.unsplash.com/photo-1595435934249-5df4ed123550?auto=format&fit=crop&w=800&q=80";
 
-const SPORTS: { id: string; label: string }[] = [
-  { id: "padel", label: "🏓 Pádel" },
-  { id: "tenis", label: "🎾 Tenis" },
-  { id: "pickleball", label: "🥒 Pickleball" },
-  { id: "badminton", label: "🏸 Bádminton" },
-];
-
 const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const ShoulderStabilityLanding = () => {
+  const { t } = useTranslation();
   const [selectedSport, setSelectedSport] = useState<string | null>(null);
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -26,13 +21,19 @@ const ShoulderStabilityLanding = () => {
   const [success, setSuccess] = useState(false);
   const [chipsShake, setChipsShake] = useState(false);
 
+  const sportLabels = t("shoulder.hero.sports", { returnObjects: true }) as string[];
+  const sportIds = ["tenis", "padel", "badminton", "pickleball"];
+  const SPORTS = sportIds.map((id, i) => ({ id, label: sportLabels[i] }));
+  const painCards = t("shoulder.pain.cards", { returnObjects: true }) as string[];
+  const valueItems = t("shoulder.value.items", { returnObjects: true }) as { number: string; title: string; subtitle: string }[];
+
   useEffect(() => {
     const prev = document.title;
-    document.title = "BIVO — Estabilidad de Hombro para Deportistas de Raqueta";
+    document.title = t("shoulder.meta.title");
     return () => {
       document.title = prev;
     };
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     const root = document.querySelector(".shoulder-landing");
@@ -88,10 +89,10 @@ const ShoulderStabilityLanding = () => {
       if (res.ok) {
         setSuccess(true);
       } else {
-        alert("Hubo un problema al enviar. Por favor inténtalo de nuevo.");
+        alert(t("shoulder.form.errors.submitError"));
       }
     } catch {
-      alert("Sin conexión. Comprueba tu internet e inténtalo de nuevo.");
+      alert(t("shoulder.form.errors.noConnection"));
     } finally {
       setSubmitting(false);
     }
@@ -111,11 +112,11 @@ const ShoulderStabilityLanding = () => {
   return (
     <div className="shoulder-landing">
       <header className="ssl-header">
-        <a href="#top" className="ssl-text-logo" aria-label="BIVO inicio">
-          BIVO
+        <a href="#top" className="ssl-text-logo" aria-label={t("shoulder.header.logo")}>
+          {t("shoulder.header.logo")}
         </a>
         <a href="#formulario" className="ssl-header-cta" onClick={scrollToForm}>
-          Recibir gratis →
+          {t("shoulder.header.cta")}
         </a>
       </header>
 
@@ -126,35 +127,38 @@ const ShoulderStabilityLanding = () => {
 
         <div className="ssl-badge">
           <span className="ssl-badge-dot" />
-          Acceso anticipado · Gratis
+          {t("shoulder.badge")}
         </div>
 
         <h1 className="ssl-hero-title">
-          Mejora tu <span className="ssl-accent">hombro</span>
-          <br />
-          y tu rendimiento
-          <br />
-          en pista desde hoy
+          {t("shoulder.hero.title")}
         </h1>
 
         <p className="ssl-hero-sub">
-          Recibe <strong>10 ejercicios de estabilidad</strong> adaptados a tu deporte + acceso anticipado a
-          BIVO con <strong>1 mes gratis</strong>
+          <Trans
+            i18nKey="shoulder.hero.subtitle"
+            values={{ count: 10, months: 1 }}
+            components={[<strong />, <strong />]}
+          />
         </p>
 
         <div className="ssl-cta-group">
           <a href="#formulario" className="ssl-btn-main" onClick={scrollToForm}>
-            Recibir ejercicios gratis <span className="ssl-btn-arrow">→</span>
+            {t("shoulder.hero.cta")}
           </a>
           <p className="ssl-cta-note">
-            Contéstalo en menos de <span>30 segundos</span>
+            <Trans
+              i18nKey="shoulder.hero.note"
+              values={{ seconds: 30 }}
+              components={[<span />]}
+            />
           </p>
         </div>
 
         <div className="ssl-sport-tags">
-          {["🎾 Tenis", "🏓 Pádel", "🏸 Bádminton", "🥒 Pickleball"].map((t) => (
-            <span key={t} className="ssl-sport-tag">
-              {t}
+          {sportLabels.map((s: string) => (
+            <span key={s} className="ssl-sport-tag">
+              {s}
             </span>
           ))}
         </div>
@@ -170,77 +174,34 @@ const ShoulderStabilityLanding = () => {
           <img className="ssl-pain-img" src={PAIN_IMAGE} alt="" />
         </div>
 
-        <p className="ssl-eyebrow">¿Te suena familiar?</p>
+        <p className="ssl-eyebrow">{t("shoulder.pain.eyebrow")}</p>
         <div className="ssl-pain-cards">
-          <div className="ssl-pain-card">
-            <span className="ssl-pain-icon" aria-hidden>
-              ⚡
-            </span>
-            <span>Dolor o molestias en el hombro al jugar</span>
-          </div>
-          <div className="ssl-pain-card">
-            <span className="ssl-pain-icon" aria-hidden>
-              🎯
-            </span>
-            <span>Falta de estabilidad y potencia en tus golpes</span>
-          </div>
-          <div className="ssl-pain-card">
-            <span className="ssl-pain-icon" aria-hidden>
-              📉
-            </span>
-            <span>Sensación de estancamiento aunque entrenas</span>
-          </div>
+          {painCards.map((card, i) => (
+            <div key={i} className="ssl-pain-card">
+              <span className="ssl-pain-icon" aria-hidden>{card.match(/^(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/u)?.[1] || ""}</span>
+              <span>{card.replace(/^(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)\s*/u, "")}</span>
+            </div>
+          ))}
         </div>
         <p className="ssl-pain-tagline">
-          No necesitas entrenar más,
-          <br />
-          necesitas entrenar <em>mejor</em>
+          {t("shoulder.pain.tagline")}
         </p>
       </section>
 
       <section className="ssl-value ssl-reveal">
         <div className="ssl-value-header">
-          <p className="ssl-eyebrow">Lo que recibirás</p>
+          <p className="ssl-eyebrow">{t("shoulder.value.eyebrow")}</p>
           <h2 className="ssl-section-title">
-            10 ejercicios de estabilidad
-            <br />
-            de hombro <span className="ssl-accent">específicos</span>
-            <br />
-            para deportes de raqueta
-            <br />
-            que van a reducir tu
-            <br />
-            <span className="ssl-accent">riesgo lesional</span>
+            {t("shoulder.value.title")}
           </h2>
         </div>
         <div className="ssl-value-items">
-          {[
-            {
-              n: "1",
-              t: "10 ejercicios seleccionados por expertos",
-              s: "Diseñados por especialistas en deporte de raqueta",
-            },
-            {
-              n: "2",
-              t: "Adaptados a tu deporte específico",
-              s: "Tenis, pádel, pickleball, bádminton y más",
-            },
-            {
-              n: "3",
-              t: "Indicaciones claras para aplicarlos",
-              s: "Series, repeticiones y cuándo hacerlos",
-            },
-            {
-              n: "4",
-              t: "Mejora inmediata en pista",
-              s: "Notarás la diferencia en tu siguiente sesión",
-            },
-          ].map((item) => (
-            <div key={item.n} className="ssl-value-card">
-              <div className="ssl-value-num">{item.n}</div>
+          {valueItems.map((item) => (
+            <div key={item.number} className="ssl-value-card">
+              <div className="ssl-value-num">{item.number}</div>
               <div className="ssl-value-body">
-                <strong>{item.t}</strong>
-                <span>{item.s}</span>
+                <strong>{item.title}</strong>
+                <span>{item.subtitle}</span>
               </div>
             </div>
           ))}
@@ -249,34 +210,32 @@ const ShoulderStabilityLanding = () => {
 
       <div className="ssl-bonus-wrap ssl-reveal">
         <div className="ssl-bonus">
-          <div className="ssl-bonus-tag">Bonus exclusivo</div>
+          <div className="ssl-bonus-tag">{t("shoulder.bonus.tag")}</div>
           <p className="ssl-bonus-title">
-            Acceso anticipado a BIVO
-            <br />+ 1 mes <span className="ssl-accent">gratis</span>
+            <Trans
+              i18nKey="shoulder.bonus.title"
+              components={{ accent: <span className="ssl-accent" /> }}
+            />
           </p>
-          <p className="ssl-bonus-sub">
-            Solo disponible para usuarios registrados
-            <br />
-            antes del lanzamiento oficial
+          <p className="ssl-bonus-sub" style={{ whiteSpace: "pre-line" }}>
+            {t("shoulder.bonus.subtitle")}
           </p>
         </div>
       </div>
 
       <section className="ssl-form-section ssl-reveal" id="formulario">
         <div className="ssl-form-header">
-          <p className="ssl-eyebrow">Acceso inmediato</p>
+          <p className="ssl-eyebrow">{t("shoulder.form.eyebrow")}</p>
           <h2 className="ssl-form-title">
-            Recibe tus ejercicios
-            <br />
-            <span className="ssl-accent">personalizados</span>
+            {t("shoulder.form.title")}
           </h2>
-          <p className="ssl-form-desc">Menos de 30 segundos. Completamente gratis.</p>
+          <p className="ssl-form-desc">{t("shoulder.form.description")}</p>
         </div>
 
         {!success ? (
           <div className="ssl-form-card" id="formCard">
             <p className="ssl-field-label">
-              Tu deporte <span className="ssl-req">*</span>
+              {t("shoulder.form.sportLabel")} <span className="ssl-req">*</span>
             </p>
             <div className={`ssl-chips ${chipsShake ? "ssl-shake" : ""}`} id="chipsGroup">
               {SPORTS.map((s) => (
@@ -292,32 +251,32 @@ const ShoulderStabilityLanding = () => {
             </div>
 
             <div className="ssl-divider" />
-            <p className="ssl-info-block-title">Información personal</p>
+            <p className="ssl-info-block-title">{t("shoulder.form.personalInfo")}</p>
 
             <div className="ssl-field-row">
               <div className="ssl-field">
                 <label htmlFor="ssl-nombre">
-                  Nombre <span className="ssl-req">*</span>
+                  {t("shoulder.form.fields.name.label")} <span className="ssl-req">*</span>
                 </label>
                 <input
                   id="ssl-nombre"
                   type="text"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
-                  placeholder="Tu nombre"
+                  placeholder={t("shoulder.form.fields.name.placeholder")}
                   autoComplete="given-name"
                 />
               </div>
               <div className="ssl-field">
                 <label htmlFor="ssl-apellido">
-                  Apellido <span className="ssl-req">*</span>
+                  {t("shoulder.form.fields.lastname.label")} <span className="ssl-req">*</span>
                 </label>
                 <input
                   id="ssl-apellido"
                   type="text"
                   value={apellido}
                   onChange={(e) => setApellido(e.target.value)}
-                  placeholder="Tu apellido"
+                  placeholder={t("shoulder.form.fields.lastname.placeholder")}
                   autoComplete="family-name"
                 />
               </div>
@@ -325,59 +284,57 @@ const ShoulderStabilityLanding = () => {
 
             <div className="ssl-field">
               <label htmlFor="ssl-email">
-                Email <span className="ssl-req">*</span>
+                {t("shoulder.form.fields.email.label")} <span className="ssl-req">*</span>
               </label>
               <input
                 id="ssl-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu@email.com"
+                placeholder={t("shoulder.form.fields.email.placeholder")}
                 autoComplete="email"
               />
             </div>
 
             <div className="ssl-field">
-              <label htmlFor="ssl-telefono">Teléfono</label>
+              <label htmlFor="ssl-telefono">{t("shoulder.form.fields.phone.label")}</label>
               <input
                 id="ssl-telefono"
                 type="tel"
                 value={telefono}
                 onChange={(e) => setTelefono(e.target.value)}
-                placeholder="+34 600 000 000"
+                placeholder={t("shoulder.form.fields.phone.placeholder")}
                 autoComplete="tel"
               />
-              <p className="ssl-field-hint">Te enviaremos consejos útiles y recordatorios (opcional)</p>
+              <p className="ssl-field-hint">{t("shoulder.form.fields.phone.hint")}</p>
             </div>
 
             <button className="ssl-btn-submit" type="button" disabled={submitting} onClick={handleSubmit}>
-              {submitting ? "Enviando…" : "Recibir mis ejercicios personalizados →"}
+              {submitting ? t("shoulder.form.submitting") : t("shoulder.form.submit")}
             </button>
 
-            <p className="ssl-form-privacy">🔒 Tus datos están seguros. Sin spam, nunca.</p>
+            <p className="ssl-form-privacy">{t("shoulder.form.privacy")}</p>
           </div>
         ) : (
           <div className="ssl-form-card ssl-success-state" id="successState">
             <div className="ssl-success-icon">✓</div>
-            <h3 className="ssl-success-title">¡Listo! Revisa tu email</h3>
+            <h3 className="ssl-success-title">{t("shoulder.form.success.title")}</h3>
             <p className="ssl-success-sub">
-              Te acabamos de enviar tus 10 ejercicios de estabilidad personalizados.
+              {t("shoulder.form.success.message")}
             </p>
             <div className="ssl-success-bonus-box">
-              <strong>🎁 Bonus activado</strong>
-              Ya tienes acceso anticipado con <strong>1 mes gratis</strong> cuando lancemos BIVO. Te
-              avisaremos.
+              {t("shoulder.form.success.bonus")}
             </div>
-            <p style={{ fontSize: 12, color: "#484848" }}>¿No lo ves? Revisa la carpeta de spam.</p>
+            <p style={{ fontSize: 12, color: "#484848" }}>{t("shoulder.form.success.spamNote")}</p>
           </div>
         )}
       </section>
 
       <footer className="ssl-footer">
         <span className="ssl-footer-logo ssl-text-logo" aria-hidden>
-          BIVO
+          {t("shoulder.header.logo")}
         </span>
-        <p>© 2025 BIVO · La preparación física inteligente para deportistas de raqueta</p>
+        <p>{t("shoulder.footer")}</p>
       </footer>
     </div>
   );
