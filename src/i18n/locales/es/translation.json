@@ -256,6 +256,12 @@
       }
     ],
     "cta": "Empieza 7 días gratis",
+    "storeModal": {
+      "title": "Descarga la app",
+      "description": "Elige tu tienda para empezar tu prueba gratuita de 7 días.",
+      "badge": "7 días gratis",
+      "close": "Cerrar"
+    },
     "note": "Todos los planes incluyen {freeDays} días gratis. Sin permanencia. Cancela en un clic.",
     "headingNormal": "Empieza con ",
     "headingGreen": "7 días gratis"

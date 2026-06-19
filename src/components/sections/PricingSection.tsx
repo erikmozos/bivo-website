@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocale } from "@/hooks/useLocale";
+import StoreChooserModal from "@/components/StoreChooserModal";
 
 const CheckIcon = () => (
   <span
@@ -26,7 +27,7 @@ const SavingsIcon = () => (
 
 const PricingSection = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
+  const [storeModalOpen, setStoreModalOpen] = useState(false);
 
   const includedFeatures = t("pricing.features", { returnObjects: true }) as string[];
 
@@ -197,9 +198,10 @@ const PricingSection = () => {
 
               <div className="my-6" style={{ height: "1px", background: "rgba(255,255,255,0.06)" }} />
 
-              <a
-                href="#contacto"
-                className="block text-center font-bold uppercase tracking-wider mt-auto transition-all"
+              <button
+                type="button"
+                onClick={() => setStoreModalOpen(true)}
+                className="block w-full text-center font-bold uppercase tracking-wider mt-auto transition-all cursor-pointer"
                 style={{
                   padding: "16px 24px", borderRadius: "12px",
                   fontSize: "13px", letterSpacing: "0.06em", textDecoration: "none",
@@ -235,7 +237,7 @@ const PricingSection = () => {
                 }}
               >
                 {t("pricing.cta")}
-              </a>
+              </button>
             </div>
           ))}
         </div>
@@ -244,6 +246,8 @@ const PricingSection = () => {
           {t("pricing.note", { freeDays: 7 })}
         </p>
       </div>
+
+      <StoreChooserModal open={storeModalOpen} onOpenChange={setStoreModalOpen} />
 
       <style>{`
         @media (min-width: 768px) {

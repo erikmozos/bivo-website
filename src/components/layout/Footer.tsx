@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { openCookiePreferences } from "@/components/ConsentBanner";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
+import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/storeLinks";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const Footer = () => {
 
             <div className="flex flex-col sm:flex-row gap-3 mt-6">
               <a
-                href="https://apps.apple.com"
+                href={APP_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/20 hover:border-bivo-green hover:text-bivo-green transition-colors"
@@ -56,7 +57,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="https://play.google.com"
+                href={GOOGLE_PLAY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/20 hover:border-bivo-green hover:text-bivo-green transition-colors"

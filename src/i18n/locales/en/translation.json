@@ -262,7 +262,13 @@
       }
     ],
     "cta": "Start 7 days free",
-    "note": "This policy is subject to changes, so we recommend consulting it each time you visit us.",
+    "storeModal": {
+      "title": "Download the app",
+      "description": "Choose your store to start your 7-day free trial.",
+      "badge": "7 days free",
+      "close": "Close"
+    },
+    "note": "All plans include {freeDays} days free. No commitment. Cancel in one click.",
     "headingNormal": "Get ",
     "headingGreen": "7 days free"
   },
