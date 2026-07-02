@@ -26,6 +26,7 @@
       "label": "Disponible en",
       "store": "Google Play"
     },
+    "qrAlt": "Escanea para descargar la app en App Store o Google Play",
     "quickLinks": {
       "title": "Enlaces rápidos",
       "links": [
@@ -262,7 +263,7 @@
       "badge": "7 días gratis",
       "close": "Cerrar"
     },
-    "note": "Todos los planes incluyen {freeDays} días gratis. Sin permanencia. Cancela en un clic.",
+    "note": "Todos los planes incluyen 7 días gratis. Sin permanencia. Cancela en un clic.",
     "headingNormal": "Empieza con ",
     "headingGreen": "7 días gratis"
   },

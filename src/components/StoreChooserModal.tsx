@@ -7,7 +7,7 @@ import {
   DialogDescription,
   DialogClose,
 } from "@/components/ui/dialog";
-import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/storeLinks";
+import { APP_STORE_URL, GOOGLE_PLAY_URL, APP_DOWNLOAD_QR } from "@/lib/storeLinks";
 
 interface StoreChooserModalProps {
   open: boolean;
@@ -95,6 +95,14 @@ const StoreChooserModal = ({ open, onOpenChange }: StoreChooserModalProps) => {
               </div>
             </div>
           </a>
+        </div>
+
+        <div className="relative flex justify-center px-6 pb-6 pt-2">
+          <img
+            src={APP_DOWNLOAD_QR}
+            alt={t("footer.qrAlt")}
+            className="h-28 w-28 rounded-xl bg-white p-1.5"
+          />
         </div>
       </DialogContent>
     </Dialog>

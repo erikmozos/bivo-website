@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { openCookiePreferences } from "@/components/ConsentBanner";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
-import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/storeLinks";
+import { APP_STORE_URL, GOOGLE_PLAY_URL, APP_DOWNLOAD_QR } from "@/lib/storeLinks";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -73,6 +73,14 @@ const Footer = () => {
                   <div className="text-sm font-semibold leading-tight">{t("footer.googlePlay.store")}</div>
                 </div>
               </a>
+            </div>
+
+            <div className="mt-4">
+              <img
+                src={APP_DOWNLOAD_QR}
+                alt={t("footer.qrAlt")}
+                className="w-24 h-24 rounded-lg bg-white p-1"
+              />
             </div>
           </div>
           

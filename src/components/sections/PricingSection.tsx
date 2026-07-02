@@ -243,7 +243,7 @@ const PricingSection = () => {
         </div>
 
         <p className="text-center mt-10" style={{ color: "#6b7280", fontSize: "13px" }}>
-          {t("pricing.note", { freeDays: 7 })}
+          {t("pricing.note")}
         </p>
       </div>
 

@@ -26,6 +26,7 @@
       "label": "Available on",
       "store": "Google Play"
     },
+    "qrAlt": "Scan to download the app on App Store or Google Play",
     "quickLinks": {
       "title": "Quick Links",
       "links": [
@@ -268,7 +269,7 @@
       "badge": "7 days free",
       "close": "Close"
     },
-    "note": "All plans include {freeDays} days free. No commitment. Cancel in one click.",
+    "note": "All plans include 7 days free. No commitment. Cancel in one click.",
     "headingNormal": "Get ",
     "headingGreen": "7 days free"
   },
