@@ -24,6 +24,8 @@ i18n
     load: "currentOnly",
     interpolation: {
       escapeValue: false,
+      prefix: "{",
+      suffix: "}",
     },
     detection: {
       order: ["localStorage"],

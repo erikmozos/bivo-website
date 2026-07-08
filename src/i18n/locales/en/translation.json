@@ -875,7 +875,7 @@
   },
   "form": {
     "progress": {
-      "step": "Step {{current}} of {{total}}",
+      "step": "Step {current} of {total}",
       "percent": "{percent}%"
     },
     "registration": {
