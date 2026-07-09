@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
 import { APP_STORE_URL, GOOGLE_PLAY_URL, APP_DOWNLOAD_QR } from "@/lib/storeLinks";
 
+const COPYRIGHT_START_YEAR = 2025;
+
 const Footer = () => {
   const { t } = useTranslation();
   const { localePath, lang } = useLocale();
@@ -153,7 +155,7 @@ const Footer = () => {
             </a>
           </div>
           <p className="text-gray-400">
-            {t("footer.copyright", { year: currentYear })}
+            {t("footer.copyright", { startYear: COPYRIGHT_START_YEAR, endYear: currentYear })}
           </p>
         </div>
       </div>

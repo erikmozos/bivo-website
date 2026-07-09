@@ -52,7 +52,7 @@
       "youtube": "Youtube",
       "linkedin": "Linkedin"
     },
-    "copyright": "© {year} Bivo. All rights reserved."
+    "copyright": "© {startYear}–{endYear} Bivo Training S.L. All rights reserved."
   },
   "hero": {
     "title": "The first smart app with AI for physical preparation in racket sports.",

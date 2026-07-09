@@ -52,7 +52,7 @@
       "youtube": "Youtube",
       "linkedin": "Linkedin"
     },
-    "copyright": "© {year} Bivo. Todos los derechos reservados."
+    "copyright": "© {startYear}–{endYear} Bivo Training S.L. Todos los derechos reservados."
   },
   "hero": {
     "title": "Primera smart app con IA de preparación física en deportes de raqueta.",
