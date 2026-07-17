@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
 
 const ContactSection = () => {
+  const { t } = useTranslation();
+  const { localePath } = useLocale();
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
@@ -28,20 +32,28 @@ const ContactSection = () => {
     setErrorMessage("");
     
     try {
-      const response = await fetch("/api/contact", {
+      const apiUrl =
+        import.meta.env.VITE_CONTACT_API_URL?.trim() || "/api/contact";
+
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          nombre: formData.nombre,
-          email: formData.email,
-          mensaje: formData.mensaje,
+          nombre: formData.nombre.trim(),
+          email: formData.email.trim(),
+          mensaje: formData.mensaje.trim(),
         }),
       });
 
-      const data = await response.json();
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        success?: boolean;
+      };
 
-      if (!response.ok) {
-        throw new Error(data.error || "Error al enviar el mensaje");
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.error || t("contact.form.error")
+        );
       }
 
       setSubmitSuccess(true);
@@ -52,7 +64,7 @@ const ContactSection = () => {
       if (error instanceof Error) {
         setErrorMessage(error.message);
       } else {
-        setErrorMessage("No pudimos enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.");
+        setErrorMessage(t("contact.form.error"));
       }
     } finally {
       setIsSubmitting(false);
@@ -70,28 +82,28 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contacto" className="py-20 bg-gray-50">
+    <section id="contacto" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-round text-3xl font-bold mb-4">
-            Contacta con <span className="text-bivo-green">nosotros</span>
+            {t("contact.heading")}
           </h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            ¿Tienes alguna pregunta o comentario? No dudes en contactarnos, estaremos encantados de ayudarte.
+            {t("contact.description")}
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <div>
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="font-round text-xl font-semibold mb-6">Envíanos un mensaje</h3>
+              <h3 className="font-round text-xl font-semibold mb-6">{t("contact.form.title")}</h3>
               
               {!submitSuccess ? (
                 <form onSubmit={handleSubmit}>
                   <div className="space-y-4">
                     <div>
                       <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 mb-1">
-                        Nombre <span className="text-red-500">*</span>
+                        {t("contact.form.fields.name.label")} <span className="text-red-500">{t("contact.form.fields.name.required")}</span>
                       </label>
                       <input
                         type="text"
@@ -106,7 +118,7 @@ const ContactSection = () => {
                     
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                        Email <span className="text-red-500">*</span>
+                        {t("contact.form.fields.email.label")} <span className="text-red-500">{t("contact.form.fields.email.required")}</span>
                       </label>
                       <input
                         type="email"
@@ -121,7 +133,7 @@ const ContactSection = () => {
                     
                     <div>
                       <label htmlFor="mensaje" className="block text-sm font-medium text-gray-700 mb-1">
-                        Mensaje <span className="text-red-500">*</span>
+                        {t("contact.form.fields.message.label")} <span className="text-red-500">{t("contact.form.fields.message.required")}</span>
                       </label>
                       <textarea
                         id="mensaje"
@@ -148,7 +160,7 @@ const ContactSection = () => {
                         }`}
                         disabled={isSubmitting}
                       >
-                        {isSubmitting ? "Enviando mensaje..." : "Enviar mensaje"}
+                        {isSubmitting ? t("contact.form.submitting") : t("contact.form.submit")}
                       </button>
                     </div>
                   </div>
@@ -160,15 +172,15 @@ const ContactSection = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                   </div>
-                  <h3 className="font-round text-xl font-semibold mb-2">¡Mensaje enviado!</h3>
+                  <h3 className="font-round text-xl font-semibold mb-2">{t("contact.form.success.title")}</h3>
                   <p className="text-gray-600 mb-4">
-                    Gracias por contactarnos. Te responderemos lo antes posible.
+                    {t("contact.form.success.description")}
                   </p>
                   <button
                     onClick={handleNewMessage}
                     className="bg-bivo-green text-black py-2 px-4 rounded-md font-medium hover:bg-opacity-90 transition-colors"
                   >
-                    Enviar otro mensaje
+                    {t("contact.form.success.newMessage")}
                   </button>
                 </div>
               )}
@@ -177,7 +189,7 @@ const ContactSection = () => {
           
           <div>
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="font-round text-xl font-semibold mb-6">Información de contacto</h3>
+              <h3 className="font-round text-xl font-semibold mb-6">{t("contact.info.title")}</h3>
               
               <div className="space-y-4 mb-8">
                 <div className="flex items-center gap-3">
@@ -185,7 +197,7 @@ const ContactSection = () => {
                     <Mail className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Email</p>
+                    <p className="font-medium text-gray-900">{t("contact.info.email")}</p>
                     <a 
                       href="mailto:hello@bivotraining.com" 
                       className="text-bivo-green hover:underline"
@@ -200,25 +212,25 @@ const ContactSection = () => {
                     <MapPin className="w-5 h-5 text-black" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Ubicación</p>
-                    <p className="text-gray-600">Mahón, Menorca (Islas Baleares)</p>
+                    <p className="font-medium text-gray-900">{t("contact.info.location")}</p>
+                    <p className="text-gray-600">{t("contact.info.address")}</p>
                   </div>
                 </div>
               </div>
 
-              <h4 className="font-round text-lg font-semibold mb-4">Síguenos en redes sociales</h4>
+              <h4 className="font-round text-lg font-semibold mb-4">{t("contact.social.title")}</h4>
               <div className="flex flex-wrap gap-4">
                 <a href="https://www.instagram.com/bivotraining" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-bivo-green transition-colors">
                   <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
-                  Instagram
+                  {t("contact.social.instagram")}
                 </a>
                 <a href="https://www.youtube.com/@BivoTraining" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-bivo-green transition-colors">
                   <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="7" ry="7"/></svg>
-                  Youtube
+                  {t("contact.social.youtube")}
                 </a>
                 <a href="https://www.linkedin.com/company/bivotraining" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-600 hover:text-bivo-green transition-colors">
                   <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><line x1="16" y1="11" x2="16" y2="16"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8"/><line x1="16" y1="8" x2="16" y2="8"/></svg>
-                  Linkedin
+                  {t("contact.social.linkedin")}
                 </a>
               </div>
             </div>

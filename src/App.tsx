@@ -2,16 +2,30 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useParams, Outlet, useLocation } from "react-router-dom";
+import { useEffect, useLayoutEffect, lazy, Suspense } from "react";
+import { useTranslation } from "react-i18next";
+import { HelmetProvider, Helmet } from "react-helmet-async";
+import "./i18n";
 import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import CookiePolicy from "./pages/CookiePolicy";
-import TermsConditions from "./pages/TermsConditions";
 import ConsentBanner from "./components/ConsentBanner";
 
+const NotFound = lazy(() => import("./pages/NotFound"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
+const TermsConditions = lazy(() => import("./pages/TermsConditions"));
+const ShoulderStabilityLanding = lazy(() => import("./pages/ShoulderStabilityLanding"));
+
 const queryClient = new QueryClient();
+
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-screen bg-black">
+    <div
+      className="rounded-full h-12 w-12 border-b-2 border-bivo-green"
+      style={{ animation: "spin 0.8s linear infinite" }}
+    />
+  </div>
+);
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -21,25 +35,62 @@ const ScrollToTop = () => {
   return null;
 };
 
+const LocaleLayout = () => {
+  const { lang } = useParams<{ lang: string }>();
+  const { i18n } = useTranslation();
+  const location = useLocation();
+
+  const supportedLangs = ["es", "en"];
+  const locale = supportedLangs.includes(lang || "") ? lang! : null;
+
+  useLayoutEffect(() => {
+    if (locale && i18n.language !== locale) {
+      i18n.changeLanguage(locale);
+    }
+    document.documentElement.lang = locale || "es";
+  }, [locale, i18n]);
+
+  if (!locale) {
+    return <Navigate to={`/es${location.pathname}`} replace />;
+  }
+
+  return (
+    <>
+      <Helmet prioritizeSeoTags>
+        <html lang={locale} />
+      </Helmet>
+      <ScrollToTop />
+      <Outlet />
+    </>
+  );
+};
+
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/privacidad" element={<PrivacyPolicy />} />
-          <Route path="/cookies" element={<CookiePolicy />} />
-          <Route path="/terminos" element={<TermsConditions />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <ConsentBanner />
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Navigate to="/es" replace />} />
+              <Route path="/:lang" element={<LocaleLayout />}>
+                <Route index element={<Index />} />
+                <Route path="privacidad" element={<PrivacyPolicy />} />
+                <Route path="cookies" element={<CookiePolicy />} />
+                <Route path="terminos" element={<TermsConditions />} />
+                <Route path="estabilidad-hombro" element={<ShoulderStabilityLanding />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+          <ConsentBanner />
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;

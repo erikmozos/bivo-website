@@ -2,5 +2,11 @@
   "framework": "vite",
   "buildCommand": "vite build",
   "devCommand": "vite --port $PORT",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
 }

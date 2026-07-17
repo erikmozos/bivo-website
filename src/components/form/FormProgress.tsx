@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 
 interface FormProgressProps {
   currentStep: number;
@@ -5,16 +6,17 @@ interface FormProgressProps {
 }
 
 const FormProgress: React.FC<FormProgressProps> = ({ currentStep, totalSteps }) => {
+  const { t } = useTranslation();
   const progress = (currentStep / totalSteps) * 100;
   
   return (
     <div className="mb-8">
       <div className="flex justify-between mb-2">
         <span className="text-sm font-medium text-bivo-green">
-          Paso {currentStep} de {totalSteps}
+          {t("form.progress.step", { current: currentStep, total: totalSteps })}
         </span>
         <span className="text-sm font-medium text-bivo-green">
-          {Math.round(progress)}%
+          {t("form.progress.percent", { percent: Math.round(progress) })}
         </span>
       </div>
       <div className="w-full bg-gray-200 rounded-full h-2">

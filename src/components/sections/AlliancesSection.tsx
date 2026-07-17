@@ -1,50 +1,58 @@
+import { useTranslation } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
+
+const partnerImages = [
+  "/img2/mqc.png",
+  "/img2/monitor-padel.jpg",
+  "/img2/pdpadel.jpg",
+  "/img2/emprenbit.png",
+  "/img2/fpib.png",
+];
 
 const AlliancesSection = () => {
-  const alianzas = [
-    {
-      nombre: "MQC",
-      imagen: "/img/mqc.png",
-      descripcion: "Movement Quality Center, referente en entrenamiento para deportistas exigentes y de alto nivel, es nuestro partner desde el inicio y base presencial de Bivo."
-    },
-    {
-      nombre: "Bivo para entrenadores",
-      imagen: "/img/monitor-padel.jpg",
-      descripcion: "En Bivo optimizamos el rendimiento de tus alumnos con preparación física adaptada y preventiva. ¡Complementa tus clases con nuestro apoyo! Descubre como podemos ayudarte."
-    },
-    {
-      nombre: "Club Pdpadel",
-      imagen: "/img/pdpadel.jpg",
-      descripcion: "Pdpadel, uno de los clubes más importantes de Baleares, ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info!"
-    }
-  ];
+  const { t } = useTranslation();
+  const { localePath } = useLocale();
+
+  const partnersData = t("alliances.partners", { returnObjects: true }) as {
+    name: string;
+    description: string;
+  }[];
+
+  const alianzas = partnersData.map((partner, index) => ({
+    nombre: partner.name,
+    imagen: partnerImages[index],
+    descripcion: partner.description,
+  }));
 
   return (
     <section id="alianzas" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-round text-3xl font-bold mb-4">
-            Alianzas y <span className="text-bivo-green">colaboraciones</span>
+            {t("alliances.heading")}
           </h2>
           <p className="text-gray-600 max-w-3xl mx-auto">
-            Bivo colabora con las principales organizaciones deportivas para garantizar la máxima calidad en el entrenamiento de deportes de raqueta.
+            {t("alliances.description")}
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {alianzas.map((alianza, index) => (
-            <div 
-              key={index} 
+          {alianzas.map((alianza, index) => {
+            const isLogo = alianza.imagen.includes("emprenbit") || alianza.imagen.includes("fpib");
+            return (
+            <div
+              key={index}
               className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
             >
-              <div className="h-40 bg-gray-200 relative overflow-hidden">
-                <img 
+              <div className="h-40 bg-white relative overflow-hidden flex items-center justify-center">
+                <img
                   src={alianza.imagen}
                   alt={alianza.nombre}
-                  className="w-full h-full object-cover"
-                  onError={e => {
+                  className={`w-full h-full ${isLogo ? "object-contain p-6" : "object-cover"}`}
+                  onError={(e) => {
                     const target = e.currentTarget;
-                    if (!target.src.endsWith('/brand/placeholder-profile.png')) {
-                      target.src = '/brand/placeholder-profile.png';
+                    if (!target.src.endsWith("/brand/placeholder-profile.png")) {
+                      target.src = "/brand/placeholder-profile.png";
                     } else {
                       target.onerror = null;
                     }
@@ -56,7 +64,8 @@ const AlliancesSection = () => {
                 <p className="text-gray-600">{alianza.descripcion}</p>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

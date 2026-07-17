@@ -2,129 +2,117 @@ import React from "react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { useLocale } from "@/hooks/useLocale";
 
 const Navbar = () => {
+  const { t, i18n } = useTranslation();
+  const { localePath, lang } = useLocale();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
+  const navItems = t("nav.items", { returnObjects: true }) as string[];
+
   const handleLogoClick = (e: React.MouseEvent) => {
-    // If we're on the home page, scroll to top
-    if (location.pathname === '/') {
+    if (location.pathname.replace(/^\/(en|es)/, "") === "/" || location.pathname === `/${lang}`) {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    // If we're on another page, the Link will handle navigation to home
   };
 
   const handleMenuClick = (sectionId: string) => {
-    if (location.pathname === '/') {
-      // If we're on the home page, scroll to the section
+    const basePath = location.pathname.replace(/^\/(en|es)/, "") || "/";
+    if (basePath === "/") {
       const element = document.getElementById(sectionId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      // If we're on another page, navigate to home and then scroll to section
-      navigate('/', { state: { scrollTo: sectionId } });
+      navigate(localePath("/"), { state: { scrollTo: sectionId } });
     }
     setIsMenuOpen(false);
   };
+
+  const toggleLang = async () => {
+    const targetLang = lang === "es" ? "en" : "es";
+    const path = location.pathname.replace(/^\/(en|es)/, "");
+    if (targetLang === "en" && !i18n.hasResourceBundle("en", "translation")) {
+      const en = await import("../../i18n/locales/en/translation.json");
+      i18n.addResourceBundle("en", "translation", en.default, true, true);
+    }
+    navigate(`/${targetLang}${path}`);
+  };
+
+  const sectionIds = ["precios", "como-funciona", "alianzas", "reconocimientos", "equipo", "contacto"];
 
   return (
     <nav className="fixed w-full bg-black z-50 py-4 shadow-sm">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link
-          to="/"
+          to={localePath("/")}
           className="flex items-center cursor-pointer"
           onClick={handleLogoClick}
         >
-          <img 
-            src="/brand/logo-bivo-verde.png" 
-            alt="Bivo Training Logo" 
+          <img
+            src="/brand/logo-bivo-verde.png"
+            alt={t("nav.logoAlt")}
             className="h-8 w-auto object-contain"
           />
         </Link>
 
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          className="lg:hidden p-2 text-white hover:text-bivo-green transition-colors"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
-        >
-          {isMenuOpen ? <X size={24} strokeWidth={2} aria-hidden /> : <Menu size={24} strokeWidth={2} aria-hidden />}
-        </button>
-
-        {/* Desktop menu */}
         <div className="hidden lg:flex items-center space-x-8">
-          <button 
-            onClick={() => handleMenuClick('form')}
-            className="text-white hover:text-bivo-green transition-colors"
+          {navItems.map((label, i) => (
+            <button
+              key={sectionIds[i]}
+              onClick={() => handleMenuClick(sectionIds[i])}
+              className="text-white hover:text-bivo-green transition-colors"
+            >
+              {label}
+            </button>
+          ))}
+          <button
+            onClick={toggleLang}
+            className="text-white hover:text-bivo-green transition-colors font-semibold text-sm border border-white/30 px-3 py-1 rounded hover:border-bivo-green"
           >
-            Registrarse
+            {lang === "es" ? "EN" : "ES"}
           </button>
-          <button 
-            onClick={() => handleMenuClick('alianzas')}
-            className="text-white hover:text-bivo-green transition-colors"
+        </div>
+
+        <div className="flex items-center gap-2 lg:hidden">
+          <button
+            onClick={toggleLang}
+            className="text-white hover:text-bivo-green transition-colors font-semibold text-sm border border-white/30 px-3 py-1 rounded"
           >
-            Alianzas
+            {lang === "es" ? "EN" : "ES"}
           </button>
-          <button 
-            onClick={() => handleMenuClick('reconocimientos')}
-            className="text-white hover:text-bivo-green transition-colors"
+          <button
+            type="button"
+            className="p-2 text-white hover:text-bivo-green transition-colors"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? t("nav.aria.closeMenu") : t("nav.aria.openMenu")}
           >
-            Reconocimientos
-          </button>
-          <button 
-            onClick={() => handleMenuClick('equipo')}
-            className="text-white hover:text-bivo-green transition-colors"
-          >
-            Equipo
-          </button>
-          <button 
-            onClick={() => handleMenuClick('contacto')}
-            className="text-white hover:text-bivo-green transition-colors"
-          >
-            Contacto
+            {isMenuOpen ? (
+              <X size={24} strokeWidth={2} aria-hidden />
+            ) : (
+              <Menu size={24} strokeWidth={2} aria-hidden />
+            )}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {isMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 right-0 bg-black shadow-md py-4 px-4">
           <div className="flex flex-col space-y-4">
-            <button 
-              onClick={() => handleMenuClick('form')}
-              className="text-white hover:text-bivo-green transition-colors py-2 text-left"
-            >
-              Registrarse
-            </button>
-            <button 
-              onClick={() => handleMenuClick('alianzas')}
-              className="text-white hover:text-bivo-green transition-colors py-2 text-left"
-            >
-              Alianzas
-            </button>
-            <button 
-              onClick={() => handleMenuClick('reconocimientos')}
-              className="text-white hover:text-bivo-green transition-colors py-2 text-left"
-            >
-              Reconocimientos
-            </button>
-            <button 
-              onClick={() => handleMenuClick('equipo')}
-              className="text-white hover:text-bivo-green transition-colors py-2 text-left"
-            >
-              Equipo
-            </button>
-            <button 
-              onClick={() => handleMenuClick('contacto')}
-              className="text-white hover:text-bivo-green transition-colors py-2 text-left"
-            >
-              Contacto
-            </button>
+            {navItems.map((label, i) => (
+              <button
+                key={sectionIds[i]}
+                onClick={() => handleMenuClick(sectionIds[i])}
+                className="text-white hover:text-bivo-green transition-colors py-2 text-left"
+              >
+                {label}
+              </button>
+            ))}
           </div>
         </div>
       )}
