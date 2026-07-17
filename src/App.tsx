@@ -9,12 +9,20 @@ import { HelmetProvider, Helmet } from "react-helmet-async";
 import "./i18n";
 import Index from "./pages/Index";
 import ConsentBanner from "./components/ConsentBanner";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const NotFound = lazy(() => import("./pages/NotFound"));
+const StartPage = lazy(() => import("./pages/StartPage"));
+const AuthPage = lazy(() => import("./pages/AuthPage"));
+const OnboardingPage = lazy(() => import("./pages/OnboardingPage"));
+const TrainingPreviewPage = lazy(() => import("./pages/TrainingPreviewPage"));
+const PaywallPage = lazy(() => import("./pages/PaywallPage"));
+const DownloadAppPage = lazy(() => import("./pages/DownloadAppPage"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const TermsConditions = lazy(() => import("./pages/TermsConditions"));
 const ShoulderStabilityLanding = lazy(() => import("./pages/ShoulderStabilityLanding"));
+const PadelLandingPage = lazy(() => import("./pages/PadelLandingPage"));
 
 const queryClient = new QueryClient();
 
@@ -68,27 +76,36 @@ const LocaleLayout = () => {
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Navigate to="/es" replace />} />
-              <Route path="/:lang" element={<LocaleLayout />}>
-                <Route index element={<Index />} />
-                <Route path="privacidad" element={<PrivacyPolicy />} />
-                <Route path="cookies" element={<CookiePolicy />} />
-                <Route path="terminos" element={<TermsConditions />} />
-                <Route path="estabilidad-hombro" element={<ShoulderStabilityLanding />} />
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Navigate to="/es" replace />} />
+                <Route path="/:lang" element={<LocaleLayout />}>
+                  <Route index element={<Index />} />
+                  <Route path="empezar" element={<StartPage />} />
+                  <Route path="registro" element={<AuthPage />} />
+                  <Route path="onboarding" element={<OnboardingPage />} />
+                  <Route path="entrenamiento" element={<TrainingPreviewPage />} />
+                  <Route path="paywall" element={<PaywallPage />} />
+                  <Route path="descargar" element={<DownloadAppPage />} />
+                  <Route path="privacidad" element={<PrivacyPolicy />} />
+                  <Route path="cookies" element={<CookiePolicy />} />
+                  <Route path="terminos" element={<TermsConditions />} />
+                  <Route path="estabilidad-hombro" element={<ShoulderStabilityLanding />} />
+                  <Route path="padel" element={<PadelLandingPage />} />
+                  <Route path="*" element={<NotFound />} />
+                </Route>
                 <Route path="*" element={<NotFound />} />
-              </Route>
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-          <ConsentBanner />
-        </BrowserRouter>
-      </TooltipProvider>
+              </Routes>
+            </Suspense>
+            <ConsentBanner />
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   </HelmetProvider>
 );

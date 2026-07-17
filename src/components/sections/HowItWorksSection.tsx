@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
 
@@ -35,6 +36,15 @@ const HowItWorksSection = () => {
           <p className="text-white/80 max-w-3xl mx-auto">
             {t("howItWorks.description")}
           </p>
+        </div>
+
+        <div className="flex justify-center mb-10">
+          <Link
+            to={localePath("/empezar")}
+            className="inline-flex items-center justify-center bg-bivo-green text-black px-8 py-3.5 rounded-xl font-extrabold text-base sm:text-lg uppercase tracking-wide hover:bg-opacity-90 transition-all transform hover:scale-[1.02] shadow-[0_8px_32px_rgba(57,255,20,0.25)]"
+          >
+            {t("howItWorks.cta")}
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mt-10">

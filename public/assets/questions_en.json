@@ -1,0 +1,360 @@
+[
+  {
+    "id": 1,
+    "question": "What's your gender?",
+    "type": "select",
+    "forceAnswer": true,
+    "options": [
+      {
+        "value": "femenino",
+        "label": "Female",
+        "imagePath": "assets/images/onboardingSexo/Mujer.png"
+      },
+      {
+        "value": "masculino",
+        "label": "Male",
+        "imagePath": "assets/images/onboardingSexo/Hombre.png"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "question": "What should we call you in Bivo?",
+    "type": "string",
+    "placeholder": "Tell us your name..."
+  },
+  {
+    "id": 3,
+    "question": "My goal is:",
+    "type": "select",
+    "forceAnswer": true,
+    "options": [
+      {
+        "value": "padel",
+        "label": "Improve my padel-specific physical preparation",
+        "imagePath": "assets/images/onboardingDeportes/Padel-removebg-preview.png"
+      },
+      {
+        "value": "tenis",
+        "label": "Improve my tennis-specific physical preparation",
+        "imagePath": "assets/images/onboardingDeportes/tenis.png"
+      },
+      {
+        "value": "pickleball",
+        "label": "Improve my pickleball-specific physical preparation",
+        "imagePath": "assets/images/onboardingDeportes/Pickleball-removebg-preview.png"
+      },
+      {
+        "value": "badminton",
+        "label": "Improve my badminton-specific physical preparation",
+        "imagePath": "assets/images/onboardingDeportes/badminton_seleccion_deporte_removebg_preview.png"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Have you ever trained strength?",
+    "image": "force.png",
+    "type": "radio",
+    "forceAnswer": true,
+    "options": [
+      {
+        "value": "si",
+        "label": "Yes"
+      },
+      {
+        "value": "no",
+        "label": "No, never"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "question": "How long have you been training regularly?",
+    "type": "radio",
+    "forceAnswer": true,
+    "options": [
+      {
+        "value": "menos_6_meses",
+        "label": "Less than 6 months"
+      },
+      {
+        "value": "6_meses_3_anos",
+        "label": "Between 6 months and 3 years"
+      },
+      {
+        "value": "mas_3_anos",
+        "label": "More than 3 years"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "question": "Do you have any pain?",
+    "type": "checkbox",
+    "options": [
+      {
+        "value": "rodilla",
+        "label": "Knee",
+        "imagePath": "assets/images/dolores_onboarding/RODILLA.png"
+      },
+      {
+        "value": "cadera",
+        "label": "Hip",
+        "imagePath": "assets/images/dolores_onboarding/CADERA.png"
+      },
+      {
+        "value": "lumbar",
+        "label": "Lower back",
+        "imagePath": "assets/images/dolores_onboarding/LUMBAR.png"
+      },
+      {
+        "value": "hombro",
+        "label": "Shoulder",
+        "imagePath": "assets/images/dolores_onboarding/HOMBRO.png"
+      },
+      {
+        "value": "codo",
+        "label": "Elbow",
+        "imagePath": "assets/images/dolores_onboarding/CODO.png"
+      },
+      {
+        "value": "tobillo",
+        "label": "Ankle",
+        "imagePath": "assets/images/dolores_onboarding/TOBILLO.png"
+      },
+      {
+        "value": "muneca",
+        "label": "Wrist",
+        "imagePath": "assets/images/dolores_onboarding/MUNECA.png"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "question": "Do you have limited mobility in any joint?",
+    "type": "checkbox",
+    "options": [
+      {
+        "value": "cadera",
+        "label": "Hip",
+        "subtitle": "HIP MOBILITY",
+        "imagePath": "assets/images/onboardingMovilidad/Ejercicios buena movilidad cadera.png"
+      },
+      {
+        "value": "tobillo",
+        "label": "Ankle",
+        "subtitle": "ANKLE MOBILITY",
+        "imagePath": "assets/images/onboardingMovilidad/Ejercicios buena movilidad tobillo.png"
+      },
+      {
+        "value": "hombro",
+        "label": "Shoulder flexion",
+        "subtitle": "SHOULDER FLEXION MOBILITY",
+        "imagePath": "assets/images/onboardingMovilidad/Ejercicios buena movilidad hombro.png"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "question": "How would you rate your fitness level?",
+    "type": "select",
+    "forceAnswer": true,
+    "options": [
+      {
+        "value": "principiante",
+        "label": "Beginner",
+        "imagePath": "assets/images/onboardingNivel/Principiante-removebg-preview.png"
+      },
+      {
+        "value": "intermedio",
+        "label": "Intermediate",
+        "imagePath": "assets/images/onboardingNivel/Intermedio-removebg-preview.png"
+      },
+      {
+        "value": "avanzado",
+        "label": "Advanced",
+        "imagePath": "assets/images/onboardingNivel/Avanzado-removebg-preview.png"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "question": "What days of the week do you want to train?",
+    "type": "weekdays",
+    "forceAnswer": false
+  },
+  {
+    "id": 9,
+    "question": "Any chronic illness or medical contraindication?",
+    "type": "radio",
+    "forceAnswer": true,
+    "options": [
+      {
+        "value": "si",
+        "label": "Yes, I will contact my doctor to get informed consent before starting"
+      },
+      {
+        "value": "no",
+        "label": "No"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "question": "What equipment do you have?",
+    "type": "checkbox",
+    "options": [
+      {
+        "value": "foam_roller",
+        "label": "Foam roller",
+        "imagePath": "assets/images/materialTransparente/foam_roller.png"
+      },
+      {
+        "value": "gomas_elasticas",
+        "label": "Resistance bands",
+        "imagePath": "assets/images/materialTransparente/gomas_elasticas.png"
+      },
+      {
+        "value": "minibands",
+        "label": "Minibands",
+        "imagePath": "assets/images/materialTransparente/minibands.png"
+      },
+      {
+        "value": "mancuernas",
+        "label": "Dumbbells",
+        "imagePath": "assets/images/materialTransparente/mancuernas.png"
+      },
+      {
+        "value": "kettlebells",
+        "label": "Kettlebells",
+        "imagePath": "assets/images/materialTransparente/kettlebells.png"
+      },
+      {
+        "value": "pica",
+        "label": "Pole",
+        "imagePath": "assets/images/dolores_onboarding/PICA.png"
+      },
+      {
+        "value": "barra_olimpica",
+        "label": "Olympic barbell",
+        "imagePath": "assets/images/materialTransparente/barra_olimpica.png"
+      },
+      {
+        "value": "barra_hexagonal",
+        "label": "Hex bar",
+        "imagePath": "assets/images/materialTransparente/barra_hexagonal.png"
+      },
+      {
+        "value": "safety_bar",
+        "label": "Safety bar",
+        "imagePath": "assets/images/materialTransparente/safety_bar.png"
+      },
+      {
+        "value": "discos",
+        "label": "Plates",
+        "imagePath": "assets/images/materialTransparente/discos.png"
+      },
+      {
+        "value": "landmine",
+        "label": "Landmine",
+        "imagePath": "assets/images/materialTransparente/landmine.png"
+      },
+      {
+        "value": "trx",
+        "label": "TRX or similar suspension system",
+        "imagePath": "assets/images/materialTransparente/trx.png"
+      },
+      {
+        "value": "slides",
+        "label": "Slides or gliders",
+        "imagePath": "assets/images/materialTransparente/slides.png"
+      },
+      {
+        "value": "racks",
+        "label": "Racks or bar supports",
+        "imagePath": "assets/images/materialTransparente/racks.png"
+      },
+      {
+        "value": "maquina_multipower",
+        "label": "Smith machine",
+        "imagePath": "assets/images/materialTransparente/maquina_multipower.png"
+      },
+      {
+        "value": "barra_de_dominadas",
+        "label": "Pull-up bar",
+        "imagePath": "assets/images/materialTransparente/barra_de_dominadas.png"
+      },
+      {
+        "value": "cinturon_lastre",
+        "label": "Weight belt",
+        "imagePath": "assets/images/materialTransparente/cinturon_lastre.png"
+      },
+      {
+        "value": "bancos_ajustables",
+        "label": "Adjustable benches",
+        "imagePath": "assets/images/materialTransparente/bancos_ajustables.png"
+      },
+      {
+        "value": "banco_romano",
+        "label": "Roman chair",
+        "imagePath": "assets/images/materialTransparente/banco_romano.png"
+      },
+      {
+        "value": "fitballs",
+        "label": "Swiss balls (fitballs)",
+        "imagePath": "assets/images/materialTransparente/fitballs.png"
+      },
+      {
+        "value": "balon_medicinal",
+        "label": "Medicine ball",
+        "imagePath": "assets/images/materialTransparente/balon_medicinal.png"
+      },
+      {
+        "value": "poleas",
+        "label": "Cable machines",
+        "imagePath": "assets/images/materialTransparente/poleas.png"
+      },
+      {
+        "value": "cuerda_para_saltar",
+        "label": "Jump rope",
+        "imagePath": "assets/images/materialTransparente/cuerda_para_saltar.png"
+      },
+      {
+        "value": "esterilla",
+        "label": "Mat",
+        "imagePath": "assets/images/materialTransparente/esterilla.png"
+      },
+      {
+        "value": "step",
+        "label": "Step",
+        "imagePath": "assets/images/materialTransparente/step.png"
+      },
+      {
+        "value": "maquinas_de_remo",
+        "label": "Rowing machines",
+        "imagePath": "assets/images/materialTransparente/maquinas_de_remo.png"
+      },
+      {
+        "value": "bicicleta_estatica",
+        "label": "Stationary bike",
+        "imagePath": "assets/images/materialTransparente/bicicleta_estatica.png"
+      },
+      {
+        "value": "air_bike",
+        "label": "Air bike",
+        "imagePath": "assets/images/materialTransparente/air_bike.png"
+      },
+      {
+        "value": "cinta_de_correr",
+        "label": "Treadmill",
+        "imagePath": "assets/images/materialTransparente/cinta_de_correr.png"
+      },
+      {
+        "value": "correr_aire_libre",
+        "label": "Outdoor running",
+        "imagePath": "assets/images/materialTransparente/correr_aire_libre.png"
+      }
+    ]
+  }
+]

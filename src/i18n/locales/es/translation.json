@@ -109,6 +109,7 @@
   "howItWorks": {
     "heading": "Cómo funciona",
     "description": "En cinco pasos sencillos, Bivo te acompaña desde el primer test hasta tu progreso a largo plazo. Todo se adapta a ti automáticamente.",
+    "cta": "Genera tu primer entrenamiento",
     "steps": [
       {
         "title": "Bivo te valora y te conoce",
@@ -919,6 +920,191 @@
         "message": "Te avisaremos en cuanto lancemos la app para que puedas disfrutar de {freeMonths} mes gratis de preparación física específica de raqueta. 💪",
         "earlyAccess": "Muy pronto recibirás tu acceso anticipado.",
         "button": "Perfecto"
+      }
+    }
+  },
+  "appFlow": {
+    "session": {
+      "signedInAs": "Sesión:",
+      "logout": "Cerrar sesión",
+      "loggingOut": "Cerrando..."
+    },
+    "email": {
+      "badge": "Paso 1",
+      "title": "Genera tu primer entrenamiento",
+      "subtitle": "Introduce tu email y te mostraremos un plan personalizado en menos de un minuto.",
+      "label": "Email",
+      "placeholder": "tu@email.com",
+      "cta": "Continuar",
+      "submitting": "Continuando...",
+      "invalid": "Introduce un email válido.",
+      "note": "Sin spam. Solo usamos tu email para guardar tu progreso y activar tu cuenta."
+    },
+    "training": {
+      "badge": "Tu plan",
+      "title": "Tu entrenamiento para {{sport}}",
+      "subtitle": "Así se verá tu primera sesión en la app. Personalizado según tu deporte y objetivos.",
+      "defaultSport": "tu deporte",
+      "planLabel": "Sesión de hoy",
+      "planTitle": "Fuerza y prevención",
+      "planMeta": "35 min · 6 ejercicios · Nivel intermedio",
+      "exercises": [
+        "Activación hombro y escápula",
+        "Sentadilla búlgara con peso corporal",
+        "Plancha lateral con rotación",
+        "Saltos laterales (pádel)",
+        "Movilidad cadera y tobillo",
+        "Estiramientos específicos de raqueta"
+      ],
+      "hint": "Este es un ejemplo de tu plan. En la app se adapta cada semana según tu adherencia, partidos y molestias.",
+      "cta": "Prueba {{days}} días gratis",
+      "trialNote": "Sin cargo durante {{days}} días. Cancela cuando quieras.",
+      "screenAlt": "Vista del entrenamiento en la app Bivo",
+      "detailAlt": "Detalle de ejercicio en Bivo"
+    },
+    "auth": {
+      "badge": "Cuenta Bivo",
+      "signupTitle": "Crea tu cuenta",
+      "loginTitle": "Inicia sesión",
+      "subtitle": "Regístrate para activar tu prueba gratuita y desbloquear tu plan completo.",
+      "displayName": "Nombre",
+      "email": "Email",
+      "password": "Contraseña",
+      "signupCta": "Crear cuenta",
+      "loginCta": "Entrar",
+      "submitting": "Procesando...",
+      "or": "o",
+      "google": "Continuar con Google",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "noAccount": "¿No tienes cuenta?",
+      "switchLogin": "Inicia sesión",
+      "switchSignup": "Regístrate",
+      "genericError": "No se pudo completar la autenticación. Inténtalo de nuevo.",
+      "configErrorTitle": "Configuración pendiente",
+      "configError": "Faltan variables de Firebase en el entorno. Añade VITE_FIREBASE_* en .env.local."
+    },
+    "onboarding": {
+      "badge": "Cuestionario inicial",
+      "title": "Cuéntanos sobre ti",
+      "subtitle": "Responde unas preguntas para personalizar tu plan.",
+      "questionBadge": "Pregunta {{current}} de {{total}}",
+      "cta": "Continuar",
+      "finish": "Ver resumen",
+      "back": "Atrás",
+      "submitting": "Guardando...",
+      "error": "No se pudo guardar el onboarding. Inténtalo de nuevo.",
+      "loadError": "No se pudieron cargar las preguntas.",
+      "splash": {
+        "titleLine1": "Cuestionario",
+        "titleLine2": "inicial",
+        "subtitle": "En menos de 2 minutos creamos tu plan de preparación física personalizado para tu deporte de raqueta.",
+        "cta": "Empezar",
+        "footer": "Tus respuestas nos ayudan a adaptar cada ejercicio a tu nivel, dolores y material disponible."
+      },
+      "weekdays": {
+        "monday": "Lunes",
+        "tuesday": "Martes",
+        "wednesday": "Miércoles",
+        "thursday": "Jueves",
+        "friday": "Viernes",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      },
+      "summary": {
+        "badge": "Tu perfil",
+        "title": "Tu plan está listo",
+        "subtitle": "Hemos personalizado tu entrenamiento según tus respuestas.",
+        "sport": "Deporte",
+        "level": "Nivel",
+        "frequency": "Frecuencia",
+        "daysPerWeek": "{{count}} días/semana",
+        "painsTitle": "Zonas de dolor",
+        "mobilityTitle": "Movilidad",
+        "planTeaser": "Vista previa de tu primera sesión:",
+        "cta": "Ver entrenamiento — {{days}} días gratis",
+        "submitting": "Preparando...",
+        "sports": {
+          "padel": "Pádel",
+          "tenis": "Tenis",
+          "pickleball": "Pickleball",
+          "badminton": "Bádminton"
+        },
+        "levels": {
+          "principiante": "Principiante",
+          "intermedio": "Intermedio",
+          "avanzado": "Avanzado",
+          "beginner": "Principiante",
+          "intermediate": "Intermedio",
+          "advanced": "Avanzado",
+          "pro": "Pro"
+        },
+        "pains": {
+          "rodilla": "Rodilla",
+          "cadera": "Cadera",
+          "lumbar": "Lumbar",
+          "hombro": "Hombro",
+          "codo": "Codo",
+          "tobillo": "Tobillo",
+          "muneca": "Muñeca"
+        },
+        "mobility": {
+          "cadera": "Cadera",
+          "tobillo": "Tobillo",
+          "hombro": "Flexión de hombro"
+        }
+      }
+    },
+    "paywall": {
+      "badge": "{days} días gratis",
+      "title": "Elige tu plan",
+      "subtitle": "Prueba Bivo {days} días gratis. Cancela cuando quieras.",
+      "popular": "Más popular",
+      "planNames": {
+        "monthly": "Mensual",
+        "quarterly": "Trimestral",
+        "annual": "Anual"
+      },
+      "periods": {
+        "monthly": "/ mes",
+        "quarterly": "/ 3 meses",
+        "annual": "/ año"
+      },
+      "promoLabel": "¿Tienes un código promocional?",
+      "promoPlaceholder": "Ej. BIVO1",
+      "promoCta": "Aplicar",
+      "promoApplying": "Aplicando...",
+      "promoBivo1": "Código aplicado. Activando tu mes gratis...",
+      "promoFpib26": "15% de descuento aplicado. Completa el pago con el plan elegido.",
+      "promoApplied": "Código aplicado correctamente.",
+      "promoError": "No se pudo aplicar el código.",
+      "promoInvalid": "Código no válido. Prueba BIVO1 o FPIB26.",
+      "cta": "Empezar {days} días gratis",
+      "processing": "Procesando pago...",
+      "activating": "Activando premium...",
+      "note": "El pago se procesa con Stripe vía RevenueCat. Usa el mismo email con el que te registraste para que premium funcione en la app.",
+      "loadError": "No se pudieron cargar los planes.",
+      "purchaseError": "No se pudo completar la compra.",
+      "rcNotConfigured": "RevenueCat no está configurado. Añade VITE_REVENUECAT_API_KEY.",
+      "trialActive": "Estás en periodo de prueba.",
+      "sandboxHint": "Modo sandbox (strp_sb_): la cuenta Stripe conectada en RevenueCat debe estar en test mode.",
+      "liveHint": "Modo live (strp_...): los pagos son reales. Usa tarjeta real o desactiva en entornos de prueba.",
+      "promoInvalid": "Código no válido."
+    },
+    "download": {
+      "badge": "Premium activo",
+      "title": "Descarga la app",
+      "subtitle": "Tu cuenta ya tiene premium.",
+      "message": "Descarga la app e inicia sesión con el mismo email o cuenta de Google que usaste en la web.",
+      "signedInAs": "Sesión iniciada como {email}",
+      "trialActive": "Periodo de prueba activo",
+      "renewsOn": "Renueva el {date}",
+      "status": {
+        "trialing": "Suscripción en prueba",
+        "active": "Suscripción activa",
+        "past_due": "Pago pendiente",
+        "canceled": "Suscripción cancelada",
+        "expired": "Suscripción expirada",
+        "none": "Sin suscripción"
       }
     }
   }
