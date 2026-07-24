@@ -32,7 +32,7 @@ const StartPage = () => {
 
     writeFlowSession({ email: trimmed });
     notifyFlowSessionChange();
-    navigate(localePath("/onboarding"));
+    navigate(localePath("/registro"));
     setSubmitting(false);
   };
 

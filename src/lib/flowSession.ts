@@ -8,6 +8,8 @@ export interface FlowSession {
   trainingViewed?: boolean;
   questionnaireCompleted?: boolean;
   onboardingAnswers?: OnboardingAnswers;
+  skillLevel?: string;
+  planId?: string;
 }
 
 export function readFlowSession(): FlowSession {

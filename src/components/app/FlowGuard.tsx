@@ -62,9 +62,9 @@ export function FlowRedirectOnComplete({ targetStep }: { targetStep: AppFlowStep
 
   const order: AppFlowStep[] = [
     "email",
+    "auth",
     "onboarding",
     "training",
-    "auth",
     "paywall",
     "download",
   ];

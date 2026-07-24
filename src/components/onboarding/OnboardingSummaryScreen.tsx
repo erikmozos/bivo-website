@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { Check } from "lucide-react";
-import type { OnboardingAnswers } from "@/types/onboarding";
 import { TRIAL_DAYS } from "@/lib/config";
+import type { OnboardingAnswers } from "@/types/onboarding";
+import { onboardingContinueClass } from "./OnboardingUi";
 
 interface OnboardingSummaryScreenProps {
   answers: OnboardingAnswers;
   skillLevel?: string;
+  levelLoading?: boolean;
   submitting?: boolean;
   onContinue: () => void;
 }
@@ -39,6 +40,7 @@ function listLabels(
 const OnboardingSummaryScreen = ({
   answers,
   skillLevel,
+  levelLoading,
   submitting,
   onContinue,
 }: OnboardingSummaryScreenProps) => {
@@ -47,16 +49,11 @@ const OnboardingSummaryScreen = ({
   const sport = answers["3"] ? String(answers["3"]) : "";
   const pains = listLabels(answers["6"], "appFlow.onboarding.summary.pains", t);
   const mobility = listLabels(answers["4"], "appFlow.onboarding.summary.mobility", t);
-  const level = skillLevel ?? (answers["7"] ? String(answers["7"]) : undefined);
   const days = Array.isArray(answers["8"]) ? answers["8"].length : 0;
-  const exercises = t("appFlow.training.exercises", { returnObjects: true }) as string[];
 
   return (
     <div className="space-y-6">
-      <div
-        className="rounded-2xl border border-white/10 bg-white/[0.03] p-6"
-        style={{ boxShadow: "0 0 80px rgba(57,255,20,0.06)" }}
-      >
+      <div className="rounded-2xl border border-white/10 bg-[#121c2e] p-5">
         <p className="text-xs uppercase tracking-widest text-bivo-green font-bold mb-4">
           {t("appFlow.onboarding.summary.badge")}
         </p>
@@ -72,7 +69,11 @@ const OnboardingSummaryScreen = ({
             <dt className="text-xs text-gray-500 uppercase tracking-wider mb-1">
               {t("appFlow.onboarding.summary.level")}
             </dt>
-            <dd className="text-white font-semibold">{levelLabel(level, t)}</dd>
+            <dd className="text-white font-semibold">
+              {levelLoading
+                ? t("appFlow.onboarding.summary.calculatingLevel")
+                : levelLabel(skillLevel, t)}
+            </dd>
           </div>
           {days > 0 && (
             <div>
@@ -120,27 +121,21 @@ const OnboardingSummaryScreen = ({
           )}
         </dl>
 
-        <p className="text-sm text-gray-400 mb-4">{t("appFlow.onboarding.summary.planTeaser")}</p>
-
-        <ul className="space-y-2 mb-6">
-          {exercises.slice(0, 4).map((name) => (
-            <li key={name} className="flex items-center gap-2 text-sm text-gray-300">
-              <Check size={14} className="text-bivo-green shrink-0" />
-              {name}
-            </li>
-          ))}
-        </ul>
-
         <button
           type="button"
           onClick={onContinue}
-          disabled={submitting}
-          className="w-full py-3.5 rounded-xl bg-bivo-green text-black font-bold uppercase tracking-wider text-sm disabled:opacity-60"
+          disabled={submitting || levelLoading || !skillLevel}
+          className={`${onboardingContinueClass} disabled:opacity-60`}
         >
           {submitting
             ? t("appFlow.onboarding.summary.submitting")
             : t("appFlow.onboarding.summary.cta", { days: TRIAL_DAYS })}
         </button>
+        {submitting && (
+          <p className="text-center text-xs text-gray-500 mt-3">
+            {t("appFlow.onboarding.processingPlan")}
+          </p>
+        )}
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ export const FUNCTIONS_REGION = "europe-west1";
 
 export const FN_GET_SUBSCRIPTION_STATUS = "getSubscriptionStatus";
 export const FN_REDEEM_PROMO_CODE = "redeemPromoCode";
+export const FN_GENERATE_PLAN = "generatePlan";
 
 export const COLLECTION_MEMBERS = "members";
 

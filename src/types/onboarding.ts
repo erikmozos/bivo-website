@@ -24,7 +24,13 @@ export interface FormQuestion {
   image?: string;
 }
 
-export type OnboardingAnswerValue = string | string[] | number;
+export interface StrengthAnswer {
+  fuerza: "si" | "no";
+  sentadillas?: number;
+  flexiones?: number;
+}
+
+export type OnboardingAnswerValue = string | string[] | number | StrengthAnswer;
 
 export type OnboardingAnswers = Record<string, OnboardingAnswerValue>;
 

@@ -1,11 +1,7 @@
 import type { FormQuestion, OnboardingAnswers } from "@/types/onboarding";
+import { hasTrainedStrength, parseStrengthAnswer } from "@/lib/onboarding/strengthAnswer";
 
-export function hasTrainedStrength(answers: OnboardingAnswers): boolean {
-  const raw = answers["5"];
-  if (raw == null) return false;
-  const value = String(raw).toLowerCase().trim();
-  return value === "si" || value === "sí" || value === "yes";
-}
+export { hasTrainedStrength } from "@/lib/onboarding/strengthAnswer";
 
 export function filterQuestions(
   questions: FormQuestion[],
@@ -21,11 +17,16 @@ export function filterQuestions(
 export function applyStrengthBranchRules(
   answers: OnboardingAnswers,
   questionId: number,
-  answer: string
+  answer: OnboardingAnswers[string]
 ): OnboardingAnswers {
   const next = { ...answers, [String(questionId)]: answer };
-  if (questionId === 5 && answer.toLowerCase().trim() === "no") {
-    next["7"] = "principiante";
+  if (questionId === 5) {
+    const parsed = parseStrengthAnswer(answer);
+    if (parsed?.fuerza === "no") {
+      next["7"] = "principiante";
+    } else if (parsed?.fuerza === "si") {
+      delete next["7"];
+    }
   }
   return next;
 }

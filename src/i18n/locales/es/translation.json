@@ -942,12 +942,27 @@
     },
     "training": {
       "badge": "Tu plan",
-      "title": "Tu entrenamiento para {{sport}}",
+      "title": "Tu entrenamiento para {sport}",
       "subtitle": "Así se verá tu primera sesión en la app. Personalizado según tu deporte y objetivos.",
       "defaultSport": "tu deporte",
       "planLabel": "Sesión de hoy",
       "planTitle": "Fuerza y prevención",
-      "planMeta": "35 min · 6 ejercicios · Nivel intermedio",
+      "planMeta": "35 min · 6 ejercicios · Nivel {level}",
+      "planMetaGenerated": "{count} sesiones · {duration} min · Nivel {level}",
+      "planSessionMeta": "{duration} min · {exercises} ejercicios · Nivel {level}",
+      "exerciseSets": "{series} x {reps}",
+      "blocks": {
+        "warm-up": "Calentamiento",
+        "warmup": "Calentamiento",
+        "strength": "Fuerza",
+        "transfer": "Transferencia",
+        "cool-down": "Vuelta a la calma",
+        "cooldown": "Vuelta a la calma",
+        "mobility": "Movilidad",
+        "conditioning": "Acondicionamiento"
+      },
+      "loadingPlan": "Cargando tu plan personalizado...",
+      "planLoadError": "No se pudo cargar tu plan. Inténtalo de nuevo en unos segundos.",
       "exercises": [
         "Activación hombro y escápula",
         "Sentadilla búlgara con peso corporal",
@@ -956,9 +971,44 @@
         "Movilidad cadera y tobillo",
         "Estiramientos específicos de raqueta"
       ],
+      "exercisesBySport": {
+        "padel": [
+          "Activación hombro y escápula",
+          "Sentadilla búlgara con peso corporal",
+          "Plancha lateral con rotación",
+          "Saltos laterales (pádel)",
+          "Movilidad cadera y tobillo",
+          "Estiramientos específicos de raqueta"
+        ],
+        "tenis": [
+          "Activación hombro y escápula",
+          "Sentadilla búlgara con peso corporal",
+          "Plancha lateral con rotación",
+          "Desplazamientos en pista (tenis)",
+          "Movilidad cadera y tobillo",
+          "Estiramientos específicos de raqueta"
+        ],
+        "pickleball": [
+          "Activación hombro y escápula",
+          "Sentadilla búlgara con peso corporal",
+          "Plancha lateral con rotación",
+          "Desplazamientos laterales (pickleball)",
+          "Movilidad cadera y tobillo",
+          "Estiramientos específicos de raqueta"
+        ],
+        "badminton": [
+          "Activación hombro y escápula",
+          "Sentadilla búlgara con peso corporal",
+          "Plancha lateral con rotación",
+          "Desplazamientos en pista (bádminton)",
+          "Movilidad cadera y tobillo",
+          "Estiramientos específicos de raqueta"
+        ]
+      },
       "hint": "Este es un ejemplo de tu plan. En la app se adapta cada semana según tu adherencia, partidos y molestias.",
-      "cta": "Prueba {{days}} días gratis",
-      "trialNote": "Sin cargo durante {{days}} días. Cancela cuando quieras.",
+      "hintGenerated": "Hemos generado {count} sesiones según tu cuestionario. En la app se adaptan cada semana según tu adherencia, partidos y molestias.",
+      "cta": "Prueba {days} días gratis",
+      "trialNote": "Sin cargo durante {days} días. Cancela cuando quieras.",
       "screenAlt": "Vista del entrenamiento en la app Bivo",
       "detailAlt": "Detalle de ejercicio en Bivo"
     },
@@ -966,7 +1016,7 @@
       "badge": "Cuenta Bivo",
       "signupTitle": "Crea tu cuenta",
       "loginTitle": "Inicia sesión",
-      "subtitle": "Regístrate para activar tu prueba gratuita y desbloquear tu plan completo.",
+      "subtitle": "Crea tu cuenta para guardar tu progreso y generar tu plan personalizado.",
       "displayName": "Nombre",
       "email": "Email",
       "password": "Contraseña",
@@ -987,13 +1037,22 @@
       "badge": "Cuestionario inicial",
       "title": "Cuéntanos sobre ti",
       "subtitle": "Responde unas preguntas para personalizar tu plan.",
-      "questionBadge": "Pregunta {{current}} de {{total}}",
+      "questionBadge": "Pregunta {current} de {total}",
       "cta": "Continuar",
       "finish": "Ver resumen",
       "back": "Atrás",
       "submitting": "Guardando...",
       "error": "No se pudo guardar el onboarding. Inténtalo de nuevo.",
       "loadError": "No se pudieron cargar las preguntas.",
+      "authRequired": "Debes iniciar sesión para guardar tu cuestionario y generar tu plan.",
+      "processingPlan": "Calculando tu nivel y generando tu plan...",
+      "strength": {
+        "squatsQuestion": "¿Cuántas sentadillas puedes hacer en 10 segundos?",
+        "pushupsQuestion": "Número máximo de flexiones con piernas estiradas que puedes realizar.",
+        "squatsLabel": "Sentadillas en 10 segundos",
+        "pushupsLabel": "Flexiones con piernas estiradas",
+        "incompleteFields": "Por favor, completa ambos campos."
+      },
       "splash": {
         "titleLine1": "Cuestionario",
         "titleLine2": "inicial",
@@ -1001,6 +1060,7 @@
         "cta": "Empezar",
         "footer": "Tus respuestas nos ayudan a adaptar cada ejercicio a tu nivel, dolores y material disponible."
       },
+      "weekdaysSelected": "Días seleccionados: {count}/{max}",
       "weekdays": {
         "monday": "Lunes",
         "tuesday": "Martes",
@@ -1016,13 +1076,14 @@
         "subtitle": "Hemos personalizado tu entrenamiento según tus respuestas.",
         "sport": "Deporte",
         "level": "Nivel",
+        "calculatingLevel": "Calculando...",
         "frequency": "Frecuencia",
-        "daysPerWeek": "{{count}} días/semana",
+        "daysPerWeek": "{count} días/semana",
         "painsTitle": "Zonas de dolor",
         "mobilityTitle": "Movilidad",
         "planTeaser": "Vista previa de tu primera sesión:",
-        "cta": "Ver entrenamiento — {{days}} días gratis",
-        "submitting": "Preparando...",
+        "cta": "Ver entrenamiento — {days} días gratis",
+        "submitting": "Calculando nivel y generando plan...",
         "sports": {
           "padel": "Pádel",
           "tenis": "Tenis",
@@ -1070,7 +1131,7 @@
         "annual": "/ año"
       },
       "promoLabel": "¿Tienes un código promocional?",
-      "promoPlaceholder": "Ej. BIVO1",
+      "promoPlaceholder": "",
       "promoCta": "Aplicar",
       "promoApplying": "Aplicando...",
       "promoBivo1": "Código aplicado. Activando tu mes gratis...",

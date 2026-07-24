@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { onboardingContinueClass } from "./OnboardingUi";
 
 interface FormSplashScreenProps {
   onStart: () => void;
@@ -24,18 +25,14 @@ const FormSplashScreen = ({ onStart }: FormSplashScreenProps) => {
         className="my-8 mx-auto w-full max-w-sm aspect-[4/3] rounded-2xl border border-white/10 bg-cover bg-center"
         style={{
           backgroundImage:
-            "linear-gradient(135deg, rgba(57,255,20,0.12) 0%, rgba(0,0,0,0.4) 100%), url('/assets2/app-screens/onboarding-objetivo.png')",
+            "linear-gradient(135deg, rgba(57,255,20,0.12) 0%, rgba(0,0,0,0.4) 100%), url('/onboarding/onboarding/pre_onboarding_hero.png')",
           backgroundSize: "cover",
           backgroundPosition: "center top",
         }}
       />
 
       <div>
-        <button
-          type="button"
-          onClick={onStart}
-          className="w-full py-3.5 rounded-xl bg-bivo-green text-black font-bold uppercase tracking-wider text-sm hover:bg-opacity-90 transition"
-        >
+        <button type="button" onClick={onStart} className={onboardingContinueClass}>
           {t("appFlow.onboarding.splash.cta")}
         </button>
         <p className="text-center text-xs text-gray-500 mt-4 leading-relaxed">

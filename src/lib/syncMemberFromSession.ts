@@ -1,7 +1,10 @@
 import type { User } from "firebase/auth";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import { readFlowSession, clearFlowSession, sportFromAnswers } from "@/lib/flowSession";
 import { loadQuestions } from "@/lib/onboarding/questions";
 import { saveOnboardingForUser } from "@/lib/onboarding/saveOnboarding";
+import { COLLECTION_MEMBERS } from "@/lib/config";
+import { db } from "@/lib/firebase";
 
 export async function syncMemberFromSession(user: User, lang = "es"): Promise<void> {
   const session = readFlowSession();
@@ -9,6 +12,25 @@ export async function syncMemberFromSession(user: User, lang = "es"): Promise<vo
     session.onboardingAnswers && Object.keys(session.onboardingAnswers).length > 0;
 
   if (!session.email && !session.primarySport && !hasAnswers) return;
+
+  const memberRef = doc(db, COLLECTION_MEMBERS, user.uid);
+  const memberSnap = await getDoc(memberRef);
+  const memberData = memberSnap.data();
+
+  if (memberData?.onboardingCompleted === true) {
+    await setDoc(
+      memberRef,
+      {
+        uid: user.uid,
+        id: user.uid,
+        email: user.email ?? session.email ?? "",
+        displayName: user.displayName ?? "",
+        updatedAt: serverTimestamp(),
+      },
+      { merge: true }
+    );
+    return;
+  }
 
   if (hasAnswers && session.onboardingAnswers) {
     const questions = await loadQuestions(lang);
@@ -20,13 +42,11 @@ export async function syncMemberFromSession(user: User, lang = "es"): Promise<vo
     return;
   }
 
-  const { doc, serverTimestamp, setDoc } = await import("firebase/firestore");
-  const { COLLECTION_MEMBERS } = await import("@/lib/config");
-  const { db } = await import("@/lib/firebase");
-
   const sport = session.primarySport ?? sportFromAnswers(session.onboardingAnswers);
 
   const payload: Record<string, unknown> = {
+    uid: user.uid,
+    id: user.uid,
     email: user.email ?? session.email ?? "",
     displayName: user.displayName ?? "",
     updatedAt: serverTimestamp(),
@@ -36,10 +56,8 @@ export async function syncMemberFromSession(user: User, lang = "es"): Promise<vo
     payload.primarySport = sport;
     payload.sport = sport;
     payload.sportType = sport;
-    payload.onboardingCompleted = true;
   }
 
-  await setDoc(doc(db, COLLECTION_MEMBERS, user.uid), payload, { merge: true });
-  clearFlowSession();
+  await setDoc(memberRef, payload, { merge: true });
   window.dispatchEvent(new Event("bivo-flow-session"));
 }

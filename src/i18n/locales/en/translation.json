@@ -948,12 +948,27 @@
     },
     "training": {
       "badge": "Your plan",
-      "title": "Your workout for {{sport}}",
+      "title": "Your workout for {sport}",
       "subtitle": "This is what your first session will look like in the app. Personalized for your sport and goals.",
       "defaultSport": "your sport",
       "planLabel": "Today's session",
       "planTitle": "Strength and injury prevention",
-      "planMeta": "35 min · 6 exercises · Intermediate level",
+      "planMeta": "35 min · 6 exercises · {level} level",
+      "planMetaGenerated": "{count} sessions · {duration} min · {level} level",
+      "planSessionMeta": "{duration} min · {exercises} exercises · {level} level",
+      "exerciseSets": "{series} x {reps}",
+      "blocks": {
+        "warm-up": "Warm-up",
+        "warmup": "Warm-up",
+        "strength": "Strength",
+        "transfer": "Transfer",
+        "cool-down": "Cool-down",
+        "cooldown": "Cool-down",
+        "mobility": "Mobility",
+        "conditioning": "Conditioning"
+      },
+      "loadingPlan": "Loading your personalized plan...",
+      "planLoadError": "Could not load your plan. Please try again in a few seconds.",
       "exercises": [
         "Shoulder and scapula activation",
         "Bodyweight Bulgarian split squat",
@@ -962,9 +977,44 @@
         "Hip and ankle mobility",
         "Racket-sport specific stretches"
       ],
+      "exercisesBySport": {
+        "padel": [
+          "Shoulder and scapula activation",
+          "Bodyweight Bulgarian split squat",
+          "Side plank with rotation",
+          "Lateral hops (padel)",
+          "Hip and ankle mobility",
+          "Racket-sport specific stretches"
+        ],
+        "tenis": [
+          "Shoulder and scapula activation",
+          "Bodyweight Bulgarian split squat",
+          "Side plank with rotation",
+          "Court movement drills (tennis)",
+          "Hip and ankle mobility",
+          "Racket-sport specific stretches"
+        ],
+        "pickleball": [
+          "Shoulder and scapula activation",
+          "Bodyweight Bulgarian split squat",
+          "Side plank with rotation",
+          "Lateral movement drills (pickleball)",
+          "Hip and ankle mobility",
+          "Racket-sport specific stretches"
+        ],
+        "badminton": [
+          "Shoulder and scapula activation",
+          "Bodyweight Bulgarian split squat",
+          "Side plank with rotation",
+          "Court movement drills (badminton)",
+          "Hip and ankle mobility",
+          "Racket-sport specific stretches"
+        ]
+      },
       "hint": "This is a sample of your plan. In the app it adapts weekly based on your adherence, matches, and soreness.",
-      "cta": "Try {{days}} days free",
-      "trialNote": "No charge for {{days}} days. Cancel anytime.",
+      "hintGenerated": "We generated {count} sessions based on your questionnaire. In the app they adapt weekly based on your adherence, matches, and soreness.",
+      "cta": "Try {days} days free",
+      "trialNote": "No charge for {days} days. Cancel anytime.",
       "screenAlt": "Workout view in the Bivo app",
       "detailAlt": "Exercise detail in Bivo"
     },
@@ -972,7 +1022,7 @@
       "badge": "Bivo account",
       "signupTitle": "Create your account",
       "loginTitle": "Sign in",
-      "subtitle": "Sign up to activate your free trial and unlock your full plan.",
+      "subtitle": "Create your account to save your progress and generate your personalized plan.",
       "displayName": "Name",
       "email": "Email",
       "password": "Password",
@@ -993,13 +1043,22 @@
       "badge": "Initial questionnaire",
       "title": "Tell us about you",
       "subtitle": "Answer a few questions to personalize your plan.",
-      "questionBadge": "Question {{current}} of {{total}}",
+      "questionBadge": "Question {current} of {total}",
       "cta": "Continue",
       "finish": "See summary",
       "back": "Back",
       "submitting": "Saving...",
       "error": "Could not save onboarding. Please try again.",
       "loadError": "Could not load questions.",
+      "authRequired": "You must sign in to save your questionnaire and generate your plan.",
+      "processingPlan": "Calculating your level and generating your plan...",
+      "strength": {
+        "squatsQuestion": "How many squats can you do in 10 seconds?",
+        "pushupsQuestion": "Maximum number of push-ups with straight legs you can perform.",
+        "squatsLabel": "Squats in 10 seconds",
+        "pushupsLabel": "Push-ups with straight legs",
+        "incompleteFields": "Please complete both fields."
+      },
       "splash": {
         "titleLine1": "Initial",
         "titleLine2": "questionnaire",
@@ -1007,6 +1066,7 @@
         "cta": "Start",
         "footer": "Your answers help us adapt every exercise to your level, soreness, and available equipment."
       },
+      "weekdaysSelected": "Days selected: {count}/{max}",
       "weekdays": {
         "monday": "Monday",
         "tuesday": "Tuesday",
@@ -1022,13 +1082,14 @@
         "subtitle": "We personalized your training based on your answers.",
         "sport": "Sport",
         "level": "Level",
+        "calculatingLevel": "Calculating...",
         "frequency": "Frequency",
-        "daysPerWeek": "{{count}} days/week",
+        "daysPerWeek": "{count} days/week",
         "painsTitle": "Sore areas",
         "mobilityTitle": "Mobility",
         "planTeaser": "Preview of your first session:",
-        "cta": "See workout — {{days}} days free",
-        "submitting": "Preparing...",
+        "cta": "See workout — {days} days free",
+        "submitting": "Calculating level and generating plan...",
         "sports": {
           "padel": "Padel",
           "tenis": "Tennis",
@@ -1076,7 +1137,7 @@
         "annual": "/ year"
       },
       "promoLabel": "Have a promo code?",
-      "promoPlaceholder": "E.g. BIVO1",
+      "promoPlaceholder": "",
       "promoCta": "Apply",
       "promoApplying": "Applying...",
       "promoBivo1": "Code applied. Activating your free month...",

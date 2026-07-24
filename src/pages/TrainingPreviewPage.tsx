@@ -1,13 +1,17 @@
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Check } from "lucide-react";
 import FlowGuard from "@/components/app/FlowGuard";
 import FlowLayout from "@/components/app/FlowLayout";
 import { notifyFlowSessionChange } from "@/hooks/useAppFlow";
 import { useAppFlow } from "@/hooks/useAppFlow";
+import { useAuth } from "@/contexts/AuthContext";
 import { useLocale } from "@/hooks/useLocale";
-import { sportFromAnswers, writeFlowSession } from "@/lib/flowSession";
+import { writeFlowSession } from "@/lib/flowSession";
 import { TRIAL_DAYS } from "@/lib/config";
+import { loadMemberPlanWorkouts } from "@/lib/onboarding/planWorkouts";
+import type { PlanWorkoutSummary } from "@/lib/onboarding/memberLevel";
+import { SplitExerciseRow, onboardingContinueClass } from "@/components/onboarding/OnboardingUi";
 
 const WORKOUT_SCREEN = "/assets2/app-screens/workout-progress.png";
 const DETAIL_SCREEN = "/assets2/app-screens/workout-detail.png";
@@ -19,17 +23,87 @@ const SPORT_LABELS: Record<string, string> = {
   badminton: "Bádminton",
 };
 
+function levelLabel(level: string | undefined, t: (k: string) => string): string {
+  if (!level) return "—";
+  const key = `appFlow.onboarding.summary.levels.${level.toLowerCase()}`;
+  const translated = t(key);
+  return translated !== key ? translated : level;
+}
+
+function blockTitle(title: string, t: (k: string) => string): string {
+  const key = `appFlow.training.blocks.${title.toLowerCase().replace(/\s+/g, "-")}`;
+  const translated = t(key);
+  return translated !== key ? translated : title;
+}
+
 const TrainingPreviewPage = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
-  const { session } = useAppFlow();
+  const { localePath, lang } = useLocale();
+  const { user } = useAuth();
+  const { session, member } = useAppFlow();
+  const [planWorkouts, setPlanWorkouts] = useState<PlanWorkoutSummary[]>([]);
+  const [loadingPlan, setLoadingPlan] = useState(true);
+  const [planError, setPlanError] = useState<string | null>(null);
 
-  const answers = session.onboardingAnswers ?? {};
-  const sportKey = sportFromAnswers(session.onboardingAnswers) ?? "";
+  const sportKey =
+    member?.primarySport ??
+    member?.sport ??
+    member?.sportType ??
+    "";
   const sport =
     SPORT_LABELS[sportKey] ?? (sportKey || t("appFlow.training.defaultSport"));
-  const exercises = t("appFlow.training.exercises", { returnObjects: true }) as string[];
-  const level = answers["7"] ? String(answers["7"]) : "principiante";
+  const level = session.skillLevel ?? member?.skillLevel ?? undefined;
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadPlan() {
+      if (!user) {
+        setLoadingPlan(false);
+        return;
+      }
+
+      setLoadingPlan(true);
+      setPlanError(null);
+
+      try {
+        const plan = await loadMemberPlanWorkouts(user.uid, lang);
+        if (!cancelled) {
+          setPlanWorkouts(plan.workouts);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setPlanError(err instanceof Error ? err.message : t("appFlow.training.planLoadError"));
+          setPlanWorkouts([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingPlan(false);
+        }
+      }
+    }
+
+    loadPlan();
+    return () => {
+      cancelled = true;
+    };
+  }, [user, member?.currentPlanRefs, lang, t]);
+
+  const firstWorkout = planWorkouts[0];
+  const exerciseCount = useMemo(() => {
+    if (firstWorkout?.blocks?.length) {
+      return firstWorkout.blocks.reduce((sum, block) => sum + block.exercises.length, 0);
+    }
+    return firstWorkout?.exerciseCount ?? 0;
+  }, [firstWorkout]);
+
+  const planMeta = firstWorkout
+    ? t("appFlow.training.planSessionMeta", {
+        duration: firstWorkout.durationMinutes ?? 35,
+        exercises: exerciseCount,
+        level: levelLabel(level, t),
+      })
+    : "";
 
   const handleTrialClick = () => {
     writeFlowSession({ trainingViewed: true });
@@ -69,52 +143,82 @@ const TrainingPreviewPage = () => {
             </div>
           </div>
 
-          <div
-            className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8"
-            style={{ boxShadow: "0 0 80px rgba(57,255,20,0.06)" }}
-          >
-            <p className="text-xs uppercase tracking-widest text-bivo-green font-bold mb-2">
-              {t("appFlow.training.planLabel")}
-            </p>
-            <h2 className="font-round text-xl font-bold text-white mb-1">
-              {t("appFlow.training.planTitle")}
-            </h2>
-            <p className="text-sm text-gray-400 mb-2">{t("appFlow.training.planMeta")}</p>
-            <p className="text-xs text-gray-500 mb-6 capitalize">
-              {t("appFlow.onboarding.summary.level")}: {level}
-            </p>
+          <div className="rounded-2xl border border-white/10 bg-[#121c2e] p-5 sm:p-6">
+            {loadingPlan && (
+              <div className="py-8 text-center">
+                <div
+                  className="mx-auto mb-4 rounded-full h-10 w-10 border-b-2 border-bivo-green"
+                  style={{ animation: "spin 0.8s linear infinite" }}
+                />
+                <p className="text-sm text-gray-400">{t("appFlow.training.loadingPlan")}</p>
+              </div>
+            )}
 
-            <ul className="space-y-3 mb-8">
-              {exercises.map((name) => (
-                <li
-                  key={name}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/30 px-4 py-3"
-                >
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-bivo-green/15 text-bivo-green">
-                    <Check size={16} strokeWidth={3} />
-                  </span>
-                  <span className="text-sm text-gray-200">{name}</span>
-                </li>
-              ))}
-            </ul>
+            {!loadingPlan && planError && (
+              <div className="py-8 text-center">
+                <p className="text-sm text-amber-300 bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2">
+                  {planError}
+                </p>
+              </div>
+            )}
 
-            <div className="rounded-xl border border-bivo-green/20 bg-bivo-green/[0.06] px-4 py-3 mb-6">
-              <p className="text-sm text-gray-300 leading-relaxed">
-                {t("appFlow.training.hint")}
-              </p>
-            </div>
+            {!loadingPlan && !planError && firstWorkout && (
+              <>
+                <p className="text-xs uppercase tracking-widest text-bivo-green font-bold mb-2">
+                  {t("appFlow.training.planLabel")}
+                </p>
+                <h2 className="font-round text-xl font-bold text-white mb-1">
+                  {firstWorkout.title ?? firstWorkout.name}
+                </h2>
+                <p className="text-sm text-gray-400 mb-6">{planMeta}</p>
+
+                <div className="space-y-6 mb-8 max-h-[55vh] overflow-y-auto pr-1">
+                  {firstWorkout.blocks?.map((block) => (
+                    <div key={block.id}>
+                      <p className="text-xs uppercase tracking-widest text-gray-500 font-semibold mb-3">
+                        {blockTitle(block.title, t)}
+                      </p>
+                      <ul className="space-y-2">
+                        {block.exercises.map((exercise) => (
+                          <li key={exercise.id}>
+                            <SplitExerciseRow
+                              name={exercise.name}
+                              imageUrl={exercise.imageUrl}
+                              meta={
+                                exercise.series && exercise.repetitions
+                                  ? t("appFlow.training.exerciseSets", {
+                                      series: exercise.series,
+                                      reps: exercise.repetitions,
+                                    })
+                                  : undefined
+                              }
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="rounded-xl border border-bivo-green/20 bg-bivo-green/[0.06] px-4 py-3 mb-6">
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    {t("appFlow.training.hintGenerated", { count: planWorkouts.length })}
+                  </p>
+                </div>
 
             <Link
-              to={localePath("/registro")}
+              to={localePath("/paywall")}
               onClick={handleTrialClick}
-              className="block w-full py-3.5 rounded-xl bg-bivo-green text-black font-bold uppercase tracking-wider text-sm text-center hover:bg-opacity-90 transition"
+              className={`block text-center ${onboardingContinueClass}`}
             >
-              {t("appFlow.training.cta", { days: TRIAL_DAYS })}
-            </Link>
+                  {t("appFlow.training.cta", { days: TRIAL_DAYS })}
+                </Link>
 
-            <p className="text-center text-xs text-gray-500 mt-4">
-              {t("appFlow.training.trialNote", { days: TRIAL_DAYS })}
-            </p>
+                <p className="text-center text-xs text-gray-500 mt-4">
+                  {t("appFlow.training.trialNote", { days: TRIAL_DAYS })}
+                </p>
+              </>
+            )}
           </div>
         </div>
       </FlowLayout>

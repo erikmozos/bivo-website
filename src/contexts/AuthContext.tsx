@@ -37,6 +37,8 @@ async function ensureMemberDoc(user: User) {
   await setDoc(
     ref,
     {
+      uid: user.uid,
+      id: user.uid,
       email: user.email ?? "",
       displayName: user.displayName ?? "",
       updatedAt: serverTimestamp(),

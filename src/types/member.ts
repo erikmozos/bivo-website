@@ -21,6 +21,9 @@ export interface MemberDoc {
   primarySport?: string;
   sport?: string;
   sportType?: string;
+  skillLevel?: string;
+  gender?: string;
+  currentPlanRefs?: string[];
   createdAt?: { seconds: number; nanoseconds: number } | Date | string;
   updatedAt?: { seconds: number; nanoseconds: number } | Date | string;
 }
@@ -45,8 +48,6 @@ export type AppFlowStep =
 
 export function getGuestFlowStep(session: FlowSession): AppFlowStep {
   if (!session.email) return "email";
-  if (!session.questionnaireCompleted) return "onboarding";
-  if (!session.trainingViewed) return "training";
   return "auth";
 }
 
@@ -63,14 +64,19 @@ export function getAppFlowStep(
     return "download";
   }
 
-  if (shouldShowPaywall(member)) {
-    return "paywall";
+  const onboardingDone =
+    member?.onboardingCompleted === true || session.questionnaireCompleted === true;
+
+  if (!onboardingDone) {
+    return "onboarding";
   }
 
-  if (!member?.onboardingCompleted) {
-    if (!session.questionnaireCompleted) return "onboarding";
-    if (!session.trainingViewed) return "training";
-    return "onboarding";
+  if (!session.trainingViewed) {
+    return "training";
+  }
+
+  if (shouldShowPaywall(member)) {
+    return "paywall";
   }
 
   return "paywall";
