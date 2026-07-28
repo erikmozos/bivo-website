@@ -22,21 +22,25 @@ const VALUE_POINTS = [
 const BENEFITS = [
   {
     image: "img/vsl/padel-player-court.png",
+    imagePosition: "center 30%",
     title: "Aguanta más que tus rivales",
     text: "Entrena la resistencia específica del pádel. Llega igual de fuerte al tercer set que al primero. Sin calambres. Sin quedarte sin pulmones en el momento decisivo.",
   },
   {
     image: "img/vsl/resistance-band-padel.png",
+    imagePosition: "center 18%",
     title: "Entrena sin miedo a lesionarte",
     text: "Planes diseñados desde el primer día para proteger tus hombros, rodillas y espalda. El trabajo preventivo de Bivo reduce el riesgo de lesión antes de que aparezca. Más partidos, menos tiempo parado.",
   },
   {
     image: "img/vsl/gym-kettlebell.png",
+    imagePosition: "center 22%",
     title: "Por fin ves cómo mejoras",
     text: "Estadísticas claras de tu progreso semana a semana. Sabes exactamente qué has mejorado, cuánto te falta y por qué cada sesión tiene sentido.",
   },
   {
     image: "img/bivo-train-at-home.jpg",
+    imagePosition: "center 24%",
     title: "Sin excusas logísticas",
     text: "En casa, en el club, en el hotel o en el jardín. Sin equipamiento especial. Cuando tú puedas. Bivo se adapta a tu vida, no al revés.",
   },
@@ -45,7 +49,7 @@ const BENEFITS = [
 const VIDEO_TESTIMONIALS = [
   { src: "uploads/testimonial-nura.mp4", label: "Nura · Pádel" },
   { src: "uploads/testimonial-pedro.mp4", label: "Pedro · Pádel" },
-  { src: "uploads/testimonial-sara.mp4", label: "Sara · Pickleball" },
+  { src: "uploads/testimonial-paloma.mp4", label: "Paloma · Pádel" },
   { src: "uploads/testimonial-mila.mp4", label: "Mila · Pádel" },
 ];
 
@@ -97,26 +101,31 @@ const APPSTORE_REVIEWS = [
 const STEPS = [
   {
     image: "img/vsl/onboarding-movilidad.jpg",
+    imagePosition: "center 14%",
     title: "Bivo te valora y te conoce",
     text: "Test inicial para entender tu nivel, deporte, objetivos, lesiones previas y disponibilidad.",
   },
   {
     image: "img/flow/02-entrenamiento.jpg",
+    imagePosition: "center 12%",
     title: "Entrenamiento personalizado",
     text: "Plan específico para tu deporte de raqueta basado en tus datos, sin plantillas genéricas.",
   },
   {
     image: "assets/app-screens/stats.png",
+    imagePosition: "center top",
     title: "Registra tu mejora",
     text: "Estadísticas claras de adherencia, velocidad y escudo de lesiones. Visualiza tu progreso.",
   },
   {
     image: "assets/app-screens/agenda.png",
+    imagePosition: "center top",
     title: "Gestiona tu calendario",
     text: "Organiza tus sesiones, partidos y descansos en un mismo lugar. Sin solapamientos.",
   },
   {
     image: "img/vsl/onboarding-dolor.png",
+    imagePosition: "center 10%",
     title: "Se adapta a ti",
     text: "¿Cambias de objetivo, te lesionas o tienes menos tiempo? Bivo recalcula tu plan automáticamente.",
   },
@@ -212,6 +221,16 @@ const PadelLandingPage = () => {
     handleTestimonialClick,
   } = usePadelLanding();
 
+  const primeVideoFrame = (video: HTMLVideoElement) => {
+    if (video.duration === 0 || video.currentTime > 0.05) return;
+
+    try {
+      video.currentTime = Math.min(0.1, video.duration || 0.1);
+    } catch {
+      // Algunos navegadores pueden bloquear el seek inicial hasta tener más datos.
+    }
+  };
+
   return (
     <div className="padel-landing" ref={rootRef}>
       <section id="hero">
@@ -263,11 +282,12 @@ const PadelLandingPage = () => {
           <div className="vsl-player">
             <video
               ref={vslVideoRef}
-              preload="metadata"
-              poster={padelAsset("img/vsl/padel-player-court.png")}
+              preload="auto"
               playsInline
+              onLoadedMetadata={(e) => primeVideoFrame(e.currentTarget)}
+              onClick={playVsl}
             >
-              <source src={padelAsset("assets/bivo-video.mp4")} type="video/mp4" />
+              <source src="/assets/bivo-video.mp4" type="video/mp4" />
             </video>
             <div
               className={`play-overlay${vslOverlayVisible ? "" : " hidden"}`}
@@ -293,11 +313,11 @@ const PadelLandingPage = () => {
         </div>
       </section>
 
-      <div className="section-image-break" style={{ height: "460px" }}>
+      <div className="section-image-break">
         <img
           src={padelAsset("img/monitor-padel-crop.jpg")}
           alt="Pádel en pista"
-          style={{ objectPosition: "center 40%" }}
+          style={{ objectPosition: "center 24%" }}
         />
         <div className="img-overlay" />
       </div>
@@ -437,7 +457,11 @@ const PadelLandingPage = () => {
           {BENEFITS.map((benefit) => (
             <div key={benefit.title} className="benefit-card has-photo fade-up">
               <div className="benefit-photo">
-                <img src={padelAsset(benefit.image)} alt={benefit.title} />
+                <img
+                  src={padelAsset(benefit.image)}
+                  alt={benefit.title}
+                  style={{ objectPosition: benefit.imagePosition }}
+                />
               </div>
               <div className="benefit-body">
                 <h3>{benefit.title}</h3>
@@ -484,10 +508,15 @@ const PadelLandingPage = () => {
               role="button"
               tabIndex={0}
             >
-              <video preload="metadata" playsInline onEnded={(e) => {
-                const card = e.currentTarget.closest(".video-card");
-                card?.querySelector(".video-play-btn")?.classList.remove("hidden");
-              }}>
+              <video
+                preload="auto"
+                playsInline
+                onLoadedMetadata={(e) => primeVideoFrame(e.currentTarget)}
+                onEnded={(e) => {
+                  const card = e.currentTarget.closest(".video-card");
+                  card?.querySelector(".video-play-btn")?.classList.remove("hidden");
+                }}
+              >
                 <source src={padelAsset(item.src)} type="video/mp4" />
               </video>
               <div className="video-play-btn">
@@ -505,10 +534,10 @@ const PadelLandingPage = () => {
         <div className="appstore-reviews fade-up">
           <div className="appstore-reviews-header">
             <div className="appstore-badge">
-              <AppleIcon /> App Store · 4,9 ★
+              <AppleIcon /> App Store · 5 ★
             </div>
             <div className="appstore-badge">
-              <GooglePlayIcon /> Google Play · 4,8 ★
+              <GooglePlayIcon /> Google Play · 5 ★
             </div>
           </div>
           <div className="appstore-grid">
@@ -600,7 +629,7 @@ const PadelLandingPage = () => {
             <div key={step.title} className="step-card fade-up">
               <div className="step-card-number">{index + 1}</div>
               <div className="step-card-img">
-                <img src={padelAsset(step.image)} alt={step.title} />
+                <img src={padelAsset(step.image)} alt={step.title} style={{ objectPosition: step.imagePosition }} />
               </div>
               <div className="step-card-body">
                 <h3>{step.title}</h3>
@@ -714,9 +743,9 @@ const PadelLandingPage = () => {
         </div>
         <div className="faq-list">
           {FAQ_ITEMS.map((item, index) => (
-            <div key={item.q} className={`faq-item fade-up${openFaq === index ? " open" : ""}`}>
+            <div key={item.q} className={`faq-item${openFaq === index ? " open" : ""}`}>
               <button type="button" className="faq-question" onClick={() => toggleFaq(index)}>
-                {item.q}
+                <span className="faq-question-text">{item.q}</span>
                 <span className="faq-toggle">+</span>
               </button>
               <div className="faq-answer">

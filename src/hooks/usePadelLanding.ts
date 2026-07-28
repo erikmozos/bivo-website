@@ -104,7 +104,25 @@ export function usePadelLanding() {
   const playVsl = () => {
     const video = vslVideoRef.current;
     if (!video) return;
-    void video.play();
+
+    if (!video.paused && !video.ended) {
+      video.pause();
+      setVslOverlayVisible(true);
+      return;
+    }
+
+    const playAttempt = video.play();
+    if (playAttempt && typeof playAttempt.then === "function") {
+      void playAttempt
+        .then(() => {
+          setVslOverlayVisible(false);
+        })
+        .catch(() => {
+          setVslOverlayVisible(true);
+        });
+      return;
+    }
+
     setVslOverlayVisible(false);
   };
 
@@ -122,7 +140,18 @@ export function usePadelLanding() {
 
   const handleTestimonialClick = (video: HTMLVideoElement, btn: HTMLElement) => {
     if (video.paused) {
-      void video.play();
+      const playAttempt = video.play();
+      if (playAttempt && typeof playAttempt.then === "function") {
+        void playAttempt
+          .then(() => {
+            btn.classList.add("hidden");
+          })
+          .catch(() => {
+            btn.classList.remove("hidden");
+          });
+        return;
+      }
+
       btn.classList.add("hidden");
     } else {
       video.pause();
