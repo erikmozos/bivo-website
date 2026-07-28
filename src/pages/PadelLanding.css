@@ -30,7 +30,7 @@
 }
 
 .padel-landing {
-  font-family: var(--font-body);
+  font-family: 'Nunito Sans', sans-serif;
   font-optical-sizing: auto;
   background: var(--surface-0);
   color: var(--text-primary);
@@ -39,6 +39,12 @@
   line-height: 1.5;
   scroll-behavior: smooth;
   min-height: 100vh;
+}
+.padel-landing button,
+.padel-landing input,
+.padel-landing textarea,
+.padel-landing select {
+  font-family: inherit;
 }
 .padel-landing img { max-width: 100%; display: block; }
 .padel-landing a { color: inherit; text-decoration: none; }
@@ -57,11 +63,12 @@
 /* ── Headlines ─────────────────────────────────────────────── */
 .padel-landing .headline {
   font-family: var(--font-display);
-  font-weight: 900;
-  line-height: 1.05;
+  font-weight: 700;
+  line-height: 1.15;
   letter-spacing: -0.01em;
   color: var(--text-primary);
-  text-transform: uppercase;
+  text-transform: none;
+  font-optical-sizing: auto;
 }
 .padel-landing .headline .accent { color: var(--green); }
 
@@ -600,16 +607,16 @@
 }
 .padel-landing .benefit-photo {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  min-height: 240px;
+  aspect-ratio: 1 / 1;
+  min-height: 280px;
   overflow: hidden;
   position: relative;
   background: #0f0f0f;
 }
 .padel-landing .benefit-photo img {
   width: 100%; height: 100%;
-  object-fit: contain;
-  object-position: center top;
+  object-fit: cover;
+  object-position: center 18%;
   display: block;
 }
 .padel-landing .benefit-body {

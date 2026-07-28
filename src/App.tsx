@@ -95,8 +95,16 @@ const App = () => (
                   <Route path="privacidad" element={<PrivacyPolicy />} />
                   <Route path="cookies" element={<CookiePolicy />} />
                   <Route path="terminos" element={<TermsConditions />} />
-                  <Route path="estabilidad-hombro" element={<ShoulderStabilityLanding />} />
-                  <Route path="padel" element={<PadelLandingPage />} />
+                  <Route path="estabilidad-hombro">
+                    <Route index element={<ShoulderStabilityLanding />} />
+                    <Route path="privacidad" element={<PrivacyPolicy />} />
+                    <Route path="terminos" element={<TermsConditions />} />
+                  </Route>
+                  <Route path="padel">
+                    <Route index element={<PadelLandingPage />} />
+                    <Route path="privacidad" element={<PrivacyPolicy />} />
+                    <Route path="terminos" element={<TermsConditions />} />
+                  </Route>
                   <Route path="*" element={<NotFound />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useLocale } from "@/hooks/useLocale";
 import { usePadelLanding } from "@/hooks/usePadelLanding";
 import { padelAsset } from "@/lib/padelLandingAssets";
+import { sportLegalPath } from "@/lib/sportLegalPaths";
 import "./PadelLanding.css";
 
 const PAIN_POINTS = [
@@ -22,25 +23,25 @@ const VALUE_POINTS = [
 const BENEFITS = [
   {
     image: "img/vsl/padel-player-court.png",
-    imagePosition: "center 30%",
+    imagePosition: "center 12%",
     title: "Aguanta más que tus rivales",
     text: "Entrena la resistencia específica del pádel. Llega igual de fuerte al tercer set que al primero. Sin calambres. Sin quedarte sin pulmones en el momento decisivo.",
   },
   {
-    image: "img/vsl/resistance-band-padel.png",
+    image: "img/vsl/ejercicio-rotacion-externa-hombro-banda-elastica-mujer-padel.png.jpg",
     imagePosition: "center 18%",
     title: "Entrena sin miedo a lesionarte",
     text: "Planes diseñados desde el primer día para proteger tus hombros, rodillas y espalda. El trabajo preventivo de Bivo reduce el riesgo de lesión antes de que aparezca. Más partidos, menos tiempo parado.",
   },
   {
-    image: "img/vsl/gym-kettlebell.png",
-    imagePosition: "center 22%",
+    image: "img/vsl/entrenamiento-kettlebell-padel.png.png",
+    imagePosition: "center 20%",
     title: "Por fin ves cómo mejoras",
     text: "Estadísticas claras de tu progreso semana a semana. Sabes exactamente qué has mejorado, cuánto te falta y por qué cada sesión tiene sentido.",
   },
   {
     image: "img/bivo-train-at-home.jpg",
-    imagePosition: "center 24%",
+    imagePosition: "center 18%",
     title: "Sin excusas logísticas",
     text: "En casa, en el club, en el hotel o en el jardín. Sin equipamiento especial. Cuando tú puedas. Bivo se adapta a tu vida, no al revés.",
   },
@@ -767,8 +768,8 @@ const PadelLandingPage = () => {
       <footer>
         <img src={padelAsset("assets/logo-green.png")} alt="Bivo" />
         <div className="footer-links">
-          <Link to={localePath("privacidad")}>Política de Privacidad</Link>
-          <Link to={localePath("terminos")}>Términos de Uso</Link>
+          <Link to={localePath(sportLegalPath("padel", "privacy"))}>Política de Privacidad</Link>
+          <Link to={localePath(sportLegalPath("padel", "terms"))}>Términos de Uso</Link>
         </div>
         <p className="footer-copy">© 2025 Bivo Training. Todos los derechos reservados.</p>
       </footer>
