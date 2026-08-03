@@ -9,7 +9,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useLocale } from "@/hooks/useLocale";
 import { writeFlowSession } from "@/lib/flowSession";
 import { TRIAL_DAYS } from "@/lib/config";
-import { loadMemberPlanWorkouts } from "@/lib/onboarding/planWorkouts";
+import { loadMemberPlanWorkouts, PlanNotGeneratedError } from "@/lib/onboarding/planWorkouts";
 import type { PlanWorkoutSummary } from "@/lib/onboarding/memberLevel";
 import { SplitExerciseRow, onboardingContinueClass } from "@/components/onboarding/OnboardingUi";
 
@@ -43,6 +43,7 @@ const TrainingPreviewPage = () => {
   const { session, member } = useAppFlow();
   const [planWorkouts, setPlanWorkouts] = useState<PlanWorkoutSummary[]>([]);
   const [loadingPlan, setLoadingPlan] = useState(true);
+  const [planGenerating, setPlanGenerating] = useState(false);
   const [planError, setPlanError] = useState<string | null>(null);
 
   const sportKey =
@@ -56,6 +57,7 @@ const TrainingPreviewPage = () => {
 
   useEffect(() => {
     let cancelled = false;
+    let retryTimeout: ReturnType<typeof setTimeout> | undefined;
 
     async function loadPlan() {
       if (!user) {
@@ -68,24 +70,31 @@ const TrainingPreviewPage = () => {
 
       try {
         const plan = await loadMemberPlanWorkouts(user.uid, lang);
-        if (!cancelled) {
-          setPlanWorkouts(plan.workouts);
-        }
+        if (cancelled) return;
+        setPlanWorkouts(plan.workouts);
+        setPlanGenerating(false);
+        setLoadingPlan(false);
       } catch (err) {
-        if (!cancelled) {
-          setPlanError(err instanceof Error ? err.message : t("appFlow.training.planLoadError"));
-          setPlanWorkouts([]);
+        if (cancelled) return;
+        if (err instanceof PlanNotGeneratedError) {
+          // Plan generation is still running server-side; keep showing the
+          // loading state and retry, in case the realtime member listener
+          // doesn't pick up the update on its own.
+          setPlanGenerating(true);
+          retryTimeout = setTimeout(loadPlan, 4000);
+          return;
         }
-      } finally {
-        if (!cancelled) {
-          setLoadingPlan(false);
-        }
+        setPlanError(err instanceof Error ? err.message : t("appFlow.training.planLoadError"));
+        setPlanWorkouts([]);
+        setPlanGenerating(false);
+        setLoadingPlan(false);
       }
     }
 
     loadPlan();
     return () => {
       cancelled = true;
+      if (retryTimeout) clearTimeout(retryTimeout);
     };
   }, [user, member?.currentPlanRefs, lang, t]);
 
@@ -150,7 +159,11 @@ const TrainingPreviewPage = () => {
                   className="mx-auto mb-4 rounded-full h-10 w-10 border-b-2 border-bivo-green"
                   style={{ animation: "spin 0.8s linear infinite" }}
                 />
-                <p className="text-sm text-gray-400">{t("appFlow.training.loadingPlan")}</p>
+                <p className="text-sm text-gray-400">
+                  {planGenerating
+                    ? t("appFlow.training.generatingPlan")
+                    : t("appFlow.training.loadingPlan")}
+                </p>
               </div>
             )}
 

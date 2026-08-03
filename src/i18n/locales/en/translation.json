@@ -968,6 +968,7 @@
         "conditioning": "Conditioning"
       },
       "loadingPlan": "Loading your personalized plan...",
+      "generatingPlan": "We're generating your personalized plan, this may take a few seconds...",
       "planLoadError": "Could not load your plan. Please try again in a few seconds.",
       "exercises": [
         "Shoulder and scapula activation",

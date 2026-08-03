@@ -962,6 +962,7 @@
         "conditioning": "Acondicionamiento"
       },
       "loadingPlan": "Cargando tu plan personalizado...",
+      "generatingPlan": "Estamos generando tu plan personalizado, esto puede tardar unos segundos...",
       "planLoadError": "No se pudo cargar tu plan. Inténtalo de nuevo en unos segundos.",
       "exercises": [
         "Activación hombro y escápula",

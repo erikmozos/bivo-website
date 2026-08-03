@@ -169,6 +169,13 @@ async function loadWorkoutSummary(
   };
 }
 
+export class PlanNotGeneratedError extends Error {
+  constructor(message = "Aún no hay plan generado") {
+    super(message);
+    this.name = "PlanNotGeneratedError";
+  }
+}
+
 export async function loadMemberPlanWorkouts(
   memberId: string,
   lang = "es"
@@ -181,7 +188,7 @@ export async function loadMemberPlanWorkouts(
   const member = memberSnap.data();
   const planRefs = member.currentPlanRefs as string[] | undefined;
   if (!planRefs?.length) {
-    throw new Error("Aún no hay plan generado");
+    throw new PlanNotGeneratedError();
   }
 
   const planSnap = await getDoc(doc(db, planRefs[0]));
