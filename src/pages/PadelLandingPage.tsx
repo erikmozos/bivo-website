@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLocale } from "@/hooks/useLocale";
 import { usePadelLanding } from "@/hooks/usePadelLanding";
+import { BIVO_ATHLETES_COUNT } from "@/lib/bivoStats";
 import { padelAsset } from "@/lib/padelLandingAssets";
 import { sportLegalPath } from "@/lib/sportLegalPaths";
 import "./PadelLanding.css";
@@ -23,7 +24,7 @@ const VALUE_POINTS = [
 const BENEFITS = [
   {
     image: "img/vsl/padel-player-court.png",
-    imagePosition: "center 12%",
+    imagePosition: "center center",
     title: "Aguanta más que tus rivales",
     text: "Entrena la resistencia específica del pádel. Llega igual de fuerte al tercer set que al primero. Sin calambres. Sin quedarte sin pulmones en el momento decisivo.",
   },
@@ -205,7 +206,7 @@ const GooglePlayIcon = ({ size = 20 }: { size?: number }) => (
 
 const PadelLandingPage = () => {
   const { localePath } = useLocale();
-  const signupPath = localePath("registro");
+  const signupPath = localePath("/empezar");
   const {
     rootRef,
     vslVideoRef,
@@ -222,7 +223,7 @@ const PadelLandingPage = () => {
     handleTestimonialClick,
   } = usePadelLanding();
 
-  const primeVideoFrame = (video: HTMLVideoElement) => {
+  const primeTestimonialFrame = (video: HTMLVideoElement) => {
     if (video.duration === 0 || video.currentTime > 0.05) return;
 
     try {
@@ -276,20 +277,27 @@ const PadelLandingPage = () => {
               </span>
             </div>
             <span className="hsp-text">
-              Más de <strong>200 jugadores</strong> ya entrenan con Bivo
+              Más de <strong>{BIVO_ATHLETES_COUNT} jugadores</strong> ya entrenan con Bivo
             </span>
           </div>
 
-          <div className="vsl-player">
+          <div className={`vsl-player${vslOverlayVisible ? " is-poster" : ""}`}>
             <video
               ref={vslVideoRef}
+              src={padelAsset("uploads/vslpadel.mp4")}
+              poster={padelAsset("img/vsl-poster.jpg")}
               preload="auto"
               playsInline
-              onLoadedMetadata={(e) => primeVideoFrame(e.currentTarget)}
               onClick={playVsl}
-            >
-              <source src="/assets/bivo-video.mp4" type="video/mp4" />
-            </video>
+            />
+            {vslOverlayVisible && (
+              <img
+                className="vsl-poster"
+                src={padelAsset("img/vsl-poster.jpg")}
+                alt=""
+                aria-hidden
+              />
+            )}
             <div
               className={`play-overlay${vslOverlayVisible ? "" : " hidden"}`}
               onClick={playVsl}
@@ -428,7 +436,7 @@ const PadelLandingPage = () => {
                   {carouselImages.map((image, index) => (
                     <img
                       key={image}
-                      src={padelAsset(image)}
+                      src={image}
                       alt={`Bivo App — pantalla ${index + 1}`}
                       className={index === carouselIndex ? "active" : ""}
                     />
@@ -512,7 +520,7 @@ const PadelLandingPage = () => {
               <video
                 preload="auto"
                 playsInline
-                onLoadedMetadata={(e) => primeVideoFrame(e.currentTarget)}
+                onLoadedMetadata={(e) => primeTestimonialFrame(e.currentTarget)}
                 onEnded={(e) => {
                   const card = e.currentTarget.closest(".video-card");
                   card?.querySelector(".video-play-btn")?.classList.remove("hidden");

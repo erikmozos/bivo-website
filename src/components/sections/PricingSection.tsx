@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import StoreChooserModal from "@/components/StoreChooserModal";
+import { Link } from "react-router-dom";
+import { useLocale } from "@/hooks/useLocale";
 
 const CheckIcon = () => (
   <span
@@ -27,7 +27,8 @@ const SavingsIcon = () => (
 
 const PricingSection = () => {
   const { t } = useTranslation();
-  const [storeModalOpen, setStoreModalOpen] = useState(false);
+  const { localePath } = useLocale();
+  const startPath = localePath("/empezar");
 
   const includedFeatures = t("pricing.features", { returnObjects: true }) as string[];
 
@@ -198,9 +199,8 @@ const PricingSection = () => {
 
               <div className="my-6" style={{ height: "1px", background: "rgba(255,255,255,0.06)" }} />
 
-              <button
-                type="button"
-                onClick={() => setStoreModalOpen(true)}
+              <Link
+                to={startPath}
                 className="block w-full text-center font-bold uppercase tracking-wider mt-auto transition-all cursor-pointer"
                 style={{
                   padding: "16px 24px", borderRadius: "12px",
@@ -237,7 +237,7 @@ const PricingSection = () => {
                 }}
               >
                 {t("pricing.cta")}
-              </button>
+              </Link>
             </div>
           ))}
         </div>
@@ -246,8 +246,6 @@ const PricingSection = () => {
           {t("pricing.note")}
         </p>
       </div>
-
-      <StoreChooserModal open={storeModalOpen} onOpenChange={setStoreModalOpen} />
 
       <style>{`
         @media (min-width: 768px) {

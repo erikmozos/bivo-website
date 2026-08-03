@@ -2,6 +2,7 @@ import { ArrowDown } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
+import { APP_SCREEN_CAROUSEL } from "@/lib/appScreenCarousel";
 
 const HERO_IMAGES = [
   "Fitness-dona.jpg",
@@ -9,17 +10,6 @@ const HERO_IMAGES = [
   "padel.jpg",
   "Pickleball.jpg",
   "Tenis.jpg",
-];
-
-const APP_SCREENS = [
-  "/assets2/app-screens/home.png",
-  "/assets2/app-screens/onboarding-objetivo.png",
-  "/assets2/app-screens/onboarding-dolor.jpg",
-  "/assets2/app-screens/onboarding-material.png",
-  "/assets2/app-screens/workout-progress.png",
-  "/assets2/app-screens/stats.png",
-  "/assets2/app-screens/agenda.png",
-  "/assets2/app-screens/workout-detail.png",
 ];
 
 const SLIDE_INTERVAL_MS = 3000;
@@ -36,7 +26,7 @@ const HeroSection = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % APP_SCREENS.length);
+      setActiveSlide((prev) => (prev + 1) % APP_SCREEN_CAROUSEL.length);
     }, SLIDE_INTERVAL_MS);
     return () => clearInterval(timer);
   }, []);
@@ -89,7 +79,7 @@ const HeroSection = () => {
               <div className="relative rounded-[2.5rem] border-[6px] border-gray-800 bg-gray-900 shadow-2xl overflow-hidden aspect-[9/19.5]">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-gray-800 rounded-b-xl z-20" />
                 <div className="absolute inset-0 pt-6 pb-2 px-1">
-                  {APP_SCREENS.map((src, index) => (
+                  {APP_SCREEN_CAROUSEL.map((src, index) => (
                     <img
                       key={src}
                       src={src}
@@ -106,7 +96,7 @@ const HeroSection = () => {
             </div>
 
             <div className="flex gap-2 mt-6">
-              {APP_SCREENS.map((_, index) => (
+              {APP_SCREEN_CAROUSEL.map((_, index) => (
                 <button
                   key={index}
                   type="button"

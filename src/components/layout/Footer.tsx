@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { openCookiePreferences } from "@/components/ConsentBanner";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
+import { useLegalPath } from "@/hooks/useLegalPath";
 import { APP_STORE_URL, GOOGLE_PLAY_URL, APP_DOWNLOAD_QR } from "@/lib/storeLinks";
 
 const COPYRIGHT_START_YEAR = 2025;
@@ -9,6 +10,7 @@ const COPYRIGHT_START_YEAR = 2025;
 const Footer = () => {
   const { t } = useTranslation();
   const { localePath, lang } = useLocale();
+  const { privacyPath, termsPath, cookiesPath } = useLegalPath();
   const currentYear = new Date().getFullYear();
   const location = useLocation();
   const navigate = useNavigate();
@@ -107,7 +109,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to={localePath("/privacidad")}
+                  to={privacyPath}
                   className="text-gray-300 hover:text-bivo-green transition-colors"
                 >
                   {legalLinks[0]}
@@ -115,7 +117,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to={localePath("/cookies")}
+                  to={cookiesPath}
                   className="text-gray-300 hover:text-bivo-green transition-colors"
                 >
                   {legalLinks[1]}
@@ -123,7 +125,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to={localePath("/terminos")}
+                  to={termsPath}
                   className="text-gray-300 hover:text-bivo-green transition-colors"
                 >
                   {legalLinks[2]}

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useTranslation, Trans } from "react-i18next";
-import { useLocale } from "@/hooks/useLocale";
+import { useLegalPath } from "@/hooks/useLegalPath";
 import Layout from "@/components/layout/Layout";
 import { openCookiePreferences } from "@/components/ConsentBanner";
 
 const CookiePolicy = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
+  const { privacyPath } = useLegalPath();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -240,7 +240,7 @@ const CookiePolicy = () => {
           <p className="mb-4">
             <Trans
               i18nKey="legal.cookies.sections.10.content"
-              components={{ link: <a href={localePath("/privacidad")} className="text-bivo-green hover:underline" /> }}
+              components={{ link: <a href={privacyPath} className="text-bivo-green hover:underline" /> }}
             />
           </p>
         </section>

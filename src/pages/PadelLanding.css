@@ -221,9 +221,24 @@
   margin-bottom: 8px;
 }
 .padel-landing .vsl-player video {
-  width: 100%; height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+  z-index: 0;
+}
+.padel-landing .vsl-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
+  pointer-events: none;
+  z-index: 1;
 }
 .padel-landing .vsl-player .play-overlay {
   position: absolute; inset: 0;
@@ -233,6 +248,7 @@
   cursor: pointer;
   background: rgba(0,0,0,0.35);
   transition: background 0.3s;
+  z-index: 2;
 }
 .padel-landing .vsl-player .play-overlay:hover { background: rgba(0,0,0,0.2); }
 .padel-landing .vsl-player .play-overlay.hidden { display: none; }

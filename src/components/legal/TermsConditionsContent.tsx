@@ -1,10 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useLocale } from "@/hooks/useLocale";
+import { useLegalPath } from "@/hooks/useLegalPath";
 
 const TermsConditionsContent = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
+  const { privacyPath, cookiesPath } = useLegalPath();
 
   return (
   <div className="max-w-3xl mx-auto w-full min-w-0 [&_a]:break-all">
@@ -61,9 +61,9 @@ const TermsConditionsContent = () => {
         <li>Cumplimentar de manera veraz los campos obligatorios del formulario de registro.</li>
         <li>
           Aceptar los presentes Términos y Condiciones (incluyendo{" "}
-          <a href={localePath("/privacidad")} className="text-bivo-green hover:underline">Política de Privacidad</a>{" "}
+          <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>{" "}
           y{" "}
-          <a href={localePath("/cookies")} className="text-bivo-green hover:underline">Política de Cookies</a>
+          <a href={cookiesPath} className="text-bivo-green hover:underline">Política de Cookies</a>
           ) y completar el proceso de alta como usuario de la Plataforma.
         </li>
       </ul>
@@ -157,7 +157,7 @@ const TermsConditionsContent = () => {
         <li>No utilizar la Plataforma para fines ilegales o no autorizados.</li>
         <li>No alojar, almacenar, divulgar, publicar, distribuir o compartir cualquier contenido que pueda suponer una intromisión ilegítima o vulneración en cualquier forma de los derechos fundamentales al honor, imagen e intimidad personal y familiar de terceros y, muy especialmente, de los menores de edad.</li>
         <li>No alterar o modificar, total o parcialmente la Plataforma, eludiendo, desactivando o manipulando de cualquier otra manera las funciones o servicios de la misma.</li>
-        <li>Cumplir con la{" "}<a href={localePath("/privacidad")} className="text-bivo-green hover:underline">Política de Privacidad</a>{" "}y no infringir las normas reguladoras de la protección de datos de carácter personal.</li>
+        <li>Cumplir con la{" "}<a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>{" "}y no infringir las normas reguladoras de la protección de datos de carácter personal.</li>
         <li>No introducir, almacenar o difundir mediante la Plataforma cualquier contenido que infrinja derechos de propiedad industrial y/o intelectual o información confidencial de terceros, ni en general ningún contenido del cual no ostentara, de conformidad con la ley, el derecho a ponerlo a disposición de tercero.</li>
         <li>No usar la Plataforma para injuriar, difamar, intimidar, violar la propia imagen o acosar a otros Usuarios.</li>
         <li>No acceder a las cuentas de otros Usuarios.</li>
@@ -176,7 +176,7 @@ const TermsConditionsContent = () => {
       <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.6.title")}</h2>
       <p className="mb-4">
         La creación de un perfil de Usuario es necesaria para la prestación de los servicios ofrecidos por BIVO TRAINING. Durante el proceso de registro, el Usuario deberá aceptar la{" "}
-        <a href={localePath("/privacidad")} className="text-bivo-green hover:underline">Política de Privacidad</a>{" "}
+        <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>{" "}
         y el tratamiento de sus datos conforme a la misma.
       </p>
       <p className="mb-4">
@@ -262,7 +262,7 @@ const TermsConditionsContent = () => {
       </p>
       <p className="mb-4">
         El uso de la Plataforma por menores de edad deberá realizarse bajo la supervisión y responsabilidad de sus padres, madres o tutores legales. El progenitor o tutor legal será responsable de autorizar el acceso del menor al servicio y el tratamiento de sus datos personales conforme a la{" "}
-        <a href={localePath("/privacidad")} className="text-bivo-green hover:underline">Política de Privacidad</a>
+        <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>
         , pudiendo BIVO TRAINING requerir, en caso necesario, la verificación de dicha autorización.
       </p>
       <p className="mb-4">
@@ -281,7 +281,7 @@ const TermsConditionsContent = () => {
       <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.14.title")}</h2>
       <p className="mb-4">
         BIVO TRAINING se reserva el derecho de modificar, en cualquier momento y sin previo aviso, la estructura, configuración y diseño del Sitio Web o Plataforma así como los presentes Términos y Condiciones y la{" "}
-        <a href={localePath("/privacidad")} className="text-bivo-green hover:underline">Política de Privacidad</a>
+        <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>
         . Los Usuarios deberán leer atentamente estos Términos y Condiciones al acceder a la Plataforma.
       </p>
       <p className="mb-4">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation, Trans } from "react-i18next";
-import { useLocale } from "@/hooks/useLocale";
+import { useLegalPath } from "@/hooks/useLegalPath";
 import { setCookiePreferences } from '@/lib/cookieUtils';
 
 const COOKIE_PREFERENCES_EVENT = 'bivo-open-cookie-preferences';
@@ -14,7 +14,7 @@ export const openCookiePreferences = () => {
 
 const ConsentBanner = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
+  const { privacyPath, cookiesPath } = useLegalPath();
   const [showBanner, setShowBanner] = useState(false);
   const [showPreferencesModal, setShowPreferencesModal] = useState(false);
   const [analyticsEnabled, setAnalyticsEnabled] = useState(false);
@@ -192,8 +192,8 @@ const ConsentBanner = () => {
               <Trans
                 i18nKey="consent.banner.policyLinks"
                 components={{
-                  privacyLink: <Link to={localePath("/privacidad")} className="text-bivo-green hover:underline" />,
-                  cookiesLink: <Link to={localePath("/cookies")} className="text-bivo-green hover:underline" />,
+                  privacyLink: <Link to={privacyPath} className="text-bivo-green hover:underline" />,
+                  cookiesLink: <Link to={cookiesPath} className="text-bivo-green hover:underline" />,
                 }}
               />
             </p>

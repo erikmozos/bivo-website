@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation, Trans } from "react-i18next";
+import { sportLegalPath } from "@/lib/sportLegalPaths";
+import { useLocale } from "@/hooks/useLocale";
 import "./ShoulderStabilityLanding.css";
 
 const FORMSPREE_URL =
@@ -12,6 +15,7 @@ const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const ShoulderStabilityLanding = () => {
   const { t } = useTranslation();
+  const { localePath } = useLocale();
   const [selectedSport, setSelectedSport] = useState<string | null>(null);
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -26,6 +30,7 @@ const ShoulderStabilityLanding = () => {
   const SPORTS = sportIds.map((id, i) => ({ id, label: sportLabels[i] }));
   const painCards = t("shoulder.pain.cards", { returnObjects: true }) as string[];
   const valueItems = t("shoulder.value.items", { returnObjects: true }) as { number: string; title: string; subtitle: string }[];
+  const legalLinks = t("footer.legal.links", { returnObjects: true }) as string[];
 
   useEffect(() => {
     const prev = document.title;
@@ -334,6 +339,10 @@ const ShoulderStabilityLanding = () => {
         <span className="ssl-footer-logo ssl-text-logo" aria-hidden>
           {t("shoulder.header.logo")}
         </span>
+        <div className="ssl-footer-links">
+          <Link to={localePath(sportLegalPath("estabilidad-hombro", "privacy"))}>{legalLinks[0]}</Link>
+          <Link to={localePath(sportLegalPath("estabilidad-hombro", "terms"))}>{legalLinks[2]}</Link>
+        </div>
         <p>{t("shoulder.footer")}</p>
       </footer>
     </div>

@@ -1,15 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-
-const CAROUSEL_IMAGES = [
-  "assets/app-screens/workout-progress.png",
-  "assets/app-screens/stats.png",
-  "assets/app-screens/agenda.png",
-  "assets/app-screens/workout-detail.png",
-] as const;
+import { APP_SCREEN_CAROUSEL } from "@/lib/appScreenCarousel";
 
 export function usePadelLanding() {
   const rootRef = useRef<HTMLDivElement>(null);
   const vslVideoRef = useRef<HTMLVideoElement>(null);
+  /** True while the user expects the VSL to be playing (ignores transient pause events while buffering). */
+  const vslShouldPlayRef = useRef(false);
   const [vslOverlayVisible, setVslOverlayVisible] = useState(true);
   const [ctaUnlocked, setCtaUnlocked] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -55,16 +51,28 @@ export function usePadelLanding() {
       if (video.currentTime >= 60) unlockCta();
     };
     const onPause = () => {
-      if (!video.ended) setVslOverlayVisible(true);
+      // Only restore the poster when the user (or ended state) actually stopped playback.
+      // Browsers can emit transient pause events while buffering; those must not block play.
+      if (!vslShouldPlayRef.current) {
+        setVslOverlayVisible(true);
+      }
     };
-    const onEnded = () => setVslOverlayVisible(true);
+    const onPlaying = () => {
+      setVslOverlayVisible(false);
+    };
+    const onEnded = () => {
+      vslShouldPlayRef.current = false;
+      setVslOverlayVisible(true);
+    };
 
     video.addEventListener("timeupdate", onTimeUpdate);
     video.addEventListener("pause", onPause);
+    video.addEventListener("playing", onPlaying);
     video.addEventListener("ended", onEnded);
     return () => {
       video.removeEventListener("timeupdate", onTimeUpdate);
       video.removeEventListener("pause", onPause);
+      video.removeEventListener("playing", onPlaying);
       video.removeEventListener("ended", onEnded);
     };
   }, [unlockCta]);
@@ -79,7 +87,7 @@ export function usePadelLanding() {
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      setCarouselIndex((i) => (i + 1) % CAROUSEL_IMAGES.length);
+      setCarouselIndex((i) => (i + 1) % APP_SCREEN_CAROUSEL.length);
     }, 4000);
     return () => window.clearInterval(timer);
   }, []);
@@ -101,37 +109,35 @@ export function usePadelLanding() {
     return () => window.clearInterval(timer);
   }, []);
 
-  const playVsl = () => {
+  const playVsl = useCallback(() => {
     const video = vslVideoRef.current;
     if (!video) return;
 
     if (!video.paused && !video.ended) {
+      vslShouldPlayRef.current = false;
       video.pause();
       setVslOverlayVisible(true);
       return;
     }
 
-    const playAttempt = video.play();
-    if (playAttempt && typeof playAttempt.then === "function") {
-      void playAttempt
-        .then(() => {
-          setVslOverlayVisible(false);
-        })
-        .catch(() => {
-          setVslOverlayVisible(true);
-        });
-      return;
-    }
-
+    vslShouldPlayRef.current = true;
     setVslOverlayVisible(false);
-  };
+
+    const attempt = video.play();
+    if (attempt && typeof attempt.then === "function") {
+      void attempt.catch(() => {
+        vslShouldPlayRef.current = false;
+        setVslOverlayVisible(true);
+      });
+    }
+  }, []);
 
   const carouselPrev = () => {
-    setCarouselIndex((i) => (i - 1 + CAROUSEL_IMAGES.length) % CAROUSEL_IMAGES.length);
+    setCarouselIndex((i) => (i - 1 + APP_SCREEN_CAROUSEL.length) % APP_SCREEN_CAROUSEL.length);
   };
 
   const carouselNext = () => {
-    setCarouselIndex((i) => (i + 1) % CAROUSEL_IMAGES.length);
+    setCarouselIndex((i) => (i + 1) % APP_SCREEN_CAROUSEL.length);
   };
 
   const toggleFaq = (index: number) => {
@@ -167,7 +173,7 @@ export function usePadelLanding() {
     carouselIndex,
     carouselPrev,
     carouselNext,
-    carouselImages: CAROUSEL_IMAGES,
+    carouselImages: APP_SCREEN_CAROUSEL,
     openFaq,
     toggleFaq,
     countdown,
