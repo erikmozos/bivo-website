@@ -12,7 +12,6 @@ import ConsentBanner from "./components/ConsentBanner";
 import { AuthProvider } from "./contexts/AuthContext";
 
 const NotFound = lazy(() => import("./pages/NotFound"));
-const StartPage = lazy(() => import("./pages/StartPage"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const OnboardingPage = lazy(() => import("./pages/OnboardingPage"));
 const TrainingPreviewPage = lazy(() => import("./pages/TrainingPreviewPage"));
@@ -86,7 +85,6 @@ const App = () => (
                 <Route path="/" element={<Navigate to="/es" replace />} />
                 <Route path="/:lang" element={<LocaleLayout />}>
                   <Route index element={<Index />} />
-                  <Route path="empezar" element={<StartPage />} />
                   <Route path="registro" element={<AuthPage />} />
                   <Route path="onboarding" element={<OnboardingPage />} />
                   <Route path="entrenamiento" element={<TrainingPreviewPage />} />

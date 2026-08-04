@@ -3,7 +3,6 @@ import type { OnboardingAnswers } from "@/types/onboarding";
 const STORAGE_KEY = "bivo_flow_session";
 
 export interface FlowSession {
-  email?: string;
   primarySport?: string;
   trainingViewed?: boolean;
   questionnaireCompleted?: boolean;

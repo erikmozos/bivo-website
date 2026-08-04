@@ -240,12 +240,12 @@ const OnboardingPage = () => {
   return (
     <FlowGuard require="onboarding">
       <div className="min-h-screen text-white" style={{ background: ONBOARDING_BG }}>
-        <div className="mx-auto max-w-md px-4 py-6 sm:py-8">
-          <div className="flex justify-center mb-5">
+        <div className={`mx-auto px-4 py-6 sm:py-8 lg:py-12 ${phase === "summary" ? "max-w-xl lg:max-w-3xl" : "max-w-md lg:max-w-2xl"}`}>
+          <div className="flex justify-center mb-5 lg:mb-8">
             <img
               src="/brand/logo-bivo-verde.png"
               alt={t("nav.logoAlt")}
-              className="h-9 w-auto object-contain"
+              className="h-9 lg:h-12 w-auto object-contain"
             />
           </div>
 
@@ -258,7 +258,7 @@ const OnboardingPage = () => {
                 <OnboardingProgressRing current={progressCurrent} total={progressTotal} />
               </div>
 
-              <h1 className="font-round text-2xl sm:text-[1.65rem] font-bold text-white mb-6 leading-tight">
+              <h1 className="font-round text-2xl sm:text-[1.65rem] lg:text-3xl font-bold text-white mb-6 lg:mb-8 leading-tight">
                 {currentQuestion.question}
               </h1>
 
@@ -299,14 +299,14 @@ const OnboardingPage = () => {
 
           {phase === "summary" && (
             <>
-              <div className="flex items-center justify-between mb-6 mt-4">
+              <div className="flex items-center mb-5 mt-2">
                 <OnboardingBackButton onClick={goBack} label={t("appFlow.onboarding.back")} />
               </div>
 
-              <h1 className="font-round text-2xl font-bold text-white mb-2">
+              <h1 className="font-round text-[1.75rem] sm:text-3xl font-bold text-white text-center mb-2 leading-tight">
                 {t("appFlow.onboarding.summary.title")}
               </h1>
-              <p className="text-sm text-gray-400 mb-6">
+              <p className="text-sm text-gray-400 text-center mb-6 leading-relaxed max-w-sm mx-auto">
                 {t("appFlow.onboarding.summary.subtitle")}
               </p>
 
@@ -315,6 +315,7 @@ const OnboardingPage = () => {
                 skillLevel={skillLevel}
                 levelLoading={levelLoading}
                 submitting={submitting}
+                weekdayLabels={weekdayLabels}
                 onContinue={handleSummaryContinue}
               />
               {error && (

@@ -40,7 +40,7 @@ const HowItWorksSection = () => {
 
         <div className="flex justify-center mb-10">
           <Link
-            to={localePath("/empezar")}
+            to={localePath("/registro")}
             className="inline-flex items-center justify-center bg-bivo-green text-black px-8 py-3.5 rounded-xl font-extrabold text-base sm:text-lg uppercase tracking-wide hover:bg-opacity-90 transition-all transform hover:scale-[1.02] shadow-[0_8px_32px_rgba(57,255,20,0.25)]"
           >
             {t("howItWorks.cta")}

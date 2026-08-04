@@ -2,7 +2,7 @@ import { useMemo, useSyncExternalStore } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { readFlowSession } from "@/lib/flowSession";
 import { useMember } from "@/hooks/useMember";
-import { getAppFlowStep, getGuestFlowStep, type AppFlowStep } from "@/types/member";
+import { getAppFlowStep, type AppFlowStep } from "@/types/member";
 
 function subscribeSession(onStoreChange: () => void) {
   const handler = () => onStoreChange();
@@ -30,7 +30,7 @@ export function useAppFlow() {
   const session = useMemo(() => JSON.parse(sessionKey), [sessionKey]);
 
   const step: AppFlowStep = useMemo(() => {
-    if (!user) return getGuestFlowStep(session);
+    if (!user) return "auth";
     return getAppFlowStep(member, session, true);
   }, [user, member, session]);
 

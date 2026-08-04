@@ -206,7 +206,7 @@ const GooglePlayIcon = ({ size = 20 }: { size?: number }) => (
 
 const PadelLandingPage = () => {
   const { localePath } = useLocale();
-  const signupPath = localePath("/empezar");
+  const signupPath = localePath("/registro");
   const {
     rootRef,
     vslVideoRef,

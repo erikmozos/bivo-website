@@ -5,7 +5,6 @@ import { useAppFlow } from "@/hooks/useAppFlow";
 import type { AppFlowStep } from "@/types/member";
 
 const STEP_PATH: Record<AppFlowStep, string> = {
-  email: "/empezar",
   onboarding: "/onboarding",
   training: "/entrenamiento",
   auth: "/registro",
@@ -61,7 +60,6 @@ export function FlowRedirectOnComplete({ targetStep }: { targetStep: AppFlowStep
   if (loading) return null;
 
   const order: AppFlowStep[] = [
-    "email",
     "auth",
     "onboarding",
     "training",

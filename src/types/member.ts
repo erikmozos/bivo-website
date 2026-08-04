@@ -39,17 +39,11 @@ export interface SubscriptionStatusResponse {
 }
 
 export type AppFlowStep =
-  | "email"
   | "onboarding"
   | "training"
   | "auth"
   | "paywall"
   | "download";
-
-export function getGuestFlowStep(session: FlowSession): AppFlowStep {
-  if (!session.email) return "email";
-  return "auth";
-}
 
 export function getAppFlowStep(
   member: MemberDoc | null | undefined,
@@ -57,7 +51,7 @@ export function getAppFlowStep(
   isAuthenticated: boolean
 ): AppFlowStep {
   if (!isAuthenticated) {
-    return getGuestFlowStep(session);
+    return "auth";
   }
 
   if (member?.entitlementActive === true || member?.isDev === true) {

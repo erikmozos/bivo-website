@@ -21,7 +21,7 @@ const FlowUserBar = () => {
       clearFlowSession();
       notifyFlowSessionChange();
       await logout();
-      navigate(localePath("/empezar"), { replace: true });
+      navigate(localePath("/registro"), { replace: true });
     } finally {
       setLoading(false);
     }

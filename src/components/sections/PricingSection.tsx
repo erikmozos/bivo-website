@@ -28,7 +28,7 @@ const SavingsIcon = () => (
 const PricingSection = () => {
   const { t } = useTranslation();
   const { localePath } = useLocale();
-  const startPath = localePath("/empezar");
+  const startPath = localePath("/registro");
 
   const includedFeatures = t("pricing.features", { returnObjects: true }) as string[];
 
