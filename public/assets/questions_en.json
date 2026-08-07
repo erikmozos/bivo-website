@@ -24,6 +24,13 @@
     "placeholder": "Tell us your name..."
   },
   {
+    "id": 14,
+    "question": "What is your age?",
+    "type": "number",
+    "placeholder": "e.g. 28",
+    "forceAnswer": true
+  },
+  {
     "id": 3,
     "question": "My goal is:",
     "type": "select",

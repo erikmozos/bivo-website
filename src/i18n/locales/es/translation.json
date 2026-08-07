@@ -210,54 +210,56 @@
     }
   },
   "pricing": {
-    "description": "Sin compromiso. Cancela cuando quieras. Todos los planes incluyen acceso completo a todas las funciones de la app.",
-    "featuresTitle": "Todos los planes incluyen",
+    "preHeadline": "Sin riesgo. Sin compromiso.",
+    "heading": "Empieza hoy. Los primeros 7 días son completamente gratis.",
+    "subheading": "Cancela cuando quieras con un clic.",
+    "anchor": {
+      "oldLabel": "Preparador físico privado",
+      "oldPrice": "40€ – 120€ por sesión",
+      "vs": "vs",
+      "newLabel": "Bivo",
+      "newPrice": "Desde 7,50€/mes"
+    },
     "features": [
       "Entrenamiento personalizado con IA",
-      "Adaptación automática a tu nivel y necesidades",
+      "Adaptación automática a tu nivel y lesiones",
       "Estadísticas y seguimiento de progreso",
-      "Calendario y planificación",
+      "Calendario y planificación de partidos",
       "Acceso completo a todas las funciones",
-      "Actualizaciones incluidas"
+      "Actualizaciones incluidas",
+      "Soporte en español"
     ],
     "plans": [
       {
         "name": "Mensual",
-        "description": "Empieza hoy sin compromiso.",
-        "amount": "14,99",
+        "amount": "14,99€",
         "period": "/mes",
-        "meta": "Sin compromiso",
-        "badge": null
+        "billed": "Sin compromiso",
+        "badge": null,
+        "badgeStyle": null
       },
       {
         "name": "Trimestral",
-        "description": "Tiempo suficiente para notar cambios reales.",
-        "amount": "34,99",
-        "period": "/3 meses",
-        "meta": "Equivale a ",
-        "metaBold": "11,66 €/mes",
-        "savings": "Ahorras 22%",
-        "badge": {
-          "text": "Más popular",
-          "gold": false
-        }
+        "amount": "11,66€",
+        "period": "/mes",
+        "billed": "34,99€ cada 3 meses",
+        "savings": "Ahorras un 22%",
+        "badge": "● Más popular — Precio lanzamiento",
+        "badgeStyle": "popular"
       },
       {
         "name": "Anual",
-        "description": "La mejor inversión en tu rendimiento.",
-        "amount": "89,99",
-        "period": "/año",
-        "meta": "Equivale a ",
-        "metaBold": "7,50 €/mes",
-        "savings": "Ahorras 50%",
-        "savingsExtra": "Ahorras 89,89 € al año",
-        "badge": {
-          "text": "Mejor Valor",
-          "gold": true
-        }
+        "amount": "7,50€",
+        "period": "/mes",
+        "billed": "89,99€ al año",
+        "savings": "Ahorras un 50% · Ahorras 89,89€/año",
+        "badge": "💎 Mejor valor",
+        "badgeStyle": "value"
       }
     ],
-    "cta": "Empieza 7 días gratis",
+    "cta": "Empieza 7 días gratis →",
+    "guaranteeTitle": "Garantía de satisfacción 7 días",
+    "guaranteeBody": "Si en siete días no ves el valor, cancela sin costes con sólo dos clics desde dentro de la app. Sin complicaciones.",
     "storeModal": {
       "title": "Descarga la app",
       "description": "Elige tu tienda para empezar tu prueba gratuita de 7 días.",
@@ -1031,6 +1033,8 @@
       "cta": "Continuar",
       "finish": "Ver resumen",
       "back": "Atrás",
+      "ageLabel": "¿Cuál es tu edad?",
+      "agePlaceholder": "Ej. 28",
       "submitting": "Guardando...",
       "error": "No se pudo guardar el onboarding. Inténtalo de nuevo.",
       "loadError": "No se pudieron cargar las preguntas.",
@@ -1112,19 +1116,48 @@
     },
     "paywall": {
       "badge": "{days} días gratis",
-      "title": "Elige tu plan",
-      "subtitle": "Prueba Bivo {days} días gratis. Cancela cuando quieras.",
-      "popular": "Más popular",
+      "preHeadline": "Sin riesgo. Sin compromiso.",
+      "title": "Empieza hoy. Los primeros {days} días son completamente gratis.",
+      "subtitle": "Cancela cuando quieras con un clic.",
+      "anchor": {
+        "oldLabel": "Preparador físico privado",
+        "oldPrice": "40€ – 120€ por sesión",
+        "vs": "vs",
+        "newLabel": "Bivo",
+        "newPrice": "Desde 7,50€/mes"
+      },
+      "popular": "● Más popular — Precio lanzamiento",
+      "bestValue": "💎 Mejor valor",
       "planNames": {
         "monthly": "Mensual",
         "quarterly": "Trimestral",
         "annual": "Anual"
       },
       "periods": {
-        "monthly": "/ mes",
-        "quarterly": "/ 3 meses",
-        "annual": "/ año"
+        "monthly": "/mes",
+        "quarterly": "/mes",
+        "annual": "/mes"
       },
+      "billed": {
+        "monthly": "Sin compromiso",
+        "quarterly": "{price} cada 3 meses",
+        "annual": "{price} al año"
+      },
+      "savings": {
+        "quarterly": "Ahorras un 22%",
+        "annual": "Ahorras un 50%"
+      },
+      "features": [
+        "Entrenamiento personalizado con IA",
+        "Adaptación automática a tu nivel y lesiones",
+        "Estadísticas y seguimiento de progreso",
+        "Calendario y planificación de partidos",
+        "Acceso completo a todas las funciones",
+        "Actualizaciones incluidas",
+        "Soporte en español"
+      ],
+      "guaranteeTitle": "Garantía de satisfacción {days} días",
+      "guaranteeBody": "Si en siete días no ves el valor, cancela sin costes con sólo dos clics desde dentro de la app. Sin complicaciones.",
       "promoLabel": "¿Tienes un código promocional?",
       "promoPlaceholder": "",
       "promoCta": "Aplicar",
@@ -1134,7 +1167,7 @@
       "promoApplied": "Código aplicado correctamente.",
       "promoError": "No se pudo aplicar el código.",
       "promoInvalid": "Código no válido. Prueba BIVO1 o FPIB26.",
-      "cta": "Empezar {days} días gratis",
+      "cta": "Empieza {days} días gratis →",
       "processing": "Procesando pago...",
       "activating": "Activando premium...",
       "note": "El pago se procesa con Stripe vía RevenueCat. Usa el mismo email con el que te registraste para que premium funcione en la app.",
@@ -1143,16 +1176,15 @@
       "rcNotConfigured": "RevenueCat no está configurado. Añade VITE_REVENUECAT_API_KEY.",
       "trialActive": "Estás en periodo de prueba.",
       "sandboxHint": "Modo sandbox (strp_sb_): la cuenta Stripe conectada en RevenueCat debe estar en test mode.",
-      "liveHint": "Modo live (strp_...): los pagos son reales. Usa tarjeta real o desactiva en entornos de prueba.",
-      "promoInvalid": "Código no válido."
+      "liveHint": "Modo live (strp_...): los pagos son reales. Usa tarjeta real o desactiva en entornos de prueba."
     },
     "download": {
-      "badge": "Premium activo",
+      "readyTitle": "¡Todo listo!",
       "title": "Descarga la app",
-      "subtitle": "Tu cuenta ya tiene premium.",
-      "message": "Descarga la app e inicia sesión con el mismo email o cuenta de Google que usaste en la web.",
-      "signedInAs": "Sesión iniciada como {email}",
-      "trialActive": "Periodo de prueba activo",
+      "subtitleBefore": "Tu cuenta ya está configurada. Descarga Bivo, inicia sesión y ",
+      "subtitleHighlight": "empieza a entrenar.",
+      "loginHint": "Inicia sesión con la misma cuenta que usaste en la web.",
+      "renewsOnLabel": "Renueva el",
       "renewsOn": "Renueva el {date}",
       "status": {
         "trialing": "Suscripción en prueba",
@@ -1161,7 +1193,19 @@
         "canceled": "Suscripción cancelada",
         "expired": "Suscripción expirada",
         "none": "Sin suscripción"
-      }
+      },
+      "desktopTitle": "¿Estás desde un ordenador?",
+      "desktopBodyBefore": "Escanea el QR para descargar ",
+      "desktopBodyHighlight": "Bivo",
+      "desktopBodyAfter": " en tu móvil.",
+      "appStoreLabel": "Descargar en el",
+      "appStoreName": "App Store",
+      "playLabel": "Disponible en",
+      "playName": "Google Play",
+      "trialActive": "Periodo de prueba activo",
+      "badge": "Premium activo",
+      "message": "Descarga la app e inicia sesión con el mismo email o cuenta de Google que usaste en la web.",
+      "signedInAs": "Sesión iniciada como {email}"
     }
   }
 }

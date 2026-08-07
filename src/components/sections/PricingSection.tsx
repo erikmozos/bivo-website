@@ -2,27 +2,21 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useLocale } from "@/hooks/useLocale";
 
-const CheckIcon = () => (
-  <span
-    className="flex-shrink-0 flex items-center justify-center"
-    style={{
-      width: "22px", height: "22px", borderRadius: "50%",
-      background: "rgba(57,255,20,0.15)",
-      border: "1px solid rgba(57,255,20,0.4)",
-      color: "#39ff14",
-    }}
-  >
-    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  </span>
-);
+type PlanData = {
+  name: string;
+  amount: string;
+  period: string;
+  billed?: string;
+  savings?: string;
+  badge?: string | null;
+  badgeStyle?: "popular" | "value" | null;
+  featured?: boolean;
+};
 
-const SavingsIcon = () => (
-  <svg fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ width: "14px", height: "14px" }}>
-    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-    <polyline points="17 6 23 6 23 12" />
-  </svg>
+const CheckIcon = () => (
+  <span className="text-bivo-green font-bold shrink-0" aria-hidden>
+    ✓
+  </span>
 );
 
 const PricingSection = () => {
@@ -31,29 +25,10 @@ const PricingSection = () => {
   const startPath = localePath("/registro");
 
   const includedFeatures = t("pricing.features", { returnObjects: true }) as string[];
-
-  const plansData = t("pricing.plans", { returnObjects: true }) as {
-    name: string;
-    description: string;
-    amount: string;
-    period: string;
-    meta: string;
-    metaBold: string;
-    savings: string;
-    savingsExtra: string;
-    badge: { text: string; gold: boolean } | null;
-  }[];
+  const plansData = t("pricing.plans", { returnObjects: true }) as PlanData[];
 
   const plans = plansData.map((plan, index) => ({
-    name: plan.name,
-    desc: plan.description,
-    amount: plan.amount,
-    period: plan.period,
-    meta: plan.meta,
-    metaBold: plan.metaBold || null,
-    savings: plan.savings || null,
-    savingsExtra: plan.savingsExtra || null,
-    badge: plan.badge || null,
+    ...plan,
     featured: index === 1,
   }));
 
@@ -66,175 +41,80 @@ const PricingSection = () => {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(57,255,20,0.05) 0%, transparent 60%)",
+          background:
+            "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(57,255,20,0.05) 0%, transparent 60%)",
         }}
       />
 
       <div className="container mx-auto px-4 relative z-10">
-
-        <div className="text-center mb-4">
-          <h2 className="font-round text-3xl font-bold mb-4">
-            {t("pricing.headingNormal")}
-            <span className="text-bivo-green">{t("pricing.headingGreen")}</span>
+        <div className="text-center mb-10 max-w-3xl mx-auto">
+          <p className="text-bivo-green text-[13px] font-semibold uppercase tracking-[0.12em] mb-4">
+            {t("pricing.preHeadline")}
+          </p>
+          <h2 className="font-round text-3xl sm:text-4xl lg:text-[50px] font-bold leading-tight mb-3">
+            {t("pricing.heading")}
           </h2>
-          <p style={{ color: "#d1d5db" }} className="max-w-2xl mx-auto">
-            {t("pricing.description")}
-          </p>
+          <p className="text-white/70 text-lg">{t("pricing.subheading")}</p>
         </div>
 
-        <div
-          className="max-w-5xl mx-auto mt-12 mb-14"
-          style={{
-            background: "linear-gradient(135deg, rgba(57,255,20,0.05) 0%, rgba(255,255,255,0.02) 100%)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            borderRadius: "18px",
-            padding: "32px 36px",
-            backdropFilter: "blur(10px)",
-          }}
-        >
-          <p className="text-center mb-6 uppercase tracking-widest font-bold"
-            style={{ fontSize: "13px", color: "#39ff14" }}>
-            {t("pricing.featuresTitle")}
-          </p>
-          <ul className="grid gap-3"
-            style={{ gridTemplateColumns: "repeat(1,1fr)", listStyle: "none", padding: 0, margin: 0 }}>
-            {includedFeatures.map((f) => (
-              <li key={f} className="flex items-center gap-3" style={{ fontSize: "14px", color: "#e5e7eb" }}>
-                <CheckIcon />
-                {f}
-              </li>
-            ))}
-          </ul>
+        <div className="max-w-[700px] mx-auto mb-12 grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-3 sm:gap-4 items-center">
+          <div className="rounded-2xl border border-red-500/30 bg-red-500/10 px-6 py-5 text-center">
+            <div className="text-[13px] text-white/50 mb-1.5">{t("pricing.anchor.oldLabel")}</div>
+            <div className="text-[22px] font-bold text-red-400 line-through">
+              {t("pricing.anchor.oldPrice")}
+            </div>
+          </div>
+          <div className="text-center text-xl font-extrabold text-white/40 uppercase">
+            {t("pricing.anchor.vs")}
+          </div>
+          <div className="rounded-2xl bg-bivo-green px-6 py-5 text-center text-black">
+            <div className="text-[13px] font-semibold mb-1.5">{t("pricing.anchor.newLabel")}</div>
+            <div className="text-[22px] font-extrabold">{t("pricing.anchor.newPrice")}</div>
+          </div>
         </div>
 
-        <div className="grid gap-6 max-w-5xl mx-auto" style={{ gridTemplateColumns: "1fr" }}>
+        <div className="grid gap-5 max-w-[960px] mx-auto mb-12 grid-cols-1 md:grid-cols-3 items-start">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className="pricing-card-item relative flex flex-col"
-              style={{
-                background: plan.featured
-                  ? "linear-gradient(180deg, rgba(57,255,20,0.08) 0%, #0a0a0a 35%)"
-                  : "#0a0a0a",
-                border: plan.featured
-                  ? "1px solid rgba(57,255,20,0.5)"
-                  : "1px solid rgba(255,255,255,0.08)",
-                boxShadow: plan.featured
-                  ? "0 0 0 1px rgba(57,255,20,0.2), 0 0 80px rgba(57,255,20,0.18), 0 30px 60px -20px rgba(0,0,0,0.6)"
-                  : undefined,
-                borderRadius: "20px",
-                padding: "36px 32px 32px",
-                transition: "transform 0.35s cubic-bezier(0.23,1,0.32,1), border-color 0.3s, box-shadow 0.3s",
-              }}
+              className={`relative flex flex-col rounded-2xl p-7 text-center ${
+                plan.featured
+                  ? "border-2 border-bivo-green shadow-[0_0_40px_rgba(57,255,20,0.18)] bg-[#111]"
+                  : "border border-white/10 bg-[#111]"
+              }`}
             >
               {plan.badge && (
-                <div className="absolute font-round font-extrabold uppercase tracking-wider"
-                  style={{
-                    top: "-14px", left: "50%", transform: "translateX(-50%)",
-                    padding: "7px 18px", borderRadius: "100px",
-                    fontSize: "11px", letterSpacing: "0.12em", whiteSpace: "nowrap",
-                    background: plan.badge.gold ? "linear-gradient(135deg, #ffd700, #ffaa00)" : "#39ff14",
-                    color: plan.badge.gold ? "#1a1100" : "#000",
-                    boxShadow: plan.badge.gold
-                      ? "0 10px 26px rgba(255,170,0,0.4)"
-                      : "0 10px 26px rgba(57,255,20,0.45)",
-                  }}>
-                  {plan.badge.text}
+                <div
+                  className={`absolute -top-[13px] left-1/2 -translate-x-1/2 rounded-full px-3.5 py-1 text-[12px] font-bold tracking-wide whitespace-nowrap ${
+                    plan.badgeStyle === "value"
+                      ? "bg-[#1a1a1a] text-bivo-green border border-bivo-green"
+                      : "bg-bivo-green text-black"
+                  }`}
+                >
+                  {plan.badge}
                 </div>
               )}
 
-              <div className="font-round font-extrabold uppercase tracking-widest mb-2"
-                style={{ fontSize: "13px", color: "#39ff14" }}>
+              <div className="text-[13px] font-bold tracking-[0.1em] uppercase text-white/45 mb-4">
                 {plan.name}
               </div>
 
-              <p className="mb-7" style={{ color: "#a3a3a3", fontSize: "14px", lineHeight: 1.5, minHeight: "42px" }}>
-                {plan.desc}
-              </p>
-
-              <div className="flex items-baseline gap-0.5 mb-1">
-                <span className="font-round font-extrabold text-white"
-                  style={{ fontSize: "56px", letterSpacing: "-2.5px", lineHeight: 1 }}>
-                  {plan.amount}
-                </span>
-                <span className="text-white font-semibold" style={{ fontSize: "24px", marginLeft: "4px" }}>€</span>
-                <span style={{ color: "#888", fontSize: "14px", marginLeft: "6px", fontWeight: 500 }}>
-                  {plan.period}
-                </span>
+              <div className="font-round text-[42px] font-extrabold text-white leading-none">
+                {plan.amount}
+                <span className="text-lg font-medium text-white/70"> {plan.period}</span>
               </div>
 
-              <p style={{ color: "#a3a3a3", fontSize: "13px", marginBottom: "14px" }}>
-                {plan.meta}
-                {plan.metaBold && <strong style={{ color: "#fff", fontWeight: 700 }}>{plan.metaBold}</strong>}
-              </p>
+              {plan.billed && (
+                <div className="text-[15px] text-white/45 mt-1">{plan.billed}</div>
+              )}
 
-              <div className="flex flex-wrap gap-2 mb-1">
-                {plan.savings && (
-                  <div className="inline-flex items-center gap-1.5 self-start"
-                    style={{
-                      background: "rgba(57,255,20,0.12)",
-                      border: "1px solid rgba(57,255,20,0.3)",
-                      color: "#39ff14",
-                      padding: "6px 12px", borderRadius: "8px",
-                      fontSize: "12.5px", fontWeight: 700,
-                    }}>
-                    <SavingsIcon />
-                    {plan.savings}
-                  </div>
-                )}
-                {plan.savingsExtra && (
-                  <div className="inline-flex items-center gap-1.5 self-start"
-                    style={{
-                      background: "rgba(57,255,20,0.12)",
-                      border: "1px solid rgba(57,255,20,0.3)",
-                      color: "#39ff14",
-                      padding: "6px 12px", borderRadius: "8px",
-                      fontSize: "12.5px", fontWeight: 700,
-                    }}>
-                    <SavingsIcon />
-                    {plan.savingsExtra}
-                  </div>
-                )}
-              </div>
-
-              <div className="my-6" style={{ height: "1px", background: "rgba(255,255,255,0.06)" }} />
+              {plan.savings && (
+                <div className="text-sm text-bivo-green font-semibold mt-1">{plan.savings}</div>
+              )}
 
               <Link
                 to={startPath}
-                className="block w-full text-center font-bold uppercase tracking-wider mt-auto transition-all cursor-pointer"
-                style={{
-                  padding: "16px 24px", borderRadius: "12px",
-                  fontSize: "13px", letterSpacing: "0.06em", textDecoration: "none",
-                  ...(plan.featured
-                    ? { background: "#39ff14", color: "#000" }
-                    : { background: "transparent", color: "#fff", border: "1.5px solid rgba(255,255,255,0.2)" }),
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget;
-                  if (plan.featured) {
-                    el.style.filter = "brightness(1.08)";
-                    el.style.transform = "translateY(-2px)";
-                    el.style.boxShadow = "0 14px 32px rgba(57,255,20,0.35)";
-                  } else {
-                    el.style.background = "rgba(57,255,20,0.08)";
-                    el.style.borderColor = "#39ff14";
-                    el.style.color = "#39ff14";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget;
-                  el.style.filter = "";
-                  el.style.transform = "";
-                  el.style.boxShadow = "";
-                  if (plan.featured) {
-                    el.style.background = "#39ff14";
-                    el.style.color = "#000";
-                  } else {
-                    el.style.background = "transparent";
-                    el.style.borderColor = "rgba(255,255,255,0.2)";
-                    el.style.color = "#fff";
-                  }
-                }}
+                className="mt-5 block w-full rounded-xl bg-bivo-green px-5 py-3.5 text-center text-base font-bold text-black transition hover:brightness-110 hover:-translate-y-0.5 hover:shadow-[0_14px_32px_rgba(57,255,20,0.35)]"
               >
                 {t("pricing.cta")}
               </Link>
@@ -242,25 +122,29 @@ const PricingSection = () => {
           ))}
         </div>
 
-        <p className="text-center mt-10" style={{ color: "#6b7280", fontSize: "13px" }}>
-          {t("pricing.note")}
-        </p>
-      </div>
+        <div className="max-w-[600px] mx-auto mb-8 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-x-6">
+          {includedFeatures.map((feature) => (
+            <div key={feature} className="flex items-center gap-2 text-[15px] text-white">
+              <CheckIcon />
+              {feature}
+            </div>
+          ))}
+        </div>
 
-      <style>{`
-        @media (min-width: 768px) {
-          #precios .grid { grid-template-columns: repeat(3, 1fr) !important; gap: 28px !important; align-items: stretch; }
-          #precios .feat-list { grid-template-columns: repeat(3, 1fr) !important; }
-        }
-        @media (min-width: 640px) {
-          #precios .feat-list { grid-template-columns: repeat(2, 1fr) !important; }
-        }
-        .pricing-card-item:hover {
-          transform: translateY(-6px);
-          border-color: rgba(57,255,20,0.3) !important;
-          box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6) !important;
-        }
-      `}</style>
+        <div className="max-w-[600px] mx-auto rounded-2xl border border-bivo-green/25 bg-bivo-green/[0.06] px-6 py-5 flex gap-4 items-start">
+          <span className="text-[28px] shrink-0" aria-hidden>
+            🛡️
+          </span>
+          <div>
+            <strong className="block text-base font-bold text-white mb-1.5">
+              {t("pricing.guaranteeTitle")}
+            </strong>
+            <p className="text-sm text-white/60 leading-relaxed m-0">
+              {t("pricing.guaranteeBody")}
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

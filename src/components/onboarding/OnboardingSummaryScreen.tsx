@@ -41,7 +41,7 @@ function listLabels(
 
 function IconBox({ children }: { children: React.ReactNode }) {
   return (
-    <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-[12px] bg-[#141c2a] text-bivo-green [&>svg]:h-[22px] [&>svg]:w-[22px]">
+    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-bivo-green/35 bg-bivo-green/[0.08] text-bivo-green shadow-[0_0_24px_rgba(57,255,20,0.12)] [&>svg]:h-[22px] [&>svg]:w-[22px]">
       {children}
     </span>
   );
@@ -50,10 +50,10 @@ function IconBox({ children }: { children: React.ReactNode }) {
 function RacketIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M14.5 3.5c2.8 0 5 2.2 5 5 0 3.4-2.6 6.2-5.2 8.5L12 19.2l-2.3-2.2C7.1 14.7 4.5 11.9 4.5 8.5c0-2.8 2.2-5 5-5 1.4 0 2.7.6 3.5 1.5.8-.9 2.1-1.5 3.5-1.5Z" />
-      <circle cx="12" cy="9.5" r="2.2" />
-      <path d="M12 19.2 10.2 22" />
-      <path d="M8.5 6.8h7M7.8 9.5h8.4M8.5 12.2h7" />
+      <ellipse cx="10.5" cy="9" rx="6.5" ry="7" />
+      <path d="M10.5 2.5v13M4.5 9h12" />
+      <path d="M15.2 14.8 20 21" />
+      <path d="M17.2 16.2c.8.3 1.7 0 2.2-.7" />
     </svg>
   );
 }
@@ -115,17 +115,19 @@ function SummaryRow({
 }) {
   return (
     <div
-      className={`flex flex-1 items-center gap-3 min-h-0 ${
+      className={`flex items-center gap-4 py-4 ${
         isLast ? "" : "border-b border-white/[0.08]"
       }`}
     >
       <IconBox>{icon}</IconBox>
-      <div className="min-w-0 [text-shadow:0_1px_3px_rgba(0,0,0,1),0_0_16px_rgba(0,0,0,0.9)]">
-        <p className="text-[10px] uppercase tracking-[0.07em] text-white/80 mb-0.5 leading-tight font-semibold">
+      <div className="min-w-0 flex-1 [text-shadow:0_1px_3px_rgba(0,0,0,1),0_0_16px_rgba(0,0,0,0.9)]">
+        <p className="text-[11px] uppercase tracking-[0.08em] text-white/80 mb-1 font-semibold">
           {label}
         </p>
-        <div className="text-[16px] sm:text-[17px] font-extrabold text-white leading-snug">{children}</div>
-        {note && <p className="text-[11px] text-white/70 mt-0.5 font-medium">{note}</p>}
+        <div className="text-[16px] sm:text-[17px] font-extrabold text-white leading-snug">
+          {children}
+        </div>
+        {note && <p className="text-[12px] text-white/70 mt-1 font-medium">{note}</p>}
       </div>
     </div>
   );
@@ -142,6 +144,7 @@ const OnboardingSummaryScreen = ({
   const { t, i18n } = useTranslation();
 
   const sport = answers["3"] ? String(answers["3"]) : "";
+  const isPadel = sport === "padel";
   const pains = listLabels(answers["6"], "appFlow.onboarding.summary.pains", t);
   const mobility = listLabels(answers["4"], "appFlow.onboarding.summary.mobility", t);
   const selectedDays = Array.isArray(answers["8"]) ? (answers["8"] as string[]) : [];
@@ -156,75 +159,105 @@ const OnboardingSummaryScreen = ({
         ? t("appFlow.onboarding.summary.daysPerWeek", { count: selectedDays.length })
         : null;
 
+  const rows = (
+    <>
+      <SummaryRow icon={<RacketIcon />} label={t("appFlow.onboarding.summary.sport")}>
+        {sportLabel(sport, t)}
+      </SummaryRow>
+
+      <SummaryRow icon={<LevelIcon />} label={t("appFlow.onboarding.summary.level")}>
+        {levelLoading
+          ? t("appFlow.onboarding.summary.calculatingLevel")
+          : levelLabel(skillLevel, t)}
+      </SummaryRow>
+
+      {daysLabel && (
+        <SummaryRow
+          icon={<CalendarIcon />}
+          label={t("appFlow.onboarding.summary.frequency")}
+          note={t("appFlow.onboarding.summary.frequencyNote")}
+        >
+          {daysLabel}
+        </SummaryRow>
+      )}
+
+      {pains.length > 0 && (
+        <SummaryRow icon={<KneeIcon />} label={t("appFlow.onboarding.summary.painsTitle")}>
+          <div className="flex flex-wrap gap-1.5">
+            {pains.map((p) => (
+              <span
+                key={p}
+                className={`text-[13px] font-semibold px-2.5 py-[3px] rounded-full ${
+                  isPadel
+                    ? "bg-[#5a2428]/90 border border-[#a34b52]/50 text-white"
+                    : "bg-red-500/15 border border-red-400/30 text-red-200"
+                }`}
+              >
+                {p}
+              </span>
+            ))}
+          </div>
+        </SummaryRow>
+      )}
+
+      {mobility.length > 0 && (
+        <SummaryRow
+          icon={<HipIcon />}
+          label={t("appFlow.onboarding.summary.mobilityTitle")}
+          isLast
+        >
+          <div className="flex flex-wrap gap-1.5">
+            {mobility.map((m) => (
+              <span
+                key={m}
+                className={`text-[13px] font-semibold px-2.5 py-[3px] rounded-full ${
+                  isPadel
+                    ? "bg-[#4a321c]/90 border border-[#9a6a3a]/45 text-white"
+                    : "bg-amber-500/15 border border-amber-400/30 text-amber-100"
+                }`}
+              >
+                {m}
+              </span>
+            ))}
+          </div>
+        </SummaryRow>
+      )}
+    </>
+  );
+
   return (
     <div className="space-y-5">
-      <div className="relative overflow-hidden rounded-[18px] border border-bivo-green/45 bg-black aspect-[3/2] min-h-[320px]">
-        <img
-          src="/onboarding/padel-players-summary.png"
-          alt=""
-          aria-hidden
-          className="absolute inset-0 h-full w-full object-contain object-center select-none"
-          draggable={false}
-        />
+      <div
+        className={`relative overflow-hidden rounded-[20px] border border-bivo-green/40 bg-[#0a0f18] ${
+          isPadel ? "aspect-[3/2] min-h-[320px]" : ""
+        }`}
+      >
+        {isPadel && (
+          <img
+            src="/onboarding/padel-players-summary.png"
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-contain object-center select-none"
+            draggable={false}
+          />
+        )}
 
-        <div className="relative z-10 flex h-full min-h-[320px] w-[50%] flex-col justify-between py-4 pl-4 pr-2 sm:py-5 sm:pl-5">
-          <SummaryRow icon={<RacketIcon />} label={t("appFlow.onboarding.summary.sport")}>
-            {sportLabel(sport, t)}
-          </SummaryRow>
-
-          <SummaryRow icon={<LevelIcon />} label={t("appFlow.onboarding.summary.level")}>
-            {levelLoading
-              ? t("appFlow.onboarding.summary.calculatingLevel")
-              : levelLabel(skillLevel, t)}
-          </SummaryRow>
-
-          {daysLabel && (
-            <SummaryRow
-              icon={<CalendarIcon />}
-              label={t("appFlow.onboarding.summary.frequency")}
-              note={t("appFlow.onboarding.summary.frequencyNote")}
-            >
-              {daysLabel}
-            </SummaryRow>
-          )}
-
-          {pains.length > 0 && (
-            <SummaryRow icon={<KneeIcon />} label={t("appFlow.onboarding.summary.painsTitle")}>
-              <div className="flex flex-wrap gap-1.5">
-                {pains.map((p) => (
-                  <span
-                    key={p}
-                    className="text-[13px] font-semibold px-2.5 py-[3px] rounded-full bg-[#5a2428]/90 border border-[#a34b52]/50 text-white"
-                  >
-                    {p}
-                  </span>
-                ))}
-              </div>
-            </SummaryRow>
-          )}
-
-          {mobility.length > 0 && (
-            <SummaryRow
-              icon={<HipIcon />}
-              label={t("appFlow.onboarding.summary.mobilityTitle")}
-              isLast
-            >
-              <div className="flex flex-wrap gap-1.5">
-                {mobility.map((m) => (
-                  <span
-                    key={m}
-                    className="text-[13px] font-semibold px-2.5 py-[3px] rounded-full bg-[#4a321c]/90 border border-[#9a6a3a]/45 text-white"
-                  >
-                    {m}
-                  </span>
-                ))}
-              </div>
-            </SummaryRow>
+        <div
+          className={`relative z-10 ${
+            isPadel
+              ? "flex h-full min-h-[320px] w-[50%] flex-col justify-between py-4 pl-4 pr-2 sm:py-5 sm:pl-5"
+              : "p-5 sm:p-6"
+          }`}
+        >
+          {isPadel ? (
+            rows
+          ) : (
+            <div className="rounded-2xl border border-white/10 bg-black/40 px-4 sm:px-5">{rows}</div>
           )}
         </div>
       </div>
 
-      <div className="rounded-[18px] border border-white/10 bg-[#0e1520] p-4 flex gap-3.5 items-start">
+      <div className="rounded-[18px] border border-bivo-green/20 bg-bivo-green/[0.05] p-4 flex gap-3.5 items-start">
         <ShieldCheck size={26} className="shrink-0 text-bivo-green mt-0.5" strokeWidth={1.75} />
         <div>
           <p className="font-bold text-white text-[15px] leading-snug">

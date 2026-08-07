@@ -24,6 +24,13 @@
     "placeholder": "Dinos tu nombre..."
   },
   {
+    "id": 14,
+    "question": "¿Cuál es tu edad?",
+    "type": "number",
+    "placeholder": "Ej. 28",
+    "forceAnswer": true
+  },
+  {
     "id": 3,
     "question": "Mi objetivo es:",
     "type": "select",

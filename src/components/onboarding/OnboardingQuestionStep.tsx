@@ -16,7 +16,13 @@ interface OnboardingQuestionStepProps {
   value: OnboardingAnswerValue | undefined;
   onChange: (value: OnboardingAnswerValue) => void;
   weekdayLabels: Record<string, string>;
+  /** Edad (pregunta 14) mostrada debajo del nombre en el paso 2 */
+  ageValue?: OnboardingAnswerValue | undefined;
+  onAgeChange?: (value: OnboardingAnswerValue) => void;
+  ageLabel?: string;
+  agePlaceholder?: string;
 }
+
 
 function useSplitStack(question: FormQuestion): boolean {
   return [1, 3, 6, 10].includes(question.id);
@@ -75,6 +81,10 @@ const OnboardingQuestionStep = ({
   value,
   onChange,
   weekdayLabels,
+  ageValue,
+  onAgeChange,
+  ageLabel,
+  agePlaceholder,
 }: OnboardingQuestionStepProps) => {
   const { t } = useTranslation();
   const questionImage = resolveOnboardingImage(question.image);
@@ -97,6 +107,59 @@ const OnboardingQuestionStep = ({
               placeholder={question.placeholder}
               className={onboardingInputClass}
               autoComplete="given-name"
+            />
+          </div>
+          {question.id === 2 && onAgeChange && (
+            <div className="space-y-2 pt-1">
+              <label htmlFor="onboarding-age" className="block text-sm font-medium text-white/80">
+                {ageLabel ?? t("appFlow.onboarding.ageLabel")}
+              </label>
+              <div className="rounded-2xl border border-white/10 bg-[#121c2e] p-3">
+                <input
+                  id="onboarding-age"
+                  type="number"
+                  inputMode="numeric"
+                  min={10}
+                  max={100}
+                  value={typeof ageValue === "number" ? ageValue : ageValue != null ? String(ageValue) : ""}
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    if (raw === "") {
+                      onAgeChange("");
+                      return;
+                    }
+                    const n = parseInt(raw, 10);
+                    onAgeChange(Number.isNaN(n) ? "" : n);
+                  }}
+                  placeholder={agePlaceholder ?? t("appFlow.onboarding.agePlaceholder")}
+                  className={onboardingInputClass}
+                  autoComplete="bday-year"
+                />
+              </div>
+            </div>
+          )}
+        </OnboardingQuestionShell>
+      );
+
+    case "number":
+      return (
+        <OnboardingQuestionShell>
+          <div className="rounded-2xl border border-white/10 bg-[#121c2e] p-3">
+            <input
+              type="number"
+              inputMode="numeric"
+              value={typeof value === "number" ? value : value != null ? String(value) : ""}
+              onChange={(e) => {
+                const raw = e.target.value;
+                if (raw === "") {
+                  onChange("");
+                  return;
+                }
+                const n = parseInt(raw, 10);
+                onChange(Number.isNaN(n) ? "" : n);
+              }}
+              placeholder={question.placeholder}
+              className={onboardingInputClass}
             />
           </div>
         </OnboardingQuestionShell>
@@ -201,11 +264,28 @@ export function isAnswerValid(
   value: OnboardingAnswerValue | undefined
 ): boolean {
   if (question.id === 5) return isStrengthReadyToSubmit(value);
+  if (question.id === 2) {
+    return typeof value === "string" && value.trim().length > 0;
+  }
+  if (question.type === "number" || question.id === 14) {
+    const n = typeof value === "number" ? value : parseInt(String(value ?? ""), 10);
+    return Number.isFinite(n) && n >= 10 && n <= 100;
+  }
   if (!question.forceAnswer) return true;
   if (value == null) return false;
   if (Array.isArray(value)) return value.length > 0;
   if (typeof value === "string") return value.trim().length > 0;
   return true;
+}
+
+export function isNameAndAgeValid(
+  nameValue: OnboardingAnswerValue | undefined,
+  ageValue: OnboardingAnswerValue | undefined
+): boolean {
+  const nameOk = typeof nameValue === "string" && nameValue.trim().length > 0;
+  const n = typeof ageValue === "number" ? ageValue : parseInt(String(ageValue ?? ""), 10);
+  const ageOk = Number.isFinite(n) && n >= 10 && n <= 100;
+  return nameOk && ageOk;
 }
 
 export default OnboardingQuestionStep;

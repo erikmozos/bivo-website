@@ -7,6 +7,7 @@ import FlowUserBar from "@/components/app/FlowUserBar";
 import FormSplashScreen from "@/components/onboarding/FormSplashScreen";
 import OnboardingQuestionStep, {
   isAnswerValid,
+  isNameAndAgeValid,
 } from "@/components/onboarding/OnboardingQuestionStep";
 import StrengthQuestionStep from "@/components/onboarding/StrengthQuestionStep";
 import OnboardingSummaryScreen from "@/components/onboarding/OnboardingSummaryScreen";
@@ -127,6 +128,10 @@ const OnboardingPage = () => {
     persistAnswers(next);
   };
 
+  const handleAgeChange = (value: OnboardingAnswerValue) => {
+    persistAnswers({ ...answers, "14": value });
+  };
+
   const handleStrengthChange = (value: StrengthAnswer) => {
     handleAnswerChange(value);
   };
@@ -143,7 +148,11 @@ const OnboardingPage = () => {
 
     setStrengthError(null);
 
-    if (!isAnswerValid(currentQuestion, rawAnswer)) return;
+    if (currentQuestion.id === 2) {
+      if (!isNameAndAgeValid(rawAnswer, answers["14"])) return;
+    } else if (!isAnswerValid(currentQuestion, rawAnswer)) {
+      return;
+    }
 
     if (currentQuestion.id === 5 && !isStrengthAnswerComplete(rawAnswer)) return;
 
@@ -275,6 +284,16 @@ const OnboardingPage = () => {
                   value={answers[String(currentQuestion.id)]}
                   onChange={handleAnswerChange}
                   weekdayLabels={weekdayLabels}
+                  ageValue={answers["14"]}
+                  onAgeChange={currentQuestion.id === 2 ? handleAgeChange : undefined}
+                  ageLabel={
+                    questions.find((q) => q.id === 14)?.question ??
+                    t("appFlow.onboarding.ageLabel")
+                  }
+                  agePlaceholder={
+                    questions.find((q) => q.id === 14)?.placeholder ??
+                    t("appFlow.onboarding.agePlaceholder")
+                  }
                 />
               )}
 
@@ -287,7 +306,17 @@ const OnboardingPage = () => {
               <button
                 type="button"
                 onClick={goNextQuestion}
-                disabled={!isAnswerValid(currentQuestion, answers[String(currentQuestion.id)])}
+                disabled={
+                  currentQuestion.id === 2
+                    ? !isNameAndAgeValid(
+                        answers[String(currentQuestion.id)],
+                        answers["14"]
+                      )
+                    : !isAnswerValid(
+                        currentQuestion,
+                        answers[String(currentQuestion.id)]
+                      )
+                }
                 className={`${onboardingContinueClass} mt-8`}
               >
                 {questionIndex >= filteredQuestions.length - 1

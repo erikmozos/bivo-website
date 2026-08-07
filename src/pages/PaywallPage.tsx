@@ -36,8 +36,54 @@ type PlanOption = {
   featured: boolean;
 };
 
+const MONTHS_BY_PLAN: Record<PlanKey, number> = {
+  monthly: 1,
+  quarterly: 3,
+  annual: 12,
+};
+
+function getProduct(pkg: Package) {
+  return pkg.webBillingProduct ?? pkg.rcBillingProduct;
+}
+
+function formatPrice(pkg: Package) {
+  const price = getProduct(pkg)?.price;
+  if (!price) return "—";
+  return price.formattedPrice;
+}
+
+function formatMonthlyEquivalent(pkg: Package, key: PlanKey, locale: string) {
+  const product = getProduct(pkg);
+  const monthlyPrice = product?.pricePerMonth ?? null;
+  const price = monthlyPrice ?? product?.price;
+  if (!price) return formatPrice(pkg);
+
+  if (monthlyPrice?.formattedPrice) return monthlyPrice.formattedPrice;
+
+  // amount is in cents (deprecated); amountMicros is micro-units
+  const major =
+    typeof price.amountMicros === "number"
+      ? price.amountMicros / 1_000_000 / (monthlyPrice ? 1 : MONTHS_BY_PLAN[key])
+      : typeof price.amount === "number"
+        ? price.amount / 100 / (monthlyPrice ? 1 : MONTHS_BY_PLAN[key])
+        : null;
+
+  if (major == null) return formatPrice(pkg);
+
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: price.currency ?? "EUR",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(major);
+  } catch {
+    return `${major.toFixed(2)}€`;
+  }
+}
+
 const PaywallPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { localePath, lang } = useLocale();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -75,9 +121,10 @@ const PaywallPage = () => {
   const [apiErrorDetail, setApiErrorDetail] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
+  const features = t("appFlow.paywall.features", { returnObjects: true }) as string[];
+
   const goToDownload = () => navigate(localePath("/descargar"), { replace: true });
 
-  // Si el webhook ya activó premium, saltar paywall
   useEffect(() => {
     if (member && !shouldShowPaywall(member)) {
       if (member.entitlementActive || member.isDev) {
@@ -132,15 +179,6 @@ const PaywallPage = () => {
     () => plans.find((p) => p.key === selectedKey) ?? null,
     [plans, selectedKey]
   );
-
-  const formatPrice = (pkg: Package) => {
-    const product = pkg.webBillingProduct ?? pkg.rcBillingProduct;
-    const price = product?.price;
-    if (!price) return "—";
-    return price.formattedPrice;
-  };
-
-  const formatPeriod = (key: PlanKey) => t(`appFlow.paywall.periods.${key}`);
 
   const handleAfterPurchaseOrPromo = async () => {
     if (!user) return;
@@ -210,18 +248,53 @@ const PaywallPage = () => {
     }
   };
 
+  const billedLabel = (plan: PlanOption) => {
+    if (plan.key === "monthly") return t("appFlow.paywall.billed.monthly");
+    return t(`appFlow.paywall.billed.${plan.key}`, { price: formatPrice(plan.pkg) });
+  };
+
+  const badgeFor = (plan: PlanOption) => {
+    if (plan.key === "quarterly") return t("appFlow.paywall.popular");
+    if (plan.key === "annual") return t("appFlow.paywall.bestValue");
+    return null;
+  };
+
   return (
     <FlowGuard require="paywall">
-      <FlowLayout
-        badge={t("appFlow.paywall.badge", { days: TRIAL_DAYS })}
-        title={t("appFlow.paywall.title")}
-        subtitle={t("appFlow.paywall.subtitle", { days: TRIAL_DAYS })}
-      >
+      <FlowLayout>
+        <header className="text-center mb-8 lg:mb-10">
+          <p className="text-bivo-green text-[13px] font-semibold uppercase tracking-[0.12em] mb-3">
+            {t("appFlow.paywall.preHeadline")}
+          </p>
+          <h1 className="font-round text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">
+            {t("appFlow.paywall.title", { days: TRIAL_DAYS })}
+          </h1>
+          <p className="text-white/70 text-sm sm:text-base max-w-xl mx-auto">
+            {t("appFlow.paywall.subtitle")}
+          </p>
+        </header>
+
         {member?.isTrial && (
           <p className="text-center text-bivo-green text-sm mb-6">
             {t("appFlow.paywall.trialActive")}
           </p>
         )}
+
+        <div className="max-w-[700px] mx-auto mb-8 grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-3 sm:gap-4 items-center">
+          <div className="rounded-2xl border border-red-500/30 bg-red-500/10 px-5 py-4 text-center">
+            <div className="text-[12px] text-white/50 mb-1">{t("appFlow.paywall.anchor.oldLabel")}</div>
+            <div className="text-lg font-bold text-red-400 line-through">
+              {t("appFlow.paywall.anchor.oldPrice")}
+            </div>
+          </div>
+          <div className="text-center text-lg font-extrabold text-white/40 uppercase">
+            {t("appFlow.paywall.anchor.vs")}
+          </div>
+          <div className="rounded-2xl bg-bivo-green px-5 py-4 text-center text-black">
+            <div className="text-[12px] font-semibold mb-1">{t("appFlow.paywall.anchor.newLabel")}</div>
+            <div className="text-lg font-extrabold">{t("appFlow.paywall.anchor.newPrice")}</div>
+          </div>
+        </div>
 
         {loadingOfferings ? (
           <div className="flex justify-center py-16">
@@ -233,36 +306,67 @@ const PaywallPage = () => {
         ) : plans.length === 0 ? (
           <p className="text-center text-gray-400 py-8">{t("appFlow.paywall.loadError")}</p>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-3 mb-8">
-            {plans.map((plan) => (
-              <button
-                key={plan.key}
-                type="button"
-                onClick={() => setSelectedKey(plan.key)}
-                className={`relative text-left rounded-2xl p-5 border transition-all ${
-                  selectedKey === plan.key
-                    ? "border-bivo-green/60 bg-bivo-green/[0.08] shadow-[0_0_40px_rgba(57,255,20,0.12)]"
-                    : "border-white/10 bg-white/[0.03] hover:border-white/20"
-                }`}
-              >
-                {plan.featured && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-bivo-green text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1">
-                    {t("appFlow.paywall.popular")}
-                  </span>
-                )}
-                <div className="text-xs uppercase tracking-widest text-bivo-green font-bold mb-2">
-                  {t(`appFlow.paywall.planNames.${plan.key}`)}
-                </div>
-                <div className="font-round text-3xl font-extrabold text-white mb-1">
-                  {formatPrice(plan.pkg)}
-                </div>
-                <div className="text-sm text-gray-400">{formatPeriod(plan.key)}</div>
-              </button>
-            ))}
+          <div className="grid gap-4 sm:grid-cols-3 mb-8 items-start">
+            {plans.map((plan) => {
+              const badge = badgeFor(plan);
+              const selected = selectedKey === plan.key;
+              return (
+                <button
+                  key={plan.key}
+                  type="button"
+                  onClick={() => setSelectedKey(plan.key)}
+                  className={`relative text-center rounded-2xl p-6 border transition-all ${
+                    selected || plan.featured
+                      ? "border-bivo-green border-2 bg-[#111] shadow-[0_0_40px_rgba(57,255,20,0.15)]"
+                      : "border-white/10 bg-[#111] hover:border-bivo-green/40"
+                  } ${selected ? "ring-2 ring-bivo-green/40" : ""}`}
+                >
+                  {badge && (
+                    <span
+                      className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-[10px] font-bold tracking-wide whitespace-nowrap ${
+                        plan.key === "annual"
+                          ? "bg-[#1a1a1a] text-bivo-green border border-bivo-green"
+                          : "bg-bivo-green text-black"
+                      }`}
+                    >
+                      {badge}
+                    </span>
+                  )}
+                  <div className="text-[12px] uppercase tracking-[0.1em] text-white/45 font-bold mb-3">
+                    {t(`appFlow.paywall.planNames.${plan.key}`)}
+                  </div>
+                  <div className="font-round text-[34px] font-extrabold text-white leading-none">
+                    {formatMonthlyEquivalent(plan.pkg, plan.key, i18n.language)}
+                    <span className="text-base font-medium text-white/60">
+                      {" "}
+                      {t(`appFlow.paywall.periods.${plan.key}`)}
+                    </span>
+                  </div>
+                  <div className="text-sm text-white/45 mt-2">{billedLabel(plan)}</div>
+                  {(plan.key === "quarterly" || plan.key === "annual") && (
+                    <div className="text-sm text-bivo-green font-semibold mt-1">
+                      {t(`appFlow.paywall.savings.${plan.key}`)}
+                    </div>
+                  )}
+                </button>
+              );
+            })}
           </div>
         )}
 
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 mb-6">
+        <div className="max-w-[600px] mx-auto mb-8 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-x-6">
+          {Array.isArray(features) &&
+            features.map((feature) => (
+              <div key={feature} className="flex items-center gap-2 text-sm text-white">
+                <span className="text-bivo-green font-bold" aria-hidden>
+                  ✓
+                </span>
+                {feature}
+              </div>
+            ))}
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 mb-6">
           <label htmlFor="promo" className="block text-sm text-gray-400 mb-2">
             {t("appFlow.paywall.promoLabel")}
           </label>
@@ -279,7 +383,7 @@ const PaywallPage = () => {
               type="button"
               onClick={handleRedeemPromo}
               disabled={redeemingPromo || !promoCode.trim()}
-              className="px-5 py-3 rounded-xl border border-white/15 text-white font-semibold text-sm hover:border-bivo-green/40 disabled:opacity-50"
+              className="px-5 py-3 rounded-xl bg-bivo-green text-black font-bold text-sm hover:brightness-110 disabled:opacity-50 transition"
             >
               {redeemingPromo ? t("appFlow.paywall.promoApplying") : t("appFlow.paywall.promoCta")}
             </button>
@@ -300,12 +404,26 @@ const PaywallPage = () => {
           type="button"
           onClick={handlePurchase}
           disabled={purchasing || !selectedPlan || loadingOfferings}
-          className="w-full py-4 rounded-xl bg-bivo-green text-black font-bold uppercase tracking-wider text-sm disabled:opacity-50"
+          className="w-full py-4 rounded-xl bg-bivo-green text-black font-bold text-base disabled:opacity-50 hover:brightness-110 transition"
         >
           {purchasing
             ? t("appFlow.paywall.processing")
             : t("appFlow.paywall.cta", { days: TRIAL_DAYS })}
         </button>
+
+        <div className="mt-6 max-w-[600px] mx-auto rounded-2xl border border-bivo-green/25 bg-bivo-green/[0.06] px-5 py-4 flex gap-3 items-start">
+          <span className="text-2xl shrink-0" aria-hidden>
+            🛡️
+          </span>
+          <div>
+            <strong className="block text-sm font-bold text-white mb-1">
+              {t("appFlow.paywall.guaranteeTitle", { days: TRIAL_DAYS })}
+            </strong>
+            <p className="text-xs text-white/60 leading-relaxed m-0">
+              {t("appFlow.paywall.guaranteeBody")}
+            </p>
+          </div>
+        </div>
 
         <p className="text-center text-gray-500 text-xs mt-4">{t("appFlow.paywall.note")}</p>
 

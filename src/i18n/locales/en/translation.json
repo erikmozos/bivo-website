@@ -216,54 +216,56 @@
     }
   },
   "pricing": {
-    "description": "No commitment. Cancel anytime. All plans include full access to all app features.",
-    "featuresTitle": "All plans include",
+    "preHeadline": "No risk. No commitment.",
+    "heading": "Start today. Your first 7 days are completely free.",
+    "subheading": "Cancel anytime with one click.",
+    "anchor": {
+      "oldLabel": "Private physical trainer",
+      "oldPrice": "€40 – €120 per session",
+      "vs": "vs",
+      "newLabel": "Bivo",
+      "newPrice": "From €7.50/month"
+    },
     "features": [
       "Personalized AI training",
-      "Automatic adaptation to your level and needs",
+      "Automatic adaptation to your level and injuries",
       "Statistics and progress tracking",
-      "Calendar and planning",
+      "Match calendar and planning",
       "Full access to all features",
-      "Updates included"
+      "Updates included",
+      "Support in Spanish"
     ],
     "plans": [
       {
         "name": "Monthly",
-        "description": "Start today with no commitment.",
-        "amount": "14,99",
-        "period": "/month",
-        "meta": "No commitment",
-        "badge": null
+        "amount": "€14.99",
+        "period": "/mo",
+        "billed": "No commitment",
+        "badge": null,
+        "badgeStyle": null
       },
       {
         "name": "Quarterly",
-        "description": "Enough time to notice real changes.",
-        "amount": "34,99",
-        "period": "/3 months",
-        "meta": "Equals ",
-        "metaBold": "11,66 €/month",
+        "amount": "€11.66",
+        "period": "/mo",
+        "billed": "€34.99 every 3 months",
         "savings": "Save 22%",
-        "badge": {
-          "text": "Most popular",
-          "gold": false
-        }
+        "badge": "● Most popular — Launch price",
+        "badgeStyle": "popular"
       },
       {
         "name": "Annual",
-        "description": "The best investment in your performance.",
-        "amount": "89,99",
-        "period": "/year",
-        "meta": "Equals ",
-        "metaBold": "7,50 €/month",
-        "savings": "Save 50%",
-        "savingsExtra": "Save 89,89 € per year",
-        "badge": {
-          "text": "Best Value",
-          "gold": true
-        }
+        "amount": "€7.50",
+        "period": "/mo",
+        "billed": "€89.99 per year",
+        "savings": "Save 50% · Save €89.89/year",
+        "badge": "💎 Best value",
+        "badgeStyle": "value"
       }
     ],
-    "cta": "Start 7 days free",
+    "cta": "Start 7 days free →",
+    "guaranteeTitle": "7-day satisfaction guarantee",
+    "guaranteeBody": "If you don't see the value in seven days, cancel for free with just two taps inside the app. No hassle.",
     "storeModal": {
       "title": "Download the app",
       "description": "Choose your store to start your 7-day free trial.",
@@ -1037,6 +1039,8 @@
       "cta": "Continue",
       "finish": "See summary",
       "back": "Back",
+      "ageLabel": "What is your age?",
+      "agePlaceholder": "e.g. 28",
       "submitting": "Saving...",
       "error": "Could not save onboarding. Please try again.",
       "loadError": "Could not load questions.",
@@ -1118,19 +1122,48 @@
     },
     "paywall": {
       "badge": "{days} days free",
-      "title": "Choose your plan",
-      "subtitle": "Try Bivo free for {days} days. Cancel anytime.",
-      "popular": "Most popular",
+      "preHeadline": "No risk. No commitment.",
+      "title": "Start today. Your first {days} days are completely free.",
+      "subtitle": "Cancel anytime with one click.",
+      "anchor": {
+        "oldLabel": "Private physical trainer",
+        "oldPrice": "€40 – €120 per session",
+        "vs": "vs",
+        "newLabel": "Bivo",
+        "newPrice": "From €7.50/month"
+      },
+      "popular": "● Most popular — Launch price",
+      "bestValue": "💎 Best value",
       "planNames": {
         "monthly": "Monthly",
         "quarterly": "Quarterly",
         "annual": "Annual"
       },
       "periods": {
-        "monthly": "/ month",
-        "quarterly": "/ 3 months",
-        "annual": "/ year"
+        "monthly": "/mo",
+        "quarterly": "/mo",
+        "annual": "/mo"
       },
+      "billed": {
+        "monthly": "No commitment",
+        "quarterly": "{price} every 3 months",
+        "annual": "{price} per year"
+      },
+      "savings": {
+        "quarterly": "Save 22%",
+        "annual": "Save 50%"
+      },
+      "features": [
+        "Personalized AI training",
+        "Automatic adaptation to your level and injuries",
+        "Statistics and progress tracking",
+        "Match calendar and planning",
+        "Full access to all features",
+        "Updates included",
+        "Support in Spanish"
+      ],
+      "guaranteeTitle": "{days}-day satisfaction guarantee",
+      "guaranteeBody": "If you don't see the value in seven days, cancel for free with just two taps inside the app. No hassle.",
       "promoLabel": "Have a promo code?",
       "promoPlaceholder": "",
       "promoCta": "Apply",
@@ -1140,7 +1173,7 @@
       "promoApplied": "Code applied successfully.",
       "promoError": "Could not apply the code.",
       "promoInvalid": "Invalid code. Try BIVO1 or FPIB26.",
-      "cta": "Start {days} days free",
+      "cta": "Start {days} days free →",
       "processing": "Processing payment...",
       "activating": "Activating premium...",
       "note": "Payment is processed via Stripe through RevenueCat. Use the same email you registered with so premium works in the app.",
@@ -1149,16 +1182,15 @@
       "rcNotConfigured": "RevenueCat is not configured. Add VITE_REVENUECAT_API_KEY.",
       "trialActive": "You are in a trial period.",
       "sandboxHint": "Sandbox mode (strp_sb_): the Stripe account linked in RevenueCat must be in test mode.",
-      "liveHint": "Live mode (strp_...): payments are real. Use a real card or disable in test environments.",
-      "promoInvalid": "Invalid code."
+      "liveHint": "Live mode (strp_...): payments are real. Use a real card or disable in test environments."
     },
     "download": {
-      "badge": "Premium active",
+      "readyTitle": "You're all set!",
       "title": "Download the app",
-      "subtitle": "Your account already has premium.",
-      "message": "Download the app and sign in with the same email or Google account you used on the web.",
-      "signedInAs": "Signed in as {email}",
-      "trialActive": "Trial period active",
+      "subtitleBefore": "Your account is ready. Download Bivo, sign in and ",
+      "subtitleHighlight": "start training.",
+      "loginHint": "Sign in with the same account you used on the web.",
+      "renewsOnLabel": "Renews on",
       "renewsOn": "Renews on {date}",
       "status": {
         "trialing": "Trial subscription",
@@ -1167,7 +1199,19 @@
         "canceled": "Subscription canceled",
         "expired": "Subscription expired",
         "none": "No subscription"
-      }
+      },
+      "desktopTitle": "On a computer?",
+      "desktopBodyBefore": "Scan the QR to download ",
+      "desktopBodyHighlight": "Bivo",
+      "desktopBodyAfter": " on your phone.",
+      "appStoreLabel": "Download on the",
+      "appStoreName": "App Store",
+      "playLabel": "Get it on",
+      "playName": "Google Play",
+      "trialActive": "Trial period active",
+      "badge": "Premium active",
+      "message": "Download the app and sign in with the same email or Google account you used on the web.",
+      "signedInAs": "Signed in as {email}"
     }
   }
 }
