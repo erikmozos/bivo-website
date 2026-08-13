@@ -14,6 +14,10 @@ import {
   calculateMemberLevel,
   generatePlan,
 } from "./memberLevel";
+import {
+  ageFromBirthDate,
+  birthDateFromOnboardingAnswer,
+} from "./birthDate";
 import { defaultAnthropometrics } from "./anthropometrics";
 
 /** Material mínimo por defecto (peso corporal) cuando el usuario no selecciona equipamiento. */
@@ -74,13 +78,8 @@ async function performSave(
 
   const sportValue = answers["3"] != null ? String(answers["3"]) : undefined;
   const displayName = answers["2"] != null ? String(answers["2"]).trim() : "";
-  const ageRaw = answers["14"];
-  const age =
-    typeof ageRaw === "number"
-      ? ageRaw
-      : ageRaw != null
-        ? parseInt(String(ageRaw), 10)
-        : NaN;
+  const birthIso = birthDateFromOnboardingAnswer(answers["14"]);
+  const age = birthIso ? ageFromBirthDate(birthIso) : null;
 
   const updateData: Record<string, unknown> = {
     ...buildMemberIdentityFields(user),
@@ -93,8 +92,11 @@ async function performSave(
     unboardingInformation: { material: materials },
   };
 
-  if (Number.isFinite(age) && age > 0) {
-    updateData.age = age;
+  if (birthIso) {
+    updateData.birthDate = birthIso;
+    if (age != null && age > 0) {
+      updateData.age = age;
+    }
   }
 
   if (answers["1"]) updateData.gender = String(answers["1"]);

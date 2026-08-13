@@ -3,6 +3,7 @@ export type QuestionInputType =
   | "select"
   | "checkbox"
   | "number"
+  | "date"
   | "string"
   | "weekdays";
 

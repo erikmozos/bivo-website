@@ -9,6 +9,7 @@ import { useAppFlow } from "@/hooks/useAppFlow";
 import { useRevenueCatUser } from "@/hooks/useRevenueCatUser";
 import { useLocale } from "@/hooks/useLocale";
 import { PROMO_CODES, TRIAL_DAYS, type PlanKey } from "@/lib/config";
+import { isPlanKey } from "@/lib/flowSession";
 import {
   getCurrentOfferingPackages,
   isRevenueCatConfigured,
@@ -87,9 +88,11 @@ const PaywallPage = () => {
   const { localePath, lang } = useLocale();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { member } = useAppFlow();
+  const { member, session } = useAppFlow();
 
   useRevenueCatUser();
+
+  const lockedPlanKey = isPlanKey(session.selectedPlanKey) ? session.selectedPlanKey : null;
 
   useEffect(() => {
     installRevenueCatFetchDiagnostics();
@@ -111,7 +114,7 @@ const PaywallPage = () => {
   }, []);
 
   const [plans, setPlans] = useState<PlanOption[]>([]);
-  const [selectedKey, setSelectedKey] = useState<PlanKey>("quarterly");
+  const [selectedKey, setSelectedKey] = useState<PlanKey>(lockedPlanKey ?? "quarterly");
   const [loadingOfferings, setLoadingOfferings] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
   const [promoCode, setPromoCode] = useState("");
@@ -124,6 +127,12 @@ const PaywallPage = () => {
   const features = t("appFlow.paywall.features", { returnObjects: true }) as string[];
 
   const goToDownload = () => navigate(localePath("/descargar"), { replace: true });
+
+  useEffect(() => {
+    if (lockedPlanKey) {
+      setSelectedKey(lockedPlanKey);
+    }
+  }, [lockedPlanKey]);
 
   useEffect(() => {
     if (member && !shouldShowPaywall(member)) {
@@ -156,8 +165,11 @@ const PaywallPage = () => {
         if (!cancelled) {
           setPlans(entries);
           logPackageDiagnostics(entries.map((e) => e.pkg));
-          if (entries.length && !entries.find((p) => p.key === selectedKey)) {
+          const preferred = lockedPlanKey ?? "quarterly";
+          if (entries.length && !entries.find((p) => p.key === preferred)) {
             setSelectedKey(entries.find((p) => p.featured)?.key ?? entries[0].key);
+          } else if (lockedPlanKey && entries.find((p) => p.key === lockedPlanKey)) {
+            setSelectedKey(lockedPlanKey);
           }
         }
       } catch (err) {
@@ -173,12 +185,18 @@ const PaywallPage = () => {
     return () => {
       cancelled = true;
     };
-  }, [user, t]);
+  }, [user, t, lockedPlanKey]);
 
   const selectedPlan = useMemo(
     () => plans.find((p) => p.key === selectedKey) ?? null,
     [plans, selectedKey]
   );
+
+  const visiblePlans = useMemo(() => {
+    if (!lockedPlanKey) return plans;
+    const locked = plans.find((p) => p.key === lockedPlanKey);
+    return locked ? [locked] : plans;
+  }, [plans, lockedPlanKey]);
 
   const handleAfterPurchaseOrPromo = async () => {
     if (!user) return;
@@ -296,6 +314,14 @@ const PaywallPage = () => {
           </div>
         </div>
 
+        {lockedPlanKey && (
+          <p className="text-center text-sm text-white/60 mb-4">
+            {t("appFlow.paywall.planLocked", {
+              plan: t(`appFlow.paywall.planNames.${lockedPlanKey}`),
+            })}
+          </p>
+        )}
+
         {loadingOfferings ? (
           <div className="flex justify-center py-16">
             <div
@@ -306,20 +332,28 @@ const PaywallPage = () => {
         ) : plans.length === 0 ? (
           <p className="text-center text-gray-400 py-8">{t("appFlow.paywall.loadError")}</p>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-3 mb-8 items-start">
-            {plans.map((plan) => {
+          <div
+            className={`grid gap-4 mb-8 items-start ${
+              lockedPlanKey ? "max-w-sm mx-auto grid-cols-1" : "sm:grid-cols-3"
+            }`}
+          >
+            {visiblePlans.map((plan) => {
               const badge = badgeFor(plan);
               const selected = selectedKey === plan.key;
+              const interactive = !lockedPlanKey;
               return (
                 <button
                   key={plan.key}
                   type="button"
-                  onClick={() => setSelectedKey(plan.key)}
+                  onClick={interactive ? () => setSelectedKey(plan.key) : undefined}
+                  disabled={!interactive}
                   className={`relative text-center rounded-2xl p-6 border transition-all ${
                     selected || plan.featured
                       ? "border-bivo-green border-2 bg-[#111] shadow-[0_0_40px_rgba(57,255,20,0.15)]"
                       : "border-white/10 bg-[#111] hover:border-bivo-green/40"
-                  } ${selected ? "ring-2 ring-bivo-green/40" : ""}`}
+                  } ${selected ? "ring-2 ring-bivo-green/40" : ""} ${
+                    !interactive ? "cursor-default" : ""
+                  }`}
                 >
                   {badge && (
                     <span

@@ -18,6 +18,7 @@ export interface MemberDoc {
   currentPeriodEndsAt?: { seconds: number; nanoseconds: number } | Date | string;
   email?: string;
   displayName?: string;
+  birthDate?: string;
   age?: number;
   primarySport?: string;
   sport?: string;

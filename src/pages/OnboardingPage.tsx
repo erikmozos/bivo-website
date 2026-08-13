@@ -7,14 +7,14 @@ import FlowUserBar from "@/components/app/FlowUserBar";
 import FormSplashScreen from "@/components/onboarding/FormSplashScreen";
 import OnboardingQuestionStep, {
   isAnswerValid,
-  isNameAndAgeValid,
+  isNameAndBirthDateValid,
 } from "@/components/onboarding/OnboardingQuestionStep";
 import StrengthQuestionStep from "@/components/onboarding/StrengthQuestionStep";
 import OnboardingSummaryScreen from "@/components/onboarding/OnboardingSummaryScreen";
 import {
   OnboardingBackButton,
   OnboardingProgressRing,
-  onboardingContinueClass,
+  onboardingContinueButtonClass,
 } from "@/components/onboarding/OnboardingUi";
 import { useAuth } from "@/contexts/AuthContext";
 import { notifyFlowSessionChange } from "@/hooks/useAppFlow";
@@ -81,6 +81,11 @@ const OnboardingPage = () => {
   const currentQuestion = filteredQuestions[questionIndex];
   const progressCurrent = phase === "question" ? questionIndex + 1 : 0;
   const progressTotal = filteredQuestions.length;
+  const canContinueQuestion =
+    currentQuestion != null &&
+    (currentQuestion.id === 2
+      ? isNameAndBirthDateValid(answers["2"], answers["14"])
+      : isAnswerValid(currentQuestion, answers[String(currentQuestion.id)]));
 
   const weekdayLabels = useMemo(
     () =>
@@ -128,7 +133,7 @@ const OnboardingPage = () => {
     persistAnswers(next);
   };
 
-  const handleAgeChange = (value: OnboardingAnswerValue) => {
+  const handleBirthDateChange = (value: OnboardingAnswerValue) => {
     persistAnswers({ ...answers, "14": value });
   };
 
@@ -149,7 +154,7 @@ const OnboardingPage = () => {
     setStrengthError(null);
 
     if (currentQuestion.id === 2) {
-      if (!isNameAndAgeValid(rawAnswer, answers["14"])) return;
+      if (!isNameAndBirthDateValid(rawAnswer, answers["14"])) return;
     } else if (!isAnswerValid(currentQuestion, rawAnswer)) {
       return;
     }
@@ -284,15 +289,13 @@ const OnboardingPage = () => {
                   value={answers[String(currentQuestion.id)]}
                   onChange={handleAnswerChange}
                   weekdayLabels={weekdayLabels}
-                  ageValue={answers["14"]}
-                  onAgeChange={currentQuestion.id === 2 ? handleAgeChange : undefined}
-                  ageLabel={
-                    questions.find((q) => q.id === 14)?.question ??
-                    t("appFlow.onboarding.ageLabel")
+                  birthDateValue={answers["14"]}
+                  onBirthDateChange={
+                    currentQuestion.id === 2 ? handleBirthDateChange : undefined
                   }
-                  agePlaceholder={
-                    questions.find((q) => q.id === 14)?.placeholder ??
-                    t("appFlow.onboarding.agePlaceholder")
+                  birthDateLabel={
+                    questions.find((q) => q.id === 14)?.question ??
+                    t("appFlow.onboarding.birthDate.title")
                   }
                 />
               )}
@@ -306,18 +309,8 @@ const OnboardingPage = () => {
               <button
                 type="button"
                 onClick={goNextQuestion}
-                disabled={
-                  currentQuestion.id === 2
-                    ? !isNameAndAgeValid(
-                        answers[String(currentQuestion.id)],
-                        answers["14"]
-                      )
-                    : !isAnswerValid(
-                        currentQuestion,
-                        answers[String(currentQuestion.id)]
-                      )
-                }
-                className={`${onboardingContinueClass} mt-8`}
+                disabled={!canContinueQuestion}
+                className={`${onboardingContinueButtonClass(canContinueQuestion)} mt-8`}
               >
                 {questionIndex >= filteredQuestions.length - 1
                   ? t("appFlow.onboarding.finish")

@@ -1,6 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useLocale } from "@/hooks/useLocale";
+import { notifyFlowSessionChange } from "@/hooks/useAppFlow";
+import type { PlanKey } from "@/lib/config";
+import { writeFlowSession } from "@/lib/flowSession";
 
 type PlanData = {
   name: string;
@@ -13,6 +16,8 @@ type PlanData = {
   featured?: boolean;
 };
 
+const PLAN_KEYS: PlanKey[] = ["monthly", "quarterly", "annual"];
+
 const CheckIcon = () => (
   <span className="text-bivo-green font-bold shrink-0" aria-hidden>
     ✓
@@ -22,15 +27,25 @@ const CheckIcon = () => (
 const PricingSection = () => {
   const { t } = useTranslation();
   const { localePath } = useLocale();
-  const startPath = localePath("/registro");
 
   const includedFeatures = t("pricing.features", { returnObjects: true }) as string[];
   const plansData = t("pricing.plans", { returnObjects: true }) as PlanData[];
 
   const plans = plansData.map((plan, index) => ({
     ...plan,
+    key: PLAN_KEYS[index] ?? "quarterly",
     featured: index === 1,
   }));
+
+  const startPath = (planKey: PlanKey) => {
+    const params = new URLSearchParams({ plan: planKey });
+    return `${localePath("/registro")}?${params.toString()}`;
+  };
+
+  const handleSelectPlan = (planKey: PlanKey) => {
+    writeFlowSession({ selectedPlanKey: planKey });
+    notifyFlowSessionChange();
+  };
 
   return (
     <section
@@ -113,7 +128,8 @@ const PricingSection = () => {
               )}
 
               <Link
-                to={startPath}
+                to={startPath(plan.key)}
+                onClick={() => handleSelectPlan(plan.key)}
                 className="mt-5 block w-full rounded-xl bg-bivo-green px-5 py-3.5 text-center text-base font-bold text-black transition hover:brightness-110 hover:-translate-y-0.5 hover:shadow-[0_14px_32px_rgba(57,255,20,0.35)]"
               >
                 {t("pricing.cta")}

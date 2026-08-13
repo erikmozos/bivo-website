@@ -30,6 +30,7 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				bivo: {
 					green: '#39ff14',
+					greenDark: '#1a3a1a',
 					black: '#000000',
 				},
 				primary: {

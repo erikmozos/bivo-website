@@ -133,6 +133,13 @@ function SummaryRow({
   );
 }
 
+const SUMMARY_HERO_BY_SPORT: Record<string, string> = {
+  padel: "/onboarding/padel-players-summary.png",
+  tenis: "/onboarding/tenis-players-summary.png",
+  badminton: "/onboarding/badminton-players-summary.png",
+  pickleball: "/onboarding/pickleball-players-summary.png",
+};
+
 const OnboardingSummaryScreen = ({
   answers,
   skillLevel,
@@ -144,7 +151,8 @@ const OnboardingSummaryScreen = ({
   const { t, i18n } = useTranslation();
 
   const sport = answers["3"] ? String(answers["3"]) : "";
-  const isPadel = sport === "padel";
+  const heroImage = SUMMARY_HERO_BY_SPORT[sport];
+  const hasHero = Boolean(heroImage);
   const pains = listLabels(answers["6"], "appFlow.onboarding.summary.pains", t);
   const mobility = listLabels(answers["4"], "appFlow.onboarding.summary.mobility", t);
   const selectedDays = Array.isArray(answers["8"]) ? (answers["8"] as string[]) : [];
@@ -158,6 +166,16 @@ const OnboardingSummaryScreen = ({
       : selectedDays.length > 0
         ? t("appFlow.onboarding.summary.daysPerWeek", { count: selectedDays.length })
         : null;
+
+  const chipClass = hasHero
+    ? {
+        pain: "bg-[#5a2428]/90 border border-[#a34b52]/50 text-white",
+        mobility: "bg-[#4a321c]/90 border border-[#9a6a3a]/45 text-white",
+      }
+    : {
+        pain: "bg-red-500/15 border border-red-400/30 text-red-200",
+        mobility: "bg-amber-500/15 border border-amber-400/30 text-amber-100",
+      };
 
   const rows = (
     <>
@@ -187,11 +205,7 @@ const OnboardingSummaryScreen = ({
             {pains.map((p) => (
               <span
                 key={p}
-                className={`text-[13px] font-semibold px-2.5 py-[3px] rounded-full ${
-                  isPadel
-                    ? "bg-[#5a2428]/90 border border-[#a34b52]/50 text-white"
-                    : "bg-red-500/15 border border-red-400/30 text-red-200"
-                }`}
+                className={`text-[13px] font-semibold px-2.5 py-[3px] rounded-full ${chipClass.pain}`}
               >
                 {p}
               </span>
@@ -210,11 +224,7 @@ const OnboardingSummaryScreen = ({
             {mobility.map((m) => (
               <span
                 key={m}
-                className={`text-[13px] font-semibold px-2.5 py-[3px] rounded-full ${
-                  isPadel
-                    ? "bg-[#4a321c]/90 border border-[#9a6a3a]/45 text-white"
-                    : "bg-amber-500/15 border border-amber-400/30 text-amber-100"
-                }`}
+                className={`text-[13px] font-semibold px-2.5 py-[3px] rounded-full ${chipClass.mobility}`}
               >
                 {m}
               </span>
@@ -229,12 +239,12 @@ const OnboardingSummaryScreen = ({
     <div className="space-y-5">
       <div
         className={`relative overflow-hidden rounded-[20px] border border-bivo-green/40 bg-[#0a0f18] ${
-          isPadel ? "aspect-[3/2] min-h-[320px]" : ""
+          hasHero ? "aspect-[3/2] min-h-[320px]" : ""
         }`}
       >
-        {isPadel && (
+        {heroImage && (
           <img
-            src="/onboarding/padel-players-summary.png"
+            src={heroImage}
             alt=""
             aria-hidden
             className="absolute inset-0 h-full w-full object-contain object-center select-none"
@@ -244,12 +254,12 @@ const OnboardingSummaryScreen = ({
 
         <div
           className={`relative z-10 ${
-            isPadel
+            hasHero
               ? "flex h-full min-h-[320px] w-[50%] flex-col justify-between py-4 pl-4 pr-2 sm:py-5 sm:pl-5"
               : "p-5 sm:p-6"
           }`}
         >
-          {isPadel ? (
+          {hasHero ? (
             rows
           ) : (
             <div className="rounded-2xl border border-white/10 bg-black/40 px-4 sm:px-5">{rows}</div>

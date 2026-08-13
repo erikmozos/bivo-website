@@ -25,10 +25,10 @@
   },
   {
     "id": 14,
-    "question": "¿Cuál es tu edad?",
-    "type": "number",
-    "placeholder": "Ej. 28",
-    "forceAnswer": true
+    "question": "¿En qué año naciste?",
+    "type": "date",
+    "placeholder": "Ej. 1995",
+    "forceAnswer": false
   },
   {
     "id": 3,
@@ -189,7 +189,7 @@
     "id": 8,
     "question": "¿Qué días de la semana quieres entrenar?",
     "type": "weekdays",
-    "forceAnswer": false
+    "forceAnswer": true
   },
   {
     "id": 9,

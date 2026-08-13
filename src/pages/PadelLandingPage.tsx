@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { useLocale } from "@/hooks/useLocale";
+import { notifyFlowSessionChange } from "@/hooks/useAppFlow";
 import { usePadelLanding } from "@/hooks/usePadelLanding";
 import { BIVO_ATHLETES_COUNT } from "@/lib/bivoStats";
+import type { PlanKey } from "@/lib/config";
+import { writeFlowSession } from "@/lib/flowSession";
 import { padelAsset } from "@/lib/padelLandingAssets";
 import { sportLegalPath } from "@/lib/sportLegalPaths";
 import "./PadelLanding.css";
@@ -207,6 +210,11 @@ const GooglePlayIcon = ({ size = 20 }: { size?: number }) => (
 const PadelLandingPage = () => {
   const { localePath } = useLocale();
   const signupPath = localePath("/registro");
+  const planSignupPath = (plan: PlanKey) => `${signupPath}?plan=${plan}`;
+  const selectPlan = (plan: PlanKey) => {
+    writeFlowSession({ selectedPlanKey: plan });
+    notifyFlowSessionChange();
+  };
   const {
     rootRef,
     vslVideoRef,
@@ -691,7 +699,11 @@ const PadelLandingPage = () => {
               14,99€ <span>/mes</span>
             </div>
             <div className="price-sub">Sin compromiso</div>
-            <Link to={signupPath} className="cta-btn">
+            <Link
+              to={planSignupPath("monthly")}
+              onClick={() => selectPlan("monthly")}
+              className="cta-btn"
+            >
               Empieza 7 días gratis →
             </Link>
           </div>
@@ -703,7 +715,11 @@ const PadelLandingPage = () => {
             </div>
             <div className="price-amount-small">34,99€ cada 3 meses</div>
             <div className="price-save">Ahorras un 22%</div>
-            <Link to={signupPath} className="cta-btn">
+            <Link
+              to={planSignupPath("quarterly")}
+              onClick={() => selectPlan("quarterly")}
+              className="cta-btn"
+            >
               Empieza 7 días gratis →
             </Link>
           </div>
@@ -717,7 +733,11 @@ const PadelLandingPage = () => {
             </div>
             <div className="price-amount-small">89,99€ al año</div>
             <div className="price-save">Ahorras un 50% · Ahorras 89,89€/año</div>
-            <Link to={signupPath} className="cta-btn">
+            <Link
+              to={planSignupPath("annual")}
+              onClick={() => selectPlan("annual")}
+              className="cta-btn"
+            >
               Empieza 7 días gratis →
             </Link>
           </div>

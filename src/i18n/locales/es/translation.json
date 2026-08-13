@@ -1033,8 +1033,14 @@
       "cta": "Continuar",
       "finish": "Ver resumen",
       "back": "Atrás",
-      "ageLabel": "¿Cuál es tu edad?",
-      "agePlaceholder": "Ej. 28",
+      "birthDate": {
+        "title": "¿En qué año naciste?",
+        "optional": "Opcional",
+        "hint": "nos ayudará a ofrecerte una experiencia cada vez más personalizada.",
+        "placeholder": "Ej. 1995",
+        "clear": "Quitar año",
+        "currentAge": "Edad actual: {age} años"
+      },
       "submitting": "Guardando...",
       "error": "No se pudo guardar el onboarding. Inténtalo de nuevo.",
       "loadError": "No se pudieron cargar las preguntas.",
@@ -1119,6 +1125,7 @@
       "preHeadline": "Sin riesgo. Sin compromiso.",
       "title": "Empieza hoy. Los primeros {days} días son completamente gratis.",
       "subtitle": "Cancela cuando quieras con un clic.",
+      "planLocked": "Plan seleccionado: {plan}. Continúa con el pago para activarlo.",
       "anchor": {
         "oldLabel": "Preparador físico privado",
         "oldPrice": "40€ – 120€ por sesión",
@@ -1166,7 +1173,7 @@
       "promoFpib26": "15% de descuento aplicado. Completa el pago con el plan elegido.",
       "promoApplied": "Código aplicado correctamente.",
       "promoError": "No se pudo aplicar el código.",
-      "promoInvalid": "Código no válido. Prueba BIVO1 o FPIB26.",
+      "promoInvalid": "Código no válido.",
       "cta": "Empieza {days} días gratis →",
       "processing": "Procesando pago...",
       "activating": "Activando premium...",

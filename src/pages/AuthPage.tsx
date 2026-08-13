@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Navigate } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import FlowGuard from "@/components/app/FlowGuard";
 import FlowLayout from "@/components/app/FlowLayout";
 import { useAuth } from "@/contexts/AuthContext";
-import { useAppFlow } from "@/hooks/useAppFlow";
+import { notifyFlowSessionChange, useAppFlow } from "@/hooks/useAppFlow";
 import { useLocale } from "@/hooks/useLocale";
 import { isFirebaseConfigured } from "@/lib/firebase";
+import { isPlanKey, writeFlowSession } from "@/lib/flowSession";
 
 const inputClass =
   "w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-bivo-green/60 focus:border-bivo-green/40 transition";
@@ -25,6 +26,7 @@ const AuthPage = () => {
   const { localePath } = useLocale();
   const { user, loading: flowLoading, step } = useAppFlow();
   const { signInWithEmail, signUpWithEmail, signInWithGoogle } = useAuth();
+  const [searchParams] = useSearchParams();
 
   const [mode, setMode] = useState<"login" | "signup">("signup");
   const [email, setEmail] = useState("");
@@ -32,6 +34,14 @@ const AuthPage = () => {
   const [displayName, setDisplayName] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const plan = searchParams.get("plan");
+    if (isPlanKey(plan)) {
+      writeFlowSession({ selectedPlanKey: plan });
+      notifyFlowSessionChange();
+    }
+  }, [searchParams]);
 
   if (!isFirebaseConfigured()) {
     return (

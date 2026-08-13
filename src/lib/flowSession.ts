@@ -1,3 +1,4 @@
+import type { PlanKey } from "@/lib/config";
 import type { OnboardingAnswers } from "@/types/onboarding";
 
 const STORAGE_KEY = "bivo_flow_session";
@@ -9,6 +10,12 @@ export interface FlowSession {
   onboardingAnswers?: OnboardingAnswers;
   skillLevel?: string;
   planId?: string;
+  /** Plan de suscripción elegido en home/VSL antes del registro. */
+  selectedPlanKey?: PlanKey;
+}
+
+export function isPlanKey(value: string | null | undefined): value is PlanKey {
+  return value === "monthly" || value === "quarterly" || value === "annual";
 }
 
 export function readFlowSession(): FlowSession {

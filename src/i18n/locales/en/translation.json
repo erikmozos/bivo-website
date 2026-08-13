@@ -1039,8 +1039,14 @@
       "cta": "Continue",
       "finish": "See summary",
       "back": "Back",
-      "ageLabel": "What is your age?",
-      "agePlaceholder": "e.g. 28",
+      "birthDate": {
+        "title": "What year were you born?",
+        "optional": "Optional",
+        "hint": "it will help us offer you an increasingly personalized experience.",
+        "placeholder": "e.g. 1995",
+        "clear": "Clear year",
+        "currentAge": "Current age: {age} years"
+      },
       "submitting": "Saving...",
       "error": "Could not save onboarding. Please try again.",
       "loadError": "Could not load questions.",
@@ -1125,6 +1131,7 @@
       "preHeadline": "No risk. No commitment.",
       "title": "Start today. Your first {days} days are completely free.",
       "subtitle": "Cancel anytime with one click.",
+      "planLocked": "Selected plan: {plan}. Continue to payment to activate it.",
       "anchor": {
         "oldLabel": "Private physical trainer",
         "oldPrice": "€40 – €120 per session",
@@ -1172,7 +1179,7 @@
       "promoFpib26": "15% discount applied. Complete payment with your selected plan.",
       "promoApplied": "Code applied successfully.",
       "promoError": "Could not apply the code.",
-      "promoInvalid": "Invalid code. Try BIVO1 or FPIB26.",
+      "promoInvalid": "Invalid code.",
       "cta": "Start {days} days free →",
       "processing": "Processing payment...",
       "activating": "Activating premium...",

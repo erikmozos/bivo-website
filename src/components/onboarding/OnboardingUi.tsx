@@ -4,8 +4,17 @@ import type { ReactNode } from "react";
 export const onboardingInputClass =
   "w-full px-5 py-4 rounded-2xl border border-white/10 bg-[#121c2e] text-white text-base placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-bivo-green/50 focus:border-bivo-green/40 transition";
 
+/** Continuar activo (verde fosforescente). */
 export const onboardingContinueClass =
-  "w-full py-4 rounded-full bg-bivo-green text-black font-bold text-base disabled:opacity-40 transition hover:bg-opacity-90";
+  "w-full py-4 rounded-full bg-bivo-green text-black font-bold text-base transition hover:bg-opacity-90";
+
+/** Continuar deshabilitado (verde oscuro) — p. ej. sin días seleccionados. */
+export const onboardingContinueDisabledClass =
+  "w-full py-4 rounded-full bg-bivo-greenDark text-white/40 font-bold text-base cursor-not-allowed transition";
+
+export function onboardingContinueButtonClass(enabled: boolean): string {
+  return enabled ? onboardingContinueClass : onboardingContinueDisabledClass;
+}
 
 interface ProgressRingProps {
   current: number;
