@@ -52,10 +52,12 @@ const LocaleLayout = () => {
   const locale = supportedLangs.includes(lang || "") ? lang! : null;
 
   useLayoutEffect(() => {
-    if (locale && i18n.language !== locale) {
-      i18n.changeLanguage(locale);
+    if (!locale) return;
+    const current = (i18n.language || "es").split("-")[0];
+    if (current !== locale) {
+      void i18n.changeLanguage(locale);
     }
-    document.documentElement.lang = locale || "es";
+    document.documentElement.lang = locale;
   }, [locale, i18n]);
 
   if (!locale) {

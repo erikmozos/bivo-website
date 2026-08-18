@@ -36,16 +36,13 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
-  const toggleLang = async () => {
+  const toggleLang = () => {
     const targetLang = lang === "es" ? "en" : "es";
     const path = location.pathname.replace(/^\/(en|es)/, "");
-    if (targetLang === "en" && !i18n.hasResourceBundle("en", "translation")) {
-      const en = await import("../../i18n/locales/en/translation.json");
-      i18n.addResourceBundle("en", "translation", en.default, true, true);
-    }
     const hash = location.hash
       ? translateSectionHash(location.hash, targetLang)
       : "";
+    void i18n.changeLanguage(targetLang);
     navigate(`/${targetLang}${path}${hash}`);
   };
 
