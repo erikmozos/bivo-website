@@ -16,7 +16,7 @@ import {
   type User,
 } from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { auth, db, googleProvider } from "@/lib/firebase";
+import { auth, db, appleProvider, googleProvider } from "@/lib/firebase";
 import { COLLECTION_MEMBERS } from "@/lib/config";
 import { resetRevenueCatSession } from "@/lib/revenuecat";
 import { syncMemberFromSession } from "@/lib/syncMemberFromSession";
@@ -27,6 +27,7 @@ interface AuthContextValue {
   signUpWithEmail: (email: string, password: string, displayName?: string) => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
+  signInWithApple: () => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -84,6 +85,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       },
       async signInWithGoogle() {
         const credential = await signInWithPopup(auth, googleProvider);
+        await ensureMemberDoc(credential.user);
+        await syncMemberFromSession(credential.user, flowLangFromPath());
+      },
+      async signInWithApple() {
+        const locale = flowLangFromPath() === "en" ? "en_US" : "es_ES";
+        appleProvider.setCustomParameters({ locale });
+        const credential = await signInWithPopup(auth, appleProvider);
         await ensureMemberDoc(credential.user);
         await syncMemberFromSession(credential.user, flowLangFromPath());
       },

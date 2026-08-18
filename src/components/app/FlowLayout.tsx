@@ -7,30 +7,44 @@ interface FlowLayoutProps {
   title?: string;
   subtitle?: string;
   badge?: string;
+  variant?: "default" | "finale";
 }
 
-const FlowLayout = ({ children, title, subtitle, badge }: FlowLayoutProps) => {
+const FlowLayout = ({ children, title, subtitle, badge, variant = "default" }: FlowLayoutProps) => {
   const { t } = useTranslation();
+  const isFinale = variant === "finale";
 
   return (
     <div
       className="min-h-screen text-white relative overflow-hidden"
-      style={{ background: "#050505" }}
+      style={{ background: isFinale ? "#000000" : "#050505" }}
     >
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(57,255,20,0.08) 0%, transparent 60%)",
-        }}
-      />
+      {!isFinale && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(57,255,20,0.08) 0%, transparent 60%)",
+          }}
+        />
+      )}
 
-      <div className="relative z-10 container mx-auto px-4 py-10 lg:py-14 max-w-3xl lg:max-w-4xl xl:max-w-5xl">
-        <div className="flex justify-center mb-4 lg:mb-6">
+      <div
+        className={
+          isFinale
+            ? "relative z-10 container mx-auto px-4 py-12 sm:py-16 lg:py-20 max-w-3xl lg:max-w-4xl"
+            : "relative z-10 container mx-auto px-4 py-10 lg:py-14 max-w-3xl lg:max-w-4xl xl:max-w-5xl"
+        }
+      >
+        <div className={`flex justify-center ${isFinale ? "mb-5 lg:mb-7" : "mb-4 lg:mb-6"}`}>
           <img
             src="/brand/logo-bivo-verde.png"
             alt={t("nav.logoAlt")}
-            className="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+            className={
+              isFinale
+                ? "h-12 sm:h-14 lg:h-[4.25rem] w-auto object-contain"
+                : "h-10 sm:h-12 lg:h-14 w-auto object-contain"
+            }
           />
         </div>
 

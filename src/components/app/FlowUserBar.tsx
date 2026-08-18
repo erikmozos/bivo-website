@@ -28,10 +28,9 @@ const FlowUserBar = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-6 text-sm">
-      <span className="text-gray-500 truncate max-w-[280px]">
-        {t("appFlow.session.signedInAs")}{" "}
-        <span className="text-gray-300">{user.email}</span>
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-8 text-[13px] sm:text-sm">
+      <span className="text-white truncate max-w-[280px]">
+        {t("appFlow.session.signedInAs")} {user.email}
       </span>
       <button
         type="button"

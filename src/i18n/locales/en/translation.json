@@ -1023,6 +1023,7 @@
       "submitting": "Processing...",
       "or": "or",
       "google": "Continue with Google",
+      "apple": "Continue with Apple",
       "hasAccount": "Already have an account?",
       "noAccount": "Don't have an account?",
       "switchLogin": "Sign in",
