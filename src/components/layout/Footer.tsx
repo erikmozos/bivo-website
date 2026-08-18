@@ -3,6 +3,7 @@ import { openCookiePreferences } from "@/components/ConsentBanner";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
 import { useLegalPath } from "@/hooks/useLegalPath";
+import { getHomeSectionIds } from "@/lib/sectionIds";
 import { APP_STORE_URL, GOOGLE_PLAY_URL, APP_DOWNLOAD_QR } from "@/lib/storeLinks";
 
 const COPYRIGHT_START_YEAR = 2025;
@@ -17,7 +18,7 @@ const Footer = () => {
 
   const quickLinks = t("footer.quickLinks.links", { returnObjects: true }) as string[];
   const legalLinks = t("footer.legal.links", { returnObjects: true }) as string[];
-  const sectionIds = ["precios", "como-funciona", "alianzas", "reconocimientos", "equipo", "contacto"];
+  const sectionIds = getHomeSectionIds(lang);
 
   const handleQuickLink = (sectionId: string) => {
     const basePath = location.pathname.replace(/^\/(en|es)/, "") || "/";
@@ -25,6 +26,7 @@ const Footer = () => {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
+        window.history.replaceState(null, "", `#${sectionId}`);
       }
     } else {
       navigate(localePath(`/#${sectionId}`));

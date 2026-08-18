@@ -2,6 +2,7 @@ import { ArrowDown } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
+import { getSectionId } from "@/lib/sectionIds";
 import { APP_SCREEN_CAROUSEL } from "@/lib/appScreenCarousel";
 
 const HERO_IMAGES = [
@@ -16,7 +17,7 @@ const SLIDE_INTERVAL_MS = 3000;
 
 const HeroSection = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
+  const { lang } = useLocale();
   const [activeSlide, setActiveSlide] = useState(0);
 
   const randomImage = useMemo(() => {
@@ -60,7 +61,7 @@ const HeroSection = () => {
 
             <div className="mb-10">
               <a
-                href="#precios"
+                href={`#${getSectionId(lang, "pricing")}`}
                 className="inline-flex items-center bg-bivo-green text-black px-8 py-3 rounded-lg font-extrabold text-lg hover:bg-opacity-90 transition-all transform hover:scale-105"
               >
                 {t("hero.cta")}

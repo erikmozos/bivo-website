@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
+import { getHomeSectionIds, translateSectionHash } from "@/lib/sectionIds";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -27,6 +28,7 @@ const Navbar = () => {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
+        window.history.replaceState(null, "", `#${sectionId}`);
       }
     } else {
       navigate(localePath("/"), { state: { scrollTo: sectionId } });
@@ -41,10 +43,13 @@ const Navbar = () => {
       const en = await import("../../i18n/locales/en/translation.json");
       i18n.addResourceBundle("en", "translation", en.default, true, true);
     }
-    navigate(`/${targetLang}${path}`);
+    const hash = location.hash
+      ? translateSectionHash(location.hash, targetLang)
+      : "";
+    navigate(`/${targetLang}${path}${hash}`);
   };
 
-  const sectionIds = ["precios", "como-funciona", "alianzas", "reconocimientos", "equipo", "contacto"];
+  const sectionIds = getHomeSectionIds(lang);
 
   return (
     <nav className="fixed w-full bg-black z-50 py-4 shadow-sm">

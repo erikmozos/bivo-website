@@ -11,24 +11,27 @@ import TeamSection from "@/components/sections/TeamSection";
 import ContactSection from "@/components/sections/ContactSection";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useLocale } from "@/hooks/useLocale";
+import { resolveSectionId } from "@/lib/sectionIds";
 
 const Index = () => {
   const location = useLocation();
+  const { lang } = useLocale();
 
   useEffect(() => {
     if (location.state?.scrollTo) {
-      const sectionId = location.state.scrollTo;
+      const sectionId = resolveSectionId(location.state.scrollTo, lang);
       const element = document.getElementById(sectionId);
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
-      window.history.replaceState({}, document.title);
+      window.history.replaceState({}, document.title, `#${sectionId}`);
     }
 
     if (location.hash) {
-      const sectionId = location.hash.substring(1);
+      const sectionId = resolveSectionId(location.hash.substring(1), lang);
       const element = document.getElementById(sectionId);
       if (element) {
         setTimeout(() => {
@@ -36,7 +39,7 @@ const Index = () => {
         }, 100);
       }
     }
-  }, [location.state, location.hash]);
+  }, [location.state, location.hash, lang]);
 
   return (
     <div className="min-h-screen flex flex-col">

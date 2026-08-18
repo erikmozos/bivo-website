@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
+import { getSectionId } from "@/lib/sectionIds";
 
 const stepImages = [
   { ext: "png", file: "01-valora" },
@@ -12,7 +13,7 @@ const stepImages = [
 
 const HowItWorksSection = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
+  const { localePath, lang } = useLocale();
 
   const stepsData = t("howItWorks.steps", { returnObjects: true }) as {
     title: string;
@@ -27,7 +28,7 @@ const HowItWorksSection = () => {
   }));
 
   return (
-    <section id="como-funciona" className="py-20 bg-black text-white">
+    <section id={getSectionId(lang, "howItWorks")} className="py-20 bg-black text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <h2 className="font-round text-3xl font-bold mb-4">

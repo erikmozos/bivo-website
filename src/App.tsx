@@ -5,7 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useParams, Outlet, useLocation } from "react-router-dom";
 import { useEffect, useLayoutEffect, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import { HelmetProvider, Helmet } from "react-helmet-async";
+import { HelmetProvider } from "react-helmet-async";
+import SeoHead from "./components/SeoHead";
 import "./i18n";
 import Index from "./pages/Index";
 import ConsentBanner from "./components/ConsentBanner";
@@ -63,9 +64,7 @@ const LocaleLayout = () => {
 
   return (
     <>
-      <Helmet prioritizeSeoTags>
-        <html lang={locale} />
-      </Helmet>
+      <SeoHead />
       <ScrollToTop />
       <Outlet />
     </>

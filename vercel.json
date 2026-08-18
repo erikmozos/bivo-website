@@ -5,6 +5,18 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/en",
+      "destination": "/en.html"
+    },
+    {
+      "source": "/en/",
+      "destination": "/en.html"
+    },
+    {
+      "source": "/en/:path*",
+      "destination": "/en.html"
+    },
+    {
       "source": "/((?!api/|.*\\..*).*)",
       "destination": "/index.html"
     }

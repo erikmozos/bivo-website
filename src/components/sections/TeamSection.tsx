@@ -1,6 +1,7 @@
 import { Linkedin, Twitter } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
+import { getSectionId } from "@/lib/sectionIds";
 
 const memberImages = [
   "/img2/team/Lluis.png",
@@ -26,7 +27,7 @@ const memberLinks = [
 
 const TeamSection = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
+  const { lang } = useLocale();
 
   const membersData = t("team.members", { returnObjects: true }) as {
     name: string;
@@ -48,7 +49,7 @@ const TeamSection = () => {
   };
 
   return (
-    <section id="equipo" className="py-20 bg-black">
+    <section id={getSectionId(lang, "team")} className="py-20 bg-black">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-round text-3xl font-bold mb-4 text-white">

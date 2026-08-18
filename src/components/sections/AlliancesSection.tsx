@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
+import { getSectionId } from "@/lib/sectionIds";
 
 const partnerImages = [
   "/img2/mqc.png",
@@ -11,7 +12,7 @@ const partnerImages = [
 
 const AlliancesSection = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
+  const { lang } = useLocale();
 
   const partnersData = t("alliances.partners", { returnObjects: true }) as {
     name: string;
@@ -25,7 +26,7 @@ const AlliancesSection = () => {
   }));
 
   return (
-    <section id="alianzas" className="py-20 bg-white">
+    <section id={getSectionId(lang, "alliances")} className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-round text-3xl font-bold mb-4">

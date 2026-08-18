@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
+import { getSectionId } from "@/lib/sectionIds";
 
 const awardImages = [
   "/img2/awards/dia-d-group.jpg",
@@ -8,7 +9,7 @@ const awardImages = [
 
 const RecognitionsSection = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
+  const { lang } = useLocale();
 
   const awardsData = t("recognitions.awards", { returnObjects: true }) as {
     title: string;
@@ -22,7 +23,7 @@ const RecognitionsSection = () => {
   }));
 
   return (
-    <section id="reconocimientos" className="py-20 bg-gray-50">
+    <section id={getSectionId(lang, "recognition")} className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-round text-3xl font-bold mb-4">

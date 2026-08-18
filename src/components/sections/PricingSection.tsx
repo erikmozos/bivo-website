@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useLocale } from "@/hooks/useLocale";
+import { getSectionId } from "@/lib/sectionIds";
 import { notifyFlowSessionChange } from "@/hooks/useAppFlow";
 import type { PlanKey } from "@/lib/config";
 import { writeFlowSession } from "@/lib/flowSession";
@@ -26,7 +27,7 @@ const CheckIcon = () => (
 
 const PricingSection = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
+  const { localePath, lang } = useLocale();
 
   const includedFeatures = t("pricing.features", { returnObjects: true }) as string[];
   const plansData = t("pricing.plans", { returnObjects: true }) as PlanData[];
@@ -49,7 +50,7 @@ const PricingSection = () => {
 
   return (
     <section
-      id="precios"
+      id={getSectionId(lang, "pricing")}
       className="py-24 text-white relative overflow-hidden"
       style={{ background: "#050505" }}
     >
