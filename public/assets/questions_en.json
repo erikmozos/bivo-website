@@ -288,6 +288,16 @@
         "imagePath": "/onboarding/materialTransparente/maquina_multipower.png"
       },
       {
+        "value": "maquina_leg_curl",
+        "label": "Leg curl machine",
+        "imagePath": "/onboarding/materialTransparente/maquina_leg_curl.png"
+      },
+      {
+        "value": "maquina_leg_extension",
+        "label": "Leg extension machine",
+        "imagePath": "/onboarding/materialTransparente/maquina_leg_extension.png"
+      },
+      {
         "value": "barra_de_dominadas",
         "label": "Pull-up bar",
         "imagePath": "/onboarding/materialTransparente/barra_de_dominadas.png"
@@ -336,6 +346,11 @@
         "value": "step",
         "label": "Step",
         "imagePath": "/onboarding/materialTransparente/step.png"
+      },
+      {
+        "value": "conos",
+        "label": "Cones",
+        "imagePath": "/onboarding/materialTransparente/conos.png"
       },
       {
         "value": "maquinas_de_remo",
