@@ -25,9 +25,9 @@
   },
   {
     "id": 14,
-    "question": "What year were you born?",
+    "question": "What is your date of birth?",
     "type": "date",
-    "placeholder": "e.g. 1995",
+    "placeholder": "Optional",
     "forceAnswer": false
   },
   {

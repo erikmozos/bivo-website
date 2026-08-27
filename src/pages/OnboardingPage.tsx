@@ -7,7 +7,6 @@ import FlowUserBar from "@/components/app/FlowUserBar";
 import FormSplashScreen from "@/components/onboarding/FormSplashScreen";
 import OnboardingQuestionStep, {
   isAnswerValid,
-  isNameAndBirthDateValid,
 } from "@/components/onboarding/OnboardingQuestionStep";
 import StrengthQuestionStep from "@/components/onboarding/StrengthQuestionStep";
 import OnboardingSummaryScreen from "@/components/onboarding/OnboardingSummaryScreen";
@@ -83,9 +82,7 @@ const OnboardingPage = () => {
   const progressTotal = filteredQuestions.length;
   const canContinueQuestion =
     currentQuestion != null &&
-    (currentQuestion.id === 2
-      ? isNameAndBirthDateValid(answers["2"], answers["14"])
-      : isAnswerValid(currentQuestion, answers[String(currentQuestion.id)]));
+    isAnswerValid(currentQuestion, answers[String(currentQuestion.id)]);
 
   const weekdayLabels = useMemo(
     () =>
@@ -133,10 +130,6 @@ const OnboardingPage = () => {
     persistAnswers(next);
   };
 
-  const handleBirthDateChange = (value: OnboardingAnswerValue) => {
-    persistAnswers({ ...answers, "14": value });
-  };
-
   const handleStrengthChange = (value: StrengthAnswer) => {
     handleAnswerChange(value);
   };
@@ -153,9 +146,7 @@ const OnboardingPage = () => {
 
     setStrengthError(null);
 
-    if (currentQuestion.id === 2) {
-      if (!isNameAndBirthDateValid(rawAnswer, answers["14"])) return;
-    } else if (!isAnswerValid(currentQuestion, rawAnswer)) {
+    if (!isAnswerValid(currentQuestion, rawAnswer)) {
       return;
     }
 
@@ -289,14 +280,6 @@ const OnboardingPage = () => {
                   value={answers[String(currentQuestion.id)]}
                   onChange={handleAnswerChange}
                   weekdayLabels={weekdayLabels}
-                  birthDateValue={answers["14"]}
-                  onBirthDateChange={
-                    currentQuestion.id === 2 ? handleBirthDateChange : undefined
-                  }
-                  birthDateLabel={
-                    questions.find((q) => q.id === 14)?.question ??
-                    t("appFlow.onboarding.birthDate.title")
-                  }
                 />
               )}
 

@@ -6,11 +6,18 @@ const TermsConditionsContent = () => {
   const { t } = useTranslation();
   const { privacyPath, cookiesPath } = useLegalPath();
 
+  const sectionTitle = (index: number) => {
+    const number = t(`legal.terms.sections.${index}.number`);
+    const title = t(`legal.terms.sections.${index}.title`);
+    return `${number}. ${title}`;
+  };
+
   return (
   <div className="max-w-3xl mx-auto w-full min-w-0 [&_a]:break-all">
     <h1 className="text-3xl font-bold mb-6">{t("legal.terms.heading")}</h1>
 
     <p className="mb-6">{t("legal.terms.intro")}</p>
+    <p className="mb-6">{t("legal.terms.complianceNote")}</p>
 
     <div className="overflow-x-auto mb-8">
       <table className="min-w-full border border-gray-300">
@@ -42,29 +49,29 @@ const TermsConditionsContent = () => {
     <p className="mb-12">{t("legal.terms.acceptanceNote")}</p>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.0.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(0)}</h2>
       <p className="mb-4">{t("legal.terms.sections.0.content.0")}</p>
       <p className="mb-4">{t("legal.terms.sections.0.content.1")}</p>
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.1.title")}</h2>
-      <h3 className="text-xl font-semibold mb-3">2.1 Alta y registro como usuario.</h3>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(1)}</h2>
+      <h3 className="text-xl font-semibold mb-3">2.1 Alta y registro como Usuario</h3>
       <p className="mb-4">
-        Pueden usar la plataforma personas físicas mayores de 18 años con capacidad para contratar o personas jurídicas debidamente representadas. Es posible registrarse siendo menor de edad, siempre que el usuario menor de edad cuente con la autorización y supervisión de su progenitor o tutor legal.
+        Podrán utilizar la Plataforma las personas físicas mayores de 18 años con capacidad legal suficiente, así como las personas jurídicas debidamente representadas. Los menores de edad podrán acceder y utilizar los servicios de BIVO TRAINING conforme a lo establecido en el apartado “Menores de edad” de los presentes Términos y Condiciones, respetando en todo caso los requisitos de edad y demás disposiciones previstas por la normativa aplicable.
       </p>
       <p className="mb-4">
         La información aportada al registrarse debe ser exacta, completa y actualizada. El titular de la cuenta es responsable de custodiar sus credenciales y de toda actividad realizada desde su cuenta, debiendo notificar de inmediato accesos no autorizados o brechas de seguridad.
       </p>
-      <p className="mb-2">Para ser Usuario de la Plataforma es indispensable que se cumplan los siguientes requisitos:</p>
+      <p className="mb-2">Para ser Usuario de la Plataforma es indispensable:</p>
       <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
         <li>Cumplimentar de manera veraz los campos obligatorios del formulario de registro.</li>
         <li>
-          Aceptar los presentes Términos y Condiciones (incluyendo{" "}
-          <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>{" "}
-          y{" "}
+          Aceptar los presentes Términos y Condiciones, así como la{" "}
+          <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>
+          {" "}y, cuando corresponda, la{" "}
           <a href={cookiesPath} className="text-bivo-green hover:underline">Política de Cookies</a>
-          ) y completar el proceso de alta como usuario de la Plataforma.
+          , y completar el proceso de alta.
         </li>
       </ul>
       <p className="mb-4">
@@ -74,29 +81,32 @@ const TermsConditionsContent = () => {
         BIVO TRAINING podrá modificar, actualizar o ampliar los datos requeridos en el proceso de registro con el fin de mejorar el servicio, adaptar la Plataforma a nuevas funcionalidades o cumplir con obligaciones legales.
       </p>
       <p className="mb-4">
-        Es posible registrarse utilizando la cuenta de usuario en otras plataformas como Google o similares. Al utilizar dichas cuentas, los datos personales serán tratados conforme a las respectivas políticas de privacidad.
+        Es posible registrarse utilizando la cuenta de Usuario en otras plataformas como Google o similares. Al utilizar dichas cuentas, los datos personales serán tratados conforme a las respectivas políticas de privacidad.
       </p>
       <p className="mb-4">
         Tras completar de forma veraz los campos obligatorios del formulario de registro, el Usuario podrá ser requerido, en su caso, para verificar la titularidad del correo electrónico u otros datos facilitados mediante los mecanismos técnicos que BIVO TRAINING determine en cada momento.
       </p>
       <p className="mb-4">
-        El Usuario garantiza que todos los datos sobre su identidad facilitados a BIVO TRAINING en el proceso de alta como usuario en la Plataforma son veraces, exactos y completos. Asimismo, se compromete a mantener actualizados sus datos. En el supuesto de que el Usuario facilite cualquier dato falso, inexacto o incompleto o si BIVO TRAINING considera que existen motivos fundados para dudar sobre la veracidad, exactitud e integridad de los mismos, BIVO TRAINING podrá denegar el acceso y uso presente o futuro de la Plataforma o de cualquiera de sus contenidos y/o servicios; así como dar de baja al Usuario y cancelar su cuenta.
+        El Usuario garantiza que todos los datos sobre su identidad facilitados a BIVO TRAINING son veraces, exactos y completos y se compromete a mantenerlos actualizados.
       </p>
       <p className="mb-4">
-        El Usuario se compromete a no divulgar su contraseña ni hacerla accesible a terceros. Puesto que BIVO TRAINING no puede garantizar la identidad de los usuarios registrados, el Usuario será el único responsable en caso de uso de la contraseña por terceros, incluidas las manifestaciones vertidas a través de la Plataforma, o cualquier otra actuación que se lleve a cabo mediante el uso de la contraseña.
+        En el supuesto de que el Usuario facilite cualquier dato falso, inexacto o incompleto, o si BIVO TRAINING considera que existen motivos fundados para dudar de su veracidad, exactitud o integridad, BIVO TRAINING podrá denegar el acceso y uso presente o futuro de la Plataforma o de cualquiera de sus contenidos y/o servicios, así como dar de baja al Usuario y cancelar su cuenta.
       </p>
       <p className="mb-4">
-        Los Usuarios se obligan a poner inmediatamente en conocimiento de BIVO TRAINING la sustracción, divulgación o pérdida de la contraseña, comunicando a BIVO TRAINING a través del correo electrónico{" "}
+        El Usuario se compromete a no divulgar su contraseña ni hacerla accesible a terceros. Puesto que BIVO TRAINING no puede garantizar la identidad de los Usuarios registrados, el Usuario será responsable en caso de uso de la contraseña por terceros.
+      </p>
+      <p className="mb-4">
+        Los Usuarios se obligan a poner inmediatamente en conocimiento de BIVO TRAINING la sustracción, divulgación, pérdida o utilización no autorizada de sus credenciales mediante comunicación a{" "}
         <a href="mailto:hello@bivotraining.com" className="text-bivo-green hover:underline">
           hello@bivotraining.com
         </a>
         .
       </p>
       <p className="mb-6">
-        Una vez completado el proceso de registro correspondiente, y en su caso verificados los datos facilitados, BIVO TRAINING habilitará el acceso a las funcionalidades de la Plataforma que correspondan según el tipo de registro, el canal utilizado (web, aplicación móvil o tiendas de aplicaciones) y el nivel de servicio contratado o disponible en cada momento.
+        Una vez completado el proceso de registro correspondiente y, en su caso, verificados los datos facilitados, BIVO TRAINING habilitará el acceso a las funcionalidades que correspondan según el tipo de registro, canal utilizado —web, aplicación móvil o tiendas de aplicaciones— y nivel de servicio contratado o disponible.
       </p>
 
-      <h3 className="text-xl font-semibold mb-3">2.2. Acceso a la Plataforma</h3>
+      <h3 className="text-xl font-semibold mb-3">2.2 Acceso a la Plataforma</h3>
       <p className="mb-4">
         El acceso se ofrece mediante un modelo de suscripción o en planes de pago. Las cuotas y características de cada plan serán informadas al Usuario con carácter previo al inicio de la relación comercial entre las partes y pueden modificarse, informándose con antelación razonable antes de su renovación.
       </p>
@@ -104,7 +114,7 @@ const TermsConditionsContent = () => {
         Las suscripciones, en su caso, podrán tener carácter periódico con renovación automática por períodos sucesivos hasta su cancelación por parte del Usuario antes del inicio del siguiente ciclo de facturación.
       </p>
       <p className="mb-4">
-        Cuando la contratación se realice a través de tiendas de aplicaciones (como Apple App Store o Google Play), la gestión del cobro, moneda aplicable, impuestos, renovaciones, cancelaciones y condiciones de facturación se regirá por las políticas y condiciones propias de la plataforma correspondiente.
+        Cuando la contratación se realice a través de tiendas de aplicaciones, como Apple App Store o Google Play, la gestión del cobro, moneda aplicable, impuestos, renovaciones, cancelaciones y condiciones de facturación se regirá por las políticas y condiciones propias de la plataforma correspondiente.
       </p>
       <p className="mb-4">
         En los demás casos, los precios se mostrarán en la moneda indicada e incluirán o no los impuestos aplicables según se especifique en cada momento. Los cambios de plan podrán implicar ajustes prorrateados conforme a la política vigente.
@@ -112,147 +122,250 @@ const TermsConditionsContent = () => {
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.2.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(2)}</h2>
       <p className="mb-4">
-        BIVO TRAINING actúa, con carácter general, como proveedor de servicios de la sociedad de la información que pone a disposición de los Usuarios una infraestructura tecnológica mediante la cual estos pueden acceder a entrenamientos diseñados por preparadores físicos que trabajan con jugadores de raqueta, adaptados a su nivel y objetivos.
+        BIVO TRAINING actúa, con carácter general, como proveedor de servicios de la sociedad de la información que pone a disposición de los Usuarios una infraestructura tecnológica mediante la cual pueden acceder a entrenamientos diseñados por preparadores físicos especializados en deportes de raqueta, adaptados a su nivel y objetivos.
       </p>
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.3.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(3)}</h2>
       <p className="mb-4">
-        El Usuario puede dirigirse en cualquier momento a BIVO TRAINING para solicitar la eliminación de su perfil de la plataforma. En todo caso, puede revocar su consentimiento en cualquier momento remitiendo un correo desde su correo registrado con el asunto "Baja de Usuario" a BIVO TRAINING, incluyendo en el cuerpo del correo electrónico el nombre de usuario y el correo electrónico utilizado para realizar el alta.
+        BIVO COACH es el servicio de Bivo Training S.L. destinado a clubes deportivos, academias, federaciones, gimnasios, entrenadores personales y otros profesionales o entidades deportivas (en adelante, la “Entidad”), que permite gestionar y realizar el seguimiento de sus deportistas, clientes, alumnos, usuarios o federados.
       </p>
       <p className="mb-4">
-        BIVO TRAINING puede suspender o dar de baja a un Usuario (y, por lo tanto, optar por suspender o resolver la relación contractual) inmediatamente en caso de que se incumpla cualquier obligación de los Términos y Condiciones. En dicho caso, BIVO TRAINING dejará de prestar los servicios que ofrece a través de la Plataforma sin necesidad de alegar ninguna causa.
+        La Entidad podrá utilizar BIVO COACH para crear y gestionar perfiles, vincular deportistas, asignar o realizar el seguimiento de entrenamientos, consultar información sobre su actividad y progreso y utilizar las demás funcionalidades disponibles en cada momento.
+      </p>
+      <p className="mb-4">
+        La Entidad se compromete a utilizar BIVO COACH exclusivamente para finalidades legítimas relacionadas con su actividad y será responsable de la veracidad, licitud y adecuada utilización de la información que introduzca o gestione en la Plataforma.
+      </p>
+      <p className="mb-4">
+        Cuando la Entidad incorpore, gestione o facilite datos personales de deportistas, clientes, alumnos, usuarios, federados u otras personas, deberá disponer de una base jurídica válida para hacerlo y cumplir las obligaciones que le correspondan conforme a la normativa de protección de datos. Cuando resulte necesario, deberá haber obtenido previamente las autorizaciones o consentimientos correspondientes.
+      </p>
+      <p className="mb-4">
+        La Entidad será responsable de gestionar adecuadamente las altas, bajas y permisos de acceso de sus entrenadores, técnicos, empleados o colaboradores, así como de retirar dichos accesos cuando dejen de estar autorizados para utilizar BIVO COACH en su nombre.
+      </p>
+      <p className="mb-4">
+        La información accesible a través de BIVO COACH deberá utilizarse exclusivamente para las finalidades deportivas, de gestión y seguimiento vinculadas a la relación existente entre la Entidad o profesional y el deportista, cliente, alumno, usuario o federado, quedando prohibido cualquier uso no autorizado o ajeno a dichas finalidades.
+      </p>
+      <p className="mb-4">
+        Cuando finalice la relación entre la Entidad y un deportista, cliente, alumno, usuario o federado, la Entidad deberá dejar de acceder a su información a través de BIVO COACH cuando ya no exista una base legítima para dicho acceso, sin perjuicio de los plazos de conservación que resulten legalmente aplicables.
+      </p>
+      <p className="mb-4">
+        Bivo Training S.L. prestará BIVO COACH conforme a las funcionalidades contratadas o habilitadas y tratará la información de acuerdo con las finalidades, instrucciones y responsabilidades que correspondan en cada caso.
+      </p>
+      <p className="mb-4">
+        Las condiciones económicas, número de usuarios o licencias, duración, funcionalidades contratadas y demás condiciones particulares del servicio podrán establecerse en la correspondiente oferta, pedido, contrato o acuerdo comercial, que complementará los presentes Términos y Condiciones.
       </p>
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.4.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(4)}</h2>
       <p className="mb-4">
-        La Plataforma BIVO TRAINING pone a disposición de sus Usuarios un conjunto de herramientas tecnológicas orientadas a la mejora del rendimiento deportivo en pádel, tenis, pickleball y cualesquiera otros deportes de raqueta que puedan incorporarse en el futuro, con especial enfoque en el entrenamiento, la preparación física y el desarrollo deportivo.
+        BIVO TRAINING podrá ser utilizado por menores de edad directamente o mediante su vinculación con clubes deportivos, academias, federaciones, gimnasios, entrenadores personales y otros profesionales o entidades deportivas.
       </p>
       <p className="mb-4">
-        Bivo Training es una plataforma digital de entrenamiento y mejora del rendimiento deportivo accesible principalmente a través de su aplicación móvil. La web bivotraining.com tiene carácter informativo y facilita el acceso, y no permite la utilización directa de las funcionalidades principales del servicio, que se prestan exclusivamente mediante la aplicación móvil.
+        El acceso y registro de menores podrá estar sujeto a requisitos o restricciones de edad en función del país de residencia y de la normativa aplicable.
       </p>
       <p className="mb-4">
-        BIVO TRAINING se reserva el derecho de ampliar, modificar, limitar o suprimir, en cualquier momento, las funcionalidades, contenidos o servicios de la Plataforma con el fin de mejorar su funcionamiento, adaptarse a las necesidades del mercado o incorporar nuevas tecnologías. Dichas actualizaciones podrán implementarse de forma automática o ser comunicadas al Usuario a través de los canales oficiales, incluyendo el sitio web, la aplicación móvil o el correo electrónico.
+        Cuando conforme a la legislación aplicable resulte necesaria la intervención, autorización o consentimiento del padre, madre o tutor legal, el uso de la Plataforma y el tratamiento de los datos del menor deberán contar con dicha autorización.
+      </p>
+      <p className="mb-4">
+        Cuando el menor acceda o sea incorporado a BIVO TRAINING a través de una Entidad, corresponderá a dicha Entidad disponer de la legitimación necesaria para incorporar y gestionar al menor y obtener de sus representantes legales las autorizaciones que resulten exigibles, incluyendo las relacionadas con el tratamiento y comunicación de sus datos personales.
+      </p>
+      <p className="mb-4">
+        La Entidad deberá informar adecuadamente al menor y, cuando corresponda, a sus representantes legales sobre el uso de BIVO TRAINING en el marco de los servicios deportivos que presta.
+      </p>
+      <p className="mb-4">
+        El uso de los entrenamientos y contenidos deportivos por menores deberá realizarse teniendo en cuenta su edad, condición física, nivel deportivo y estado de salud, y bajo la supervisión que resulte adecuada atendiendo a su edad y circunstancias.
+      </p>
+      <p className="mb-4">
+        BIVO TRAINING no sustituye la valoración o supervisión de profesionales médicos o sanitarios. Cuando el menor presente lesiones, patologías, problemas cardíacos, antecedentes cardiovasculares, epilepsia, limitaciones físicas u otras condiciones que puedan verse afectadas por la práctica de actividad física, deberá consultarse con un profesional sanitario cualificado antes de realizar los entrenamientos.
       </p>
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.5.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(5)}</h2>
       <p className="mb-4">
-        Los Usuarios son los únicos responsables del acceso y correcto uso de su perfil y funcionalidades de la Plataforma, con sujeción a la legalidad vigente, sea nacional o internacional, así como a los principios de buena fe, a la moral, las buenas costumbres y el orden público. Específicamente, pero sin limitación, se comprometen a observar diligentemente los Términos y Condiciones.
+        El Usuario puede solicitar en cualquier momento la eliminación de su perfil y cuenta mediante los mecanismos disponibles en la Plataforma o aplicación o remitiendo un correo electrónico desde su dirección registrada a{" "}
+        <a href="mailto:hello@bivotraining.com" className="text-bivo-green hover:underline">
+          hello@bivotraining.com
+        </a>
+        , indicando los datos necesarios para identificar la cuenta.
+      </p>
+      <p className="mb-4">
+        Tras la eliminación de la cuenta, los datos personales serán tratados conforme a lo establecido en la{" "}
+        <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>
+        .
+      </p>
+      <p className="mb-4">
+        BIVO TRAINING puede suspender o dar de baja a un Usuario y, por lo tanto, suspender o resolver la relación contractual, en caso de incumplimiento de cualquiera de las obligaciones establecidas en los presentes Términos y Condiciones.
+      </p>
+    </section>
+
+    <section className="mb-12">
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(6)}</h2>
+      <p className="mb-4">
+        La Plataforma BIVO TRAINING pone a disposición de sus Usuarios un conjunto de herramientas tecnológicas orientadas a la mejora de la condición física y el rendimiento deportivo en pádel, tenis, pickleball y cualesquiera otros deportes de raqueta que puedan incorporarse en el futuro, con especial enfoque en el entrenamiento, la preparación física y el desarrollo deportivo.
+      </p>
+      <p className="mb-4">
+        BIVO TRAINING es una plataforma digital de entrenamiento y mejora del rendimiento deportivo accesible principalmente a través de su aplicación móvil. El sitio web facilita asimismo información, registro, acceso y otras funcionalidades relacionadas con el servicio que puedan estar disponibles en cada momento.
+      </p>
+      <p className="mb-4">
+        BIVO TRAINING se reserva el derecho de ampliar, modificar, limitar o suprimir funcionalidades, contenidos o servicios de la Plataforma con el fin de mejorar su funcionamiento, adaptarse a las necesidades del mercado o incorporar nuevas tecnologías.
+      </p>
+      <p className="mb-4">
+        Dichas actualizaciones podrán implementarse de forma automática o ser comunicadas al Usuario a través de los canales oficiales, incluyendo el sitio web, la aplicación móvil o el correo electrónico.
+      </p>
+    </section>
+
+    <section className="mb-12">
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(7)}</h2>
+      <p className="mb-4">
+        Los Usuarios son responsables del acceso y correcto uso de su perfil y funcionalidades de la Plataforma, con sujeción a la legalidad vigente, sea nacional o internacional, así como a los principios de buena fe, moral, buenas costumbres y orden público.
       </p>
       <p className="mb-2">En particular y a título enunciativo y no limitativo, los Usuarios se comprometen a:</p>
       <ul className="list-disc list-inside ml-4 mb-4 space-y-2">
         <li>Facilitar información veraz y actualizada en cualquier comunicación con BIVO TRAINING.</li>
-        <li>No emplear datos de carácter personal -tanto del propio Usuario como de terceros- que contengan información sensible relativa a personas identificables o identificadas, como por ejemplo: origen racial; pertenencia a un sindicato; religión, ideología u orientación sexual; datos sobre salud; o datos relativos a los antecedentes penales, procedimientos y sanciones o multas derivadas de los mismos o incumplimiento de obligaciones dinerarias.</li>
-        <li>No utilizar identidades falsas, ni suplantar la identidad de otros en la utilización de la Plataforma o en la utilización de cualquiera de los servicios de la misma.</li>
-        <li>No crear, utilizar o mantener perfiles falsos, ficticios o simulados, ni acceder o utilizar la Plataforma mediante identidad encubierta, no auténtica o de terceros con el fin de analizar, monitorizar, obtener información, realizar pruebas encubiertas, actividades de "mystery shopper", ingeniería inversa, recopilación de datos, benchmarking competitivo, espionaje industrial o cualquier otra finalidad comercial, profesional o estratégica no autorizada expresamente por BIVO TRAINING.</li>
-        <li>BIVO TRAINING se reserva el derecho de investigar, suspender, bloquear o eliminar cualquier cuenta respecto de la cual existan indicios razonables de identidad no auténtica, uso fraudulento o utilización de la Plataforma con fines distintos a los previstos en los presentes Términos y Condiciones, así como de ejercer las acciones legales que pudieran corresponder para la defensa de sus intereses legítimos, incluyendo la protección de su tecnología, información confidencial, modelo de negocio y secretos empresariales.</li>
-        <li>Queda expresamente prohibida la obtención, recopilación, extracción, reproducción, explotación o utilización, por cualquier medio, de información técnica, funcional, comercial o estratégica de la Plataforma sin autorización previa y por escrito de BIVO TRAINING.</li>
+        <li>No emplear datos personales, propios o de terceros, que contengan información sensible relativa a personas identificables o identificadas, salvo cuando su tratamiento esté permitido conforme a la normativa aplicable y a las funcionalidades de la Plataforma.</li>
+        <li>No utilizar identidades falsas ni suplantar la identidad de terceros.</li>
+        <li>No crear, utilizar o mantener perfiles falsos, ficticios o simulados ni utilizar la Plataforma mediante identidad encubierta con fines de análisis, monitorización, pruebas encubiertas, “mystery shopper”, ingeniería inversa, recopilación de datos, benchmarking competitivo, espionaje industrial o cualquier finalidad comercial, profesional o estratégica no autorizada expresamente por BIVO TRAINING.</li>
+        <li>No obtener, recopilar, extraer, reproducir, explotar o utilizar información técnica, funcional, comercial o estratégica de la Plataforma sin autorización previa y por escrito de BIVO TRAINING.</li>
         <li>No utilizar la Plataforma para fines ilegales o no autorizados.</li>
-        <li>No alojar, almacenar, divulgar, publicar, distribuir o compartir cualquier contenido que pueda suponer una intromisión ilegítima o vulneración en cualquier forma de los derechos fundamentales al honor, imagen e intimidad personal y familiar de terceros y, muy especialmente, de los menores de edad.</li>
-        <li>No alterar o modificar, total o parcialmente la Plataforma, eludiendo, desactivando o manipulando de cualquier otra manera las funciones o servicios de la misma.</li>
-        <li>Cumplir con la{" "}<a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>{" "}y no infringir las normas reguladoras de la protección de datos de carácter personal.</li>
-        <li>No introducir, almacenar o difundir mediante la Plataforma cualquier contenido que infrinja derechos de propiedad industrial y/o intelectual o información confidencial de terceros, ni en general ningún contenido del cual no ostentara, de conformidad con la ley, el derecho a ponerlo a disposición de tercero.</li>
-        <li>No usar la Plataforma para injuriar, difamar, intimidar, violar la propia imagen o acosar a otros Usuarios.</li>
-        <li>No acceder a las cuentas de otros Usuarios.</li>
-        <li>No introducir, almacenar o difundir mediante la Plataforma ningún programa, datos, código, virus informático, archivos defectuosos, o cualquier otro dispositivo electrónico o fijo que pueda provocar daños o alteraciones en cualquiera de los equipos, redes, los sistemas de BIVO TRAINING, de cualquier otro Usuario o de terceras personas.</li>
-        <li>No destruir, alterar, utilizar para su uso, inutilizar o dañar los datos, informaciones, programas o documentos electrónicos de BIVO TRAINING, sus Usuarios o terceros.</li>
+        <li>No alojar, almacenar, divulgar, publicar, distribuir o compartir contenidos que vulneren derechos fundamentales al honor, imagen o intimidad personal y familiar de terceros y, especialmente, de menores de edad.</li>
+        <li>No alterar o modificar total o parcialmente la Plataforma ni eludir, desactivar o manipular sus funciones o servicios.</li>
+        <li>
+          Cumplir con la{" "}
+          <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>
+          {" "}y la normativa sobre protección de datos personales.
+        </li>
+        <li>No introducir, almacenar o difundir contenidos que infrinjan derechos de propiedad intelectual o industrial o información confidencial de terceros.</li>
+        <li>No utilizar la Plataforma para injuriar, difamar, intimidar, acosar o vulnerar los derechos de otros Usuarios.</li>
+        <li>No acceder a cuentas de otros Usuarios.</li>
+        <li>No introducir, almacenar o difundir programas, datos, códigos, virus, archivos defectuosos u otros elementos susceptibles de provocar daños o alteraciones en los sistemas de BIVO TRAINING, otros Usuarios o terceros.</li>
+        <li>No destruir, alterar, inutilizar o dañar datos, informaciones, programas o documentos electrónicos de BIVO TRAINING, sus Usuarios o terceros.</li>
       </ul>
       <p className="mb-4">
-        Quienes incumplan tales obligaciones responderán de cualquier perjuicio o daño que ocasionen. En la máxima medida permitida por la ley aplicable, BIVO TRAINING no responderá de ninguna consecuencia, daño o perjuicio que pudiera derivarse de dicho acceso o uso ilícito por parte de terceros. El acceso a la Plataforma podrá ser denegado por BIVO TRAINING a aquellos Usuarios que, de cualquier forma, incumplan las obligaciones o contravengan los presentes Términos y Condiciones o cualquier otro texto legal incluido en la Plataforma.
+        BIVO TRAINING se reserva el derecho de investigar, suspender, bloquear o eliminar cualquier cuenta respecto de la cual existan indicios razonables de identidad no auténtica, uso fraudulento o utilización de la Plataforma con fines distintos a los previstos en estos Términos, así como ejercer las acciones legales que correspondan para la defensa de sus intereses legítimos, incluyendo la protección de su tecnología, información confidencial, modelo de negocio y secretos empresariales.
       </p>
       <p className="mb-4">
-        Así mismo, cualquier Usuario deberá cumplir con las respectivas obligaciones fiscales y tributarias. Con tal finalidad, la Plataforma podrá informar periódicamente de aquellos datos o información relevante para que el Usuario pueda cumplir con dichas obligaciones.
-      </p>
-    </section>
-
-    <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.6.title")}</h2>
-      <p className="mb-4">
-        La creación de un perfil de Usuario es necesaria para la prestación de los servicios ofrecidos por BIVO TRAINING. Durante el proceso de registro, el Usuario deberá aceptar la{" "}
-        <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>{" "}
-        y el tratamiento de sus datos conforme a la misma.
+        Quienes incumplan estas obligaciones responderán de los perjuicios o daños que ocasionen. En la máxima medida permitida por la legislación aplicable, BIVO TRAINING no responderá de las consecuencias, daños o perjuicios derivados del acceso o uso ilícito de la Plataforma por terceros.
       </p>
       <p className="mb-4">
-        En caso de que el Usuario marque expresamente la casilla habilitada al efecto, consiente el envío por parte de BIVO TRAINING de comunicaciones comerciales, promocionales o informativas relacionadas con sus productos, servicios o novedades. El Usuario podrá revocar este consentimiento en cualquier momento a través de los mecanismos habilitados en la Plataforma o mediante comunicación a BIVO TRAINING, sin que ello afecte a la prestación del servicio.
+        Asimismo, cualquier Usuario deberá cumplir con las respectivas obligaciones fiscales y tributarias que le resulten aplicables.
       </p>
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.7.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(8)}</h2>
       <p className="mb-4">
-        En el caso de que en el futuro la Plataforma incorpore funcionalidades que requieran el acceso a la cámara del dispositivo del Usuario, dicho acceso se solicitará previamente mediante el correspondiente permiso del sistema y únicamente se activará con el consentimiento expreso del Usuario.
+        La creación de un perfil de Usuario puede ser necesaria para la prestación de determinados servicios ofrecidos por BIVO TRAINING. Durante el proceso de registro, el Usuario deberá aceptar la{" "}
+        <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>
+        {" "}y el tratamiento de sus datos conforme a la misma.
       </p>
       <p className="mb-4">
-        En tal supuesto, BIVO TRAINING informará de forma clara y previa sobre el tratamiento de imágenes o secuencias de vídeo que, en su caso, pudiera realizarse, incluyendo su finalidad, base jurídica, posibles destinatarios, plazo de conservación y demás extremos exigidos por la normativa aplicable en materia de protección de datos personales.
+        Cuando el Usuario otorgue expresamente su consentimiento mediante los mecanismos habilitados al efecto, BIVO TRAINING podrá enviar comunicaciones comerciales, promocionales o informativas relacionadas con sus productos, servicios o novedades.
       </p>
       <p className="mb-4">
-        El Usuario podrá denegar o revocar en cualquier momento el permiso de acceso a la cámara desde la configuración de su dispositivo o navegador, si bien dicha decisión puede afectar a la disponibilidad o correcto funcionamiento de determinadas funcionalidades de la Plataforma.
-      </p>
-    </section>
-
-    <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.8.title")}</h2>
-      <p className="mb-4">
-        BIVO TRAINING es titular o licenciataria de todos los derechos de propiedad intelectual e industrial incluidos en la Plataforma así como sobre los contenidos accesibles a través de la misma, especialmente pero no únicamente, los textos, imágenes, fotografías, diseño gráfico, estructura de navegación, información, código fuente, bases de datos y cualesquiera otros contenidos que se recogen en la Plataforma.
-      </p>
-      <p className="mb-4">
-        La autorización al Usuario para el acceso y uso de la Plataforma y los servicios ofrecidos en la misma no supone ninguna cesión de derechos de propiedad intelectual ni industrial sobre la misma ni dichos contenidos excepto lo que a continuación se dirá.
-      </p>
-      <p className="mb-4">
-        BIVO TRAINING concede al Usuario una licencia limitada para acceder y hacer uso personal de la Plataforma y los servicios ofrecidos en la misma. Dicha licencia solamente concede los derechos de propiedad intelectual imprescindibles para la finalidad de cumplimiento de estos Términos y Condiciones, es no exclusiva, para todo el mundo y su duración se limita solamente a la vigencia de la relación contractual del Usuario con BIVO TRAINING conforme a estos Términos y Condiciones.
+        El Usuario podrá revocar este consentimiento en cualquier momento a través de los mecanismos habilitados en la Plataforma o mediante comunicación a BIVO TRAINING, sin que ello afecte a la prestación del servicio.
       </p>
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.9.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(9)}</h2>
       <p className="mb-4">
-        BIVO TRAINING cumplirá en todo momento con lo dispuesto en el Reglamento de Inteligencia Artificial (IA). A tal efecto, manifiesta que los sistemas de Inteligencia Artificial que se pudieran utilizar para la prestación de los Servicios son seguros y respetan los derechos de los usuarios.
+        Determinadas funcionalidades de la Plataforma podrán requerir acceso a permisos del dispositivo del Usuario, como la cámara, fotografías o galería y notificaciones.
       </p>
       <p className="mb-4">
-        Las videollamadas, grabaciones y materiales que, en su caso, el Usuario suba a la Plataforma podrán ser almacenados y tratados con la finalidad de permitir el análisis técnico, el seguimiento del progreso deportivo y la mejora del servicio, pudiendo intervenir sistemas automatizados o de inteligencia artificial. Dichos tratamientos no tienen carácter médico ni constituyen diagnóstico sanitario. Cuando resulte exigible, el tratamiento se realizará sobre la base del consentimiento del Usuario conforme a la normativa de protección de datos.
-      </p>
-    </section>
-
-    <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.10.title")}</h2>
-      <p className="mb-4">
-        En la Plataforma el Usuario podrá encontrar enlaces a sitios web, aplicaciones o recursos gestionados por terceros. El establecimiento de cualesquiera enlaces, reenvíos o asociaciones ("links") desde la Plataforma no implica la existencia de relación, colaboración o dependencia alguna entre BIVO TRAINING y el titular del sitio o recurso enlazado, salvo que se indique expresamente.
+        Cuando resulte necesario, dicho acceso se solicitará previamente mediante los correspondientes permisos del sistema operativo y únicamente se producirá cuando el Usuario lo autorice.
       </p>
       <p className="mb-4">
-        BIVO TRAINING no asume responsabilidad alguna sobre los contenidos, información, servicios, condiciones legales, políticas de privacidad o prácticas de terceros, ni garantiza la disponibilidad, veracidad, exactitud o legalidad de los mismos. El acceso a dichos sitios o recursos externos se realiza bajo la exclusiva responsabilidad del Usuario.
+        Cuando el uso de dichos permisos implique tratamiento de datos personales, BIVO TRAINING informará sobre las finalidades y demás aspectos exigidos por la normativa aplicable de acuerdo con su{" "}
+        <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>
+        .
       </p>
       <p className="mb-4">
-        En caso de que la Plataforma incluya enlaces a colaboradores, partners o terceros relacionados con los servicios ofrecidos, dichos enlaces podrán reflejar la existencia de acuerdos de colaboración, integración o relación comercial con BIVO TRAINING cuando así se indique expresamente. No obstante, BIVO TRAINING no será responsable de los productos, servicios, contenidos, condiciones legales o prácticas de dichos terceros, salvo en aquellos casos en que la normativa aplicable establezca lo contrario. El acceso y la relación que, en su caso, el Usuario establezca con dichos terceros se regirá por sus propias condiciones y bajo su exclusiva responsabilidad.
+        El Usuario podrá denegar o revocar estos permisos en cualquier momento desde la configuración de su dispositivo o navegador, si bien dicha decisión podrá afectar a la disponibilidad o correcto funcionamiento de determinadas funcionalidades de la Plataforma.
       </p>
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.11.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(10)}</h2>
       <p className="mb-4">
-        La responsabilidad de BIVO TRAINING, como prestador de servicios telemáticos a través de una plataforma digital, se limita a la puesta a disposición de dicha plataforma para que los usuarios puedan utilizarla para recibir los servicios que contraten en todo momento.
+        BIVO TRAINING es titular o licenciataria de todos los derechos de propiedad intelectual e industrial incluidos en la Plataforma y sobre los contenidos accesibles a través de la misma, especialmente, pero no únicamente, textos, imágenes, fotografías, vídeos, entrenamientos, diseño gráfico, estructura de navegación, información, tecnología, código fuente, bases de datos y cualesquiera otros contenidos.
       </p>
       <p className="mb-4">
-        BIVO TRAINING tiene la obligación y responsabilidad de mantener la plataforma en buen estado de funcionamiento, realizando el mantenimiento y las actualizaciones oportunas durante la vigencia de la relación comercial. En caso de detectarse un error crítico, BIVO TRAINING se compromete a realizar todas las tareas de mantenimiento necesarias para subsanarlo de forma inmediata y, en todo caso, en el menor tiempo posible y sin demoras indebidas.
+        La autorización al Usuario para acceder y utilizar la Plataforma y los servicios ofrecidos no supone ninguna cesión de derechos de propiedad intelectual o industrial.
       </p>
       <p className="mb-4">
-        BIVO TRAINING no será responsable de ningún daño indirecto, incluyendo pero no limitando a la pérdida de ingresos, beneficios o datos, excepto cuando dichos daños sean causados por negligencia grave o dolo por BIVO TRAINING en los términos descritos en el párrafo anterior.
+        BIVO TRAINING concede al Usuario una licencia limitada para acceder y hacer uso personal de la Plataforma y los servicios ofrecidos. Dicha licencia es no exclusiva, para todo el mundo y limitada a la duración de la relación contractual del Usuario con BIVO TRAINING conforme a estos Términos y Condiciones.
       </p>
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.12.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(11)}</h2>
       <p className="mb-4">
-        Los servicios ofrecidos por BIVO TRAINING están orientados a la mejora de la condición física y el rendimiento deportivo, y no constituyen en ningún caso servicios médicos, sanitarios, fisioterapéuticos ni de diagnóstico clínico.
+        BIVO TRAINING cumplirá con la normativa aplicable en materia de Inteligencia Artificial.
       </p>
       <p className="mb-4">
-        El Usuario reconoce y acepta que la práctica de actividad física conlleva riesgos inherentes, incluyendo, entre otros, lesiones musculares, articulares, cardiovasculares o de cualquier otra naturaleza. En consecuencia, el Usuario es el único responsable de evaluar su estado de salud antes de utilizar los servicios ofrecidos por la Plataforma y se compromete a consultar con un profesional sanitario cualificado con carácter previo en caso de padecer cualquier patología, lesión, limitación física, condición médica o duda razonable sobre su aptitud para realizar actividad física.
+        Los sistemas de Inteligencia Artificial que puedan utilizarse para la prestación de los servicios tendrán carácter técnico y funcional y podrán utilizarse, entre otras finalidades, para analizar el uso de la Plataforma, personalizar entrenamientos, generar recomendaciones deportivas y mejorar el servicio.
+      </p>
+      <p className="mb-4">
+        Las imágenes, vídeos, grabaciones o materiales que, en su caso, el Usuario suba a la Plataforma podrán ser almacenados y tratados para permitir el análisis técnico, seguimiento del progreso deportivo y mejora del servicio, pudiendo intervenir sistemas automatizados o de inteligencia artificial.
+      </p>
+      <p className="mb-4">
+        Dichos tratamientos no tienen carácter médico ni constituyen diagnóstico sanitario.
+      </p>
+      <p className="mb-4">
+        Cuando resulte exigible, el tratamiento se realizará sobre la base jurídica correspondiente conforme a la normativa de protección de datos.
+      </p>
+    </section>
+
+    <section className="mb-12">
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(12)}</h2>
+      <p className="mb-4">
+        En la Plataforma el Usuario podrá encontrar enlaces a sitios web, aplicaciones o recursos gestionados por terceros. El establecimiento de enlaces, reenvíos o asociaciones desde la Plataforma no implica la existencia de relación, colaboración o dependencia entre BIVO TRAINING y el titular del sitio o recurso enlazado, salvo que se indique expresamente.
+      </p>
+      <p className="mb-4">
+        BIVO TRAINING no asume responsabilidad sobre los contenidos, información, servicios, condiciones legales, políticas de privacidad o prácticas de terceros ni garantiza su disponibilidad, veracidad, exactitud o legalidad.
+      </p>
+      <p className="mb-4">
+        El acceso a dichos sitios o recursos externos se realiza bajo la responsabilidad del Usuario.
+      </p>
+      <p className="mb-4">
+        Cuando la Plataforma incluya enlaces a colaboradores, partners o terceros relacionados con los servicios ofrecidos, dichos enlaces podrán reflejar la existencia de acuerdos de colaboración, integración o relación comercial cuando así se indique expresamente.
+      </p>
+    </section>
+
+    <section className="mb-12">
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(13)}</h2>
+      <p className="mb-4">
+        La responsabilidad de BIVO TRAINING, como prestador de servicios telemáticos a través de una plataforma digital, se limita a la puesta a disposición de dicha Plataforma para que los Usuarios puedan utilizar los servicios contratados.
+      </p>
+      <p className="mb-4">
+        BIVO TRAINING tiene la obligación y responsabilidad de mantener la Plataforma en buen estado de funcionamiento, realizando el mantenimiento y actualizaciones oportunas durante la vigencia de la relación comercial.
+      </p>
+      <p className="mb-4">
+        BIVO TRAINING realizará esfuerzos razonables para mantener el correcto funcionamiento del servicio, aunque no garantiza la ausencia absoluta de interrupciones, errores o fallos técnicos.
+      </p>
+      <p className="mb-4">
+        En caso de detectarse un error crítico, BIVO TRAINING realizará las tareas de mantenimiento necesarias para subsanarlo en el menor tiempo posible y sin demoras indebidas.
+      </p>
+      <p className="mb-4">
+        BIVO TRAINING no será responsable de daños indirectos, incluyendo, entre otros, pérdida de ingresos, beneficios o datos, excepto cuando dichos daños sean causados por negligencia grave o dolo de BIVO TRAINING.
+      </p>
+    </section>
+
+    <section className="mb-12">
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(14)}</h2>
+      <p className="mb-4">
+        Los servicios ofrecidos por BIVO TRAINING están orientados a la mejora de la condición física y el rendimiento deportivo y no constituyen en ningún caso servicios médicos, sanitarios, fisioterapéuticos ni de diagnóstico clínico.
+      </p>
+      <p className="mb-4">
+        El Usuario reconoce y acepta que la práctica de actividad física conlleva riesgos inherentes, incluyendo, entre otros, lesiones musculares, articulares, cardiovasculares o de cualquier otra naturaleza.
+      </p>
+      <p className="mb-4">
+        En consecuencia, el Usuario es responsable de evaluar su estado de salud antes de utilizar los servicios ofrecidos por la Plataforma y deberá consultar con un profesional sanitario cualificado cuando padezca o sospeche que pueda padecer lesiones, patologías, problemas cardíacos, antecedentes cardiovasculares, epilepsia, limitaciones físicas u otras condiciones médicas que puedan verse afectadas por la actividad física.
       </p>
       <p className="mb-4">
         El Usuario será responsable del uso que haga de los entrenamientos, ejercicios, recomendaciones o contenidos ofrecidos por la Plataforma, especialmente en caso de encontrarse lesionado, en proceso de recuperación o bajo cualquier condición física que pudiera verse afectada por la actividad deportiva.
@@ -261,48 +374,61 @@ const TermsConditionsContent = () => {
         BIVO TRAINING no será responsable de lesiones, daños físicos, problemas de salud, episodios cardiovasculares o cualquier otra consecuencia derivada del uso de la Plataforma, salvo en los casos en que la normativa aplicable establezca expresamente lo contrario.
       </p>
       <p className="mb-4">
-        El uso de la Plataforma por menores de edad deberá realizarse bajo la supervisión y responsabilidad de sus padres, madres o tutores legales. El progenitor o tutor legal será responsable de autorizar el acceso del menor al servicio y el tratamiento de sus datos personales conforme a la{" "}
+        El uso de la Plataforma por menores de edad deberá realizarse con la supervisión adecuada atendiendo a su edad y circunstancias. Esta supervisión podrá corresponder a sus padres, madres o tutores legales y, cuando el menor utilice BIVO TRAINING a través de BIVO COACH, podrá complementarse con la supervisión deportiva de clubes, academias, federaciones, gimnasios, entrenadores personales u otros profesionales o entidades deportivas que tengan al menor bajo su tutela o seguimiento deportivo.
+      </p>
+      <p className="mb-4">
+        En todo caso, serán asimismo aplicables las condiciones establecidas en el apartado “Menores de edad” de los presentes Términos y Condiciones.
+      </p>
+      <p className="mb-4">
+        Los resultados deportivos o mejoras físicas que puedan derivarse del uso de BIVO TRAINING dependen de múltiples factores personales, entre ellos la condición física, constancia en el entrenamiento, estado de salud, alimentación, descanso y otros factores externos. Por ello, BIVO TRAINING no garantiza la obtención de resultados deportivos, mejoras físicas concretas o un rendimiento determinado.
+      </p>
+    </section>
+
+    <section className="mb-12">
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(15)}</h2>
+      <p className="mb-4">
+        Si cualquiera de las cláusulas de los presentes Términos y Condiciones fuera nula de pleno derecho o anulable, se tendrá por no puesta.
+      </p>
+      <p className="mb-4">
+        Dicha declaración de nulidad no invalidará el resto de los Términos y Condiciones, que mantendrán su vigencia y eficacia.
+      </p>
+    </section>
+
+    <section className="mb-12">
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(16)}</h2>
+      <p className="mb-4">
+        BIVO TRAINING se reserva el derecho de modificar, actualizar o mejorar la estructura, configuración, diseño, funcionalidades y contenidos del sitio web, aplicación o Plataforma.
+      </p>
+      <p className="mb-4">
+        Asimismo, podrá modificar los presentes Términos y Condiciones y la{" "}
         <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>
-        , pudiendo BIVO TRAINING requerir, en caso necesario, la verificación de dicha autorización.
+        {" "}conforme a la legislación aplicable.
       </p>
       <p className="mb-4">
-        BIVO TRAINING no garantiza la obtención de resultados deportivos, mejoras físicas concretas o rendimiento determinado, ya que estos dependen de múltiples factores personales ajenos al control de la Plataforma.
+        Las versiones actualizadas estarán disponibles de forma permanente a través de la Plataforma.
       </p>
-    </section>
-
-    <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.13.title")}</h2>
       <p className="mb-4">
-        Si cualquiera de las cláusulas de los presentes Términos y Condiciones fuera nula de pleno derecho o anulable, se tendrá por no puesta. Dicha declaración de nulidad no invalidará el resto de los Términos y Condiciones, que mantendrán su vigencia y eficacia.
+        BIVO TRAINING no garantiza la inexistencia absoluta de interrupciones o errores en el acceso a la Plataforma o a sus contenidos. No obstante, realizará, cuando resulte razonablemente posible, las actuaciones necesarias para subsanar errores, restablecer comunicaciones y mantener actualizados sus servicios.
       </p>
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.14.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(17)}</h2>
       <p className="mb-4">
-        BIVO TRAINING se reserva el derecho de modificar, en cualquier momento y sin previo aviso, la estructura, configuración y diseño del Sitio Web o Plataforma así como los presentes Términos y Condiciones y la{" "}
-        <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>
-        . Los Usuarios deberán leer atentamente estos Términos y Condiciones al acceder a la Plataforma.
+        La validez, ejecución e interpretación de los presentes Términos y Condiciones serán reguladas en todos sus aspectos por las leyes españolas.
       </p>
       <p className="mb-4">
-        En cualquier caso, la navegación, así como el simple acceso a la Plataforma, conlleva la aceptación de cualquier modificación introducida. Una versión actualizada de los presentes Términos y Condiciones estará disponible de forma permanente en la Plataforma.
-      </p>
-      <p className="mb-4">
-        BIVO TRAINING no garantiza la existencia de interrupciones o errores en el acceso de la Plataforma o a su contenido, ni que ésta se encuentre siempre actualizada, no obstante, BIVO TRAINING llevará a cabo, siempre que no concurran causas que lo hagan imposible o de difícil ejecución, y tan pronto tenga noticia de los errores, desconexiones o falta de actualización en los contenidos, todas aquellas labores tendentes a subsanar los errores, restablecer la comunicación y actualizar los contenidos.
+        En el supuesto de que surja cualquier conflicto o discrepancia en la interpretación o aplicación de los presentes Términos y Condiciones, se someterá a los Juzgados y Tribunales de Palma de Mallorca (Islas Baleares, España), salvo que la normativa aplicable en materia de consumidores y usuarios establezca otro fuero imperativo.
       </p>
     </section>
 
     <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.15.title")}</h2>
+      <h2 className="text-2xl font-semibold mb-4">{sectionTitle(18)}</h2>
       <p className="mb-4">
-        La validez, ejecución e interpretación de los presentes Términos y Condiciones serán reguladas en todos sus aspectos por las leyes españolas. En el supuesto de que surja cualquier conflicto o discrepancia en la interpretación o aplicación de los presentes Términos y Condiciones de utilización de la Plataforma, se someterá a los Juzgados y Tribunales de Palma de Mallorca, salvo que la normativa aplicable en materia de consumidores y usuarios establezca otro fuero imperativo.
+        BIVO TRAINING se reserva el derecho a modificar los presentes Términos y Condiciones para adaptarlos a novedades legislativas o jurisprudenciales, cambios en sus servicios, nuevas funcionalidades o mejoras de la Plataforma.
       </p>
-    </section>
-
-    <section className="mb-12">
-      <h2 className="text-2xl font-semibold mb-4">{t("legal.terms.sections.16.title")}</h2>
       <p className="mb-4">
-        BIVO TRAINING se reserva el derecho a modificar los presentes Términos y Condiciones para adaptarlos a novedades legislativas o jurisprudenciales. En cualquier caso, la modificación de estos Términos y Condiciones se notificarán a los Usuarios.
+        Cuando corresponda conforme a la normativa aplicable, las modificaciones serán comunicadas a los Usuarios.
       </p>
     </section>
 

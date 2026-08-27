@@ -402,232 +402,90 @@
   "legal": {
     "privacy": {
       "heading": "PRIVACY POLICY",
-      "intro": "IMPORTANT: please read this Privacy Policy carefully to understand why we collect your personal data and how such data is processed by Bivo Training S.L., Av. des Camp Verd, 4, Centre Bit Menorca (Alaior), Illes Balears, Spain.",
-      "introNote": "This policy is subject to changes, so it is advisable to consult it each time you decide to visit us.",
+      "importantTitle": "IMPORTANT",
+      "intro": "We invite you to carefully read this Privacy Policy to understand why we collect your personal data and how such data is processed by Bivo Training S.L., Av. des Camp Verd, 4, Centre Bit Menorca (Alaior), Illes Balears, Spain.",
+      "introNote": "This policy is subject to change, so it is advisable to consult it periodically.",
       "sections": [
         {
-          "title": "SCOPE",
-          "content": [
-            "This online privacy statement of Bivo Training S.L. is public and accessible to all users and customers of Bivo Training S.L., and applies to all websites, applications, events, and other services of Bivo Training S.L., with https://www.bivotraining.com/ being the main site or domain.",
-            "It also applies to those documents or messages issued by Bivo Training S.L. that contain or refer to it.",
-            "Some services may have their own privacy policies that will apply instead of this Privacy Policy.",
-            "Below, we inform you in general terms about the data usage and processing carried out by Bivo Training S.L. for the management of its own services and its website."
-          ]
+          "title": "SCOPE"
         },
         {
-          "title": "USE OF THE BIVO TRAINING MOBILE APPLICATION (IOS AND ANDROID)",
-          "content": [
-            "This Privacy Policy also applies to the use of the BIVO TRAINING mobile application.",
-            "When the User downloads, installs, registers, or uses the mobile application, this Privacy Policy shall apply together with the additional information requested for registration."
-          ],
-          "subsections": [
-            {
-              "title": "Device permissions",
-              "content": [
-                "The application may request access to certain device functions:",
-                "notifications",
-                "camera access",
-                "photo or storage access",
-                "These permissions will always be requested with the user's consent and will be used exclusively for the purposes described at the time of the request.",
-                "The use of these permissions will be limited exclusively to the provision of the service requested by the User."
-              ]
-            },
-            {
-              "title": "Subscriptions and trial period",
-              "content": [
-                "BIVO TRAINING may offer the User a free trial period to test the services.",
-                "The duration of the trial period may vary depending on the promotion applicable at the time of registration.",
-                "Once the trial period ends, access to certain services may be restricted until the User contracts a subscription.",
-                "Subscriptions may be monthly or annual and will be automatically renewed unless cancelled before the renewal date.",
-                "The User may cancel the subscription at any time from their account settings.",
-                "Payments, renewals, cancellations, and billing for subscriptions are managed exclusively through the corresponding platform (App Store or Google Play).",
-                "BIVO TRAINING does not store or directly process payment data. All financial transactions are handled securely by these third-party platforms."
-              ]
-            }
-          ]
+          "title": "USE OF THE BIVO TRAINING MOBILE APPLICATION (iOS AND ANDROID)"
         },
         {
-          "title": "PERSONAL INFORMATION WE COLLECT",
-          "content": [
-            "Information on the use of personal data, in accordance with applicable data protection regulations.",
-            "Bivo Training S.L. respects your right to privacy and applies personal data protection policies.",
-            "Your personal data is processed with the utmost confidentiality and in compliance with current data protection regulations.",
-            "In order for you to receive information and, where applicable, be able to access our services and products, it is necessary to provide your personal data. Otherwise, it will not be possible to provide the service or send the requested information.",
-            "We remind you that it is the user's duty to inform us of any changes to their data to keep it updated.",
-            "To improve the services we offer, you may receive quality surveys or satisfaction questionnaires. Participation in these is completely voluntary."
-          ],
-          "subsections": [
-            {
-              "title": "We collect your personal information for several reasons:",
-              "items": [
-                "When you create an account, you provide us with your login information.",
-                "When contracting through App Store, Google Play, or another platform, the transaction data is managed by the corresponding platform.",
-                "Responding to service requests",
-                "Provision of services",
-                "Sending status messages about ongoing services",
-                "Sending promotions we consider interesting for our users",
-                "Quality and satisfaction surveys for service improvement"
-              ]
-            },
-            {
-              "title": "Information we receive from others:",
-              "items": [
-                "Other members may provide information about you when collaborating.",
-                "We may receive information from partners for advertising and analysis purposes."
-              ]
-            },
-            {
-              "title": "Automatically collected information:",
-              "items": [
-                "We collect data about your activities within our services.",
-                "We collect information about the devices you use to access our services.",
-                "We use cookies to recognize and identify your devices.",
-                "If the Platform incorporates functions requiring location data, we will inform you.",
-                "With your consent, we collect additional information such as health-related data for personalized training.",
-                "If the Platform incorporates AI-based features, we will inform you about their processing."
-              ]
-            }
-          ]
+          "title": "PERSONAL INFORMATION WE COLLECT"
         },
         {
-          "title": "METHODS OF COLLECTION",
-          "content": [
-            "Bivo Training S.L. collects personal data through various channels and means.",
-            "In any case, where applicable, we will give you the option to review and modify the information provided."
-          ]
+          "title": "MINORS"
         },
         {
-          "title": "HOW WE USE YOUR INFORMATION",
-          "content": [
-            "We use your personal information to provide, maintain, and improve our services."
-          ],
-          "subsections": [
-            {
-              "title": "Personal data processing",
-              "items": [
-                "To create, manage, and maintain your account on our platform.",
-                "To tailor our services to your preferences, providing you with a personalized experience.",
-                "To protect our users by preventing, detecting, and investigating fraud and security incidents.",
-                "To comply with our legal and regulatory obligations applicable to our activity."
-              ]
-            },
-            {
-              "title": "Legal basis for processing",
-              "content": "The processing of personal data is carried out on the following legal bases: the execution of a contract, your consent, compliance with legal obligations, and the legitimate interest of the controller."
-            },
-            {
-              "title": "Processing of sports activity data",
-              "content": "Within the framework of the provision of the service, BIVO TRAINING may process sports performance data with your express consent for the purpose of personalizing your training plans."
-            },
-            {
-              "title": "Personalization, automated analysis and artificial intelligence",
-              "content": "BIVO TRAINING may use automated systems, including artificial intelligence, to personalize training recommendations, always based on the data provided by the User and with the appropriate transparency measures."
-            }
-          ]
+          "title": "BIVO COACH – CLUBS, ACADEMIES, FEDERATIONS, GYMS AND COACHES"
         },
         {
-          "title": "HOW WE SHARE YOUR INFORMATION",
-          "content": [
-            "We primarily share your information with other members when you choose to interact with them, with third-party service providers who support our operations, with affiliates, and when required by law."
-          ],
-          "items": [
-            "We share your information with other members when you choose to interact with them through our services.",
-            "We share data with providers that support our operations, such as hosting, analytics, and customer service.",
-            "We share information with BIVO TRAINING affiliates to improve our services.",
-            "We may disclose information to comply with legal processes, respond to legal claims, or protect our rights.",
-            "We may also share your information with third parties when you give us explicit consent."
-          ]
+          "title": "METHODS OF COLLECTION"
         },
         {
-          "title": "DISCLOSURE TO THIRD PARTIES",
-          "content": [
-            "We are committed to ensuring that your personal data is protected against unauthorized access, loss, or alteration. We implement appropriate technical and organizational security measures."
-          ]
+          "title": "HOW WE USE YOUR INFORMATION"
         },
         {
-          "title": "PROCESSING AND USES",
-          "content": [
-            "You may revoke at any time the authorization you have granted for the processing of your personal data by contacting us through the channels indicated in the following section."
-          ],
-          "subsections": [
-            {
-              "title": "Execution and management of the contracted service and billing",
-              "content": "Without the requested data, it will not be possible to provide the service or fulfill the contractual obligations."
-            },
-            {
-              "title": "Processing of inquiries",
-              "content": "Personal data, contact information, and images will be kept for the duration of the contractual relationship and, after its termination, for the period required by applicable legal regulations."
-            },
-            {
-              "title": "Quality Service",
-              "content": "To fulfill our quality commitments with the client, satisfaction surveys may be conducted."
-            },
-            {
-              "title": "Information about Bivo Training S.L. services",
-              "content": "To keep you informed about the services provided by BIVO TRAINING, we may send you commercial communications."
-            },
-            {
-              "title": "Browsing",
-              "content": "When browsing BIVO TRAINING, non-identifying data may be collected through cookies and analytics tools."
-            }
-          ]
+          "title": "LEGAL BASIS FOR PROCESSING"
         },
         {
-          "title": "GOOGLE ANALYTICS",
-          "content": [
-            "This website uses Google Analytics, an analytics service provided by Google, Inc.",
-            "Google Analytics uses cookies, which are text files placed on your computer, to help the website analyze how users use the site.",
-            "You can reject the processing of data or information by Google Analytics by downloading and installing the browser opt-out add-on.",
-            "We use Google Analytics with IP anonymization features activated."
-          ]
+          "title": "PROCESSING OF SPORTS ACTIVITY DATA"
         },
         {
-          "title": "EXERCISE OF RIGHTS",
-          "content": [
-            "You may send written communications for the exercise of your data protection rights to the following address."
-          ],
-          "contact": {
-            "company": "Bivo Training S.L.",
-            "cif": "B-22728117",
-            "email": "Email",
-            "note": "Answer it in less than <0>{seconds} seconds</0>",
-            "channels": "You may also direct your communications through the following channels.",
-            "emailChannel": "By email to hello@bivotraining.com",
-            "identityNote": "Data requests may require you to provide proof of identity to process your request.",
-            "reclaimNote": "You may also file a claim directly with the Spanish Data Protection Agency.",
-            "reclaimItems": [
-              "If you have requested to exercise your rights and have not received a response within the legal timeframe.",
-              "If you have received a response but do not agree with it.",
-              "If you believe that the data controller has infringed applicable data protection regulations."
-            ],
-            "infoLink": "In any case, you can obtain general information about data protection at the Spanish Data Protection Agency."
-          }
+          "title": "PERSONALISATION, AUTOMATED ANALYSIS AND ARTIFICIAL INTELLIGENCE"
+        },
+        {
+          "title": "HOW WE SHARE YOUR INFORMATION"
+        },
+        {
+          "title": "DISCLOSURE TO THIRD PARTIES AND INTERNATIONAL TRANSFERS"
+        },
+        {
+          "title": "YOUR RIGHTS AND CHOICES"
+        },
+        {
+          "title": "RETENTION AND DELETION OF DATA"
+        },
+        {
+          "title": "PROCESSING AND USES"
+        },
+        {
+          "title": "BROWSING AND COOKIES"
+        },
+        {
+          "title": "GOOGLE ANALYTICS"
+        },
+        {
+          "title": "EXERCISE OF RIGHTS"
         }
       ],
-      "lastUpdate": "Last updated:",
-      "contactQuestion": "For any questions about this policy, contact us at: hello@bivotraining.com"
+      "lastUpdate": "Last updated: 27 August 2026",
+      "contactQuestion": "For any enquiry about this policy, contact us at:"
     },
     "terms": {
       "heading": "TERMS AND CONDITIONS AND LEGAL INFORMATION",
-      "intro": "These terms and conditions and legal information (hereinafter \"Terms and Conditions\") govern the use and access to the website https://www.bivotraining.com/ and the digital platform \"BIVO TRAINING\" (hereinafter referred to individually or collectively as the \"Website\" or the \"Platform\"), owned by BIVO TRAINING (hereinafter, indistinctly, \"BIVO TRAINING\" or the \"Responsible Party\"). Bivo Training S.L. informs Users that it complies with current data protection regulations, and in particular, with Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection Regulation) and with the Law on Information Society Services and Electronic Commerce, Law 34/2002, of July 11.",
+      "intro": "These terms and conditions and legal information (hereinafter, \"Terms and Conditions\") govern the use and access to the website https://www.bivotraining.com/, the mobile application and the digital platform \"BIVO TRAINING\" and other associated services (hereinafter referred to individually or collectively as the \"Platform\"), owned by BIVO TRAINING (hereinafter, indistinctly, \"BIVO TRAINING\" or the \"Responsible Party\").",
+      "complianceNote": "Bivo Training S.L. informs Users that it complies with current data protection regulations and, in particular, with Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and with the Law on Information Society Services and Electronic Commerce, Law 34/2002, of July 11.",
       "entityInfo": {
         "identity": "Identity:",
-        "identityValue": "Bivo Training S.L",
+        "identityValue": "Bivo Training S.L.",
         "nif": "Tax ID:",
         "nifValue": "B-22728117",
         "address": "Postal address:",
         "addressValue": "Av. des Camp Verd, 4, Centre Bit Menorca (Alaior), Illes Balears, Spain.",
-        "email": "Email",
+        "email": "Email:",
         "emailValue": "hello@bivotraining.com"
       },
-      "acceptanceNote": "Registration, access and browsing of the Platform implies full and unreserved acceptance of these Terms and Conditions by the browsers and Users of the Website.",
+      "acceptanceNote": "Registration, access, browsing or use of the Platform implies full and unreserved acceptance of these Terms and Conditions.",
       "sections": [
         {
           "number": "1",
           "title": "PURPOSE",
           "content": [
-            "This document regulates access and use of the BIVO TRAINING digital platform.",
-            "By registering, accessing, or using the platform, you declare that you have read and understood, and accept, these Terms and Conditions."
+            "This document regulates access to and use of the BIVO TRAINING platform, including the website, the mobile application and other associated services, which provides Users with access to physical training designed by coaches specialised in racket sports and adapted to the Users' level and goals.",
+            "By registering, accessing or using the Platform, the User declares that they have read and fully accept these Terms. If they do not accept them, they must refrain from using the service."
           ]
         },
         {
@@ -640,128 +498,119 @@
         },
         {
           "number": "4",
-          "title": "USERS AND CONTRACT TERMINATION (ACCOUNT DELETION)"
+          "title": "BIVO COACH AND SERVICES FOR ENTITIES AND PROFESSIONALS"
         },
         {
           "number": "5",
-          "title": "PLATFORM FEATURES"
+          "title": "MINORS"
         },
         {
           "number": "6",
-          "title": "USER OBLIGATIONS"
+          "title": "USERS AND CONTRACT TERMINATION (ACCOUNT DELETION)"
         },
         {
           "number": "7",
-          "title": "PROTECTION OF PERSONAL DATA"
+          "title": "PLATFORM FEATURES"
         },
         {
           "number": "8",
-          "title": "CAMERA ACCESS AND PROCESSING OF USER IMAGES"
+          "title": "USER OBLIGATIONS"
         },
         {
           "number": "9",
-          "title": "INTELLECTUAL PROPERTY"
+          "title": "PROTECTION OF PERSONAL DATA"
         },
         {
           "number": "10",
-          "title": "ARTIFICIAL INTELLIGENCE"
+          "title": "CAMERA AND DEVICE PERMISSIONS"
         },
         {
           "number": "11",
-          "title": "LINKS"
+          "title": "INTELLECTUAL PROPERTY"
         },
         {
           "number": "12",
-          "title": "LIABILITY IN THE PROVISION OF TELEMATIC SERVICES"
+          "title": "ARTIFICIAL INTELLIGENCE"
         },
         {
           "number": "13",
-          "title": "USE OF SERVICES AND USER RESPONSIBILITY REGARDING HEALTH"
+          "title": "LINKS"
         },
         {
           "number": "14",
-          "title": "INDEPENDENCE OF CLAUSES"
+          "title": "LIABILITY IN THE PROVISION OF TELEMATIC SERVICES"
         },
         {
           "number": "15",
-          "title": "UPDATING AND MODIFICATION OF THE WEBSITE OR PLATFORM"
+          "title": "USE OF SERVICES AND USER RESPONSIBILITY REGARDING HEALTH"
         },
         {
           "number": "16",
-          "title": "APPLICABLE LEGISLATION"
+          "title": "INDEPENDENCE OF CLAUSES"
         },
         {
           "number": "17",
+          "title": "UPDATING AND MODIFICATION OF THE WEBSITE, APPLICATION OR PLATFORM"
+        },
+        {
+          "number": "18",
+          "title": "APPLICABLE LEGISLATION"
+        },
+        {
+          "number": "19",
           "title": "UPDATING OF TERMS AND CONDITIONS"
         }
       ],
-      "lastUpdate": "Last updated:",
-      "contact": "Contact"
+      "lastUpdate": "Last updated: 27 August 2026",
+      "contact": "For any enquiry, contact us at:"
     },
     "cookies": {
       "heading": "COOKIE POLICY",
-      "intro": "The Cookie Policy is an essential part of the privacy rules and policies of the website of Bivo Training S.L. (hereinafter \"BIVO TRAINING\"), hereinafter referred to as the \"Website\". By accessing or browsing the Website, or by using its services, you automatically accept the terms and conditions established in our rules and legal policies.",
-      "description": "To make your browsing experience on our Website simpler and more effective, we want to inform you that BIVO TRAINING, the owner entity, with tax ID number B-22728117 and registered address at Av. des Camp Verd, 4, Centre Bit Menorca (Alaior), Illes Balears, Spain, uses cookies that store and retrieve information in a similar manner, which we will refer to as \"cookies\" hereafter.",
-      "summaryNote": "With the intention of providing you with all the necessary information so you can browse with confidence, we provide the following informative summary explaining what cookies are, what types of cookies we use on our Website, and how you can configure or disable them as you wish.",
-      "lastModified": "This cookie policy was last modified on 13/03/2026.",
+      "configureButton": "Configure cookies",
       "sections": [
         {
-          "title": "WHAT IS A COOKIE?",
-          "content": [
-            "A cookie is a small piece of data, usually in the form of text files, that a website requests from your browser to be stored on your device. These cookies serve to remember information about you, such as your language preferences or login details.",
-            "Cookies play a fundamental role in the functioning of the internet by providing technical solutions that facilitate user navigation on various websites. It is important to note that they do not cause damage to the user's equipment or device. When enabled in browser settings, they also help identify and solve potential operational problems on the website. In addition to their technical function, cookies can have applications in advertising and analytics."
-          ]
+          "number": "1",
+          "title": "INTRODUCTION"
         },
         {
-          "title": "USE OF COOKIES BY THE WEBSITE OWNER",
-          "content": "BIVO TRAINING uses both first-party cookies, which are created directly by our domain, and third-party cookies, which come from external websites not affiliated with BIVO TRAINING and are owned by third-party companies. These cookies are used for the specific purposes described below."
+          "number": "2",
+          "title": "WHAT ARE COOKIES?"
         },
         {
-          "title": "STRICTLY NECESSARY COOKIES",
-          "content": "These are cookies that allow users to browse a website, platform, or application and use various options and services available on it. For example, these cookies facilitate traffic control and data transfer, identify the user session, provide access to restricted access sections, remember order items, manage the purchase process, allow event registration, ensure security during browsing, store multimedia content, and enable sharing content on social networks."
+          "number": "3",
+          "title": "TYPES OF COOKIES USED"
         },
         {
-          "title": "FUNCTIONALITY COOKIES",
-          "content": "These refer to cookies that allow users to access the service with predefined general features, considering the circumstances of their device or previous choices. This includes aspects such as the selected language, font type, and image layout depending on whether accessed from a computer or mobile device, among others."
+          "number": "4",
+          "title": "COOKIES AND TECHNOLOGIES USED"
         },
         {
-          "title": "PERFORMANCE COOKIES",
-          "content": "These cookies collect data on how visitors interact with the website, such as the most visited pages, detection of error messages on web pages, sections they access, and buttons they select. The information obtained through these cookies does not identify visitors; it remains anonymous as it is aggregated. The purpose of these cookies is to collect statistics and reports used to improve website performance."
+          "number": "5",
+          "title": "COOKIE RETENTION"
         },
         {
-          "title": "TARGETING COOKIES",
-          "content": "These cookies retain data on how users behave online, collected through constant observation of their browsing patterns. This enables the creation of detailed profiles used to personalize advertising, either on this Website or on other third-party websites."
+          "number": "6",
+          "title": "THIRD-PARTY COOKIES AND INTERNATIONAL TRANSFERS"
         },
         {
-          "title": "LIST OF COOKIES USED BY THE WEBSITE"
+          "number": "7",
+          "title": "COOKIE MANAGEMENT AND CONFIGURATION"
         },
         {
-          "title": "RETENTION PERIODS",
-          "content": "The cookies used by BIVO TRAINING will remain on your device for the period required to fulfill their original purpose, without exceeding 2 years. However, you always have the option to delete them using your browser settings, as detailed in the \"HOW TO CONFIGURE, REJECT OR BLOCK COOKIES\" section of this policy."
+          "number": "8",
+          "title": "BROWSER SETTINGS"
         },
         {
-          "title": "INTERNATIONAL TRANSFERS",
-          "content": "Certain personal data collected through third-party cookies may be subject to international transfers. In these cases, we assure you that the necessary security measures will be implemented to preserve the confidentiality, integrity, and availability of such information. For additional details on international transfers made by each third party, we recommend consulting the privacy policies of the third parties through the links provided in the configuration panel."
+          "number": "9",
+          "title": "PERSONAL DATA PROTECTION"
         },
         {
-          "title": "HOW TO CONFIGURE, REJECT OR BLOCK COOKIES",
-          "content": "BIVO TRAINING has enabled a configuration panel for the cookies used on the Website, which you can access through the following link. Through this tool, the user has the option to accept all cookies, reject all (except technical cookies necessary for website operation), or configure them gradually.",
-          "configureButton": "Configure cookies",
-          "browserInstructions": {
-            "ie": "In Microsoft Internet Explorer, you will find the option in the Tools menu > Internet Options > Privacy > Settings. For more information, visit:",
-            "firefox": "In Firefox, you will find the option in the Tools menu > Options > Privacy > Cookies. For more information, visit:",
-            "chrome": "In Chrome, in the Options section > Advanced Options > Privacy. For more information:",
-            "opera": "In Opera, in the Security and Privacy option, you can configure the browser. For more information, visit:",
-            "safari": "In Safari, you will find the option in the Preferences/Privacy menu. For more information, visit:"
-          }
-        },
-        {
-          "title": "USER RIGHTS",
-          "content": "See our <link>Privacy Policy</link> for more information on how BIVO TRAINING processes your data."
+          "number": "10",
+          "title": "MODIFICATION OF THE COOKIE POLICY"
         }
       ],
-      "lastUpdate": "Last updated:",
-      "contact": "For any questions about this policy, contact us at: hello@bivotraining.com"
+      "lastUpdate": "Last updated: 27 August 2026",
+      "contact": "For any enquiry about this policy, contact us at:"
     }
   },
   "notFound": {
@@ -1041,12 +890,16 @@
       "finish": "See summary",
       "back": "Back",
       "birthDate": {
-        "title": "What year were you born?",
+        "title": "What is your date of birth?",
         "optional": "Optional",
-        "hint": "it will help us offer you an increasingly personalized experience.",
-        "placeholder": "e.g. 1995",
-        "clear": "Clear year",
-        "currentAge": "Current age: {age} years"
+        "hint": "so we can always show your updated age",
+        "placeholder": "Optional",
+        "clear": "Clear date",
+        "currentAge": "Current age: {age} years",
+        "month": "Month",
+        "year": "Year",
+        "prevMonth": "Previous month",
+        "nextMonth": "Next month"
       },
       "submitting": "Saving...",
       "error": "Could not save onboarding. Please try again.",

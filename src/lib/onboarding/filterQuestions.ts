@@ -9,8 +9,6 @@ export function filterQuestions(
 ): FormQuestion[] {
   const trained = hasTrainedStrength(answers);
   return questions.filter((q) => {
-    // Fecha de nacimiento (14) se muestra en el mismo paso que el nombre (2)
-    if (q.id === 14) return false;
     if (q.id === 7 || q.id === 13) return trained;
     return true;
   });

@@ -1,32 +1,6 @@
-/** Año / fecha de nacimiento. En web pedimos solo el año; se guarda como ISO `YYYY-01-01`. */
+/** Fecha de nacimiento ISO `YYYY-MM-DD` (sin zona horaria). Alineado con BIV-490 / app. */
 
 const ISO_RE = /^\d{4}-\d{2}-\d{2}$/;
-const YEAR_RE = /^\d{4}$/;
-
-export function minBirthYear(today = new Date()): number {
-  return today.getFullYear() - 100;
-}
-
-export function maxBirthYear(today = new Date()): number {
-  return today.getFullYear() - 10;
-}
-
-export function yearFromBirthValue(value: unknown): number | null {
-  if (value == null) return null;
-  if (typeof value === "number") {
-    return Number.isInteger(value) ? value : null;
-  }
-  const s = String(value).trim();
-  if (!s) return null;
-  if (YEAR_RE.test(s)) return parseInt(s, 10);
-  if (ISO_RE.test(s)) return parseInt(s.slice(0, 4), 10);
-  return null;
-}
-
-/** Convierte un año a ISO `YYYY-01-01` para persistir en birthDate. */
-export function birthDateFromYear(year: number): string {
-  return `${year.toString().padStart(4, "0")}-01-01`;
-}
 
 export function isBirthDateIso(value: string | null | undefined): boolean {
   if (!value || !ISO_RE.test(value)) return false;
@@ -35,55 +9,70 @@ export function isBirthDateIso(value: string | null | undefined): boolean {
   return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d;
 }
 
-/** Edad a partir del año (o ISO). Null si no es válido. */
+export function parseBirthDate(iso: string | null | undefined): Date | null {
+  if (!isBirthDateIso(iso)) return null;
+  const [y, m, d] = iso!.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
+export function formatBirthDate(date: Date): string {
+  const y = date.getFullYear().toString().padStart(4, "0");
+  const m = (date.getMonth() + 1).toString().padStart(2, "0");
+  const d = date.getDate().toString().padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+/** DD/MM/YYYY para mostrar en UI (como la app). */
+export function formatBirthDateDisplay(iso: string | null | undefined): string | null {
+  const date = parseBirthDate(iso);
+  if (!date) return null;
+  const d = date.getDate().toString().padStart(2, "0");
+  const m = (date.getMonth() + 1).toString().padStart(2, "0");
+  const y = date.getFullYear();
+  return `${d}/${m}/${y}`;
+}
+
+/** Edad actual en años. Null si la fecha no es válida. */
 export function ageFromBirthDate(value: string | null | undefined, today = new Date()): number | null {
-  const year = yearFromBirthValue(value);
-  if (year == null) return null;
-  const age = today.getFullYear() - year;
-  if (age < 10 || age > 100) return null;
+  const birth = parseBirthDate(value);
+  if (!birth) return null;
+  let age = today.getFullYear() - birth.getFullYear();
+  if (
+    today.getMonth() < birth.getMonth() ||
+    (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())
+  ) {
+    age -= 1;
+  }
   return age;
 }
 
-/** Vacío = ok (opcional). Si hay valor, año con edad 10–100. */
-export function isOptionalBirthDateValid(value: unknown): boolean {
-  if (value == null) return true;
-  const s = typeof value === "string" ? value.trim() : "";
-  if (s === "") return true;
-  // Mientras escribe (1–3 dígitos) no bloqueamos el paso: el año sigue siendo opcional.
-  if (/^\d{1,3}$/.test(s)) return true;
-  // Número suelto: edad legacy 10–100 se ignora; años 4 dígitos se validan.
-  if (typeof value === "number") {
-    if (value >= 10 && value <= 100) return true;
-    const age = ageFromBirthDate(String(value));
-    return age != null;
-  }
-  const age = ageFromBirthDate(s);
-  return age != null;
+export function maxSelectableBirthDate(today = new Date()): Date {
+  return new Date(today.getFullYear() - 10, today.getMonth(), today.getDate());
 }
 
-/** Extrae ISO desde respuesta onboarding (año o ISO; legacy edad ignorada). */
+export function minSelectableBirthDate(today = new Date()): Date {
+  return new Date(today.getFullYear() - 100, today.getMonth(), today.getDate());
+}
+
+/** Vacío = ok (opcional). Si hay valor, ISO válida y edad 10–100. */
+export function isOptionalBirthDateValid(value: unknown): boolean {
+  if (value == null) return true;
+  // Edad numérica legacy del onboarding web anterior: se ignora (sigue siendo opcional).
+  if (typeof value === "number") return true;
+  const s = String(value).trim();
+  if (!s) return true;
+  const age = ageFromBirthDate(s);
+  return age != null && age >= 10 && age <= 100;
+}
+
+/** Extrae ISO desde respuesta onboarding (string ISO; legacy edad/año ignorados o convertidos). */
 export function birthDateFromOnboardingAnswer(answerData: unknown): string | null {
   let raw: unknown = answerData;
   if (answerData && typeof answerData === "object" && "answer" in answerData) {
     raw = (answerData as { answer: unknown }).answer;
   }
   if (raw == null) return null;
-  if (typeof raw === "number") {
-    // Edad legacy 10–100: no hay año fiable
-    if (raw >= 10 && raw <= 100) return null;
-    if (raw >= minBirthYear() && raw <= maxBirthYear()) {
-      return birthDateFromYear(raw);
-    }
-    return null;
-  }
+  if (typeof raw === "number") return null;
   const s = String(raw).trim();
-  if (!s) return null;
-  if (YEAR_RE.test(s)) {
-    const year = parseInt(s, 10);
-    if (year >= minBirthYear() && year <= maxBirthYear()) {
-      return birthDateFromYear(year);
-    }
-    return null;
-  }
   return isBirthDateIso(s) ? s : null;
 }

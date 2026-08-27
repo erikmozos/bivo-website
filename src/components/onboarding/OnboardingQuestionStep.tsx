@@ -1,16 +1,24 @@
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calendar } from "lucide-react";
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { addMonths, format, setMonth as setDateMonth, setYear as setDateYear } from "date-fns";
+import { es, enUS } from "date-fns/locale";
+import type { CaptionProps } from "react-day-picker";
 import type { FormQuestion, OnboardingAnswerValue, QuestionOption } from "@/types/onboarding";
 import { resolveOnboardingImage } from "@/lib/onboarding/imagePaths";
 import { isStrengthReadyToSubmit } from "@/lib/onboarding/strengthAnswer";
 import { MAX_TRAINING_DAYS, WEEKDAYS } from "@/lib/onboarding/weekdays";
 import {
-  birthDateFromYear,
+  ageFromBirthDate,
+  formatBirthDate,
+  formatBirthDateDisplay,
   isOptionalBirthDateValid,
-  maxBirthYear,
-  minBirthYear,
-  yearFromBirthValue,
+  maxSelectableBirthDate,
+  minSelectableBirthDate,
+  parseBirthDate,
 } from "@/lib/onboarding/birthDate";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   MobilityOptionCard,
   OnboardingQuestionShell,
@@ -19,15 +27,18 @@ import {
   onboardingInputClass,
 } from "./OnboardingUi";
 
+const selectClass =
+  "appearance-none rounded-lg border border-white/15 bg-[#0a1018] px-2.5 py-1.5 text-sm text-white outline-none focus:border-bivo-green/50 focus:ring-1 focus:ring-bivo-green/40";
+
+const navBtnClass =
+  "inline-flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:pointer-events-none";
+
+
 interface OnboardingQuestionStepProps {
   question: FormQuestion;
   value: OnboardingAnswerValue | undefined;
   onChange: (value: OnboardingAnswerValue) => void;
   weekdayLabels: Record<string, string>;
-  /** Fecha de nacimiento (pregunta 14) debajo del nombre en el paso 2 */
-  birthDateValue?: OnboardingAnswerValue | undefined;
-  onBirthDateChange?: (value: OnboardingAnswerValue) => void;
-  birthDateLabel?: string;
 }
 
 function useSplitStack(question: FormQuestion): boolean {
@@ -86,90 +97,184 @@ function BirthDateField({
   value,
   onChange,
   placeholder,
-  title,
-  embedded = false,
 }: {
   value: OnboardingAnswerValue | undefined;
   onChange: (value: OnboardingAnswerValue) => void;
   placeholder: string;
-  title?: string;
-  embedded?: boolean;
 }) {
-  const { t } = useTranslation();
-  const minYear = minBirthYear();
-  const maxYear = maxBirthYear();
+  const { t, i18n } = useTranslation();
+  const [open, setOpen] = useState(false);
 
-  // Mostrar dígitos parciales (1–3) o el año completo; no descartar mientras se escribe.
-  const yearText = (() => {
-    if (value == null) return "";
-    if (typeof value === "number") {
-      if (value >= 10 && value <= 100) return ""; // edad legacy
-      return String(value);
-    }
-    const s = String(value).trim();
-    if (!s) return "";
-    if (/^\d{1,4}$/.test(s)) return s;
-    const year = yearFromBirthValue(s);
-    return year != null ? String(year) : "";
-  })();
+  const iso = typeof value === "string" && value.trim() ? value.trim() : "";
+  const selected = parseBirthDate(iso);
+  const display = formatBirthDateDisplay(iso);
+  const age = ageFromBirthDate(iso);
+  const minDate = minSelectableBirthDate();
+  const maxDate = maxSelectableBirthDate();
+  const locale = i18n.language?.startsWith("en") ? enUS : es;
 
-  const handleYearChange = (raw: string) => {
-    const digits = raw.replace(/\D/g, "").slice(0, 4);
-    if (!digits) {
-      onChange("");
-      return;
-    }
-    if (digits.length < 4) {
-      onChange(digits);
-      return;
-    }
-    const n = parseInt(digits, 10);
-    if (Number.isNaN(n)) {
-      onChange("");
-      return;
-    }
-    onChange(birthDateFromYear(n));
-  };
+  const [month, setMonth] = useState<Date>(() => selected ?? maxDate);
 
-  const body = (
-    <>
-      {title && (
-        <label htmlFor="onboarding-birth-year" className="block text-sm font-medium text-white/80">
-          {title}
-        </label>
-      )}
-      <p className={`text-sm text-gray-400 leading-relaxed ${embedded ? "text-left" : "text-center"}`}>
+  const years = useMemo(() => {
+    const list: number[] = [];
+    for (let y = maxDate.getFullYear(); y >= minDate.getFullYear(); y -= 1) {
+      list.push(y);
+    }
+    return list;
+  }, [minDate, maxDate]);
+
+  const monthOptions = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, i) => ({
+        value: i,
+        label: format(new Date(2000, i, 1), "MMMM", { locale }),
+      })),
+    [locale]
+  );
+
+  const canGoPrev = addMonths(month, -1) >= new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+  const canGoNext = addMonths(month, 1) <= new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
+
+  const BirthCaption = ({ displayMonth }: CaptionProps) => (
+    <div className="mb-3 flex items-center gap-2">
+      <select
+        className={`${selectClass} min-w-0 flex-1 capitalize`}
+        value={displayMonth.getMonth()}
+        aria-label={t("appFlow.onboarding.birthDate.month")}
+        onChange={(e) => {
+          setMonth(setDateMonth(displayMonth, Number(e.target.value)));
+        }}
+      >
+        {monthOptions.map((m) => (
+          <option key={m.value} value={m.value}>
+            {m.label}
+          </option>
+        ))}
+      </select>
+      <select
+        className={`${selectClass} w-[5.5rem] shrink-0`}
+        value={displayMonth.getFullYear()}
+        aria-label={t("appFlow.onboarding.birthDate.year")}
+        onChange={(e) => {
+          setMonth(setDateYear(displayMonth, Number(e.target.value)));
+        }}
+      >
+        {years.map((y) => (
+          <option key={y} value={y}>
+            {y}
+          </option>
+        ))}
+      </select>
+      <div className="ml-auto flex shrink-0 items-center gap-0.5">
+        <button
+          type="button"
+          className={navBtnClass}
+          disabled={!canGoPrev}
+          aria-label={t("appFlow.onboarding.birthDate.prevMonth")}
+          onClick={() => setMonth(addMonths(displayMonth, -1))}
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          className={navBtnClass}
+          disabled={!canGoNext}
+          aria-label={t("appFlow.onboarding.birthDate.nextMonth")}
+          onClick={() => setMonth(addMonths(displayMonth, 1))}
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <OnboardingQuestionShell>
+      <p className="text-center text-sm text-gray-400 leading-relaxed">
         <span className="text-bivo-green font-medium">{t("appFlow.onboarding.birthDate.optional")}</span>
         {" — "}
         {t("appFlow.onboarding.birthDate.hint")}
       </p>
-      <div className="relative">
-        <Calendar
-          className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-bivo-green"
-          aria-hidden
-        />
-        <input
-          id="onboarding-birth-year"
-          type="text"
-          inputMode="numeric"
-          autoComplete="bday-year"
-          maxLength={4}
-          min={minYear}
-          max={maxYear}
-          value={yearText}
-          onChange={(e) => handleYearChange(e.target.value)}
-          placeholder={placeholder}
-          className={`${onboardingInputClass} pl-12`}
-        />
-      </div>
-    </>
+
+      <Popover
+        open={open}
+        onOpenChange={(next) => {
+          setOpen(next);
+          if (next) setMonth(selected ?? maxDate);
+        }}
+      >
+        <div className={`${onboardingInputClass} flex items-center gap-3`}>
+          <PopoverTrigger asChild>
+            <button
+              type="button"
+              className="flex min-w-0 flex-1 items-center gap-3 text-left"
+              aria-label={t("appFlow.onboarding.birthDate.title")}
+            >
+              <CalendarIcon className="h-5 w-5 shrink-0 text-bivo-green" aria-hidden />
+              <span className={`truncate ${display ? "text-white" : "text-gray-500"}`}>
+                {display ?? placeholder}
+              </span>
+            </button>
+          </PopoverTrigger>
+          {display && (
+            <button
+              type="button"
+              aria-label={t("appFlow.onboarding.birthDate.clear")}
+              className="rounded-full p-1 text-gray-400 hover:text-white hover:bg-white/10"
+              onClick={() => onChange("")}
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+        <PopoverContent
+          align="center"
+          className="w-auto border-white/10 bg-[#121c2e] p-3 text-white shadow-xl"
+        >
+          <Calendar
+            mode="single"
+            locale={locale}
+            month={month}
+            onMonthChange={setMonth}
+            selected={selected ?? undefined}
+            fromDate={minDate}
+            toDate={maxDate}
+            onSelect={(date) => {
+              if (!date) return;
+              onChange(formatBirthDate(date));
+              setOpen(false);
+            }}
+            components={{ Caption: BirthCaption }}
+            className="p-0"
+            classNames={{
+              months: "flex flex-col",
+              month: "space-y-2",
+              caption: "relative",
+              table: "w-full border-collapse",
+              head_row: "flex w-full",
+              head_cell:
+                "text-gray-400 w-9 font-medium text-[0.7rem] uppercase tracking-wide",
+              row: "flex w-full mt-1",
+              cell: "relative h-9 w-9 p-0 text-center text-sm focus-within:relative focus-within:z-20",
+              day: "h-9 w-9 rounded-full p-0 font-normal text-white hover:bg-white/10 aria-selected:opacity-100",
+              day_selected:
+                "bg-bivo-green text-black hover:bg-bivo-green hover:text-black focus:bg-bivo-green focus:text-black",
+              day_today: "ring-1 ring-bivo-green/50 text-bivo-green",
+              day_outside: "text-gray-600 opacity-40",
+              day_disabled: "text-gray-600 opacity-30",
+              nav: "hidden",
+            }}
+          />
+        </PopoverContent>
+      </Popover>
+
+      {age != null && (
+        <p className="text-center text-sm text-gray-400">
+          {t("appFlow.onboarding.birthDate.currentAge", { age })}
+        </p>
+      )}
+    </OnboardingQuestionShell>
   );
-
-  if (embedded) {
-    return <div className="space-y-2 pt-1">{body}</div>;
-  }
-
-  return <OnboardingQuestionShell>{body}</OnboardingQuestionShell>;
 }
 
 const OnboardingQuestionStep = ({
@@ -177,9 +282,6 @@ const OnboardingQuestionStep = ({
   value,
   onChange,
   weekdayLabels,
-  birthDateValue,
-  onBirthDateChange,
-  birthDateLabel,
 }: OnboardingQuestionStepProps) => {
   const { t } = useTranslation();
   const questionImage = resolveOnboardingImage(question.image);
@@ -204,15 +306,6 @@ const OnboardingQuestionStep = ({
               autoComplete="given-name"
             />
           </div>
-          {question.id === 2 && onBirthDateChange && (
-            <BirthDateField
-              value={birthDateValue}
-              onChange={onBirthDateChange}
-              placeholder={t("appFlow.onboarding.birthDate.placeholder")}
-              title={birthDateLabel ?? t("appFlow.onboarding.birthDate.title")}
-              embedded
-            />
-          )}
         </OnboardingQuestionShell>
       );
 
@@ -343,22 +436,11 @@ const OnboardingQuestionStep = ({
   }
 };
 
-export function isNameAndBirthDateValid(
-  nameValue: OnboardingAnswerValue | undefined,
-  birthDateValue: OnboardingAnswerValue | undefined
-): boolean {
-  const nameOk = typeof nameValue === "string" && nameValue.trim().length > 0;
-  return nameOk && isOptionalBirthDateValid(birthDateValue);
-}
-
 export function isAnswerValid(
   question: FormQuestion,
   value: OnboardingAnswerValue | undefined
 ): boolean {
   if (question.id === 5) return isStrengthReadyToSubmit(value);
-  if (question.id === 2) {
-    return typeof value === "string" && value.trim().length > 0;
-  }
   if (question.type === "date" || question.id === 14) {
     return isOptionalBirthDateValid(value);
   }
