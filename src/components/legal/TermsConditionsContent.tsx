@@ -152,6 +152,14 @@ const TermsConditionsContent = () => {
         Cuando finalice la relación entre la Entidad y un deportista, cliente, alumno, usuario o federado, la Entidad deberá dejar de acceder a su información a través de BIVO COACH cuando ya no exista una base legítima para dicho acceso, sin perjuicio de los plazos de conservación que resulten legalmente aplicables.
       </p>
       <p className="mb-4">
+        Cuando el acceso de un Usuario a BIVO TRAINING esté vinculado a una licencia, suscripción o acuerdo contratado por una Entidad, dicho acceso podrá finalizar o modificarse si termina, se suspende o cancela la relación entre la Entidad y BIVO TRAINING, o si la Entidad deja de incluir al Usuario entre sus beneficiarios.
+      </p>
+      <p className="mb-4">
+        La finalización de dicho acceso no implicará, con carácter general, la pérdida de la cuenta ni del historial de actividad y entrenamiento del Usuario, que se conservará conforme a lo establecido en la{" "}
+        <a href={privacyPath} className="text-bivo-green hover:underline">Política de Privacidad</a>
+        . El Usuario podrá, si lo desea, contratar directamente alguno de los planes disponibles de BIVO TRAINING y continuar utilizando el servicio de forma independiente.
+      </p>
+      <p className="mb-4">
         Bivo Training S.L. prestará BIVO COACH conforme a las funcionalidades contratadas o habilitadas y tratará la información de acuerdo con las finalidades, instrucciones y responsabilidades que correspondan en cada caso.
       </p>
       <p className="mb-4">
