@@ -884,16 +884,13 @@
       "finish": "Ver resumen",
       "back": "Atrás",
       "birthDate": {
-        "title": "¿Cuál es tu fecha de nacimiento?",
+        "title": "¿En qué año naciste?",
         "optional": "Opcional",
         "hint": "así podremos mostrar siempre tu edad actualizada",
         "placeholder": "Opcional",
-        "clear": "Quitar fecha",
+        "clear": "Quitar año",
         "currentAge": "Edad actual: {age} años",
-        "month": "Mes",
-        "year": "Año",
-        "prevMonth": "Mes anterior",
-        "nextMonth": "Mes siguiente"
+        "year": "Año"
       },
       "submitting": "Guardando...",
       "error": "No se pudo guardar el onboarding. Inténtalo de nuevo.",

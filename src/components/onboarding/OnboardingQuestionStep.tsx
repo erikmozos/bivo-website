@@ -1,24 +1,17 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, X } from "lucide-react";
-import { addMonths, format, setMonth as setDateMonth, setYear as setDateYear } from "date-fns";
-import { es, enUS } from "date-fns/locale";
-import type { CaptionProps } from "react-day-picker";
+import { Calendar as CalendarIcon, X } from "lucide-react";
 import type { FormQuestion, OnboardingAnswerValue, QuestionOption } from "@/types/onboarding";
 import { resolveOnboardingImage } from "@/lib/onboarding/imagePaths";
 import { isStrengthReadyToSubmit } from "@/lib/onboarding/strengthAnswer";
 import { MAX_TRAINING_DAYS, WEEKDAYS } from "@/lib/onboarding/weekdays";
 import {
   ageFromBirthDate,
-  formatBirthDate,
-  formatBirthDateDisplay,
   isOptionalBirthDateValid,
-  maxSelectableBirthDate,
-  minSelectableBirthDate,
-  parseBirthDate,
+  maxSelectableBirthYear,
+  minSelectableBirthYear,
+  parseBirthYear,
 } from "@/lib/onboarding/birthDate";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   MobilityOptionCard,
   OnboardingQuestionShell,
@@ -26,12 +19,6 @@ import {
   SplitOptionCard,
   onboardingInputClass,
 } from "./OnboardingUi";
-
-const selectClass =
-  "appearance-none rounded-lg border border-white/15 bg-[#0a1018] px-2.5 py-1.5 text-sm text-white outline-none focus:border-bivo-green/50 focus:ring-1 focus:ring-bivo-green/40";
-
-const navBtnClass =
-  "inline-flex h-8 w-8 items-center justify-center rounded-full text-white/80 transition hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:pointer-events-none";
 
 
 interface OnboardingQuestionStepProps {
@@ -102,91 +89,21 @@ function BirthDateField({
   onChange: (value: OnboardingAnswerValue) => void;
   placeholder: string;
 }) {
-  const { t, i18n } = useTranslation();
-  const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
-  const iso = typeof value === "string" && value.trim() ? value.trim() : "";
-  const selected = parseBirthDate(iso);
-  const display = formatBirthDateDisplay(iso);
-  const age = ageFromBirthDate(iso);
-  const minDate = minSelectableBirthDate();
-  const maxDate = maxSelectableBirthDate();
-  const locale = i18n.language?.startsWith("en") ? enUS : es;
-
-  const [month, setMonth] = useState<Date>(() => selected ?? maxDate);
+  const raw = typeof value === "string" && value.trim() ? value.trim() : "";
+  const selectedYear = parseBirthYear(raw);
+  const age = ageFromBirthDate(raw);
+  const minYear = minSelectableBirthYear();
+  const maxYear = maxSelectableBirthYear();
 
   const years = useMemo(() => {
     const list: number[] = [];
-    for (let y = maxDate.getFullYear(); y >= minDate.getFullYear(); y -= 1) {
+    for (let y = maxYear; y >= minYear; y -= 1) {
       list.push(y);
     }
     return list;
-  }, [minDate, maxDate]);
-
-  const monthOptions = useMemo(
-    () =>
-      Array.from({ length: 12 }, (_, i) => ({
-        value: i,
-        label: format(new Date(2000, i, 1), "MMMM", { locale }),
-      })),
-    [locale]
-  );
-
-  const canGoPrev = addMonths(month, -1) >= new Date(minDate.getFullYear(), minDate.getMonth(), 1);
-  const canGoNext = addMonths(month, 1) <= new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
-
-  const BirthCaption = ({ displayMonth }: CaptionProps) => (
-    <div className="mb-3 flex items-center gap-2">
-      <select
-        className={`${selectClass} min-w-0 flex-1 capitalize`}
-        value={displayMonth.getMonth()}
-        aria-label={t("appFlow.onboarding.birthDate.month")}
-        onChange={(e) => {
-          setMonth(setDateMonth(displayMonth, Number(e.target.value)));
-        }}
-      >
-        {monthOptions.map((m) => (
-          <option key={m.value} value={m.value}>
-            {m.label}
-          </option>
-        ))}
-      </select>
-      <select
-        className={`${selectClass} w-[5.5rem] shrink-0`}
-        value={displayMonth.getFullYear()}
-        aria-label={t("appFlow.onboarding.birthDate.year")}
-        onChange={(e) => {
-          setMonth(setDateYear(displayMonth, Number(e.target.value)));
-        }}
-      >
-        {years.map((y) => (
-          <option key={y} value={y}>
-            {y}
-          </option>
-        ))}
-      </select>
-      <div className="ml-auto flex shrink-0 items-center gap-0.5">
-        <button
-          type="button"
-          className={navBtnClass}
-          disabled={!canGoPrev}
-          aria-label={t("appFlow.onboarding.birthDate.prevMonth")}
-          onClick={() => setMonth(addMonths(displayMonth, -1))}
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          className={navBtnClass}
-          disabled={!canGoNext}
-          aria-label={t("appFlow.onboarding.birthDate.nextMonth")}
-          onClick={() => setMonth(addMonths(displayMonth, 1))}
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
-      </div>
-    </div>
-  );
+  }, [minYear, maxYear]);
 
   return (
     <OnboardingQuestionShell>
@@ -196,77 +113,36 @@ function BirthDateField({
         {t("appFlow.onboarding.birthDate.hint")}
       </p>
 
-      <Popover
-        open={open}
-        onOpenChange={(next) => {
-          setOpen(next);
-          if (next) setMonth(selected ?? maxDate);
-        }}
-      >
-        <div className={`${onboardingInputClass} flex items-center gap-3`}>
-          <PopoverTrigger asChild>
-            <button
-              type="button"
-              className="flex min-w-0 flex-1 items-center gap-3 text-left"
-              aria-label={t("appFlow.onboarding.birthDate.title")}
-            >
-              <CalendarIcon className="h-5 w-5 shrink-0 text-bivo-green" aria-hidden />
-              <span className={`truncate ${display ? "text-white" : "text-gray-500"}`}>
-                {display ?? placeholder}
-              </span>
-            </button>
-          </PopoverTrigger>
-          {display && (
-            <button
-              type="button"
-              aria-label={t("appFlow.onboarding.birthDate.clear")}
-              className="rounded-full p-1 text-gray-400 hover:text-white hover:bg-white/10"
-              onClick={() => onChange("")}
-            >
-              <X className="h-4 w-4" />
-            </button>
-          )}
-        </div>
-        <PopoverContent
-          align="center"
-          className="w-auto border-white/10 bg-[#121c2e] p-3 text-white shadow-xl"
+      <div className={`${onboardingInputClass} flex items-center gap-3`}>
+        <CalendarIcon className="h-5 w-5 shrink-0 text-bivo-green" aria-hidden />
+        <select
+          className={`min-w-0 flex-1 appearance-none bg-transparent text-base outline-none ${
+            selectedYear != null ? "text-white" : "text-gray-500"
+          }`}
+          value={selectedYear ?? ""}
+          aria-label={t("appFlow.onboarding.birthDate.title")}
+          onChange={(e) => onChange(e.target.value)}
         >
-          <Calendar
-            mode="single"
-            locale={locale}
-            month={month}
-            onMonthChange={setMonth}
-            selected={selected ?? undefined}
-            fromDate={minDate}
-            toDate={maxDate}
-            onSelect={(date) => {
-              if (!date) return;
-              onChange(formatBirthDate(date));
-              setOpen(false);
-            }}
-            components={{ Caption: BirthCaption }}
-            className="p-0"
-            classNames={{
-              months: "flex flex-col",
-              month: "space-y-2",
-              caption: "relative",
-              table: "w-full border-collapse",
-              head_row: "flex w-full",
-              head_cell:
-                "text-gray-400 w-9 font-medium text-[0.7rem] uppercase tracking-wide",
-              row: "flex w-full mt-1",
-              cell: "relative h-9 w-9 p-0 text-center text-sm focus-within:relative focus-within:z-20",
-              day: "h-9 w-9 rounded-full p-0 font-normal text-white hover:bg-white/10 aria-selected:opacity-100",
-              day_selected:
-                "bg-bivo-green text-black hover:bg-bivo-green hover:text-black focus:bg-bivo-green focus:text-black",
-              day_today: "ring-1 ring-bivo-green/50 text-bivo-green",
-              day_outside: "text-gray-600 opacity-40",
-              day_disabled: "text-gray-600 opacity-30",
-              nav: "hidden",
-            }}
-          />
-        </PopoverContent>
-      </Popover>
+          <option value="" className="bg-[#0a1018] text-gray-500">
+            {placeholder}
+          </option>
+          {years.map((y) => (
+            <option key={y} value={y} className="bg-[#0a1018] text-white">
+              {y}
+            </option>
+          ))}
+        </select>
+        {selectedYear != null && (
+          <button
+            type="button"
+            aria-label={t("appFlow.onboarding.birthDate.clear")}
+            className="rounded-full p-1 text-gray-400 hover:text-white hover:bg-white/10"
+            onClick={() => onChange("")}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
+      </div>
 
       {age != null && (
         <p className="text-center text-sm text-gray-400">

@@ -25,7 +25,7 @@
   },
   {
     "id": 14,
-    "question": "What is your date of birth?",
+    "question": "What year were you born?",
     "type": "date",
     "placeholder": "Optional",
     "forceAnswer": false
