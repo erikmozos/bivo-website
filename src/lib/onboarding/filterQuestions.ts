@@ -39,9 +39,13 @@ export function findNextQuestionIndex(
   const currentIdx = filtered.findIndex((q) => q.id === currentQuestionId);
   if (currentIdx < 0) return 0;
 
+  // Never compare by numeric id: birth date is id 14 but sits earlier in the
+  // flow (after name). Skipping 7/13 must look only at questions after here.
   if (answeredNoStrength && currentQuestionId === 5) {
-    const next = filtered.findIndex((q) => q.id > 5 && q.id !== 13 && q.id !== 7);
-    return next >= 0 ? next : currentIdx + 1;
+    const next = filtered.findIndex(
+      (q, i) => i > currentIdx && q.id !== 13 && q.id !== 7
+    );
+    return next >= 0 ? next : filtered.length;
   }
 
   return currentIdx + 1;

@@ -39,64 +39,26 @@ function listLabels(
   });
 }
 
-function IconBox({ children }: { children: React.ReactNode }) {
+const ICON_DIR = "/onboarding/summary-icons";
+
+const SPORT_ICONS: Record<string, string> = {
+  padel: `${ICON_DIR}/padel.png`,
+  tenis: `${ICON_DIR}/tenis.png`,
+  pickleball: `${ICON_DIR}/pickleball.png`,
+  badminton: `${ICON_DIR}/badminton.png`,
+};
+
+function SummaryIcon({ src }: { src: string }) {
   return (
-    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-bivo-green/35 bg-bivo-green/[0.08] text-bivo-green shadow-[0_0_24px_rgba(57,255,20,0.12)] [&>svg]:h-[22px] [&>svg]:w-[22px]">
-      {children}
+    <span className="isolate flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[14px] bg-[#0e141d]">
+      <img
+        src={src}
+        alt=""
+        aria-hidden
+        className="h-full w-full object-cover mix-blend-lighten select-none"
+        draggable={false}
+      />
     </span>
-  );
-}
-
-function RacketIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <ellipse cx="10.5" cy="9" rx="6.5" ry="7" />
-      <path d="M10.5 2.5v13M4.5 9h12" />
-      <path d="M15.2 14.8 20 21" />
-      <path d="M17.2 16.2c.8.3 1.7 0 2.2-.7" />
-    </svg>
-  );
-}
-
-function LevelIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M4 20V12" />
-      <path d="M10 20V6" />
-      <path d="M16 20v-8" />
-      <path d="M22 20V3" />
-    </svg>
-  );
-}
-
-function CalendarIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <rect x="3" y="5" width="18" height="16" rx="2" />
-      <path d="M3 10h18" />
-      <path d="M8 3v4M16 3v4" />
-      <path d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01" />
-    </svg>
-  );
-}
-
-function KneeIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M8 3c0 2.5-.4 4.2-1.2 6.2-.7 1.7-1.3 3-1.3 5.3 0 3 2 5.5 5.5 5.5S16.5 17.5 16.5 14.5c0-2-.5-3.4-1.3-5.1C14.3 7.3 14 5.6 14 3" />
-      <circle cx="11.5" cy="13.5" r="2.2" />
-      <path d="M9.8 12.2 7.5 9.5M13.2 12.2 15.5 9.5" />
-    </svg>
-  );
-}
-
-function HipIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M8 4c0 2.2-1 4.5-1 7 0 2.8 1.8 4.5 5 4.5s5-1.7 5-4.5c0-2.5-1-4.8-1-7" />
-      <path d="M7 11.5c-1.8.4-3 1.8-3 3.7C4 18 6.2 20 9 20h6c2.8 0 5-2 5-4.8 0-1.9-1.2-3.3-3-3.7" />
-      <path d="M12 15.5V20" />
-    </svg>
   );
 }
 
@@ -119,7 +81,7 @@ function SummaryRow({
         isLast ? "" : "border-b border-white/[0.08]"
       }`}
     >
-      <IconBox>{icon}</IconBox>
+      {icon}
       <div className="min-w-0 flex-1 [text-shadow:0_1px_3px_rgba(0,0,0,1),0_0_16px_rgba(0,0,0,0.9)]">
         <p className="text-[11px] uppercase tracking-[0.08em] text-white/80 mb-1 font-semibold">
           {label}
@@ -179,11 +141,17 @@ const OnboardingSummaryScreen = ({
 
   const rows = (
     <>
-      <SummaryRow icon={<RacketIcon />} label={t("appFlow.onboarding.summary.sport")}>
+      <SummaryRow
+        icon={<SummaryIcon src={SPORT_ICONS[sport] ?? SPORT_ICONS.padel} />}
+        label={t("appFlow.onboarding.summary.sport")}
+      >
         {sportLabel(sport, t)}
       </SummaryRow>
 
-      <SummaryRow icon={<LevelIcon />} label={t("appFlow.onboarding.summary.level")}>
+      <SummaryRow
+        icon={<SummaryIcon src={`${ICON_DIR}/level.png`} />}
+        label={t("appFlow.onboarding.summary.level")}
+      >
         {levelLoading
           ? t("appFlow.onboarding.summary.calculatingLevel")
           : levelLabel(skillLevel, t)}
@@ -191,7 +159,7 @@ const OnboardingSummaryScreen = ({
 
       {daysLabel && (
         <SummaryRow
-          icon={<CalendarIcon />}
+          icon={<SummaryIcon src={`${ICON_DIR}/calendar.png`} />}
           label={t("appFlow.onboarding.summary.frequency")}
           note={t("appFlow.onboarding.summary.frequencyNote")}
         >
@@ -200,7 +168,10 @@ const OnboardingSummaryScreen = ({
       )}
 
       {pains.length > 0 && (
-        <SummaryRow icon={<KneeIcon />} label={t("appFlow.onboarding.summary.painsTitle")}>
+        <SummaryRow
+          icon={<SummaryIcon src={`${ICON_DIR}/knee.png?v=5`} />}
+          label={t("appFlow.onboarding.summary.painsTitle")}
+        >
           <div className="flex flex-wrap gap-1.5">
             {pains.map((p) => (
               <span
@@ -216,7 +187,7 @@ const OnboardingSummaryScreen = ({
 
       {mobility.length > 0 && (
         <SummaryRow
-          icon={<HipIcon />}
+          icon={<SummaryIcon src={`${ICON_DIR}/hip.png?v=5`} />}
           label={t("appFlow.onboarding.summary.mobilityTitle")}
           isLast
         >
@@ -268,7 +239,7 @@ const OnboardingSummaryScreen = ({
       </div>
 
       <div className="rounded-[18px] border border-bivo-green/20 bg-bivo-green/[0.05] p-4 flex gap-3.5 items-start">
-        <ShieldCheck size={26} className="shrink-0 text-bivo-green mt-0.5" strokeWidth={1.75} />
+        <ShieldCheck size={26} className="shrink-0 text-bivo-green mt-0.5 drop-shadow-[0_0_5px_rgba(57,255,20,0.55)]" strokeWidth={1.75} />
         <div>
           <p className="font-bold text-white text-[15px] leading-snug">
             {t("appFlow.onboarding.summary.guaranteeTitle")}
