@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { applySeoToHtml } from "./src/lib/seo";
+import { vercelApiDevPlugin } from "./vite-plugin-api";
 
 function localeHtmlPlugin(): Plugin {
   const isEnPath = (url?: string) =>
@@ -60,6 +61,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     localeHtmlPlugin(),
+    vercelApiDevPlugin(),
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),

@@ -29,6 +29,7 @@ import {
   logPackageDiagnostics,
 } from "@/lib/revenuecatDiagnostics";
 import { redeemPromoCode, waitForEntitlementActive } from "@/lib/subscription";
+import { notifyAppLifecycleEmail } from "@/services/sendpulseAppEmail";
 import { shouldShowPaywall } from "@/types/member";
 
 type PlanOption = {
@@ -202,6 +203,7 @@ const PaywallPage = () => {
     if (!user) return;
     setStatusMessage(t("appFlow.paywall.activating"));
     await waitForEntitlementActive(user.uid);
+    notifyAppLifecycleEmail(user, "onboarding", lang);
     goToDownload();
   };
 
