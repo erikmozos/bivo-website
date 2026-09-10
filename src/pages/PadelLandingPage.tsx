@@ -330,15 +330,6 @@ const PadelLandingPage = () => {
         </div>
       </section>
 
-      <div className="section-image-break">
-        <img
-          src={padelAsset("img/monitor-padel-crop.jpg")}
-          alt="Pádel en pista"
-          style={{ objectPosition: "center 24%" }}
-        />
-        <div className="img-overlay" />
-      </div>
-
       <section id="agitation" className="section-pad has-bg-image">
         <div className="section-bg">
           <img src={padelAsset("img/vsl/padel-injury-pain.png")} alt="" style={{ objectPosition: "center top" }} />

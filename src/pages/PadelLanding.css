@@ -373,23 +373,6 @@
   }
 }
 
-/* ── Section image break ───────────────────────────────────── */
-.padel-landing .section-image-break {
-  width: 100%; height: 460px;
-  overflow: hidden; position: relative;
-}
-.padel-landing .section-image-break img {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
-}
-.padel-landing .section-image-break .img-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to bottom, var(--surface-1) 0%, transparent 30%, transparent 70%, var(--surface-alt) 100%);
-}
-@media (max-width: 767px) {
-  .padel-landing .section-image-break { height: 220px; }
-}
-
 /* ── Section background images ─────────────────────────────── */
 .padel-landing .has-bg-image {
   position: relative;
