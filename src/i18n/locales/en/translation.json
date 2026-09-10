@@ -890,13 +890,16 @@
       "finish": "See summary",
       "back": "Back",
       "birthDate": {
-        "title": "What year were you born?",
+        "title": "What is your date of birth?",
         "optional": "Optional",
         "hint": "so we can always show your updated age",
         "placeholder": "Optional",
-        "clear": "Clear year",
+        "clear": "Clear date",
         "currentAge": "Current age: {age} years",
-        "year": "Year"
+        "month": "Month",
+        "year": "Year",
+        "prevMonth": "Previous month",
+        "nextMonth": "Next month"
       },
       "submitting": "Saving...",
       "error": "Could not save onboarding. Please try again.",

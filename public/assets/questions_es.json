@@ -25,7 +25,7 @@
   },
   {
     "id": 14,
-    "question": "¿En qué año naciste?",
+    "question": "¿Cuál es tu fecha de nacimiento?",
     "type": "date",
     "placeholder": "Opcional",
     "forceAnswer": false
