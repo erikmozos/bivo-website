@@ -7,6 +7,10 @@ import { getSectionId } from "@/lib/sectionIds";
 const ContactSection = () => {
   const { t } = useTranslation();
   const { lang } = useLocale();
+  const locationSitesRaw = t("contact.info.sites", { returnObjects: true });
+  const locationSites = Array.isArray(locationSitesRaw)
+    ? (locationSitesRaw as { place: string; venue: string; url: string }[])
+    : [];
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
@@ -208,13 +212,25 @@ const ContactSection = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-bivo-green rounded-full flex items-center justify-center">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-bivo-green rounded-full flex items-center justify-center shrink-0">
                     <MapPin className="w-5 h-5 text-black" />
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">{t("contact.info.location")}</p>
-                    <p className="text-gray-600">{t("contact.info.address")}</p>
+                    {locationSites.map((site) => (
+                      <p key={site.venue} className="text-gray-600">
+                        {site.place} ·{" "}
+                        <a
+                          href={site.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-bivo-green hover:underline"
+                        >
+                          {site.venue}
+                        </a>
+                      </p>
+                    ))}
                   </div>
                 </div>
               </div>

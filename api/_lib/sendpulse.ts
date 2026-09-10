@@ -190,3 +190,78 @@ export function sendTemplateEmail(
     body: JSON.stringify({ email }),
   });
 }
+
+export type LifecycleEmailType = "welcome" | "onboarding";
+export type LifecycleLang = "es" | "en";
+
+// Plantillas reales de la cuenta SendPulse de Bivo (SMTP → Templates).
+// Se pueden sobreescribir por env sin redeployar código.
+const DEFAULT_TEMPLATES: Record<LifecycleEmailType, Record<LifecycleLang, string>> = {
+  welcome: { es: "94006", en: "94686" },
+  onboarding: { es: "94006", en: "94686" },
+};
+
+const DEFAULT_SUBJECTS: Record<LifecycleEmailType, Record<LifecycleLang, string>> = {
+  welcome: {
+    es: "Bienvenid@ a Bivo",
+    en: "Welcome to Bivo!",
+  },
+  onboarding: {
+    es: "¡Ya está todo listo! Tu plan te está esperando",
+    en: "Everything is ready! Your plan is waiting",
+  },
+};
+
+function envTemplateId(type: LifecycleEmailType, lang: LifecycleLang): string {
+  const envKey =
+    type === "welcome"
+      ? lang === "en"
+        ? "SENDPULSE_WELCOME_TEMPLATE_ID_EN"
+        : "SENDPULSE_WELCOME_TEMPLATE_ID_ES"
+      : lang === "en"
+        ? "SENDPULSE_ONBOARDING_TEMPLATE_ID_EN"
+        : "SENDPULSE_ONBOARDING_TEMPLATE_ID_ES";
+
+  const fromEnv = process.env[envKey]?.trim();
+  if (fromEnv) return fromEnv;
+
+  if (type === "welcome") {
+    const legacy = process.env.SENDPULSE_WELCOME_TEMPLATE_ID?.trim();
+    if (legacy) return legacy;
+  }
+
+  return DEFAULT_TEMPLATES[type][lang];
+}
+
+export async function sendLifecycleEmail(params: {
+  type: LifecycleEmailType;
+  lang: LifecycleLang;
+  email: string;
+  nombre?: string;
+}): Promise<{ result?: boolean; id?: string } | null> {
+  const { type, lang, email } = params;
+  const nombre = params.nombre?.trim() || "";
+  const templateId = envTemplateId(type, lang);
+  if (!templateId) return null;
+
+  const fromEmail = process.env.SENDPULSE_FROM_EMAIL;
+  if (!fromEmail) {
+    console.warn("No se envía email de ciclo de vida: SENDPULSE_FROM_EMAIL no configurado");
+    return null;
+  }
+
+  const fromName = process.env.SENDPULSE_FROM_NAME?.trim() || "Bivo Training";
+  const subject = DEFAULT_SUBJECTS[type][lang];
+
+  return sendTemplateEmail({
+    templateId,
+    subject,
+    from: { name: fromName, email: fromEmail },
+    to: [{ name: nombre || email, email }],
+    variables: {
+      nombre: nombre || email.split("@")[0],
+      email,
+      lang,
+    },
+  });
+}

@@ -8,6 +8,10 @@ import { notifyFlowSessionChange, useAppFlow } from "@/hooks/useAppFlow";
 import { useLocale } from "@/hooks/useLocale";
 import { isFirebaseConfigured } from "@/lib/firebase";
 import { isPlanKey, writeFlowSession } from "@/lib/flowSession";
+import {
+  getPasswordRequirementChecks,
+  isSignupPasswordValid,
+} from "@/lib/passwordValidation";
 
 const inputClass =
   "w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-bivo-green/60 focus:border-bivo-green/40 transition";
@@ -44,9 +48,14 @@ const AuthPage = () => {
   const [mode, setMode] = useState<"login" | "signup">("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const passwordChecks = getPasswordRequirementChecks(password);
+  const signupPasswordReady =
+    isSignupPasswordValid(password) && password === confirmPassword;
+  const submitDisabled = submitting || (mode === "signup" && !signupPasswordReady);
 
   useEffect(() => {
     const plan = searchParams.get("plan");
@@ -80,6 +89,14 @@ const AuthPage = () => {
 
     try {
       if (mode === "signup") {
+        if (!isSignupPasswordValid(password)) {
+          setError(t("appFlow.auth.passwordWeak"));
+          return;
+        }
+        if (password !== confirmPassword) {
+          setError(t("appFlow.auth.passwordMismatch"));
+          return;
+        }
         await signUpWithEmail(email, password, displayName || undefined);
       } else {
         await signInWithEmail(email, password);
@@ -187,10 +204,60 @@ const AuthPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               className={inputClass}
               required
-              minLength={6}
+              minLength={mode === "signup" ? 8 : 6}
               autoComplete={mode === "signup" ? "new-password" : "current-password"}
             />
           </div>
+
+          {mode === "signup" && (
+            <>
+              <div
+                className="rounded-xl border border-bivo-green/40 bg-white/[0.03] px-4 py-3"
+                aria-live="polite"
+              >
+                <p className="text-xs font-semibold text-gray-300 mb-2">
+                  {t("appFlow.auth.passwordRequirementsTitle")}
+                </p>
+                <ul className="space-y-1.5">
+                  {(
+                    [
+                      ["minLength", "passwordRequirementMin"],
+                      ["uppercase", "passwordRequirementUppercase"],
+                      ["lowercase", "passwordRequirementLowercase"],
+                      ["number", "passwordRequirementNumber"],
+                      ["special", "passwordRequirementSpecial"],
+                    ] as const
+                  ).map(([key, labelKey]) => (
+                    <li key={key} className="flex items-center gap-2 text-xs">
+                      <span
+                        className={`inline-block h-1.5 w-1.5 rounded-full ${
+                          passwordChecks[key] ? "bg-bivo-green" : "bg-gray-500"
+                        }`}
+                      />
+                      <span className={passwordChecks[key] ? "text-white" : "text-gray-500"}>
+                        {t(`appFlow.auth.${labelKey}`)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm text-gray-400 mb-2">
+                  {t("appFlow.auth.confirmPassword")}
+                </label>
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className={inputClass}
+                  required
+                  autoComplete="new-password"
+                />
+              </div>
+            </>
+          )}
 
           {error && (
             <p className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
@@ -200,7 +267,7 @@ const AuthPage = () => {
 
           <button
             type="submit"
-            disabled={submitting}
+            disabled={submitDisabled}
             className="w-full py-3.5 rounded-xl bg-bivo-green text-black font-bold uppercase tracking-wider text-sm disabled:opacity-60"
           >
             {submitting
@@ -218,6 +285,7 @@ const AuthPage = () => {
             onClick={() => {
               setMode(mode === "signup" ? "login" : "signup");
               setError(null);
+              setConfirmPassword("");
             }}
             className="text-bivo-green font-semibold hover:underline"
           >

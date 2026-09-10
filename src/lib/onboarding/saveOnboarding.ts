@@ -1,6 +1,7 @@
 import {
   collection,
   doc,
+  getDoc,
   serverTimestamp,
   setDoc,
   updateDoc,
@@ -9,6 +10,7 @@ import type { User } from "firebase/auth";
 import { COLLECTION_MEMBERS } from "@/lib/config";
 import { db } from "@/lib/firebase";
 import type { FormQuestion, FormattedOnboardingAnswer, OnboardingAnswers } from "@/types/onboarding";
+import { notifyAppLifecycleEmail } from "@/services/sendpulseAppEmail";
 import {
   buildMemberIdentityFields,
   calculateMemberLevel,
@@ -75,6 +77,8 @@ async function performSave(
 
   const memberRef = doc(db, COLLECTION_MEMBERS, user.uid);
   const formRef = doc(collection(memberRef, "onboardingForm"), "latest");
+  const existingMember = await getDoc(memberRef);
+  const alreadyCompleted = existingMember.data()?.onboardingCompleted === true;
 
   const sportValue = answers["3"] != null ? String(answers["3"]) : undefined;
   const displayName = answers["2"] != null ? String(answers["2"]).trim() : "";
@@ -117,6 +121,11 @@ async function performSave(
   );
 
   await setDoc(memberRef, updateData, { merge: true });
+
+  if (!alreadyCompleted) {
+    const lang = window.location.pathname.split("/").filter(Boolean)[0] === "en" ? "en" : "es";
+    notifyAppLifecycleEmail(user, "onboarding", lang);
+  }
 
   const idToken = await user.getIdToken();
   const level = await calculateMemberLevel(idToken, answersWithDefaults, user.uid);

@@ -8,18 +8,21 @@ import {
 } from "react";
 import {
   createUserWithEmailAndPassword,
+  getAdditionalUserInfo,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
   type User,
+  type UserCredential,
 } from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth, db, appleProvider, googleProvider } from "@/lib/firebase";
 import { COLLECTION_MEMBERS } from "@/lib/config";
 import { resetRevenueCatSession } from "@/lib/revenuecat";
 import { syncMemberFromSession } from "@/lib/syncMemberFromSession";
+import { notifyAppLifecycleEmail } from "@/services/sendpulseAppEmail";
 
 interface AuthContextValue {
   user: User | null;
@@ -54,6 +57,23 @@ function flowLangFromPath(): string {
   return seg === "en" ? "en" : "es";
 }
 
+async function finishNewSession(
+  credential: UserCredential,
+  options?: { isNewUser?: boolean }
+) {
+  const lang = flowLangFromPath();
+  const isNewUser =
+    options?.isNewUser ?? getAdditionalUserInfo(credential)?.isNewUser === true;
+
+  await ensureMemberDoc(credential.user);
+
+  if (isNewUser) {
+    notifyAppLifecycleEmail(credential.user, "welcome", lang);
+  }
+
+  await syncMemberFromSession(credential.user, lang);
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -75,25 +95,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (displayName) {
           await updateProfile(credential.user, { displayName });
         }
-        await ensureMemberDoc(credential.user);
-        await syncMemberFromSession(credential.user, flowLangFromPath());
+        await finishNewSession(credential, { isNewUser: true });
       },
       async signInWithEmail(email, password) {
         const credential = await signInWithEmailAndPassword(auth, email, password);
-        await ensureMemberDoc(credential.user);
-        await syncMemberFromSession(credential.user, flowLangFromPath());
+        await finishNewSession(credential, { isNewUser: false });
       },
       async signInWithGoogle() {
         const credential = await signInWithPopup(auth, googleProvider);
-        await ensureMemberDoc(credential.user);
-        await syncMemberFromSession(credential.user, flowLangFromPath());
+        await finishNewSession(credential);
       },
       async signInWithApple() {
         const locale = flowLangFromPath() === "en" ? "en_US" : "es_ES";
         appleProvider.setCustomParameters({ locale });
         const credential = await signInWithPopup(auth, appleProvider);
-        await ensureMemberDoc(credential.user);
-        await syncMemberFromSession(credential.user, flowLangFromPath());
+        await finishNewSession(credential);
       },
       async logout() {
         resetRevenueCatSession();

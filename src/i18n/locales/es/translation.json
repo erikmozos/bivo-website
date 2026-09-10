@@ -142,12 +142,12 @@
         "description": "Movement Quality Center, referente en entrenamiento para deportistas exigentes y de alto nivel, es nuestro partner desde el inicio y base presencial de Bivo."
       },
       {
-        "name": "Bivo para entrenadores",
-        "description": "En Bivo optimizamos el rendimiento de tus alumnos con preparación física adaptada y preventiva. ¡Complementa tus clases con nuestro apoyo! Descubre como podemos ayudarte."
-      },
-      {
         "name": "Club Pdpadel",
         "description": "Pdpadel, uno de los clubes más importantes de Baleares, ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info!"
+      },
+      {
+        "name": "C.T. La Salle",
+        "description": "C.T. La Salle ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info!"
       },
       {
         "name": "EmprenBIT",
@@ -156,8 +156,17 @@
       {
         "name": "Federación Balear de Pádel",
         "description": "Acuerdo de colaboración con la FPIB para impulsar la preparación física de los jugadores y jugadoras de pádel de las Islas Baleares."
+      },
+      {
+        "name": "Federación Balear de Bádminton",
+        "description": "Bivo es el preparador físico oficial de la Federación Balear de Bádminton de las Islas Baleares."
       }
-    ]
+    ],
+    "navigation": {
+      "prev": "Alianza anterior",
+      "next": "Siguiente alianza",
+      "slide": "Ir a la alianza {index}"
+    }
   },
   "recognitions": {
     "heading": "Reconocimientos y premios",
@@ -352,7 +361,18 @@
       "title": "Información de contacto",
       "email": "Email",
       "location": "Ubicación",
-      "address": "Mahón, Menorca (Islas Baleares)"
+      "sites": [
+        {
+          "place": "Menorca",
+          "venue": "CentreBit",
+          "url": "https://www.fundaciobit.org/es/centrebit-menorca-esp/"
+        },
+        {
+          "place": "Mallorca",
+          "venue": "ParcBit",
+          "url": "https://www.fundaciobit.org/parcbit/"
+        }
+      ]
     },
     "social": {
       "title": "Síguenos en redes sociales",
@@ -873,7 +893,16 @@
       "switchSignup": "Regístrate",
       "genericError": "No se pudo completar la autenticación. Inténtalo de nuevo.",
       "configErrorTitle": "Configuración pendiente",
-      "configError": "Faltan variables de Firebase en el entorno. Añade VITE_FIREBASE_* en .env.local."
+      "configError": "Faltan variables de Firebase en el entorno. Añade VITE_FIREBASE_* en .env.local.",
+      "confirmPassword": "Repetir contraseña",
+      "passwordRequirementsTitle": "Tu contraseña debe incluir:",
+      "passwordRequirementMin": "Mínimo 8 caracteres",
+      "passwordRequirementUppercase": "Al menos una mayúscula",
+      "passwordRequirementLowercase": "Al menos una minúscula",
+      "passwordRequirementNumber": "Al menos un número",
+      "passwordRequirementSpecial": "Al menos un carácter especial (@$!%*?&)",
+      "passwordWeak": "La contraseña no cumple los requisitos de seguridad",
+      "passwordMismatch": "Las contraseñas no coinciden"
     },
     "onboarding": {
       "badge": "Cuestionario inicial",

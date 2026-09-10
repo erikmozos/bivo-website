@@ -142,12 +142,12 @@
         "description": "Movement Quality Center, benchmark in training for demanding and high-level athletes, is our partner from the start and Bivo's in-person base."
       },
       {
-        "name": "Bivo for coaches",
-        "description": "At Bivo we optimize your students' performance with adapted and preventive physical preparation. Complement your classes with our support! Find out how we can help you."
-      },
-      {
         "name": "Pdpadel Club",
         "description": "Pdpadel, one of the most important clubs in the Balearic Islands, already trusts Bivo. If you are a racket club and want to join, ask for more info!"
+      },
+      {
+        "name": "C.T. La Salle",
+        "description": "C.T. La Salle already trusts Bivo. If you are a racket club and want to join, ask for more info!"
       },
       {
         "name": "EmprenBIT",
@@ -156,8 +156,17 @@
       {
         "name": "Balearic Padel Federation",
         "description": "Collaboration agreement with the FPIB to boost the physical preparation of padel players in the Balearic Islands."
+      },
+      {
+        "name": "Balearic Badminton Federation",
+        "description": "Bivo is the official physical preparation partner of the Balearic Badminton Federation."
       }
-    ]
+    ],
+    "navigation": {
+      "prev": "Previous alliance",
+      "next": "Next alliance",
+      "slide": "Go to alliance {index}"
+    }
   },
   "recognitions": {
     "heading": "Recognitions and awards",
@@ -358,7 +367,18 @@
       "title": "Contact info",
       "email": "Email",
       "location": "Location",
-      "address": "Mahon, Menorca (Balearic Islands)"
+      "sites": [
+        {
+          "place": "Menorca",
+          "venue": "CentreBit",
+          "url": "https://www.fundaciobit.org/en/centrebit-menorca-en-2/"
+        },
+        {
+          "place": "Mallorca",
+          "venue": "ParcBit",
+          "url": "https://www.fundaciobit.org/en/what-is-the-bit-foundation/"
+        }
+      ]
     },
     "social": {
       "title": "Follow us on social media",
@@ -879,7 +899,16 @@
       "switchSignup": "Sign up",
       "genericError": "Authentication failed. Please try again.",
       "configErrorTitle": "Configuration required",
-      "configError": "Firebase environment variables are missing. Add VITE_FIREBASE_* to .env.local."
+      "configError": "Firebase environment variables are missing. Add VITE_FIREBASE_* to .env.local.",
+      "confirmPassword": "Repeat password",
+      "passwordRequirementsTitle": "Your password must include:",
+      "passwordRequirementMin": "At least 8 characters",
+      "passwordRequirementUppercase": "At least one uppercase letter",
+      "passwordRequirementLowercase": "At least one lowercase letter",
+      "passwordRequirementNumber": "At least one number",
+      "passwordRequirementSpecial": "At least one special character (@$!%*?&)",
+      "passwordWeak": "Password does not meet security requirements",
+      "passwordMismatch": "Passwords do not match"
     },
     "onboarding": {
       "badge": "Initial questionnaire",
