@@ -8,7 +8,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useAppFlow } from "@/hooks/useAppFlow";
 import { useRevenueCatUser } from "@/hooks/useRevenueCatUser";
 import { useLocale } from "@/hooks/useLocale";
-import { PROMO_CODES, TRIAL_DAYS, type PlanKey } from "@/lib/config";
+import { TRIAL_DAYS, type PlanKey } from "@/lib/config";
 import { isPlanKey } from "@/lib/flowSession";
 import {
   getCurrentOfferingPackages,
@@ -28,7 +28,11 @@ import {
   installRevenueCatFetchDiagnostics,
   logPackageDiagnostics,
 } from "@/lib/revenuecatDiagnostics";
-import { redeemPromoCode, waitForEntitlementActive } from "@/lib/subscription";
+import {
+  promoCallableErrorCode,
+  redeemPromoCode,
+  waitForEntitlementActive,
+} from "@/lib/subscription";
 import { notifyAppLifecycleEmail } from "@/services/sendpulseAppEmail";
 import { shouldShowPaywall } from "@/types/member";
 
@@ -217,7 +221,7 @@ const PaywallPage = () => {
     try {
       await purchasePackage(selectedPlan.pkg, {
         locale: lang === "en" ? "en" : "es",
-        discountCode: appliedPromoCode === "FPIB26" ? appliedPromoCode : undefined,
+        discountCode: appliedPromoCode ?? undefined,
       });
       await handleAfterPurchaseOrPromo();
     } catch (err) {
@@ -235,34 +239,49 @@ const PaywallPage = () => {
     if (!user || !promoCode.trim()) return;
 
     const code = promoCode.trim().toUpperCase();
-    if (!PROMO_CODES.includes(code as (typeof PROMO_CODES)[number])) {
-      setError(t("appFlow.paywall.promoInvalid"));
-      return;
-    }
 
     setRedeemingPromo(true);
     setError(null);
     setStatusMessage(null);
 
     try {
-      await redeemPromoCode(code);
+      const result = await redeemPromoCode(code);
 
-      if (code === "BIVO1") {
+      if (result.type === "free_access") {
         setStatusMessage(t("appFlow.paywall.promoBivo1"));
         await handleAfterPurchaseOrPromo();
         return;
       }
 
-      if (code === "FPIB26") {
-        setAppliedPromoCode(code);
-        setStatusMessage(t("appFlow.paywall.promoFpib26"));
+      if (result.type === "subscription_discount") {
+        setAppliedPromoCode(result.code ?? code);
+        setStatusMessage(
+          t("appFlow.paywall.promoDiscount", {
+            percent: result.discountPercent ?? 25,
+          })
+        );
         return;
       }
 
       setStatusMessage(t("appFlow.paywall.promoApplied"));
       await handleAfterPurchaseOrPromo();
     } catch (err) {
-      setError(err instanceof Error ? err.message : t("appFlow.paywall.promoError"));
+      const fnCode = promoCallableErrorCode(err);
+      const message = err instanceof Error ? err.message.toLowerCase() : "";
+      if (
+        fnCode === "functions/invalid-argument" ||
+        message.includes("invalid") ||
+        message.includes("expired")
+      ) {
+        setError(t("appFlow.paywall.promoInvalid"));
+      } else if (
+        fnCode === "functions/permission-denied" ||
+        message.includes("already")
+      ) {
+        setError(t("appFlow.paywall.promoAlreadyUsed"));
+      } else {
+        setError(t("appFlow.paywall.promoError"));
+      }
     } finally {
       setRedeemingPromo(false);
     }
