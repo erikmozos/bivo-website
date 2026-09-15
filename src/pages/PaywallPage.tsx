@@ -35,6 +35,10 @@ import {
 } from "@/lib/subscription";
 import { notifyAppLifecycleEmail } from "@/services/sendpulseAppEmail";
 import { shouldShowPaywall } from "@/types/member";
+import {
+  startStripeCheckoutWithPromo,
+  stripePriceIdForPackage,
+} from "@/lib/stripeCheckout";
 
 type PlanOption = {
   key: PlanKey;
@@ -236,16 +240,38 @@ const PaywallPage = () => {
     setStatusMessage(null);
 
     try {
+      if (appliedPromoCode) {
+        const priceId = stripePriceIdForPackage(selectedPlan.pkg);
+        if (!priceId) {
+          throw new Error(
+            "Este plan no tiene priceId de Stripe. No se puede aplicar el cupón automáticamente."
+          );
+        }
+
+        const checkoutUrl = await startStripeCheckoutWithPromo({
+          priceId,
+          promoCode: appliedPromoCode,
+          email: user.email ?? "",
+          appUserId: user.uid,
+          successUrl: `${window.location.origin}${localePath("/descargar")}?checkout=success`,
+          cancelUrl: window.location.href,
+        });
+        window.location.assign(checkoutUrl);
+        return;
+      }
+
       await purchasePackage(selectedPlan.pkg, {
         locale: lang === "en" ? "en" : "es",
         customerEmail: user.email ?? undefined,
-        discountCode: appliedPromoCode ?? undefined,
       });
       await handleAfterPurchaseOrPromo();
     } catch (err) {
       logRevenueCatError("purchase", err);
       if (!isPurchaseCancelled(err)) {
-        setError(formatRevenueCatError(err) || t("appFlow.paywall.purchaseError"));
+        const fallback = err instanceof Error ? err.message : null;
+        setError(
+          fallback || formatRevenueCatError(err) || t("appFlow.paywall.purchaseError")
+        );
       }
     } finally {
       setPurchasing(false);
