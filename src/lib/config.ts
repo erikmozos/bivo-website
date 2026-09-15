@@ -26,8 +26,6 @@ export const FN_GENERATE_PLAN = "generatePlan";
 
 export const COLLECTION_MEMBERS = "members";
 
-export const PROMO_CODES = ["BIVO1", "FPIB26"] as const;
-
 export const TRIAL_DAYS = 7;
 
 export { APP_STORE_URL, GOOGLE_PLAY_URL };
