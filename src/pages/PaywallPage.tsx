@@ -123,13 +123,30 @@ const PaywallPage = () => {
   const [loadingOfferings, setLoadingOfferings] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
   const [promoCode, setPromoCode] = useState("");
-  const [appliedPromoCode, setAppliedPromoCode] = useState<string | null>(null);
+  const [appliedPromoCode, setAppliedPromoCode] = useState<string | null>(() =>
+    typeof window === "undefined"
+      ? null
+      : window.sessionStorage.getItem("bivo_applied_promo")
+  );
   const [redeemingPromo, setRedeemingPromo] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [apiErrorDetail, setApiErrorDetail] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const features = t("appFlow.paywall.features", { returnObjects: true }) as string[];
+
+  const rememberPromoCode = (code: string) => {
+    setAppliedPromoCode(code);
+    window.sessionStorage.setItem("bivo_applied_promo", code);
+  };
+
+  useEffect(() => {
+    if (appliedPromoCode) return;
+    const fromMember = member?.promoDiscountCode?.trim();
+    if (fromMember) {
+      rememberPromoCode(fromMember.toUpperCase());
+    }
+  }, [member, appliedPromoCode]);
 
   const goToDownload = () => navigate(localePath("/descargar"), { replace: true });
 
@@ -221,6 +238,7 @@ const PaywallPage = () => {
     try {
       await purchasePackage(selectedPlan.pkg, {
         locale: lang === "en" ? "en" : "es",
+        customerEmail: user.email ?? undefined,
         discountCode: appliedPromoCode ?? undefined,
       });
       await handleAfterPurchaseOrPromo();
@@ -254,7 +272,7 @@ const PaywallPage = () => {
       }
 
       if (result.type === "subscription_discount") {
-        setAppliedPromoCode(result.code ?? code);
+        rememberPromoCode((result.code ?? code).toUpperCase());
         setStatusMessage(
           t("appFlow.paywall.promoDiscount", {
             percent: result.discountPercent ?? 25,
