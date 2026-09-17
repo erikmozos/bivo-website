@@ -1,12 +1,47 @@
 import type { Package } from "@revenuecat/purchases-js";
 
-export function stripePriceIdForPackage(pkg: Package): string | null {
-  const priceId = pkg.webBillingProduct?.defaultPurchaseOption?.priceId;
-  return priceId?.startsWith("price_") ? priceId : null;
+export type StripeCheckoutIds = {
+  priceId: string | null;
+  productId: string | null;
+  interval: "month" | "year";
+  intervalCount: number;
+};
+
+function collectIds(pkg: Package): string[] {
+  const product = pkg.webBillingProduct;
+  const options = Object.values(product?.subscriptionOptions ?? {});
+  return [
+    product?.identifier,
+    product?.defaultPurchaseOption?.id,
+    product?.defaultPurchaseOption?.priceId,
+    product?.defaultSubscriptionOption?.id,
+    product?.defaultSubscriptionOption?.priceId,
+    ...Object.keys(product?.subscriptionOptions ?? {}),
+    ...options.flatMap((option) => [option.id, option.priceId]),
+  ].filter((id): id is string => Boolean(id));
+}
+
+export function stripeIdsForPackage(pkg: Package): StripeCheckoutIds {
+  const ids = collectIds(pkg);
+  const interval =
+    pkg.identifier === "$rc_annual"
+      ? { interval: "year" as const, intervalCount: 1 }
+      : pkg.identifier === "$rc_three_month"
+        ? { interval: "month" as const, intervalCount: 3 }
+        : { interval: "month" as const, intervalCount: 1 };
+
+  return {
+    priceId: ids.find((id) => id.startsWith("price_")) ?? null,
+    productId: ids.find((id) => id.startsWith("prod_")) ?? null,
+    ...interval,
+  };
 }
 
 export async function startStripeCheckoutWithPromo(params: {
-  priceId: string;
+  priceId?: string | null;
+  productId?: string | null;
+  interval: "month" | "year";
+  intervalCount: number;
   promoCode: string;
   email: string;
   appUserId: string;
