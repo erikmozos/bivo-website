@@ -53,14 +53,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const raw = (req.body || {}) as Record<string, unknown>;
   const priceId = clean(raw.priceId, 80);
+  const productId = clean(raw.productId, 80);
+  const interval = clean(raw.interval, 16);
+  const intervalCount = Number(raw.intervalCount) || 1;
   const promoCode = clean(raw.promoCode, 32).toUpperCase();
   const email = clean(raw.email, 254).toLowerCase();
   const appUserId = clean(raw.appUserId, 128);
   const successUrl = clean(raw.successUrl, 500);
   const cancelUrl = clean(raw.cancelUrl, 500);
 
-  if (!priceId.startsWith("price_")) {
-    return res.status(400).json({ error: "priceId de Stripe no válido" });
+  if (!priceId.startsWith("price_") && !productId.startsWith("prod_")) {
+    return res.status(400).json({
+      error: "missing_stripe_ids",
+      message: "RevenueCat no envió un price_ ni un prod_ de Stripe.",
+    });
   }
   if (!email || !email.includes("@")) {
     return res.status(400).json({ error: "Email no válido" });
@@ -73,6 +79,40 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    let resolvedPriceId = priceId.startsWith("price_") ? priceId : "";
+    if (!resolvedPriceId && productId.startsWith("prod_")) {
+      const listed = await stripeForm(
+        secret,
+        "/prices",
+        new URLSearchParams({
+          product: productId,
+          active: "true",
+          type: "recurring",
+          limit: "20",
+        }),
+        "GET"
+      );
+      const prices = Array.isArray(listed.data) ? listed.data : [];
+      const matched = prices.find((item) => {
+        const price = item as {
+          id?: string;
+          recurring?: { interval?: string; interval_count?: number };
+        };
+        return (
+          price.recurring?.interval === interval &&
+          (price.recurring.interval_count ?? 1) === intervalCount
+        );
+      }) as { id?: string } | undefined;
+      const fallback = prices[0] as { id?: string } | undefined;
+      resolvedPriceId = matched?.id ?? fallback?.id ?? "";
+      if (!resolvedPriceId) {
+        return res.status(400).json({
+          error: "missing_price",
+          message: `Stripe no tiene un precio activo para ${productId}.`,
+        });
+      }
+    }
+
     let promotionCodeId = "";
     if (promoCode) {
       const listed = await stripeForm(
@@ -102,7 +142,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     sessionParams.set("client_reference_id", appUserId);
     sessionParams.set("success_url", successUrl);
     sessionParams.set("cancel_url", cancelUrl);
-    sessionParams.set("line_items[0][price]", priceId);
+    sessionParams.set("line_items[0][price]", resolvedPriceId);
     sessionParams.set("line_items[0][quantity]", "1");
     sessionParams.set("subscription_data[metadata][app_user_id]", appUserId);
     sessionParams.set("metadata[app_user_id]", appUserId);

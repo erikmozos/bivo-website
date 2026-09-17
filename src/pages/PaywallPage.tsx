@@ -37,7 +37,7 @@ import { notifyAppLifecycleEmail } from "@/services/sendpulseAppEmail";
 import { shouldShowPaywall } from "@/types/member";
 import {
   startStripeCheckoutWithPromo,
-  stripePriceIdForPackage,
+  stripeIdsForPackage,
 } from "@/lib/stripeCheckout";
 
 type PlanOption = {
@@ -241,15 +241,18 @@ const PaywallPage = () => {
 
     try {
       if (appliedPromoCode) {
-        const priceId = stripePriceIdForPackage(selectedPlan.pkg);
-        if (!priceId) {
+        const stripeIds = stripeIdsForPackage(selectedPlan.pkg);
+        if (!stripeIds.priceId && !stripeIds.productId) {
           throw new Error(
-            "Este plan no tiene priceId de Stripe. No se puede aplicar el cupón automáticamente."
+            "Este plan no está enlazado a un producto de Stripe. Revisa el offering en RevenueCat."
           );
         }
 
         const checkoutUrl = await startStripeCheckoutWithPromo({
-          priceId,
+          priceId: stripeIds.priceId,
+          productId: stripeIds.productId,
+          interval: stripeIds.interval,
+          intervalCount: stripeIds.intervalCount,
           promoCode: appliedPromoCode,
           email: user.email ?? "",
           appUserId: user.uid,
