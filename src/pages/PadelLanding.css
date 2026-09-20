@@ -3,9 +3,9 @@
    ============================================================ */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
-.padel-landing, .padel-landing *, .padel-landing *::before, .padel-landing *::after { box-sizing: border-box; }
+:is(.padel-landing, .badminton-landing), :is(.padel-landing, .badminton-landing) *, :is(.padel-landing, .badminton-landing) *::before, :is(.padel-landing, .badminton-landing) *::after { box-sizing: border-box; }
 
-.padel-landing {
+:is(.padel-landing, .badminton-landing) {
   --green: #39FF14;
   --black: #000000;
   --surface-0: #000000;
@@ -29,7 +29,7 @@
   --shadow-accent: 0 0 20px rgba(57,255,20,0.2);
 }
 
-.padel-landing {
+:is(.padel-landing, .badminton-landing) {
   font-family: 'Nunito Sans', sans-serif;
   font-optical-sizing: auto;
   background: var(--surface-0);
@@ -40,17 +40,17 @@
   scroll-behavior: smooth;
   min-height: 100vh;
 }
-.padel-landing button,
-.padel-landing input,
-.padel-landing textarea,
-.padel-landing select {
+:is(.padel-landing, .badminton-landing) button,
+:is(.padel-landing, .badminton-landing) input,
+:is(.padel-landing, .badminton-landing) textarea,
+:is(.padel-landing, .badminton-landing) select {
   font-family: inherit;
 }
-.padel-landing img { max-width: 100%; display: block; }
-.padel-landing a { color: inherit; text-decoration: none; }
+:is(.padel-landing, .badminton-landing) img { max-width: 100%; display: block; }
+:is(.padel-landing, .badminton-landing) a { color: inherit; text-decoration: none; }
 
 /* ── Pre-headline ──────────────────────────────────────────── */
-.padel-landing .pre-headline {
+:is(.padel-landing, .badminton-landing) .pre-headline {
   color: var(--green);
   text-transform: uppercase;
   font-size: 13px;
@@ -58,10 +58,10 @@
   letter-spacing: 0.12em;
   margin-bottom: 16px;
 }
-.padel-landing .pre-headline.centered { text-align: center; }
+:is(.padel-landing, .badminton-landing) .pre-headline.centered { text-align: center; }
 
 /* ── Headlines ─────────────────────────────────────────────── */
-.padel-landing .headline {
+:is(.padel-landing, .badminton-landing) .headline {
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 1.15;
@@ -70,18 +70,18 @@
   text-transform: none;
   font-optical-sizing: auto;
 }
-.padel-landing .headline .accent { color: var(--green); }
+:is(.padel-landing, .badminton-landing) .headline .accent { color: var(--green); }
 
 /* ── Section padding ───────────────────────────────────────── */
-.padel-landing .section-pad {
+:is(.padel-landing, .badminton-landing) .section-pad {
   padding: 80px 24px;
 }
 @media (max-width: 767px) {
-  .padel-landing .section-pad { padding: 48px 20px; }
+  :is(.padel-landing, .badminton-landing) .section-pad { padding: 48px 20px; }
 }
 
 /* ── CTA Button ────────────────────────────────────────────── */
-.padel-landing .cta-btn {
+:is(.padel-landing, .badminton-landing) .cta-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -103,15 +103,15 @@
   max-width: 100%;
   box-sizing: border-box;
 }
-.padel-landing .cta-btn:hover {
+:is(.padel-landing, .badminton-landing) .cta-btn:hover {
   transform: scale(1.02);
   box-shadow: var(--shadow-accent);
 }
 @media (max-width: 767px) {
-  .padel-landing .cta-btn { width: 100%; font-size: 16px; padding: 14px 18px; }
+  :is(.padel-landing, .badminton-landing) .cta-btn { width: 100%; font-size: 16px; padding: 14px 18px; }
 }
 
-.padel-landing .micro-trust {
+:is(.padel-landing, .badminton-landing) .micro-trust {
   color: var(--text-muted);
   font-size: 13px;
   margin-top: 12px;
@@ -125,14 +125,14 @@
     transform: translateY(28px);
     transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
   }
-  .padel-landing .fade-up.visible {
+  :is(.padel-landing, .badminton-landing) .fade-up.visible {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 /* ── SECTION 1: HERO ───────────────────────────────────────── */
-.padel-landing #hero {
+:is(.padel-landing, .badminton-landing) #hero {
   position: relative;
   min-height: 100vh;
   display: flex;
@@ -142,14 +142,14 @@
   padding: 60px 24px 48px;
   overflow: hidden;
 }
-.padel-landing .hero-bg {
+:is(.padel-landing, .badminton-landing) .hero-bg {
   position: absolute; inset: 0; z-index: 0;
 }
-.padel-landing .hero-bg img {
+:is(.padel-landing, .badminton-landing) .hero-bg img {
   width: 100%; height: 100%;
   object-fit: cover; object-position: center 40%;
 }
-.padel-landing .hero-overlay {
+:is(.padel-landing, .badminton-landing) .hero-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(
     to bottom,
@@ -158,22 +158,22 @@
     rgba(0,0,0,0.92) 100%
   );
 }
-.padel-landing .hero-logo {
+:is(.padel-landing, .badminton-landing) .hero-logo {
   position: absolute; top: 24px; left: 24px; z-index: 10;
 }
-.padel-landing .hero-logo img { height: 32px; width: auto; }
-.padel-landing .hero-content {
+:is(.padel-landing, .badminton-landing) .hero-logo img { height: 32px; width: auto; }
+:is(.padel-landing, .badminton-landing) .hero-content {
   position: relative; z-index: 5;
   max-width: 860px;
   text-align: center;
   display: flex; flex-direction: column; align-items: center;
 }
-.padel-landing .hero-content .pre-headline { margin-bottom: 20px; font-size: 14px; }
-.padel-landing .hero-content .headline {
+:is(.padel-landing, .badminton-landing) .hero-content .pre-headline { margin-bottom: 20px; font-size: 14px; }
+:is(.padel-landing, .badminton-landing) .hero-content .headline {
   font-size: clamp(34px, 5.5vw, 60px);
   margin-bottom: 20px;
 }
-.padel-landing .hero-sub {
+:is(.padel-landing, .badminton-landing) .hero-sub {
   color: var(--text-secondary);
   font-size: 19px;
   max-width: 620px;
@@ -182,7 +182,7 @@
 }
 
 /* Promise badge */
-.padel-landing .promise-badge {
+:is(.padel-landing, .badminton-landing) .promise-badge {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -194,14 +194,14 @@
   margin-bottom: 28px;
   max-width: 560px;
 }
-.padel-landing .promise-badge-label {
+:is(.padel-landing, .badminton-landing) .promise-badge-label {
   color: var(--green);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-.padel-landing .promise-badge-text {
+:is(.padel-landing, .badminton-landing) .promise-badge-text {
   color: #fff;
   font-size: 17px;
   font-weight: 600;
@@ -210,7 +210,7 @@
 }
 
 /* Video player */
-.padel-landing .vsl-player {
+:is(.padel-landing, .badminton-landing) .vsl-player {
   width: 100%;
   max-width: 800px;
   aspect-ratio: 16/9;
@@ -220,7 +220,7 @@
   background: #111;
   margin-bottom: 8px;
 }
-.padel-landing .vsl-player video {
+:is(.padel-landing, .badminton-landing) .vsl-player video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -230,7 +230,7 @@
   background: #000;
   z-index: 0;
 }
-.padel-landing .vsl-poster {
+:is(.padel-landing, .badminton-landing) .vsl-poster {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -240,7 +240,7 @@
   pointer-events: none;
   z-index: 1;
 }
-.padel-landing .vsl-player .play-overlay {
+:is(.padel-landing, .badminton-landing) .vsl-player .play-overlay {
   position: absolute; inset: 0;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
@@ -250,9 +250,9 @@
   transition: background 0.3s;
   z-index: 2;
 }
-.padel-landing .vsl-player .play-overlay:hover { background: rgba(0,0,0,0.2); }
-.padel-landing .vsl-player .play-overlay.hidden { display: none; }
-.padel-landing .play-circle {
+:is(.padel-landing, .badminton-landing) .vsl-player .play-overlay:hover { background: rgba(0,0,0,0.2); }
+:is(.padel-landing, .badminton-landing) .vsl-player .play-overlay.hidden { display: none; }
+:is(.padel-landing, .badminton-landing) .play-circle {
   width: 72px; height: 72px;
   border-radius: 50%;
   background: rgba(57,255,20,0.18);
@@ -260,72 +260,72 @@
   display: flex; align-items: center; justify-content: center;
   transition: transform 0.2s, background 0.2s;
 }
-.padel-landing .play-overlay:hover .play-circle {
+:is(.padel-landing, .badminton-landing) .play-overlay:hover .play-circle {
   transform: scale(1.08);
   background: rgba(57,255,20,0.3);
 }
-.padel-landing .play-circle svg { margin-left: 4px; }
-.padel-landing .play-overlay-text {
+:is(.padel-landing, .badminton-landing) .play-circle svg { margin-left: 4px; }
+:is(.padel-landing, .badminton-landing) .play-overlay-text {
   color: #fff; font-weight: 600; font-size: 16px;
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
-.padel-landing .player-note {
+:is(.padel-landing, .badminton-landing) .player-note {
   color: var(--text-muted); font-size: 13px;
   margin-top: 6px; text-align: center;
 }
-.padel-landing .hero-cta-area.cta-locked {
+:is(.padel-landing, .badminton-landing) .hero-cta-area.cta-locked {
   opacity: 0;
   pointer-events: none;
   transform: translateY(12px);
 }
-.padel-landing .hero-cta-area {
+:is(.padel-landing, .badminton-landing) .hero-cta-area {
   margin-top: 28px;
   display: flex; flex-direction: column; align-items: center;
   transition: opacity 0.9s ease, transform 0.9s ease;
 }
 @media (max-width: 1024px) {
-  .padel-landing #hero {
+  :is(.padel-landing, .badminton-landing) #hero {
     padding: 72px 20px 40px;
   }
-  .padel-landing .hero-content {
+  :is(.padel-landing, .badminton-landing) .hero-content {
     max-width: 720px;
   }
-  .padel-landing .hero-content .headline {
+  :is(.padel-landing, .badminton-landing) .hero-content .headline {
     font-size: clamp(32px, 7vw, 52px);
   }
 }
 @media (max-width: 767px) {
-  .padel-landing #hero {
+  :is(.padel-landing, .badminton-landing) #hero {
     min-height: auto;
     padding: 88px 16px 32px;
   }
-  .padel-landing .hero-logo {
+  :is(.padel-landing, .badminton-landing) .hero-logo {
     top: 18px;
     left: 16px;
   }
-  .padel-landing .hero-logo img {
+  :is(.padel-landing, .badminton-landing) .hero-logo img {
     height: 28px;
   }
-  .padel-landing .hero-content {
+  :is(.padel-landing, .badminton-landing) .hero-content {
     width: 100%;
     max-width: 100%;
   }
-  .padel-landing .hero-content .pre-headline {
+  :is(.padel-landing, .badminton-landing) .hero-content .pre-headline {
     font-size: 11px;
     line-height: 1.4;
     margin-bottom: 14px;
   }
-  .padel-landing .hero-content .headline {
+  :is(.padel-landing, .badminton-landing) .hero-content .headline {
     font-size: clamp(30px, 10vw, 42px);
     line-height: 1.02;
     margin-bottom: 14px;
   }
-  .padel-landing .hero-sub {
+  :is(.padel-landing, .badminton-landing) .hero-sub {
     font-size: 17px;
     line-height: 1.45;
     margin-bottom: 24px;
   }
-  .padel-landing .hero-social-proof {
+  :is(.padel-landing, .badminton-landing) .hero-social-proof {
     width: 100%;
     max-width: 360px;
     justify-content: center;
@@ -335,75 +335,75 @@
     margin-bottom: 20px;
     border-radius: 20px;
   }
-  .padel-landing .hsp-text {
+  :is(.padel-landing, .badminton-landing) .hsp-text {
     text-align: center;
     line-height: 1.35;
   }
-  .padel-landing .vsl-player {
+  :is(.padel-landing, .badminton-landing) .vsl-player {
     border-radius: 14px;
   }
-  .padel-landing .play-circle {
+  :is(.padel-landing, .badminton-landing) .play-circle {
     width: 60px;
     height: 60px;
   }
-  .padel-landing .play-overlay-text {
+  :is(.padel-landing, .badminton-landing) .play-overlay-text {
     font-size: 14px;
     text-align: center;
     padding: 0 18px;
   }
-  .padel-landing .hero-cta-area {
+  :is(.padel-landing, .badminton-landing) .hero-cta-area {
     width: 100%;
     margin-top: 22px;
   }
-  .padel-landing .micro-trust {
+  :is(.padel-landing, .badminton-landing) .micro-trust {
     white-space: normal;
     line-height: 1.4;
   }
 }
 @media (max-width: 480px) {
-  .padel-landing .hero-content .headline {
+  :is(.padel-landing, .badminton-landing) .hero-content .headline {
     font-size: 44px;
     letter-spacing: -0.03em;
   }
-  .padel-landing .hero-sub {
+  :is(.padel-landing, .badminton-landing) .hero-sub {
     font-size: 16px;
   }
-  .padel-landing .hero-social-proof {
+  :is(.padel-landing, .badminton-landing) .hero-social-proof {
     max-width: 100%;
   }
 }
 
 /* ── Section background images ─────────────────────────────── */
-.padel-landing .has-bg-image {
+:is(.padel-landing, .badminton-landing) .has-bg-image {
   position: relative;
   overflow: hidden;
 }
-.padel-landing .section-bg {
+:is(.padel-landing, .badminton-landing) .section-bg {
   position: absolute; inset: 0; z-index: 0;
 }
-.padel-landing .section-bg img {
+:is(.padel-landing, .badminton-landing) .section-bg img {
   width: 100%; height: 100%;
   object-fit: cover; object-position: center;
   display: block;
 }
-.padel-landing .section-bg-overlay {
+:is(.padel-landing, .badminton-landing) .section-bg-overlay {
   position: absolute; inset: 0;
   background: rgba(0,0,0,0.78);
 }
-.padel-landing .has-bg-image > *:not(.section-bg) {
+:is(.padel-landing, .badminton-landing) .has-bg-image > *:not(.section-bg) {
   position: relative; z-index: 2;
 }
 
 /* ── SECTION 2: AGITACIÓN ──────────────────────────────────── */
-.padel-landing #agitation { background: var(--surface-1); }
-.padel-landing #agitation.has-bg-image { background: transparent; }
-.padel-landing .agitation-inner { max-width: 720px; margin: 0 auto; text-align: center; }
-.padel-landing .agitation-inner .headline {
+:is(.padel-landing, .badminton-landing) #agitation { background: var(--surface-1); }
+:is(.padel-landing, .badminton-landing) #agitation.has-bg-image { background: transparent; }
+:is(.padel-landing, .badminton-landing) .agitation-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+:is(.padel-landing, .badminton-landing) .agitation-inner .headline {
   font-size: clamp(28px, 4.5vw, 46px);
   margin-bottom: 40px;
 }
-.padel-landing .pain-list { display: flex; flex-direction: column; gap: 12px; text-align: left; }
-.padel-landing .pain-item {
+:is(.padel-landing, .badminton-landing) .pain-list { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+:is(.padel-landing, .badminton-landing) .pain-item {
   background: var(--surface-2);
   border-left: 3px solid var(--green);
   border-radius: var(--radius-md);
@@ -412,20 +412,20 @@
   font-size: 17px; line-height: 1.55;
   color: var(--text-primary);
 }
-.padel-landing .pain-icon {
+:is(.padel-landing, .badminton-landing) .pain-icon {
   color: var(--error-red);
   font-size: 18px; font-weight: 700;
   flex-shrink: 0;
   margin-top: 2px;
 }
-.padel-landing .agitation-close {
+:is(.padel-landing, .badminton-landing) .agitation-close {
   text-align: center;
   color: var(--text-primary);
   font-size: 18px;
   font-weight: 500;
   margin-top: 36px;
 }
-.padel-landing .arrow-down {
+:is(.padel-landing, .badminton-landing) .arrow-down {
   display: inline-block;
   color: var(--green);
   font-size: 28px;
@@ -438,17 +438,17 @@
 }
 
 /* ── SECTION 3: CAUSA RAÍZ ─────────────────────────────────── */
-.padel-landing #root-cause { background: var(--surface-alt); }
-.padel-landing #root-cause.has-bg-image { background: transparent; }
-.padel-landing .root-inner { max-width: 700px; margin: 0 auto; }
-.padel-landing .root-inner .headline {
+:is(.padel-landing, .badminton-landing) #root-cause { background: var(--surface-alt); }
+:is(.padel-landing, .badminton-landing) #root-cause.has-bg-image { background: transparent; }
+:is(.padel-landing, .badminton-landing) .root-inner { max-width: 700px; margin: 0 auto; }
+:is(.padel-landing, .badminton-landing) .root-inner .headline {
   font-size: clamp(28px, 4.2vw, 46px);
   text-align: center;
   margin-bottom: 48px;
 }
-.padel-landing .root-block { padding: 28px 0; }
-.padel-landing .root-block + .root-block { border-top: 1px solid var(--surface-4); }
-.padel-landing .root-block h3 {
+:is(.padel-landing, .badminton-landing) .root-block { padding: 28px 0; }
+:is(.padel-landing, .badminton-landing) .root-block + .root-block { border-top: 1px solid var(--surface-4); }
+:is(.padel-landing, .badminton-landing) .root-block h3 {
   font-family: var(--font-body);
   font-size: 18px; font-weight: 700;
   color: var(--text-primary);
@@ -456,19 +456,19 @@
   text-transform: none;
   letter-spacing: 0;
 }
-.padel-landing .root-block p {
+:is(.padel-landing, .badminton-landing) .root-block p {
   color: var(--text-secondary);
   font-size: 16px; line-height: 1.65;
 }
-.padel-landing .root-transition {
+:is(.padel-landing, .badminton-landing) .root-transition {
   text-align: center; font-weight: 700;
   font-size: 20px; color: var(--text-primary);
   margin-top: 44px;
 }
 
 /* ── SECTION 4: SOLUCIÓN ───────────────────────────────────── */
-.padel-landing #solution { background: var(--surface-1); }
-.padel-landing .solution-grid {
+:is(.padel-landing, .badminton-landing) #solution { background: var(--surface-1); }
+:is(.padel-landing, .badminton-landing) .solution-grid {
   max-width: 1080px; margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -476,28 +476,28 @@
   align-items: center;
 }
 @media (min-width: 861px) {
-  .padel-landing .solution-grid {
+  :is(.padel-landing, .badminton-landing) .solution-grid {
     grid-template-columns: 1fr 1fr;
     gap: 60px;
   }
 }
-.padel-landing .solution-text .headline {
+:is(.padel-landing, .badminton-landing) .solution-text .headline {
   font-size: clamp(30px, 4.5vw, 50px);
   margin-bottom: 20px;
 }
-.padel-landing .solution-desc {
+:is(.padel-landing, .badminton-landing) .solution-desc {
   color: var(--text-secondary);
   font-size: 17px; line-height: 1.65;
   margin-bottom: 24px;
 }
-.padel-landing .value-points { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
-.padel-landing .value-point {
+:is(.padel-landing, .badminton-landing) .value-points { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+:is(.padel-landing, .badminton-landing) .value-point {
   display: flex; align-items: center; gap: 10px;
   font-size: 16px; font-weight: 500;
   color: var(--text-primary);
 }
-.padel-landing .value-point .check { color: var(--green); font-size: 18px; }
-.padel-landing .credential-box {
+:is(.padel-landing, .badminton-landing) .value-point .check { color: var(--green); font-size: 18px; }
+:is(.padel-landing, .badminton-landing) .credential-box {
   border: 1px solid var(--green);
   background: var(--surface-2);
   border-radius: var(--radius-md);
@@ -505,20 +505,20 @@
   font-size: 16px;
   display: flex; align-items: center; gap: 10px;
 }
-.padel-landing .credential-box .trophy { font-size: 22px; }
+:is(.padel-landing, .badminton-landing) .credential-box .trophy { font-size: 22px; }
 
 /* Phone mockup */
-.padel-landing .phone-mockup {
+:is(.padel-landing, .badminton-landing) .phone-mockup {
   display: flex; justify-content: center;
   position: relative;
   width: 100%;
   padding: 0 48px;
 }
-.padel-landing .phone-mockup-wrap {
+:is(.padel-landing, .badminton-landing) .phone-mockup-wrap {
   position: relative;
   margin: 0 auto;
 }
-.padel-landing .phone-frame {
+:is(.padel-landing, .badminton-landing) .phone-frame {
   width: min(280px, 100%);
   border-radius: 36px;
   overflow: hidden;
@@ -528,28 +528,28 @@
   transition: transform 0.4s ease;
 }
 @media (min-width: 861px) {
-  .padel-landing .phone-mockup { padding: 0; }
-  .padel-landing .phone-frame {
+  :is(.padel-landing, .badminton-landing) .phone-mockup { padding: 0; }
+  :is(.padel-landing, .badminton-landing) .phone-frame {
     width: 280px;
     transform: perspective(900px) rotateY(-5deg) rotateX(2deg);
   }
-  .padel-landing .phone-frame:hover { transform: perspective(900px) rotateY(0deg) rotateX(0deg); }
+  :is(.padel-landing, .badminton-landing) .phone-frame:hover { transform: perspective(900px) rotateY(0deg) rotateX(0deg); }
 }
-.padel-landing .phone-screen-wrap {
+:is(.padel-landing, .badminton-landing) .phone-screen-wrap {
   position: relative;
   width: 100%; overflow: hidden;
 }
-.padel-landing .phone-screen-wrap img {
+:is(.padel-landing, .badminton-landing) .phone-screen-wrap img {
   width: 100%; display: block;
   position: absolute; top: 0; left: 0;
   opacity: 0;
   transition: opacity 0.8s ease;
 }
-.padel-landing .phone-screen-wrap img.active {
+:is(.padel-landing, .badminton-landing) .phone-screen-wrap img.active {
   position: relative;
   opacity: 1;
 }
-.padel-landing .carousel-arrow {
+:is(.padel-landing, .badminton-landing) .carousel-arrow {
   position: absolute;
   top: 50%; transform: translateY(-50%);
   width: 36px; height: 36px;
@@ -563,34 +563,34 @@
   transition: background 0.2s, transform 0.2s;
   z-index: 10;
 }
-.padel-landing .carousel-arrow:hover { background: rgba(57,255,20,0.3); }
-.padel-landing .carousel-arrow.prev { left: -40px; }
-.padel-landing .carousel-arrow.next { right: -40px; }
+:is(.padel-landing, .badminton-landing) .carousel-arrow:hover { background: rgba(57,255,20,0.3); }
+:is(.padel-landing, .badminton-landing) .carousel-arrow.prev { left: -40px; }
+:is(.padel-landing, .badminton-landing) .carousel-arrow.next { right: -40px; }
 @media (max-width: 480px) {
-  .padel-landing .phone-mockup { padding: 0 40px; }
-  .padel-landing .phone-frame { width: 240px; }
-  .padel-landing .carousel-arrow {
+  :is(.padel-landing, .badminton-landing) .phone-mockup { padding: 0 40px; }
+  :is(.padel-landing, .badminton-landing) .phone-frame { width: 240px; }
+  :is(.padel-landing, .badminton-landing) .carousel-arrow {
     width: 32px;
     height: 32px;
     font-size: 16px;
   }
-  .padel-landing .carousel-arrow.prev { left: -36px; }
-  .padel-landing .carousel-arrow.next { right: -36px; }
+  :is(.padel-landing, .badminton-landing) .carousel-arrow.prev { left: -36px; }
+  :is(.padel-landing, .badminton-landing) .carousel-arrow.next { right: -36px; }
 }
 
 /* ── SECTION 5: BENEFICIOS ─────────────────────────────────── */
-.padel-landing #benefits { background: var(--surface-alt); }
-.padel-landing #benefits.has-bg-image { background: transparent; }
-.padel-landing .benefits-header { text-align: center; margin-bottom: 48px; }
-.padel-landing .benefits-header .headline { font-size: clamp(28px, 4.2vw, 46px); }
-.padel-landing .benefits-grid {
+:is(.padel-landing, .badminton-landing) #benefits { background: var(--surface-alt); }
+:is(.padel-landing, .badminton-landing) #benefits.has-bg-image { background: transparent; }
+:is(.padel-landing, .badminton-landing) .benefits-header { text-align: center; margin-bottom: 48px; }
+:is(.padel-landing, .badminton-landing) .benefits-header .headline { font-size: clamp(28px, 4.2vw, 46px); }
+:is(.padel-landing, .badminton-landing) .benefits-grid {
   max-width: 960px; margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 @media (min-width: 681px) {
-  .padel-landing .benefits-grid { grid-template-columns: 1fr 1fr; }
+  :is(.padel-landing, .badminton-landing) .benefits-grid { grid-template-columns: 1fr 1fr; }
 }
 .benefit-card {
   background: var(--surface-2);
@@ -598,13 +598,13 @@
   padding: 28px;
   border-top: 3px solid var(--green);
 }
-.padel-landing .benefit-card.has-photo {
+:is(.padel-landing, .badminton-landing) .benefit-card.has-photo {
   padding: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
-.padel-landing .benefit-photo {
+:is(.padel-landing, .badminton-landing) .benefit-photo {
   width: 100%;
   aspect-ratio: 1 / 1;
   min-height: 280px;
@@ -612,37 +612,37 @@
   position: relative;
   background: #0f0f0f;
 }
-.padel-landing .benefit-photo img {
+:is(.padel-landing, .badminton-landing) .benefit-photo img {
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center 18%;
   display: block;
 }
-.padel-landing .benefit-body {
+:is(.padel-landing, .badminton-landing) .benefit-body {
   padding: 24px 24px 28px;
 }
-.padel-landing .benefit-card h3 {
+:is(.padel-landing, .badminton-landing) .benefit-card h3 {
   font-family: var(--font-body);
   font-size: 20px; font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 10px;
   text-transform: none; letter-spacing: 0;
 }
-.padel-landing .benefit-card p {
+:is(.padel-landing, .badminton-landing) .benefit-card p {
   color: var(--text-secondary);
   font-size: 15px; line-height: 1.55;
 }
-.padel-landing .benefits-cta {
+:is(.padel-landing, .badminton-landing) .benefits-cta {
   text-align: center; margin-top: 48px;
   display: flex; flex-direction: column; align-items: center;
 }
 
 /* ── SECTION 6: CÓMO FUNCIONA ──────────────────────────────── */
-.padel-landing #how-it-works { background: var(--surface-1); }
-.padel-landing .how-header { text-align: center; margin-bottom: 56px; }
-.padel-landing .how-header .headline { font-size: clamp(28px, 4.2vw, 46px); }
+:is(.padel-landing, .badminton-landing) #how-it-works { background: var(--surface-1); }
+:is(.padel-landing, .badminton-landing) .how-header { text-align: center; margin-bottom: 56px; }
+:is(.padel-landing, .badminton-landing) .how-header .headline { font-size: clamp(28px, 4.2vw, 46px); }
 
-.padel-landing .steps-grid {
+:is(.padel-landing, .badminton-landing) .steps-grid {
   max-width: 320px;
   margin: 0 auto;
   display: grid;
@@ -651,18 +651,18 @@
   width: 100%;
 }
 @media (min-width: 768px) {
-  .padel-landing .steps-grid {
+  :is(.padel-landing, .badminton-landing) .steps-grid {
     grid-template-columns: repeat(2, 1fr);
     max-width: 680px;
   }
 }
 @media (min-width: 1025px) {
-  .padel-landing .steps-grid {
+  :is(.padel-landing, .badminton-landing) .steps-grid {
     grid-template-columns: repeat(5, 1fr);
     max-width: 1200px;
   }
 }
-.padel-landing .step-card {
+:is(.padel-landing, .badminton-landing) .step-card {
   background: var(--surface-2);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -670,7 +670,7 @@
   display: flex;
   flex-direction: column;
 }
-.padel-landing .step-card-number {
+:is(.padel-landing, .badminton-landing) .step-card-number {
   position: absolute; top: 12px; left: 12px; z-index: 3;
   width: 36px; height: 36px;
   border-radius: 50%;
@@ -680,31 +680,31 @@
   font-size: 16px;
   display: flex; align-items: center; justify-content: center;
 }
-.padel-landing .step-card-img {
+:is(.padel-landing, .badminton-landing) .step-card-img {
   width: 100%;
   aspect-ratio: 9/14;
   overflow: hidden;
   position: relative;
 }
-.padel-landing .step-card-img img {
+:is(.padel-landing, .badminton-landing) .step-card-img img {
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: top center;
   display: block;
 }
-.padel-landing .step-card-img::after {
+:is(.padel-landing, .badminton-landing) .step-card-img::after {
   content: '';
   position: absolute; bottom: 0; left: 0; right: 0;
   height: 60%;
   background: linear-gradient(to top, var(--surface-2) 0%, transparent 100%);
 }
-.padel-landing .step-card-body {
+:is(.padel-landing, .badminton-landing) .step-card-body {
   padding: 16px 16px 20px;
   margin-top: -32px;
   position: relative;
   z-index: 2;
 }
-.padel-landing .step-card-body h3 {
+:is(.padel-landing, .badminton-landing) .step-card-body h3 {
   font-family: var(--font-body);
   font-size: 17px; font-weight: 800;
   color: var(--text-primary);
@@ -712,30 +712,30 @@
   text-transform: none; letter-spacing: 0;
   line-height: 1.2;
 }
-.padel-landing .step-card-body p {
+:is(.padel-landing, .badminton-landing) .step-card-body p {
   color: var(--text-secondary);
   font-size: 13px; line-height: 1.5;
 }
 
 /* ── SECTION 7: TESTIMONIOS ────────────────────────────────── */
-.padel-landing #testimonials { background: var(--surface-alt); }
-.padel-landing .testimonials-header {
+:is(.padel-landing, .badminton-landing) #testimonials { background: var(--surface-alt); }
+:is(.padel-landing, .badminton-landing) .testimonials-header {
   text-align: center; margin-bottom: 48px;
 }
-.padel-landing .testimonials-header .headline { font-size: clamp(28px, 4.2vw, 46px); margin-bottom: 12px; }
-.padel-landing .testimonials-header .sub { color: var(--text-secondary); font-size: 16px; }
-.padel-landing .testimonials-grid {
+:is(.padel-landing, .badminton-landing) .testimonials-header .headline { font-size: clamp(28px, 4.2vw, 46px); margin-bottom: 12px; }
+:is(.padel-landing, .badminton-landing) .testimonials-header .sub { color: var(--text-secondary); font-size: 16px; }
+:is(.padel-landing, .badminton-landing) .testimonials-grid {
   max-width: 1080px; margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 @media (max-width: 860px) {
-  .padel-landing .testimonials-grid { grid-template-columns: 1fr; }
+  :is(.padel-landing, .badminton-landing) .testimonials-grid { grid-template-columns: 1fr; }
 }
 
 /* Video testimonial cards */
-.padel-landing .video-testimonials {
+:is(.padel-landing, .badminton-landing) .video-testimonials {
   max-width: 280px;
   margin: 0 auto 40px;
   display: grid;
@@ -744,13 +744,13 @@
   width: 100%;
 }
 @media (min-width: 481px) {
-  .padel-landing .video-testimonials {
+  :is(.padel-landing, .badminton-landing) .video-testimonials {
     grid-template-columns: repeat(2, 1fr);
     max-width: 560px;
   }
 }
 @media (min-width: 861px) {
-  .padel-landing .video-testimonials {
+  :is(.padel-landing, .badminton-landing) .video-testimonials {
     grid-template-columns: repeat(4, 1fr);
     max-width: 1080px;
   }
@@ -767,32 +767,32 @@
   width: 100%; height: 100%; object-fit: cover;
   display: block;
 }
-.padel-landing .video-card .video-play-btn {
+:is(.padel-landing, .badminton-landing) .video-card .video-play-btn {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
   background: rgba(0,0,0,0.3);
   transition: background 0.2s;
 }
-.padel-landing .video-card:hover .video-play-btn { background: rgba(0,0,0,0.15); }
-.padel-landing .video-card .video-play-btn.hidden { display: none; }
-.padel-landing .video-play-circle {
+:is(.padel-landing, .badminton-landing) .video-card:hover .video-play-btn { background: rgba(0,0,0,0.15); }
+:is(.padel-landing, .badminton-landing) .video-card .video-play-btn.hidden { display: none; }
+:is(.padel-landing, .badminton-landing) .video-play-circle {
   width: 56px; height: 56px;
   border-radius: 50%;
   background: rgba(57,255,20,0.2);
   border: 2px solid var(--green);
   display: flex; align-items: center; justify-content: center;
 }
-.padel-landing .video-play-circle svg { margin-left: 3px; }
-.padel-landing .testimonial-card {
+:is(.padel-landing, .badminton-landing) .video-play-circle svg { margin-left: 3px; }
+:is(.padel-landing, .badminton-landing) .testimonial-card {
   background: var(--surface-2);
   border-radius: var(--radius-lg);
   padding: 24px;
   display: flex; flex-direction: column; gap: 14px;
 }
-.padel-landing .testimonial-top {
+:is(.padel-landing, .badminton-landing) .testimonial-top {
   display: flex; align-items: center; gap: 12px;
 }
-.padel-landing .testimonial-avatar {
+:is(.padel-landing, .badminton-landing) .testimonial-avatar {
   width: 48px; height: 48px;
   border-radius: 50%;
   background: var(--surface-4);
@@ -801,16 +801,16 @@
   color: var(--green);
   flex-shrink: 0;
 }
-.padel-landing .testimonial-name { font-weight: 700; font-size: 16px; color: var(--text-primary); }
-.padel-landing .testimonial-level { font-size: 13px; color: var(--green); }
-.padel-landing .testimonial-stars { color: var(--gold); font-size: 15px; letter-spacing: 2px; }
-.padel-landing .testimonial-body {
+:is(.padel-landing, .badminton-landing) .testimonial-name { font-weight: 700; font-size: 16px; color: var(--text-primary); }
+:is(.padel-landing, .badminton-landing) .testimonial-level { font-size: 13px; color: var(--green); }
+:is(.padel-landing, .badminton-landing) .testimonial-stars { color: var(--gold); font-size: 15px; letter-spacing: 2px; }
+:is(.padel-landing, .badminton-landing) .testimonial-body {
   position: relative;
   color: var(--text-secondary);
   font-size: 15px; line-height: 1.6;
   padding-left: 20px;
 }
-.padel-landing .testimonial-body::before {
+:is(.padel-landing, .badminton-landing) .testimonial-body::before {
   content: '"';
   position: absolute; left: -4px; top: -10px;
   font-size: 48px; color: var(--green);
@@ -819,21 +819,21 @@
 }
 
 /* ── SECTION 8: CREDIBILIDAD ───────────────────────────────── */
-.padel-landing #credibility { 
+:is(.padel-landing, .badminton-landing) #credibility { 
   background: var(--surface-1);
   background-image: radial-gradient(ellipse at center, rgba(57,255,20,0.03) 0%, transparent 70%);
 }
-.padel-landing #credibility.has-bg-image { background: transparent; background-image: none; }
-.padel-landing .credibility-header { text-align: center; margin-bottom: 48px; }
-.padel-landing .credibility-header .headline { font-size: clamp(28px, 4.2vw, 46px); }
-.padel-landing .awards-grid {
+:is(.padel-landing, .badminton-landing) #credibility.has-bg-image { background: transparent; background-image: none; }
+:is(.padel-landing, .badminton-landing) .credibility-header { text-align: center; margin-bottom: 48px; }
+:is(.padel-landing, .badminton-landing) .credibility-header .headline { font-size: clamp(28px, 4.2vw, 46px); }
+:is(.padel-landing, .badminton-landing) .awards-grid {
   max-width: 800px; margin: 0 auto 48px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
 }
 @media (min-width: 681px) {
-  .padel-landing .awards-grid { grid-template-columns: 1fr 1fr; }
+  :is(.padel-landing, .badminton-landing) .awards-grid { grid-template-columns: 1fr 1fr; }
 }
 .award-card {
   border-radius: var(--radius-lg);
@@ -843,45 +843,45 @@
   display: flex; flex-direction: column; justify-content: flex-end;
   padding: 24px;
 }
-.padel-landing .award-card-bg {
+:is(.padel-landing, .badminton-landing) .award-card-bg {
   position: absolute; inset: 0; z-index: 0;
 }
-.padel-landing .award-card-bg img {
+:is(.padel-landing, .badminton-landing) .award-card-bg img {
   width: 100%; height: 100%; object-fit: cover;
 }
-.padel-landing .award-card-bg::after {
+:is(.padel-landing, .badminton-landing) .award-card-bg::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2) 100%);
 }
-.padel-landing .award-card-content { position: relative; z-index: 2; }
-.padel-landing .award-icon { font-size: 28px; margin-bottom: 8px; }
-.padel-landing .award-name { font-weight: 700; font-size: 18px; color: var(--text-primary); }
-.padel-landing .award-org { font-size: 14px; color: var(--green); margin-top: 4px; }
-.padel-landing .award-date { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+:is(.padel-landing, .badminton-landing) .award-card-content { position: relative; z-index: 2; }
+:is(.padel-landing, .badminton-landing) .award-icon { font-size: 28px; margin-bottom: 8px; }
+:is(.padel-landing, .badminton-landing) .award-name { font-weight: 700; font-size: 18px; color: var(--text-primary); }
+:is(.padel-landing, .badminton-landing) .award-org { font-size: 14px; color: var(--green); margin-top: 4px; }
+:is(.padel-landing, .badminton-landing) .award-date { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
 
-.padel-landing .partners-block {
+:is(.padel-landing, .badminton-landing) .partners-block {
   max-width: 800px; margin: 0 auto 48px;
   text-align: center;
 }
-.padel-landing .partners-label {
+:is(.padel-landing, .badminton-landing) .partners-label {
   font-size: 16px; font-weight: 500;
   color: var(--text-secondary);
   margin-bottom: 24px;
 }
-.padel-landing .partners-logos {
+:is(.padel-landing, .badminton-landing) .partners-logos {
   display: flex; align-items: center;
   justify-content: center;
   gap: 40px; flex-wrap: wrap;
 }
-.padel-landing .partners-logos img {
+:is(.padel-landing, .badminton-landing) .partners-logos img {
   height: 52px; width: auto;
   object-fit: contain;
   transition: transform 0.2s, opacity 0.2s;
   opacity: 0.85;
 }
-.padel-landing .partners-logos img:hover { transform: scale(1.05); opacity: 1; }
+:is(.padel-landing, .badminton-landing) .partners-logos img:hover { transform: scale(1.05); opacity: 1; }
 
-.padel-landing .expert-card {
+:is(.padel-landing, .badminton-landing) .expert-card {
   max-width: 680px; margin: 0 auto;
   background: var(--surface-2);
   border-radius: var(--radius-lg);
@@ -889,33 +889,33 @@
   display: flex; align-items: center; gap: 20px;
 }
 @media (max-width: 600px) {
-  .padel-landing .expert-card { flex-direction: column; text-align: center; }
+  :is(.padel-landing, .badminton-landing) .expert-card { flex-direction: column; text-align: center; }
 }
-.padel-landing .expert-photo {
+:is(.padel-landing, .badminton-landing) .expert-photo {
   width: 72px; height: 72px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
   border: 2px solid var(--green);
 }
-.padel-landing .expert-photo img { width: 100%; height: 100%; object-fit: cover; }
-.padel-landing .expert-name { font-weight: 700; font-size: 17px; color: var(--text-primary); }
-.padel-landing .expert-title { font-size: 14px; color: var(--green); margin-bottom: 8px; }
-.padel-landing .expert-quote {
+:is(.padel-landing, .badminton-landing) .expert-photo img { width: 100%; height: 100%; object-fit: cover; }
+:is(.padel-landing, .badminton-landing) .expert-name { font-weight: 700; font-size: 17px; color: var(--text-primary); }
+:is(.padel-landing, .badminton-landing) .expert-title { font-size: 14px; color: var(--green); margin-bottom: 8px; }
+:is(.padel-landing, .badminton-landing) .expert-quote {
   color: var(--text-secondary); font-size: 15px;
   line-height: 1.6; font-style: italic;
 }
 
 /* ── SECTION 9: PRECIO ─────────────────────────────────────── */
-.padel-landing #pricing {
+:is(.padel-landing, .badminton-landing) #pricing {
   background: var(--surface-0);
   border-top: 2px solid var(--green);
 }
-.padel-landing .pricing-header { text-align: center; margin-bottom: 48px; }
-.padel-landing .pricing-header .headline { font-size: clamp(30px, 4.5vw, 50px); margin-bottom: 12px; }
-.padel-landing .pricing-header .sub { color: var(--text-secondary); font-size: 18px; }
+:is(.padel-landing, .badminton-landing) .pricing-header { text-align: center; margin-bottom: 48px; }
+:is(.padel-landing, .badminton-landing) .pricing-header .headline { font-size: clamp(30px, 4.5vw, 50px); margin-bottom: 12px; }
+:is(.padel-landing, .badminton-landing) .pricing-header .sub { color: var(--text-secondary); font-size: 18px; }
 
-.padel-landing .price-anchor {
+:is(.padel-landing, .badminton-landing) .price-anchor {
   max-width: 700px; margin: 0 auto 48px;
   display: grid;
   grid-template-columns: 1fr;
@@ -924,41 +924,41 @@
   text-align: center;
 }
 @media (min-width: 601px) {
-  .padel-landing .price-anchor {
+  :is(.padel-landing, .badminton-landing) .price-anchor {
     grid-template-columns: 1fr auto 1fr;
     gap: 16px;
     text-align: initial;
   }
 }
-.padel-landing .anchor-old {
+:is(.padel-landing, .badminton-landing) .anchor-old {
   background: rgba(239,68,68,0.12);
   border: 1px solid rgba(239,68,68,0.3);
   border-radius: var(--radius-lg);
   padding: 20px 24px;
   text-align: center;
 }
-.padel-landing .anchor-old .label { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
-.padel-landing .anchor-old .price {
+:is(.padel-landing, .badminton-landing) .anchor-old .label { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+:is(.padel-landing, .badminton-landing) .anchor-old .price {
   font-size: 22px; font-weight: 700;
   color: var(--error-red);
   text-decoration: line-through;
 }
-.padel-landing .anchor-vs {
+:is(.padel-landing, .badminton-landing) .anchor-vs {
   font-weight: 800; font-size: 20px;
   color: var(--text-muted);
   text-align: center;
 }
-.padel-landing .anchor-new {
+:is(.padel-landing, .badminton-landing) .anchor-new {
   background: var(--green);
   border-radius: var(--radius-lg);
   padding: 20px 24px;
   text-align: center;
   color: #000;
 }
-.padel-landing .anchor-new .label { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
-.padel-landing .anchor-new .price { font-size: 22px; font-weight: 800; }
+:is(.padel-landing, .badminton-landing) .anchor-new .label { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+:is(.padel-landing, .badminton-landing) .anchor-new .price { font-size: 22px; font-weight: 800; }
 
-.padel-landing .pricing-grid {
+:is(.padel-landing, .badminton-landing) .pricing-grid {
   max-width: 400px;
   margin: 0 auto 48px;
   display: grid;
@@ -967,19 +967,19 @@
   align-items: start;
   width: 100%;
 }
-.padel-landing .pricing-grid .price-card.featured { order: -1; }
+:is(.padel-landing, .badminton-landing) .pricing-grid .price-card.featured { order: -1; }
 @media (min-width: 861px) {
-  .padel-landing .pricing-grid {
+  :is(.padel-landing, .badminton-landing) .pricing-grid {
     grid-template-columns: repeat(3, 1fr);
     max-width: 960px;
   }
-  .padel-landing .pricing-grid .price-card.featured { order: 0; }
+  :is(.padel-landing, .badminton-landing) .pricing-grid .price-card.featured { order: 0; }
 }
 @media (max-width: 480px) {
-  .padel-landing .pricing-grid {
+  :is(.padel-landing, .badminton-landing) .pricing-grid {
     max-width: 100%;
   }
-  .padel-landing .price-badge {
+  :is(.padel-landing, .badminton-landing) .price-badge {
     font-size: 11px;
     padding: 4px 10px;
     white-space: normal;
@@ -988,11 +988,11 @@
     text-align: center;
     line-height: 1.25;
   }
-  .padel-landing .price-amount {
+  :is(.padel-landing, .badminton-landing) .price-amount {
     font-size: 36px;
   }
 }
-.padel-landing .price-card {
+:is(.padel-landing, .badminton-landing) .price-card {
   background: var(--surface-2);
   border: 1px solid var(--surface-4);
   border-radius: var(--radius-lg);
@@ -1000,11 +1000,11 @@
   text-align: center;
   position: relative;
 }
-.padel-landing .price-card.featured {
+:is(.padel-landing, .badminton-landing) .price-card.featured {
   border: 2px solid var(--green);
   box-shadow: var(--shadow-accent);
 }
-.padel-landing .price-badge {
+:is(.padel-landing, .badminton-landing) .price-badge {
   position: absolute; top: -13px; left: 50%;
   transform: translateX(-50%);
   background: var(--green);
@@ -1015,59 +1015,59 @@
   white-space: nowrap;
   letter-spacing: 0.04em;
 }
-.padel-landing .price-label {
+:is(.padel-landing, .badminton-landing) .price-label {
   font-size: 13px; font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--text-muted);
   margin-bottom: 16px;
   text-transform: uppercase;
 }
-.padel-landing .price-amount {
+:is(.padel-landing, .badminton-landing) .price-amount {
   font-family: var(--font-display);
   font-size: 42px; font-weight: 800;
   color: var(--text-primary);
   line-height: 1.1;
 }
-.padel-landing .price-amount span { font-size: 18px; font-weight: 500; }
-.padel-landing .price-amount-small {
+:is(.padel-landing, .badminton-landing) .price-amount span { font-size: 18px; font-weight: 500; }
+:is(.padel-landing, .badminton-landing) .price-amount-small {
   font-size: 15px; font-weight: 500;
   color: var(--text-muted);
   margin-top: 4px;
 }
-.padel-landing .price-equiv {
+:is(.padel-landing, .badminton-landing) .price-equiv {
   font-size: 14px; color: var(--text-muted);
   margin-top: 4px;
 }
-.padel-landing .price-save {
+:is(.padel-landing, .badminton-landing) .price-save {
   font-size: 14px; color: var(--green);
   font-weight: 600; margin-top: 4px;
 }
-.padel-landing .price-sub {
+:is(.padel-landing, .badminton-landing) .price-sub {
   font-size: 14px; color: var(--text-muted);
   margin-top: 6px;
 }
-.padel-landing .price-card .cta-btn {
+:is(.padel-landing, .badminton-landing) .price-card .cta-btn {
   margin-top: 20px;
   width: 100%;
   font-size: 16px;
   padding: 14px 20px;
 }
 
-.padel-landing .included-list {
+:is(.padel-landing, .badminton-landing) .included-list {
   max-width: 600px; margin: 0 auto 32px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px 24px;
 }
 @media (min-width: 601px) {
-  .padel-landing .included-list { grid-template-columns: 1fr 1fr; }
+  :is(.padel-landing, .badminton-landing) .included-list { grid-template-columns: 1fr 1fr; }
 }
 .included-item {
   display: flex; align-items: center; gap: 8px;
   font-size: 15px; color: var(--text-primary);
 }
-.padel-landing .included-item .check { color: var(--green); font-weight: 700; }
-.padel-landing .guarantee-text {
+:is(.padel-landing, .badminton-landing) .included-item .check { color: var(--green); font-weight: 700; }
+:is(.padel-landing, .badminton-landing) .guarantee-text {
   text-align: center;
   color: var(--text-muted);
   font-size: 14px;
@@ -1076,21 +1076,21 @@
 }
 
 /* ── SECTION 10: FAQ ───────────────────────────────────────── */
-.padel-landing #faq { background: var(--surface-alt); }
-.padel-landing .faq-header { text-align: center; margin-bottom: 48px; }
-.padel-landing .faq-header .headline { font-size: clamp(28px, 4.2vw, 46px); }
-.padel-landing .faq-list {
+:is(.padel-landing, .badminton-landing) #faq { background: var(--surface-alt); }
+:is(.padel-landing, .badminton-landing) .faq-header { text-align: center; margin-bottom: 48px; }
+:is(.padel-landing, .badminton-landing) .faq-header .headline { font-size: clamp(28px, 4.2vw, 46px); }
+:is(.padel-landing, .badminton-landing) .faq-list {
   max-width: 720px; margin: 0 auto;
   display: flex; flex-direction: column; gap: 8px;
 }
-.padel-landing .faq-item {
+:is(.padel-landing, .badminton-landing) .faq-item {
   background: var(--surface-2);
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid transparent;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
-.padel-landing .faq-question {
+:is(.padel-landing, .badminton-landing) .faq-question {
   width: 100%;
   padding: 20px;
   display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
@@ -1103,48 +1103,48 @@
   transition: color 0.2s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.padel-landing .faq-question-text {
+:is(.padel-landing, .badminton-landing) .faq-question-text {
   flex: 1;
   min-width: 0;
   color: inherit;
 }
-.padel-landing .faq-item:hover,
-.padel-landing .faq-item:focus-within,
-.padel-landing .faq-item.open {
+:is(.padel-landing, .badminton-landing) .faq-item:hover,
+:is(.padel-landing, .badminton-landing) .faq-item:focus-within,
+:is(.padel-landing, .badminton-landing) .faq-item.open {
   border-color: rgba(57,255,20,0.35);
   background: #171717;
 }
-.padel-landing .faq-question:hover,
-.padel-landing .faq-question:active,
-.padel-landing .faq-question:focus-visible,
-.padel-landing .faq-item.open .faq-question {
+:is(.padel-landing, .badminton-landing) .faq-question:hover,
+:is(.padel-landing, .badminton-landing) .faq-question:active,
+:is(.padel-landing, .badminton-landing) .faq-question:focus-visible,
+:is(.padel-landing, .badminton-landing) .faq-item.open .faq-question {
   color: var(--text-primary);
   outline: none;
 }
-.padel-landing .faq-toggle {
+:is(.padel-landing, .badminton-landing) .faq-toggle {
   color: var(--green);
   font-size: 22px; font-weight: 700;
   flex-shrink: 0;
   transition: transform 0.3s;
 }
-.padel-landing .faq-item.open .faq-toggle { transform: rotate(45deg); }
-.padel-landing .faq-answer {
+:is(.padel-landing, .badminton-landing) .faq-item.open .faq-toggle { transform: rotate(45deg); }
+:is(.padel-landing, .badminton-landing) .faq-answer {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1), padding 0.4s;
   padding: 0 20px;
 }
-.padel-landing .faq-item.open .faq-answer {
+:is(.padel-landing, .badminton-landing) .faq-item.open .faq-answer {
   max-height: 500px;
   padding: 0 20px 20px;
 }
-.padel-landing .faq-answer p {
+:is(.padel-landing, .badminton-landing) .faq-answer p {
   color: var(--text-secondary);
   font-size: 15px; line-height: 1.65;
 }
 
 /* ── CTA Final ─────────────────────────────────────────────── */
-.padel-landing .final-cta-box {
+:is(.padel-landing, .badminton-landing) .final-cta-box {
   max-width: 640px; margin: 56px auto 0;
   background: var(--surface-2);
   border: 1px solid rgba(57,255,20,0.25);
@@ -1156,29 +1156,29 @@
   box-sizing: border-box;
   overflow: hidden;
 }
-.padel-landing .final-cta-box .headline {
+:is(.padel-landing, .badminton-landing) .final-cta-box .headline {
   font-size: 28px;
   margin-bottom: 10px;
 }
-.padel-landing .final-cta-box .sub {
+:is(.padel-landing, .badminton-landing) .final-cta-box .sub {
   color: var(--text-secondary);
   font-size: 17px;
   margin-bottom: 24px;
 }
-.padel-landing .final-cta-box .cta-btn {
+:is(.padel-landing, .badminton-landing) .final-cta-box .cta-btn {
   width: 100%;
 }
 @media (max-width: 560px) {
-  .padel-landing .final-cta-box {
+  :is(.padel-landing, .badminton-landing) .final-cta-box {
     padding: 28px 18px;
   }
-  .padel-landing .final-cta-box .headline {
+  :is(.padel-landing, .badminton-landing) .final-cta-box .headline {
     font-size: 24px;
   }
 }
 
 /* ── Hero social proof ────────────────────────────────────────── */
-.padel-landing .hero-social-proof {
+:is(.padel-landing, .badminton-landing) .hero-social-proof {
   display: flex; align-items: center; gap: 12px;
   margin-bottom: 28px;
   background: rgba(57,255,20,0.08);
@@ -1186,10 +1186,10 @@
   border-radius: 40px;
   padding: 8px 18px 8px 10px;
 }
-.padel-landing .hsp-avatars {
+:is(.padel-landing, .badminton-landing) .hsp-avatars {
   display: flex;
 }
-.padel-landing .hsp-av {
+:is(.padel-landing, .badminton-landing) .hsp-av {
   width: 30px; height: 30px;
   border-radius: 50%;
   border: 2px solid var(--green);
@@ -1198,15 +1198,15 @@
   color: var(--green);
   margin-left: -6px;
 }
-.padel-landing .hsp-av:first-child { margin-left: 0; }
-.padel-landing .hsp-text {
+:is(.padel-landing, .badminton-landing) .hsp-av:first-child { margin-left: 0; }
+:is(.padel-landing, .badminton-landing) .hsp-text {
   font-size: 13px;
   color: var(--text-secondary);
 }
-.padel-landing .hsp-text strong { color: var(--green); }
+:is(.padel-landing, .badminton-landing) .hsp-text strong { color: var(--green); }
 
 /* ── Emotional bridge ─────────────────────────────────────────── */
-.padel-landing .emotional-bridge {
+:is(.padel-landing, .badminton-landing) .emotional-bridge {
   font-size: 20px;
   font-weight: 600;
   color: var(--text-secondary);
@@ -1217,7 +1217,7 @@
 }
 
 /* ── Guarantee box ────────────────────────────────────────────── */
-.padel-landing .guarantee-box {
+:is(.padel-landing, .badminton-landing) .guarantee-box {
   max-width: 600px; margin: 32px auto 0;
   background: rgba(57,255,20,0.06);
   border: 1px solid rgba(57,255,20,0.25);
@@ -1225,14 +1225,14 @@
   padding: 20px 24px;
   display: flex; align-items: flex-start; gap: 16px;
 }
-.padel-landing .guarantee-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
-.padel-landing .guarantee-box strong {
+:is(.padel-landing, .badminton-landing) .guarantee-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+:is(.padel-landing, .badminton-landing) .guarantee-box strong {
   display: block;
   font-size: 16px; font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 6px;
 }
-.padel-landing .guarantee-box p {
+:is(.padel-landing, .badminton-landing) .guarantee-box p {
   font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.55;
@@ -1240,14 +1240,14 @@
 }
 
 /* ── Text testimonials ────────────────────────────────────── */
-.padel-landing .text-testimonials {
+:is(.padel-landing, .badminton-landing) .text-testimonials {
   max-width: 1080px; margin: 32px auto 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 @media (max-width: 860px) {
-  .padel-landing .text-testimonials { grid-template-columns: 1fr; max-width: 480px; }
+  :is(.padel-landing, .badminton-landing) .text-testimonials { grid-template-columns: 1fr; max-width: 480px; }
 }
 .text-testi-card {
   background: var(--surface-2);
@@ -1256,25 +1256,25 @@
   display: flex; flex-direction: column; gap: 12px;
   border-top: 2px solid var(--green);
 }
-.padel-landing .text-testi-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; }
-.padel-landing .text-testi-quote {
+:is(.padel-landing, .badminton-landing) .text-testi-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; }
+:is(.padel-landing, .badminton-landing) .text-testi-quote {
   color: var(--text-secondary);
   font-size: 15px; line-height: 1.65;
   font-style: italic;
   flex: 1;
 }
-.padel-landing .text-testi-author {
+:is(.padel-landing, .badminton-landing) .text-testi-author {
   font-size: 13px; font-weight: 600;
   color: var(--green);
 }
 
 /* ── App Store reviews ────────────────────────────────────── */
-.padel-landing .appstore-reviews { max-width: 1100px; margin: 40px auto 0; }
-.padel-landing .appstore-reviews-header {
+:is(.padel-landing, .badminton-landing) .appstore-reviews { max-width: 1100px; margin: 40px auto 0; }
+:is(.padel-landing, .badminton-landing) .appstore-reviews-header {
   display: flex; align-items: center; justify-content: center; gap: 16px;
   margin-bottom: 28px;
 }
-.padel-landing .appstore-badge {
+:is(.padel-landing, .badminton-landing) .appstore-badge {
   display: flex; align-items: center; gap: 7px;
   background: var(--surface-2);
   border: 1px solid rgba(255,255,255,0.08);
@@ -1282,8 +1282,8 @@
   padding: 8px 16px;
   font-size: 13px; font-weight: 700; color: #fff;
 }
-.padel-landing .appstore-badge svg { opacity: 0.85; }
-.padel-landing .appstore-grid {
+:is(.padel-landing, .badminton-landing) .appstore-badge svg { opacity: 0.85; }
+:is(.padel-landing, .badminton-landing) .appstore-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
@@ -1291,22 +1291,22 @@
   margin: 0 auto;
 }
 @media (min-width: 768px) {
-  .padel-landing .appstore-grid {
+  :is(.padel-landing, .badminton-landing) .appstore-grid {
     grid-template-columns: 1fr 1fr;
     max-width: none;
   }
 }
 @media (min-width: 901px) {
-  .padel-landing .appstore-grid {
+  :is(.padel-landing, .badminton-landing) .appstore-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (max-width: 767px) {
-  .padel-landing .appstore-reviews-header {
+  :is(.padel-landing, .badminton-landing) .appstore-reviews-header {
     flex-direction: column;
     gap: 10px;
   }
-  .padel-landing .appstore-badge {
+  :is(.padel-landing, .badminton-landing) .appstore-badge {
     width: 100%;
     justify-content: center;
   }
@@ -1321,24 +1321,24 @@
 .appstore-card-top {
   display: flex; align-items: center; justify-content: space-between;
 }
-.padel-landing .appstore-stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; }
-.padel-landing .appstore-platform {
+:is(.padel-landing, .badminton-landing) .appstore-stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; }
+:is(.padel-landing, .badminton-landing) .appstore-platform {
   display: flex; align-items: center; gap: 4px;
   font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 600;
 }
-.padel-landing .appstore-quote {
+:is(.padel-landing, .badminton-landing) .appstore-quote {
   color: var(--text-secondary);
   font-size: 14px; line-height: 1.6;
   font-style: italic;
   flex: 1; margin: 0;
 }
-.padel-landing .appstore-author {
+:is(.padel-landing, .badminton-landing) .appstore-author {
   font-size: 12px; font-weight: 700;
   color: var(--green);
 }
 
 /* ── Urgency banner ─────────────────────────────────────────── */
-.padel-landing .urgency-banner {
+:is(.padel-landing, .badminton-landing) .urgency-banner {
   background: var(--green);
   color: #000;
   text-align: center;
@@ -1349,7 +1349,7 @@
   position: sticky; top: 0; z-index: 100;
 }
 @media (max-width: 560px) {
-  .padel-landing .urgency-banner {
+  :is(.padel-landing, .badminton-landing) .urgency-banner {
     flex-wrap: wrap;
     gap: 6px;
     font-size: 13px;
@@ -1357,11 +1357,11 @@
     padding: 10px 14px;
   }
 }
-.padel-landing .urgency-icon { font-size: 18px; }
-.padel-landing .urgency-text strong { font-weight: 800; }
+:is(.padel-landing, .badminton-landing) .urgency-icon { font-size: 18px; }
+:is(.padel-landing, .badminton-landing) .urgency-text strong { font-weight: 800; }
 
 /* ── FOOTER ────────────────────────────────────────────────── */
-.padel-landing footer {
+:is(.padel-landing, .badminton-landing) footer {
   background: var(--surface-0);
   border-top: 1px solid var(--surface-3);
   padding: 32px 24px;
@@ -1369,13 +1369,13 @@
   display: flex; flex-direction: column;
   align-items: center; gap: 12px;
 }
-.padel-landing footer img { height: 24px; width: auto; opacity: 0.6; }
-.padel-landing .footer-links {
+:is(.padel-landing, .badminton-landing) footer img { height: 24px; width: auto; opacity: 0.6; }
+:is(.padel-landing, .badminton-landing) .footer-links {
   display: flex; gap: 20px;
 }
-.padel-landing .footer-links a {
+:is(.padel-landing, .badminton-landing) .footer-links a {
   color: var(--text-muted); font-size: 12px;
   transition: color 0.2s;
 }
-.padel-landing .footer-links a:hover { color: var(--green); }
-.padel-landing .footer-copy { color: var(--text-faint); font-size: 12px; }
+:is(.padel-landing, .badminton-landing) .footer-links a:hover { color: var(--green); }
+:is(.padel-landing, .badminton-landing) .footer-copy { color: var(--text-faint); font-size: 12px; }

@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { APP_SCREEN_CAROUSEL } from "@/lib/appScreenCarousel";
 
-export function usePadelLanding() {
+export function usePadelLanding(
+  pageTitle = "Bivo Training — Preparación física para pádel"
+) {
   const rootRef = useRef<HTMLDivElement>(null);
   const vslVideoRef = useRef<HTMLVideoElement>(null);
   /** True while the user expects the VSL to be playing (ignores transient pause events while buffering). */
@@ -17,11 +19,11 @@ export function usePadelLanding() {
   }, []);
 
   useEffect(() => {
-    document.title = "Bivo Training — Preparación física para pádel";
+    document.title = pageTitle;
     return () => {
       document.title = "Bivo Training";
     };
-  }, []);
+  }, [pageTitle]);
 
   useEffect(() => {
     const root = rootRef.current;

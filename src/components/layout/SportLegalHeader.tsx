@@ -5,7 +5,7 @@ import type { SportLandingSlug } from "@/lib/sportLegalPaths";
 
 /**
  * Minimal header shown on legal pages (privacidad/terminos) when reached from
- * a sport landing (/padel, /estabilidad-hombro), so the user never sees the
+ * a sport landing (/padel, /badminton, /estabilidad-hombro), so the user never sees the
  * main site nav. Clicking the logo returns to that sport's landing page.
  */
 const SportLegalHeader = ({ sport }: { sport: SportLandingSlug }) => {

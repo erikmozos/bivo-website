@@ -23,6 +23,7 @@ const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const TermsConditions = lazy(() => import("./pages/TermsConditions"));
 const ShoulderStabilityLanding = lazy(() => import("./pages/ShoulderStabilityLanding"));
 const PadelLandingPage = lazy(() => import("./pages/PadelLandingPage"));
+const BadmintonLandingPage = lazy(() => import("./pages/BadmintonLandingPage"));
 
 const queryClient = new QueryClient();
 
@@ -101,6 +102,11 @@ const App = () => (
                   </Route>
                   <Route path="padel">
                     <Route index element={<PadelLandingPage />} />
+                    <Route path="privacidad" element={<PrivacyPolicy />} />
+                    <Route path="terminos" element={<TermsConditions />} />
+                  </Route>
+                  <Route path="badminton">
+                    <Route index element={<BadmintonLandingPage />} />
                     <Route path="privacidad" element={<PrivacyPolicy />} />
                     <Route path="terminos" element={<TermsConditions />} />
                   </Route>
