@@ -48,6 +48,24 @@ const SPORT_ICONS: Record<string, string> = {
   badminton: `${ICON_DIR}/badminton.png`,
 };
 
+const BODY_ICONS: Record<string, string> = {
+  rodilla: "knee.png",
+  cadera: "hip.png",
+  lumbar: "lumbar.png",
+  hombro: "shoulder.png",
+  codo: "elbow.png",
+  tobillo: "ankle.png",
+  muneca: "wrist.png",
+};
+
+function bodyIconSrc(values: unknown, fallbackFile: string): string {
+  if (!Array.isArray(values) || values.length === 0) {
+    return `${ICON_DIR}/${fallbackFile}`;
+  }
+  const file = BODY_ICONS[String(values[0])] ?? fallbackFile;
+  return `${ICON_DIR}/${file}`;
+}
+
 function SummaryIcon({ src }: { src: string }) {
   return (
     <span className="isolate flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[14px] bg-[#0e141d]">
@@ -98,7 +116,7 @@ function SummaryRow({
 const SUMMARY_HERO_BY_SPORT: Record<string, string> = {
   padel: "/onboarding/padel-players-summary.png",
   tenis: "/onboarding/tenis-players-summary.png",
-  badminton: "/onboarding/badminton-players-summary.png",
+  badminton: "/onboarding/badminton-players-summary.png?v=2",
   pickleball: "/onboarding/pickleball-players-summary.png",
 };
 
@@ -169,7 +187,7 @@ const OnboardingSummaryScreen = ({
 
       {pains.length > 0 && (
         <SummaryRow
-          icon={<SummaryIcon src={`${ICON_DIR}/knee.png?v=5`} />}
+          icon={<SummaryIcon src={bodyIconSrc(answers["6"], "knee.png")} />}
           label={t("appFlow.onboarding.summary.painsTitle")}
         >
           <div className="flex flex-wrap gap-1.5">
@@ -187,7 +205,7 @@ const OnboardingSummaryScreen = ({
 
       {mobility.length > 0 && (
         <SummaryRow
-          icon={<SummaryIcon src={`${ICON_DIR}/hip.png?v=5`} />}
+          icon={<SummaryIcon src={bodyIconSrc(answers["4"], "hip.png")} />}
           label={t("appFlow.onboarding.summary.mobilityTitle")}
           isLast
         >

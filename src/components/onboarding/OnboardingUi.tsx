@@ -185,8 +185,8 @@ export function SplitExerciseRow({ name, meta, imageUrl }: SplitExerciseRowProps
         {meta && <p className="text-xs text-gray-500 mt-0.5">{meta}</p>}
       </div>
       {imageUrl ? (
-        <div className="flex w-[38%] min-w-[108px] max-w-[132px] items-center justify-center bg-white px-2 py-1">
-          <img src={imageUrl} alt={name} className="max-h-[68px] w-full object-contain" loading="lazy" />
+        <div className="flex w-[38%] min-w-[108px] max-w-[132px] overflow-hidden bg-[#0a0f18]">
+          <img src={imageUrl} alt={name} className="h-full w-full min-h-[76px] object-cover" loading="lazy" />
         </div>
       ) : (
         <div className="flex w-[38%] min-w-[108px] max-w-[132px] items-center justify-center bg-white/10">

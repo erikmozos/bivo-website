@@ -2,7 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { APP_SCREEN_CAROUSEL } from "@/lib/appScreenCarousel";
 
 export function usePadelLanding(
-  pageTitle = "Bivo Training — Preparación física para pádel"
+  pageTitle = "Bivo Training — Preparación física para pádel",
+  carouselImages: readonly string[] = APP_SCREEN_CAROUSEL
 ) {
   const rootRef = useRef<HTMLDivElement>(null);
   const vslVideoRef = useRef<HTMLVideoElement>(null);
@@ -89,10 +90,10 @@ export function usePadelLanding(
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      setCarouselIndex((i) => (i + 1) % APP_SCREEN_CAROUSEL.length);
+      setCarouselIndex((i) => (i + 1) % carouselImages.length);
     }, 4000);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [carouselImages.length]);
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -135,11 +136,11 @@ export function usePadelLanding(
   }, []);
 
   const carouselPrev = () => {
-    setCarouselIndex((i) => (i - 1 + APP_SCREEN_CAROUSEL.length) % APP_SCREEN_CAROUSEL.length);
+    setCarouselIndex((i) => (i - 1 + carouselImages.length) % carouselImages.length);
   };
 
   const carouselNext = () => {
-    setCarouselIndex((i) => (i + 1) % APP_SCREEN_CAROUSEL.length);
+    setCarouselIndex((i) => (i + 1) % carouselImages.length);
   };
 
   const toggleFaq = (index: number) => {
@@ -175,7 +176,7 @@ export function usePadelLanding(
     carouselIndex,
     carouselPrev,
     carouselNext,
-    carouselImages: APP_SCREEN_CAROUSEL,
+    carouselImages,
     openFaq,
     toggleFaq,
     countdown,

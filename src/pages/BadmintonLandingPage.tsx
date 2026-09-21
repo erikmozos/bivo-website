@@ -306,7 +306,7 @@ const BadmintonLandingContent = () => {
           <div className="root-block fade-up">
             <h3>El 20-20 ya no es tuyo.</h3>
             <p>
-              Llegas a 16 iguales justo. Al final del set, ya no eres el mismo jugador. Los saltos pesan, el smash
+              Llegas a 18-18 justo. Al final del set, ya no eres el mismo jugador. Los saltos pesan, el smash
               pierde potencia y los desplazamientos a los rincones se atrasan. No es falta de ganas — es que tu cuerpo
               no ha entrenado para aguantar lo que el bádminton real exige. Y mientras tú te apagas, tus rivales siguen
               enchufados.
@@ -511,7 +511,7 @@ const BadmintonLandingContent = () => {
           </div>
           <div>
             <div className="expert-name">Toni Bota</div>
-            <div className="expert-title">Preparador físico de jugadores ATP</div>
+            <div className="expert-title">Preparador de jugadores amateurs y profesionales de raqueta</div>
             <p className="expert-quote">
               &quot;La metodología detrás de Bivo es la misma que aplico con deportistas de élite. Adaptada a tu nivel, a
               tus lesiones y a tu vida.&quot;
