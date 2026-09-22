@@ -24,6 +24,8 @@ const TermsConditions = lazy(() => import("./pages/TermsConditions"));
 const ShoulderStabilityLanding = lazy(() => import("./pages/ShoulderStabilityLanding"));
 const PadelLandingPage = lazy(() => import("./pages/PadelLandingPage"));
 const BadmintonLandingPage = lazy(() => import("./pages/BadmintonLandingPage"));
+const TenisLandingPage = lazy(() => import("./pages/TenisLandingPage"));
+const PickleballLandingPage = lazy(() => import("./pages/PickleballLandingPage"));
 
 const queryClient = new QueryClient();
 
@@ -107,6 +109,16 @@ const App = () => (
                   </Route>
                   <Route path="badminton">
                     <Route index element={<BadmintonLandingPage />} />
+                    <Route path="privacidad" element={<PrivacyPolicy />} />
+                    <Route path="terminos" element={<TermsConditions />} />
+                  </Route>
+                  <Route path="tenis">
+                    <Route index element={<TenisLandingPage />} />
+                    <Route path="privacidad" element={<PrivacyPolicy />} />
+                    <Route path="terminos" element={<TermsConditions />} />
+                  </Route>
+                  <Route path="pickleball">
+                    <Route index element={<PickleballLandingPage />} />
                     <Route path="privacidad" element={<PrivacyPolicy />} />
                     <Route path="terminos" element={<TermsConditions />} />
                   </Route>

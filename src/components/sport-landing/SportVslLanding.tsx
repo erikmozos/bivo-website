@@ -1,104 +1,30 @@
 import { Link } from "react-router-dom";
-import BadmintonAccessGate from "@/components/badminton/BadmintonAccessGate";
 import { useLocale } from "@/hooks/useLocale";
 import { notifyFlowSessionChange } from "@/hooks/useAppFlow";
-import { useBadmintonGate } from "@/hooks/useBadmintonGate";
-import { useBadmintonLanding } from "@/hooks/useBadmintonLanding";
+import { usePadelLanding } from "@/hooks/usePadelLanding";
 import { BIVO_ATHLETES_COUNT } from "@/lib/bivoStats";
 import type { PlanKey } from "@/lib/config";
 import { writeFlowSession } from "@/lib/flowSession";
-import { badmintonAsset } from "@/lib/badmintonLandingAssets";
-import { sportLegalPath } from "@/lib/sportLegalPaths";
-import "./BadmintonLanding.css";
+import { APP_SCREEN_CAROUSEL } from "@/lib/appScreenCarousel";
+import { sportLegalPath, type SportLandingSlug } from "@/lib/sportLegalPaths";
 
-const PAIN_POINTS = [
-  "Acabas los partidos exhausto cuando tus rivales todavía tienen gasolina de sobra.",
-  "Tienes miedo de lesionarte: llevas meses con molestias en el hombro, el tobillo o la rodilla que nunca terminan de irse, y cada partido es una ruleta.",
-  "Sabes que si te lesionas de verdad, semanas o meses fuera de la pista. Y eso no te lo puedes permitir.",
-  "Buscas rutinas en YouTube pero ninguna está pensada para las exigencias físicas reales del bádminton.",
-  "Entrenas sin estructura y al final no sabes si lo que haces sirve para algo o si incluso te está haciendo daño.",
-  "No tienes tiempo ni presupuesto para un preparador físico privado (40–120€/sesión).",
-];
-
-const VALUE_POINTS = [
+export const SPORT_VSL_VALUE_POINTS = [
   "Diseñado por preparadores físicos de jugadores ATP",
   "Adaptado a ti, no a una plantilla genérica",
   "Previene lesiones antes de que ocurran",
 ];
 
-const BENEFITS = [
-  {
-    image: "img/vsl/badminton-player-court.jpg",
-    imagePosition: "center 30%",
-    title: "Aguanta más que tus rivales",
-    text: "Entrena la resistencia explosiva del bádminton. Llega igual de fuerte al 20-20 que al primer punto. Sin piernas de plomo. Sin perder el smash en el momento decisivo.",
-  },
-  {
-    image: "img/vsl/onboarding-dolor.png",
-    imagePosition: "center 18%",
-    title: "Entrena sin miedo a lesionarte",
-    text: "Planes diseñados desde el primer día para proteger tus hombros, tobillos y rodillas. El trabajo preventivo de Bivo reduce el riesgo de lesión antes de que aparezca. Más partidos, menos tiempo parado.",
-  },
-  {
-    image: "img/vsl/entrenamiento-kettlebell.png",
-    imagePosition: "center 20%",
-    title: "Por fin ves cómo mejoras",
-    text: "Estadísticas claras de tu progreso semana a semana. Sabes exactamente qué has mejorado, cuánto te falta y por qué cada sesión tiene sentido.",
-  },
-  {
-    image: "img/bivo-train-at-home.jpg",
-    imagePosition: "center 18%",
-    title: "Sin excusas logísticas",
-    text: "En casa, en el club, en el hotel o en el jardín. Sin equipamiento especial. Cuando tú puedas. Bivo se adapta a tu vida, no al revés.",
-  },
+export const SPORT_VSL_INCLUDED = [
+  "Entrenamiento personalizado con IA",
+  "Adaptación automática a tu nivel y lesiones",
+  "Estadísticas y seguimiento de progreso",
+  "Calendario y planificación de partidos",
+  "Acceso completo a todas las funciones",
+  "Actualizaciones incluidas",
+  "Soporte en español",
 ];
 
-const APPSTORE_REVIEWS = [
-  {
-    platform: "App Store",
-    quote:
-      '"Llevaba un año con molestias en el hombro por los smashes. Desde que entreno con Bivo no he vuelto a tener problemas. Y además llego mejor al final de los sets."',
-    author: "Carlos R. · Jugador de bádminton",
-    icon: "apple",
-  },
-  {
-    platform: "Google Play",
-    quote:
-      '"En 6 semanas noté un cambio brutal en los desplazamientos. Antes me moría en el tercer set, ahora soy el que más aguanta del club."',
-    author: "Javier M. · Jugador de bádminton",
-    icon: "google",
-  },
-  {
-    platform: "App Store",
-    quote:
-      '"Por fin un entrenamiento que se adapta a mis torneos. Nunca llego cansada a los partidos importantes. Es como tener un preparador personal."',
-    author: "Laura G. · Jugadora de bádminton",
-    icon: "apple",
-  },
-  {
-    platform: "Google Play",
-    quote:
-      '"Lo que más me sorprende es que el plan cambia según cómo me encuentro cada semana. Nunca había tenido eso con ninguna app de entrenamiento."',
-    author: "Marta S. · Jugadora de bádminton",
-    icon: "google",
-  },
-  {
-    platform: "App Store",
-    quote:
-      '"Llevo tres meses y me he olvidado de las molestias de tobillo que tenía crónicas. El plan de prevención funciona de verdad."',
-    author: "Alejandro T. · Jugador de bádminton",
-    icon: "apple",
-  },
-  {
-    platform: "Google Play",
-    quote:
-      '"Antes no podía jugar dos partidos seguidos. Ahora termino el segundo igual de fresco que empecé el primero. No me lo puedo creer."',
-    author: "Rocío F. · Jugadora de bádminton",
-    icon: "google",
-  },
-];
-
-const STEPS = [
+export const SPORT_VSL_STEPS = [
   {
     image: "img/vsl/onboarding-movilidad.jpg",
     imagePosition: "center 14%",
@@ -131,17 +57,7 @@ const STEPS = [
   },
 ];
 
-const INCLUDED = [
-  "Entrenamiento personalizado con IA",
-  "Adaptación automática a tu nivel y lesiones",
-  "Estadísticas y seguimiento de progreso",
-  "Calendario y planificación de partidos",
-  "Acceso completo a todas las funciones",
-  "Actualizaciones incluidas",
-  "Soporte en español",
-];
-
-const FAQ_ITEMS = [
+export const SPORT_VSL_FAQ_SHARED = [
   {
     q: "¿Necesito ir al gimnasio o tener equipamiento especial?",
     a: "No. Bivo está diseñado para que puedas entrenar donde quieras, ya sea en el gimnasio, en casa con tu propio material, en un club, de viaje o incluso en el jardín. Desde la aplicación podrás sincronizar el material que tienes en cada momento para reajustar el plan de manera inmediata.",
@@ -166,11 +82,59 @@ const FAQ_ITEMS = [
     q: "¿Es para cualquier nivel, aunque sea principiante total?",
     a: "Absolutamente. Bivo está diseñado para jugadores de todos los niveles, quienes acaban de empezar hasta jugadores profesionales que ya lo están usando también. Lo bueno que tiene es que, desde dentro de la aplicación, te hace un test inicial para saber exactamente dónde estás y empezar el plan ahí. Si tú luego quieres subir o bajar la dificultad desde dentro de la aplicación también podrás hacerlo y te lo ajusta al instante.",
   },
-  {
-    q: "¿Funciona también para pádel, tenis o pickleball?",
-    a: "Sí. Aunque esta página está orientada al bádminton, Bivo cubre también pádel, tenis y pickleball con planes específicos para cada deporte. Cuando haces el test inicial, indicas tu deporte y el plan se crea en base a sus exigencias concretas.",
-  },
 ];
+
+export type SportVslReview = {
+  platform: string;
+  quote: string;
+  author: string;
+  icon: "apple" | "google";
+};
+
+export type SportVslBenefit = {
+  image: string;
+  imagePosition: string;
+  title: string;
+  text: string;
+};
+
+export type SportVslConfig = {
+  className: string;
+  slug: SportLandingSlug;
+  pageTitle: string;
+  asset: (path: string) => string;
+  carouselImages?: readonly string[];
+  hero: {
+    image: string;
+    alt: string;
+    preHeadline: string;
+    sub: string;
+  };
+  agitation: {
+    image: string;
+    imagePosition?: string;
+    headline: string;
+    painPoints: string[];
+  };
+  rootCause: {
+    image: string;
+    blocks: { title: string; text: string }[];
+  };
+  solution: {
+    accent: string;
+    desc: string;
+  };
+  benefits: {
+    bgImage: string;
+    items: SportVslBenefit[];
+  };
+  testimonialsHeadline: string;
+  reviews: SportVslReview[];
+  panoramicImage: string;
+  partners: { file: string; alt: string }[];
+  howItWorksHeadline: string;
+  otherSportsFaq: { q: string; a: string };
+};
 
 const AppleIcon = ({ size = 20 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -184,7 +148,7 @@ const GooglePlayIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 );
 
-const BadmintonLandingContent = () => {
+const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
   const { localePath } = useLocale();
   const signupPath = localePath("/registro");
   const planSignupPath = (plan: PlanKey) => `${signupPath}?plan=${plan}`;
@@ -201,13 +165,15 @@ const BadmintonLandingContent = () => {
     openFaq,
     toggleFaq,
     countdown,
-  } = useBadmintonLanding();
+  } = usePadelLanding(config.pageTitle, config.carouselImages ?? APP_SCREEN_CAROUSEL);
+
+  const faqItems = [...SPORT_VSL_FAQ_SHARED, config.otherSportsFaq];
 
   return (
-    <div className="badminton-landing" ref={rootRef}>
+    <div className={config.className} ref={rootRef}>
       <section id="hero">
         <div className="hero-bg">
-          <img src={badmintonAsset("img/badminton.jpg")} alt="Jugador de bádminton en acción" />
+          <img src={config.asset(config.hero.image)} alt={config.hero.alt} />
           <div
             className="hero-overlay"
             style={{
@@ -218,18 +184,15 @@ const BadmintonLandingContent = () => {
         </div>
 
         <div className="hero-logo">
-          <img src={badmintonAsset("assets/logo-green.png")} alt="Bivo" />
+          <img src={config.asset("assets/logo-green.png")} alt="Bivo" />
         </div>
 
         <div className="hero-content">
-          <p className="pre-headline">PARA JUGADORES DE BÁDMINTON QUE QUIEREN RENDIR MÁS Y LESIONARSE MENOS</p>
+          <p className="pre-headline">{config.hero.preHeadline}</p>
           <h1 className="headline">
             ¿Tu <span className="accent">cuerpo</span> no aguanta los partidos que tu cabeza quiere jugar?
           </h1>
-          <p className="hero-sub">
-            Descubre el método de preparación física que usan los profesionales del bádminton, ahora adaptado a tu
-            nivel y a tu vida.
-          </p>
+          <p className="hero-sub">{config.hero.sub}</p>
 
           <div className="hero-social-proof fade-up">
             <div className="hsp-avatars">
@@ -263,9 +226,9 @@ const BadmintonLandingContent = () => {
       <section id="agitation" className="section-pad has-bg-image">
         <div className="section-bg">
           <img
-            src={badmintonAsset("img/vsl/badminton-injury-pain.jpg")}
+            src={config.asset(config.agitation.image)}
             alt=""
-            style={{ objectPosition: "center top" }}
+            style={{ objectPosition: config.agitation.imagePosition ?? "center top" }}
           />
           <div
             className="section-bg-overlay"
@@ -278,10 +241,10 @@ const BadmintonLandingContent = () => {
         <div className="agitation-inner">
           <p className="pre-headline centered fade-up">¿TE SIENTES IDENTIFICADO?</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Si juegas al bádminton con pasión, pero algo siempre te frena...
+            {config.agitation.headline}
           </h2>
           <div className="pain-list">
-            {PAIN_POINTS.map((text) => (
+            {config.agitation.painPoints.map((text) => (
               <div key={text} className="pain-item fade-up">
                 <span className="pain-icon">✗</span>
                 <span>{text}</span>
@@ -295,7 +258,7 @@ const BadmintonLandingContent = () => {
 
       <section id="root-cause" className="section-pad has-bg-image">
         <div className="section-bg">
-          <img src={badmintonAsset("img/vsl/gym-squat.png")} alt="" />
+          <img src={config.asset(config.rootCause.image)} alt="" />
           <div className="section-bg-overlay" />
         </div>
         <div className="root-inner">
@@ -303,32 +266,12 @@ const BadmintonLandingContent = () => {
           <h2 className="headline fade-up">
             Tu cabeza quiere más partidos. Tu cuerpo te dice que <span className="accent">no puede</span>.
           </h2>
-          <div className="root-block fade-up">
-            <h3>El 18-18 ya no es tuyo.</h3>
-            <p>
-              Llegas a 18-18 justo. Al final del set, ya no eres el mismo jugador. Los saltos pesan, el smash
-              pierde potencia y los desplazamientos a los rincones se atrasan. No es falta de ganas — es que tu cuerpo
-              no ha entrenado para aguantar lo que el bádminton real exige. Y mientras tú te apagas, tus rivales siguen
-              enchufados.
-            </p>
-          </div>
-          <div className="root-block fade-up">
-            <h3>Esa molestia que &quot;no es nada&quot;… lleva meses ahí.</h3>
-            <p>
-              El hombro, el tobillo, la rodilla. Entrenas igual, juegas igual, y esperas que se vaya sola. A veces
-              mejora. A veces empeora justo antes de un partido importante. Y en el fondo sabes que si no haces algo
-              diferente, es cuestión de tiempo que se convierta en una lesión de verdad — semanas o meses fuera de la
-              pista.
-            </p>
-          </div>
-          <div className="root-block fade-up">
-            <h3>Nadie te ha dado un plan hecho para esto.</h3>
-            <p>
-              El gimnasio genérico no entrena para el bádminton. YouTube no sabe quién eres ni qué zonas tienes
-              castigadas. Y un preparador privado a 40–120€ la sesión no es una opción realista. El resultado: sigues
-              jugando sin estructura, acumulando fatiga, y rezando para que el cuerpo aguante.
-            </p>
-          </div>
+          {config.rootCause.blocks.map((block) => (
+            <div key={block.title} className="root-block fade-up">
+              <h3>{block.title}</h3>
+              <p>{block.text}</p>
+            </div>
+          ))}
           <p className="root-transition fade-up">
             El problema no es tu esfuerzo. Es que nadie te había dado el plan correcto. Hasta ahora.
           </p>
@@ -340,15 +283,12 @@ const BadmintonLandingContent = () => {
           <div className="solution-text">
             <p className="pre-headline fade-up">LA SOLUCIÓN</p>
             <h2 className="headline fade-up">
-              Bivo: la preparación física de los <span className="accent">pros del bádminton</span>, en tu bolsillo.
+              Bivo: la preparación física de los <span className="accent">{config.solution.accent}</span>, en tu
+              bolsillo.
             </h2>
-            <p className="solution-desc fade-up">
-              Bivo es la primera app con inteligencia artificial diseñada específicamente para jugadores de bádminton.
-              Crea tu plan de entrenamiento personalizado desde cero basándose en tu nivel real, tus lesiones, tu
-              disponibilidad horaria y tus objetivos. Y lo recalcula automáticamente cuando tu vida cambia.
-            </p>
+            <p className="solution-desc fade-up">{config.solution.desc}</p>
             <div className="value-points fade-up">
-              {VALUE_POINTS.map((point) => (
+              {SPORT_VSL_VALUE_POINTS.map((point) => (
                 <div key={point} className="value-point">
                   <span className="check">✓</span> {point}
                 </div>
@@ -387,7 +327,7 @@ const BadmintonLandingContent = () => {
 
       <section id="benefits" className="section-pad has-bg-image">
         <div className="section-bg">
-          <img src={badmintonAsset("img/vsl/gym-hipthrust.png")} alt="" />
+          <img src={config.asset(config.benefits.bgImage)} alt="" />
           <div className="section-bg-overlay" />
         </div>
         <div className="benefits-header">
@@ -397,11 +337,11 @@ const BadmintonLandingContent = () => {
           </h2>
         </div>
         <div className="benefits-grid">
-          {BENEFITS.map((benefit) => (
+          {config.benefits.items.map((benefit) => (
             <div key={benefit.title} className="benefit-card has-photo fade-up">
               <div className="benefit-photo">
                 <img
-                  src={badmintonAsset(benefit.image)}
+                  src={config.asset(benefit.image)}
                   alt={benefit.title}
                   style={{ objectPosition: benefit.imagePosition }}
                 />
@@ -425,7 +365,7 @@ const BadmintonLandingContent = () => {
         <div className="testimonials-header">
           <p className="pre-headline centered fade-up">RESULTADOS REALES</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Lo que dicen los jugadores de bádminton que ya entrenan con Bivo.
+            {config.testimonialsHeadline}
           </h2>
           <p className="sub fade-up">Opiniones reales. Sin filtros.</p>
         </div>
@@ -440,7 +380,7 @@ const BadmintonLandingContent = () => {
             </div>
           </div>
           <div className="appstore-grid">
-            {APPSTORE_REVIEWS.map((review) => (
+            {config.reviews.map((review) => (
               <div key={review.author} className="appstore-card">
                 <div className="appstore-card-top">
                   <div className="appstore-stars">★★★★★</div>
@@ -460,7 +400,7 @@ const BadmintonLandingContent = () => {
       <section id="credibility" className="section-pad has-bg-image">
         <div className="section-bg">
           <img
-            src={badmintonAsset("img/vsl/badminton-panoramic.jpg")}
+            src={config.asset(config.panoramicImage)}
             alt=""
             style={{ objectPosition: "center 30%" }}
           />
@@ -475,7 +415,7 @@ const BadmintonLandingContent = () => {
         <div className="awards-grid">
           <div className="award-card fade-up">
             <div className="award-card-bg">
-              <img src={badmintonAsset("img/awards/dia-d-group.jpg")} alt="Equipo Bivo recogiendo el Premio Nacional" />
+              <img src={config.asset("img/awards/dia-d-group.jpg")} alt="Equipo Bivo recogiendo el Premio Nacional" />
             </div>
             <div className="award-card-content">
               <div className="award-icon">🏆</div>
@@ -486,7 +426,7 @@ const BadmintonLandingContent = () => {
           </div>
           <div className="award-card fade-up">
             <div className="award-card-bg">
-              <img src={badmintonAsset("img/awards/dia-d-presentacion.jpg")} alt="Presentación de Bivo" />
+              <img src={config.asset("img/awards/dia-d-presentacion.jpg")} alt="Presentación de Bivo" />
             </div>
             <div className="award-card-content">
               <div className="award-icon">🥇</div>
@@ -499,15 +439,14 @@ const BadmintonLandingContent = () => {
         <div className="partners-block fade-up">
           <p className="partners-label">Desarrollado con y para:</p>
           <div className="partners-logos">
-            <img src={badmintonAsset("img/febab.png")} alt="Federación Balear de Bádminton" />
-            <img src={badmintonAsset("img/mqc.png")} alt="Movement Quality Center" />
-            <img src={badmintonAsset("img/logosalle.png")} alt="C.T. La Salle" />
-            <img src={badmintonAsset("img/emprenbit.png")} alt="EmprenBIT" />
+            {config.partners.map((partner) => (
+              <img key={partner.file} src={config.asset(partner.file)} alt={partner.alt} />
+            ))}
           </div>
         </div>
         <div className="expert-card fade-up">
           <div className="expert-photo">
-            <img src={badmintonAsset("img/team/Toni.png")} alt="Toni Bota" />
+            <img src={config.asset("img/team/Toni.png")} alt="Toni Bota" />
           </div>
           <div>
             <div className="expert-name">Toni Bota</div>
@@ -524,15 +463,15 @@ const BadmintonLandingContent = () => {
         <div className="how-header">
           <p className="pre-headline centered fade-up">EN 5 PASOS</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Empezar es tan fácil como un saque.
+            {config.howItWorksHeadline}
           </h2>
         </div>
         <div className="steps-grid">
-          {STEPS.map((step, index) => (
+          {SPORT_VSL_STEPS.map((step, index) => (
             <div key={step.title} className="step-card fade-up">
               <div className="step-card-number">{index + 1}</div>
               <div className="step-card-img">
-                <img src={badmintonAsset(step.image)} alt={step.title} style={{ objectPosition: step.imagePosition }} />
+                <img src={config.asset(step.image)} alt={step.title} style={{ objectPosition: step.imagePosition }} />
               </div>
               <div className="step-card-body">
                 <h3>{step.title}</h3>
@@ -585,11 +524,7 @@ const BadmintonLandingContent = () => {
               14,99€ <span>/mes</span>
             </div>
             <div className="price-sub">Sin compromiso</div>
-            <Link
-              to={planSignupPath("monthly")}
-              onClick={() => selectPlan("monthly")}
-              className="cta-btn"
-            >
+            <Link to={planSignupPath("monthly")} onClick={() => selectPlan("monthly")} className="cta-btn">
               Empieza 7 días gratis →
             </Link>
           </div>
@@ -601,11 +536,7 @@ const BadmintonLandingContent = () => {
             </div>
             <div className="price-amount-small">34,99€ cada 3 meses</div>
             <div className="price-save">Ahorras un 22%</div>
-            <Link
-              to={planSignupPath("quarterly")}
-              onClick={() => selectPlan("quarterly")}
-              className="cta-btn"
-            >
+            <Link to={planSignupPath("quarterly")} onClick={() => selectPlan("quarterly")} className="cta-btn">
               Empieza 7 días gratis →
             </Link>
           </div>
@@ -619,18 +550,14 @@ const BadmintonLandingContent = () => {
             </div>
             <div className="price-amount-small">89,99€ al año</div>
             <div className="price-save">Ahorras un 50% · Ahorras 89,89€/año</div>
-            <Link
-              to={planSignupPath("annual")}
-              onClick={() => selectPlan("annual")}
-              className="cta-btn"
-            >
+            <Link to={planSignupPath("annual")} onClick={() => selectPlan("annual")} className="cta-btn">
               Empieza 7 días gratis →
             </Link>
           </div>
         </div>
 
         <div className="included-list fade-up">
-          {INCLUDED.map((item) => (
+          {SPORT_VSL_INCLUDED.map((item) => (
             <div key={item} className="included-item">
               <span className="check">✓</span> {item}
             </div>
@@ -657,7 +584,7 @@ const BadmintonLandingContent = () => {
           </h2>
         </div>
         <div className="faq-list">
-          {FAQ_ITEMS.map((item, index) => (
+          {faqItems.map((item, index) => (
             <div key={item.q} className={`faq-item${openFaq === index ? " open" : ""}`}>
               <button type="button" className="faq-question" onClick={() => toggleFaq(index)}>
                 <span className="faq-question-text">{item.q}</span>
@@ -680,10 +607,10 @@ const BadmintonLandingContent = () => {
       </section>
 
       <footer>
-        <img src={badmintonAsset("assets/logo-green.png")} alt="Bivo" />
+        <img src={config.asset("assets/logo-green.png")} alt="Bivo" />
         <div className="footer-links">
-          <Link to={localePath(sportLegalPath("badminton", "privacy"))}>Política de Privacidad</Link>
-          <Link to={localePath(sportLegalPath("badminton", "terms"))}>Términos de Uso</Link>
+          <Link to={localePath(sportLegalPath(config.slug, "privacy"))}>Política de Privacidad</Link>
+          <Link to={localePath(sportLegalPath(config.slug, "terms"))}>Términos de Uso</Link>
         </div>
         <p className="footer-copy">© 2025 Bivo Training. Todos los derechos reservados.</p>
       </footer>
@@ -691,14 +618,4 @@ const BadmintonLandingContent = () => {
   );
 };
 
-const BadmintonLandingPage = () => {
-  const { unlocked, login, submitting, error } = useBadmintonGate();
-
-  if (!unlocked) {
-    return <BadmintonAccessGate onSubmit={login} submitting={submitting} error={error} />;
-  }
-
-  return <BadmintonLandingContent />;
-};
-
-export default BadmintonLandingPage;
+export default SportVslLanding;

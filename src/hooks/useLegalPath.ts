@@ -10,7 +10,7 @@ import {
 
 /**
  * Resolves privacy/terms/cookies URLs for the current surface:
- * - on /:lang/padel/* or /:lang/badminton/* → /:lang/{sport}/privacidad (etc.)
+ * - on /:lang/padel/* or other sport landings → /:lang/{sport}/privacidad (etc.)
  * - on main site → /:lang/privacidad
  * Same shared content components; only the URL prefix changes.
  */

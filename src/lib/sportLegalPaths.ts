@@ -10,11 +10,13 @@ export const LEGAL_SLUGS = {
 } as const;
 
 export type LegalPage = keyof typeof LEGAL_SLUGS;
-export type SportLandingSlug = "padel" | "badminton" | "estabilidad-hombro";
+export type SportLandingSlug = "padel" | "badminton" | "tenis" | "pickleball" | "estabilidad-hombro";
 
 export const SPORT_LANDING_SLUGS: readonly SportLandingSlug[] = [
   "padel",
   "badminton",
+  "tenis",
+  "pickleball",
   "estabilidad-hombro",
 ] as const;
 
