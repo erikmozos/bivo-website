@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-import BadmintonAccessGate from "@/components/badminton/BadmintonAccessGate";
 import { useLocale } from "@/hooks/useLocale";
 import { notifyFlowSessionChange } from "@/hooks/useAppFlow";
-import { useBadmintonGate } from "@/hooks/useBadmintonGate";
 import { useBadmintonLanding } from "@/hooks/useBadmintonLanding";
 import { BIVO_ATHLETES_COUNT } from "@/lib/bivoStats";
 import type { PlanKey } from "@/lib/config";
@@ -184,7 +182,7 @@ const GooglePlayIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 );
 
-const BadmintonLandingContent = () => {
+const BadmintonLandingPage = () => {
   const { localePath } = useLocale();
   const signupPath = localePath("/registro");
   const planSignupPath = (plan: PlanKey) => `${signupPath}?plan=${plan}`;
@@ -689,16 +687,6 @@ const BadmintonLandingContent = () => {
       </footer>
     </div>
   );
-};
-
-const BadmintonLandingPage = () => {
-  const { unlocked, login, submitting, error } = useBadmintonGate();
-
-  if (!unlocked) {
-    return <BadmintonAccessGate onSubmit={login} submitting={submitting} error={error} />;
-  }
-
-  return <BadmintonLandingContent />;
 };
 
 export default BadmintonLandingPage;

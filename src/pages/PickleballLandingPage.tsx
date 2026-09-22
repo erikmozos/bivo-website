@@ -1,6 +1,7 @@
 import SportLandingAccessGate from "@/components/sport-landing/SportLandingAccessGate";
 import SportVslLanding, { type SportVslConfig } from "@/components/sport-landing/SportVslLanding";
 import { useSportLandingGate } from "@/hooks/useSportLandingGate";
+import { PICKLEBALL_APP_SCREEN_CAROUSEL } from "@/lib/pickleballAppScreenCarousel";
 import { pickleballAsset } from "@/lib/pickleballLandingAssets";
 import "./PickleballLanding.css";
 
@@ -9,6 +10,7 @@ const PICKLEBALL_CONFIG: SportVslConfig = {
   slug: "pickleball",
   pageTitle: "Bivo Training — Preparación física para pickleball",
   asset: pickleballAsset,
+  carouselImages: PICKLEBALL_APP_SCREEN_CAROUSEL,
   hero: {
     image: "img/pickleball.jpg",
     alt: "Jugador de pickleball en acción",

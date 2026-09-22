@@ -1,6 +1,7 @@
 import SportLandingAccessGate from "@/components/sport-landing/SportLandingAccessGate";
 import SportVslLanding, { type SportVslConfig } from "@/components/sport-landing/SportVslLanding";
 import { useSportLandingGate } from "@/hooks/useSportLandingGate";
+import { TENIS_APP_SCREEN_CAROUSEL } from "@/lib/tenisAppScreenCarousel";
 import { tenisAsset } from "@/lib/tenisLandingAssets";
 import "./TenisLanding.css";
 
@@ -9,6 +10,7 @@ const TENIS_CONFIG: SportVslConfig = {
   slug: "tenis",
   pageTitle: "Bivo Training — Preparación física para tenis",
   asset: tenisAsset,
+  carouselImages: TENIS_APP_SCREEN_CAROUSEL,
   hero: {
     image: "img/tenis.jpg",
     alt: "Jugador de tenis en acción",
