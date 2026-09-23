@@ -11,16 +11,17 @@ import {
 } from "@/components/ui/carousel";
 
 const partnerImages = [
-  "/img2/alliances/mqc.png",
-  "/img2/alliances/pdpadel.jpg",
-  "/img2/alliances/logosalle-1.png",
-  "/img2/alliances/emprenbit.png",
   "/img2/alliances/fpib.png",
   "/img2/alliances/febab.png",
+  "/img2/alliances/logosalle-1.png",
+  "/img2/alliances/sabadell-pickleball.png",
+  "/img2/alliances/mqc.png",
+  "/img2/alliances/pdpadel.jpg",
+  "/img2/alliances/emprenbit.png",
 ];
 
 const isPartnerLogo = (src: string) =>
-  /emprenbit|fpib|febab|logosalle/.test(src);
+  /emprenbit|fpib|febab|logosalle|sabadell/.test(src);
 
 const AlliancesSection = () => {
   const { t } = useTranslation();
@@ -104,9 +105,11 @@ const AlliancesSection = () => {
                         className={`w-full h-full ${
                           alianza.imagen.includes("logosalle")
                             ? "object-contain p-0 scale-[1.28] translate-y-1"
-                            : isPartnerLogo(alianza.imagen)
-                              ? "object-contain p-6"
-                              : "object-cover"
+                            : alianza.imagen.includes("sabadell")
+                              ? "object-contain p-1 scale-[1.18]"
+                              : isPartnerLogo(alianza.imagen)
+                                ? "object-contain p-6"
+                                : "object-cover"
                         }`}
                         onError={(e) => {
                           const target = e.currentTarget;

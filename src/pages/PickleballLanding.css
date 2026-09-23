@@ -8,6 +8,11 @@
   height: 64px;
 }
 
+.pickleball-landing .partners-logos img[src*="sabadell"] {
+  height: 88px;
+  padding: 0;
+}
+
 .pickleball-landing .appstore-reviews {
   margin-top: 8px;
 }

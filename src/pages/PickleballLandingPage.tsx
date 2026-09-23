@@ -127,6 +127,7 @@ const PICKLEBALL_CONFIG: SportVslConfig = {
   ],
   panoramicImage: "img/vsl/pickleball-panoramic.jpg",
   partners: [
+    { file: "img/sabadell-pickleball.png", alt: "Sabadell Pickleball Club Academy" },
     { file: "img/mqc.png", alt: "Movement Quality Center" },
     { file: "img/logosalle.png", alt: "C.T. La Salle" },
     { file: "img/emprenbit.png", alt: "EmprenBIT" },

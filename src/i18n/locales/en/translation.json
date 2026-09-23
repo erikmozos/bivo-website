@@ -138,6 +138,22 @@
     "description": "Bivo collaborates with leading sports organizations to guarantee the highest quality in racket sports training.",
     "partners": [
       {
+        "name": "Balearic Padel Federation",
+        "description": "Collaboration agreement with the FPIB to boost the physical preparation of padel players in the Balearic Islands."
+      },
+      {
+        "name": "Balearic Badminton Federation",
+        "description": "Bivo is the official physical preparation partner of the Balearic Badminton Federation."
+      },
+      {
+        "name": "C.T. La Salle",
+        "description": "C.T. La Salle already trusts Bivo. If you are a racket club and want to join, ask for more info!"
+      },
+      {
+        "name": "Sabadell Pickleball Club Academy",
+        "description": "We are the official physical preparation tool of Sabadell Pickleball Club Academy, 2026 Spanish team champions. Want Bivo at your club? Ask for more info!"
+      },
+      {
         "name": "MQC",
         "description": "Movement Quality Center, benchmark in training for demanding and high-level athletes, is our partner from the start and Bivo's in-person base."
       },
@@ -146,20 +162,8 @@
         "description": "Pdpadel, one of the most important clubs in the Balearic Islands, already trusts Bivo. If you are a racket club and want to join, ask for more info!"
       },
       {
-        "name": "C.T. La Salle",
-        "description": "C.T. La Salle already trusts Bivo. If you are a racket club and want to join, ask for more info!"
-      },
-      {
         "name": "EmprenBIT",
         "description": "We are part of the EmprenBIT program of Fundació BIT, which accompanies tech startups from the Balearic Islands in their early growth stages."
-      },
-      {
-        "name": "Balearic Padel Federation",
-        "description": "Collaboration agreement with the FPIB to boost the physical preparation of padel players in the Balearic Islands."
-      },
-      {
-        "name": "Balearic Badminton Federation",
-        "description": "Bivo is the official physical preparation partner of the Balearic Badminton Federation."
       }
     ],
     "navigation": {

@@ -138,6 +138,22 @@
     "description": "Bivo colabora con las principales organizaciones deportivas para garantizar la máxima calidad en el entrenamiento de deportes de raqueta.",
     "partners": [
       {
+        "name": "Federación Balear de Pádel",
+        "description": "Acuerdo de colaboración con la FPIB para impulsar la preparación física de los jugadores y jugadoras de pádel de las Islas Baleares."
+      },
+      {
+        "name": "Federación Balear de Bádminton",
+        "description": "Bivo es el preparador físico oficial de la Federación Balear de Bádminton de las Islas Baleares."
+      },
+      {
+        "name": "C.T. La Salle",
+        "description": "C.T. La Salle ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info!"
+      },
+      {
+        "name": "Sabadell Pickleball Club Academy",
+        "description": "Somos la herramienta oficial de preparación física del Sabadell Pickleball Club Academy, campeón de España por equipos 2026. ¿Quieres Bivo en tu club? ¡Pide más info!"
+      },
+      {
         "name": "MQC",
         "description": "Movement Quality Center, referente en entrenamiento para deportistas exigentes y de alto nivel, es nuestro partner desde el inicio y base presencial de Bivo."
       },
@@ -146,20 +162,8 @@
         "description": "Pdpadel, uno de los clubes más importantes de Baleares, ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info!"
       },
       {
-        "name": "C.T. La Salle",
-        "description": "C.T. La Salle ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info!"
-      },
-      {
         "name": "EmprenBIT",
         "description": "Formamos parte del programa EmprenBIT de la Fundació BIT, que acompaña a startups tecnológicas de las Islas Baleares en sus primeras etapas de crecimiento."
-      },
-      {
-        "name": "Federación Balear de Pádel",
-        "description": "Acuerdo de colaboración con la FPIB para impulsar la preparación física de los jugadores y jugadoras de pádel de las Islas Baleares."
-      },
-      {
-        "name": "Federación Balear de Bádminton",
-        "description": "Bivo es el preparador físico oficial de la Federación Balear de Bádminton de las Islas Baleares."
       }
     ],
     "navigation": {
