@@ -6,7 +6,9 @@ import { BIVO_ATHLETES_COUNT } from "@/lib/bivoStats";
 import type { PlanKey } from "@/lib/config";
 import { writeFlowSession } from "@/lib/flowSession";
 import { badmintonAsset } from "@/lib/badmintonLandingAssets";
-import { sportLegalPath } from "@/lib/sportLegalPaths";
+import { sportLandingText } from "@/content/sportLandingText";
+import { vslUi } from "@/content/vslUi";
+import { registroPathWithSport, sportLegalPath } from "@/lib/sportLegalPaths";
 import "./BadmintonLanding.css";
 
 const PAIN_POINTS = [
@@ -183,9 +185,14 @@ const GooglePlayIcon = ({ size = 20 }: { size?: number }) => (
 );
 
 const BadmintonLandingPage = () => {
-  const { localePath } = useLocale();
-  const signupPath = localePath("/registro");
-  const planSignupPath = (plan: PlanKey) => `${signupPath}?plan=${plan}`;
+  const { lang, localePath } = useLocale();
+  const ui = vslUi(lang);
+  const text = sportLandingText("badminton", lang);
+  const benefits = BENEFITS.map((item, index) => ({ ...item, ...text.benefits[index] }));
+  const steps = STEPS.map((item, index) => ({ ...item, ...ui.steps[index] }));
+  const faqItems = [...ui.faq, text.otherSportsFaq];
+  const signupPath = registroPathWithSport(localePath, "badminton");
+  const planSignupPath = (plan: PlanKey) => registroPathWithSport(localePath, "badminton", plan);
   const selectPlan = (plan: PlanKey) => {
     writeFlowSession({ selectedPlanKey: plan });
     notifyFlowSessionChange();
@@ -199,13 +206,13 @@ const BadmintonLandingPage = () => {
     openFaq,
     toggleFaq,
     countdown,
-  } = useBadmintonLanding();
+  } = useBadmintonLanding(text.pageTitle);
 
   return (
     <div className="badminton-landing" ref={rootRef}>
       <section id="hero">
         <div className="hero-bg">
-          <img src={badmintonAsset("img/badminton.jpg")} alt="Jugador de bádminton en acción" />
+          <img src={badmintonAsset("img/badminton.jpg")} alt={text.heroAlt} />
           <div
             className="hero-overlay"
             style={{
@@ -220,13 +227,12 @@ const BadmintonLandingPage = () => {
         </div>
 
         <div className="hero-content">
-          <p className="pre-headline">PARA JUGADORES DE BÁDMINTON QUE QUIEREN RENDIR MÁS Y LESIONARSE MENOS</p>
+          <p className="pre-headline">{text.heroPre}</p>
           <h1 className="headline">
-            ¿Tu <span className="accent">cuerpo</span> no aguanta los partidos que tu cabeza quiere jugar?
+            {ui.heroTitleBefore} <span className="accent">{ui.heroTitleAccent}</span> {ui.heroTitleAfter}
           </h1>
           <p className="hero-sub">
-            Descubre el método de preparación física que usan los profesionales del bádminton, ahora adaptado a tu
-            nivel y a tu vida.
+            {text.heroSub}
           </p>
 
           <div className="hero-social-proof fade-up">
@@ -245,15 +251,15 @@ const BadmintonLandingPage = () => {
               </span>
             </div>
             <span className="hsp-text">
-              Más de <strong>{BIVO_ATHLETES_COUNT} jugadores</strong> ya entrenan con Bivo
+              {ui.playersBefore} <strong>{BIVO_ATHLETES_COUNT}</strong> {ui.playersAfter}
             </span>
           </div>
 
           <div className="hero-cta-area">
             <a href="#pricing" className="cta-btn">
-              Empieza tu prueba gratuita de 7 días →
+              {ui.ctaTrial}
             </a>
-            <p className="micro-trust">✓ Garantía 7 días · ✓ Cancela cuando quieras</p>
+            <p className="micro-trust">{ui.microGuarantee}</p>
           </div>
         </div>
       </section>
@@ -274,19 +280,19 @@ const BadmintonLandingPage = () => {
           />
         </div>
         <div className="agitation-inner">
-          <p className="pre-headline centered fade-up">¿TE SIENTES IDENTIFICADO?</p>
+          <p className="pre-headline centered fade-up">{ui.agitationPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Si juegas al bádminton con pasión, pero algo siempre te frena...
+            {text.agitationHeadline}
           </h2>
           <div className="pain-list">
-            {PAIN_POINTS.map((text) => (
-              <div key={text} className="pain-item fade-up">
+            {text.painPoints.map((point) => (
+              <div key={point} className="pain-item fade-up">
                 <span className="pain-icon">✗</span>
-                <span>{text}</span>
+                <span>{point}</span>
               </div>
             ))}
           </div>
-          <p className="agitation-close fade-up">Si has dicho sí a alguna de estas... esto es exactamente para ti.</p>
+          <p className="agitation-close fade-up">{ui.agitationClose}</p>
           <span className="arrow-down fade-up">↓</span>
         </div>
       </section>
@@ -297,38 +303,18 @@ const BadmintonLandingPage = () => {
           <div className="section-bg-overlay" />
         </div>
         <div className="root-inner">
-          <p className="pre-headline centered fade-up">EL VERDADERO PROBLEMA</p>
+          <p className="pre-headline centered fade-up">{ui.rootPre}</p>
           <h2 className="headline fade-up">
-            Tu cabeza quiere más partidos. Tu cuerpo te dice que <span className="accent">no puede</span>.
+            {ui.rootTitleBefore} <span className="accent">{ui.rootTitleAccent}</span>.
           </h2>
-          <div className="root-block fade-up">
-            <h3>El 18-18 ya no es tuyo.</h3>
-            <p>
-              Llegas a 18-18 justo. Al final del set, ya no eres el mismo jugador. Los saltos pesan, el smash
-              pierde potencia y los desplazamientos a los rincones se atrasan. No es falta de ganas — es que tu cuerpo
-              no ha entrenado para aguantar lo que el bádminton real exige. Y mientras tú te apagas, tus rivales siguen
-              enchufados.
-            </p>
-          </div>
-          <div className="root-block fade-up">
-            <h3>Esa molestia que &quot;no es nada&quot;… lleva meses ahí.</h3>
-            <p>
-              El hombro, el tobillo, la rodilla. Entrenas igual, juegas igual, y esperas que se vaya sola. A veces
-              mejora. A veces empeora justo antes de un partido importante. Y en el fondo sabes que si no haces algo
-              diferente, es cuestión de tiempo que se convierta en una lesión de verdad — semanas o meses fuera de la
-              pista.
-            </p>
-          </div>
-          <div className="root-block fade-up">
-            <h3>Nadie te ha dado un plan hecho para esto.</h3>
-            <p>
-              El gimnasio genérico no entrena para el bádminton. YouTube no sabe quién eres ni qué zonas tienes
-              castigadas. Y un preparador privado a 40–120€ la sesión no es una opción realista. El resultado: sigues
-              jugando sin estructura, acumulando fatiga, y rezando para que el cuerpo aguante.
-            </p>
-          </div>
+          {text.rootBlocks.map((block) => (
+            <div key={block.title} className="root-block fade-up">
+              <h3>{block.title}</h3>
+              <p>{block.text}</p>
+            </div>
+          ))}
           <p className="root-transition fade-up">
-            El problema no es tu esfuerzo. Es que nadie te había dado el plan correcto. Hasta ahora.
+            {ui.rootTransition}
           </p>
         </div>
       </section>
@@ -336,17 +322,14 @@ const BadmintonLandingPage = () => {
       <section id="solution" className="section-pad">
         <div className="solution-grid">
           <div className="solution-text">
-            <p className="pre-headline fade-up">LA SOLUCIÓN</p>
+            <p className="pre-headline fade-up">{ui.solutionPre}</p>
             <h2 className="headline fade-up">
-              Bivo: la preparación física de los <span className="accent">pros del bádminton</span>, en tu bolsillo.
+              {ui.solutionBefore} <span className="accent">{text.solutionAccent}</span>
+              {ui.solutionAfter}
             </h2>
-            <p className="solution-desc fade-up">
-              Bivo es la primera app con inteligencia artificial diseñada específicamente para jugadores de bádminton.
-              Crea tu plan de entrenamiento personalizado desde cero basándose en tu nivel real, tus lesiones, tu
-              disponibilidad horaria y tus objetivos. Y lo recalcula automáticamente cuando tu vida cambia.
-            </p>
+            <p className="solution-desc fade-up">{text.solutionDesc}</p>
             <div className="value-points fade-up">
-              {VALUE_POINTS.map((point) => (
+              {ui.valuePoints.map((point) => (
                 <div key={point} className="value-point">
                   <span className="check">✓</span> {point}
                 </div>
@@ -354,13 +337,13 @@ const BadmintonLandingPage = () => {
             </div>
             <div className="credential-box fade-up">
               <span className="trophy">🏆</span>
-              <span>Premio Nacional a la Mejor Startup — Cámara de Comercio de España, 2024</span>
+              <span>{ui.credential}</span>
             </div>
           </div>
 
           <div className="phone-mockup fade-up">
             <div className="phone-mockup-wrap">
-              <button type="button" className="carousel-arrow prev" onClick={carouselPrev} aria-label="Anterior">
+              <button type="button" className="carousel-arrow prev" onClick={carouselPrev} aria-label={ui.prev}>
                 ‹
               </button>
               <div className="phone-frame">
@@ -369,13 +352,13 @@ const BadmintonLandingPage = () => {
                     <img
                       key={image}
                       src={image}
-                      alt={`Bivo App — pantalla ${index + 1}`}
+                      alt={ui.screenAlt.replace("{n}", String(index + 1))}
                       className={index === carouselIndex ? "active" : ""}
                     />
                   ))}
                 </div>
               </div>
-              <button type="button" className="carousel-arrow next" onClick={carouselNext} aria-label="Siguiente">
+              <button type="button" className="carousel-arrow next" onClick={carouselNext} aria-label={ui.next}>
                 ›
               </button>
             </div>
@@ -389,19 +372,23 @@ const BadmintonLandingPage = () => {
           <div className="section-bg-overlay" />
         </div>
         <div className="benefits-header">
-          <p className="pre-headline centered fade-up">LO QUE CAMBIA</p>
+          <p className="pre-headline centered fade-up">{ui.benefitsPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Cuando entrenas con Bivo, se nota en pista.
+            {ui.benefitsTitle}
           </h2>
         </div>
         <div className="benefits-grid">
-          {BENEFITS.map((benefit) => (
+          {benefits.map((benefit) => (
             <div key={benefit.title} className="benefit-card has-photo fade-up">
               <div className="benefit-photo">
                 <img
                   src={badmintonAsset(benefit.image)}
                   alt={benefit.title}
-                  style={{ objectPosition: benefit.imagePosition }}
+                  style={
+                    benefit.image.includes("onboarding-dolor")
+                      ? { objectFit: "contain", objectPosition: "center" }
+                      : { objectPosition: benefit.imagePosition }
+                  }
                 />
               </div>
               <div className="benefit-body">
@@ -413,19 +400,19 @@ const BadmintonLandingPage = () => {
         </div>
         <div className="benefits-cta fade-up">
           <a href="#pricing" className="cta-btn">
-            Empieza tu prueba gratuita de 7 días →
+            {ui.ctaTrial}
           </a>
-          <p className="micro-trust">✓ Cancela cuando quieras · ✓ 7 días completamente gratis</p>
+          <p className="micro-trust">{ui.microCancel}</p>
         </div>
       </section>
 
       <section id="testimonials" className="section-pad">
         <div className="testimonials-header">
-          <p className="pre-headline centered fade-up">RESULTADOS REALES</p>
+          <p className="pre-headline centered fade-up">{ui.testimonialsPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Lo que dicen los jugadores de bádminton que ya entrenan con Bivo.
+            {text.testimonialsHeadline}
           </h2>
-          <p className="sub fade-up">Opiniones reales. Sin filtros.</p>
+          <p className="sub fade-up">{ui.testimonialsSub}</p>
         </div>
 
         <div className="appstore-reviews fade-up">
@@ -438,7 +425,7 @@ const BadmintonLandingPage = () => {
             </div>
           </div>
           <div className="appstore-grid">
-            {APPSTORE_REVIEWS.map((review) => (
+            {text.reviews.map((review) => (
               <div key={review.author} className="appstore-card">
                 <div className="appstore-card-top">
                   <div className="appstore-stars">★★★★★</div>
@@ -465,42 +452,42 @@ const BadmintonLandingPage = () => {
           <div className="section-bg-overlay" />
         </div>
         <div className="credibility-header">
-          <p className="pre-headline centered fade-up">NO LO DECIMOS NOSOTROS</p>
+          <p className="pre-headline centered fade-up">{ui.credibilityPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Bivo está reconocido y avalado por quienes saben de deporte y tecnología.
+            {ui.credibilityTitle}
           </h2>
         </div>
         <div className="awards-grid">
           <div className="award-card fade-up">
             <div className="award-card-bg">
-              <img src={badmintonAsset("img/awards/dia-d-group.jpg")} alt="Equipo Bivo recogiendo el Premio Nacional" />
+              <img src={badmintonAsset("img/awards/dia-d-group.jpg")} alt={ui.award1Alt} />
             </div>
             <div className="award-card-content">
               <div className="award-icon">🏆</div>
-              <div className="award-name">Premio Nacional a la Mejor Startup</div>
-              <div className="award-org">Programa Impulsa, Crea y Crece 2024 — Cámara de Comercio de España</div>
-              <div className="award-date">2 de abril de 2025</div>
+              <div className="award-name">{ui.award1Name}</div>
+              <div className="award-org">{ui.award1Org}</div>
+              <div className="award-date">{ui.award1Date}</div>
             </div>
           </div>
           <div className="award-card fade-up">
             <div className="award-card-bg">
-              <img src={badmintonAsset("img/awards/dia-d-presentacion.jpg")} alt="Presentación de Bivo" />
+              <img src={badmintonAsset("img/awards/dia-d-presentacion.jpg")} alt={ui.award2Alt} />
             </div>
             <div className="award-card-content">
               <div className="award-icon">🥇</div>
-              <div className="award-name">Mejor Idea de Negocio</div>
-              <div className="award-org">Cámara de Comercio de Menorca</div>
-              <div className="award-date">14 de enero de 2025</div>
+              <div className="award-name">{ui.award2Name}</div>
+              <div className="award-org">{ui.award2Org}</div>
+              <div className="award-date">{ui.award2Date}</div>
             </div>
           </div>
         </div>
         <div className="partners-block fade-up">
-          <p className="partners-label">Desarrollado con y para:</p>
+          <p className="partners-label">{ui.partnersLabel}</p>
           <div className="partners-logos">
-            <img src={badmintonAsset("img/febab.png")} alt="Federación Balear de Bádminton" />
-            <img src={badmintonAsset("img/mqc.png")} alt="Movement Quality Center" />
-            <img src={badmintonAsset("img/logosalle.png")} alt="C.T. La Salle" />
-            <img src={badmintonAsset("img/emprenbit.png")} alt="EmprenBIT" />
+            <img src={badmintonAsset("img/febab.png")} alt={text.partnerAlts[0]} />
+            <img src={badmintonAsset("img/mqc.png")} alt={text.partnerAlts[1]} />
+            <img src={badmintonAsset("img/logosalle.png")} alt={text.partnerAlts[2]} />
+            <img src={badmintonAsset("img/emprenbit.png")} alt={text.partnerAlts[3]} />
           </div>
         </div>
         <div className="expert-card fade-up">
@@ -509,28 +496,33 @@ const BadmintonLandingPage = () => {
           </div>
           <div>
             <div className="expert-name">Toni Bota</div>
-            <div className="expert-title">Preparador de jugadores amateurs y profesionales de raqueta</div>
-            <p className="expert-quote">
-              &quot;La metodología detrás de Bivo es la misma que aplico con deportistas de élite. Adaptada a tu nivel, a
-              tus lesiones y a tu vida.&quot;
-            </p>
+            <div className="expert-title">{ui.expertTitle}</div>
+            <p className="expert-quote">&quot;{ui.expertQuote}&quot;</p>
           </div>
         </div>
       </section>
 
       <section id="how-it-works" className="section-pad">
         <div className="how-header">
-          <p className="pre-headline centered fade-up">EN 5 PASOS</p>
+          <p className="pre-headline centered fade-up">{ui.stepsPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Empezar es tan fácil como un saque.
+            {text.howHeadline}
           </h2>
         </div>
         <div className="steps-grid">
-          {STEPS.map((step, index) => (
+          {steps.map((step, index) => (
             <div key={step.title} className="step-card fade-up">
               <div className="step-card-number">{index + 1}</div>
               <div className="step-card-img">
-                <img src={badmintonAsset(step.image)} alt={step.title} style={{ objectPosition: step.imagePosition }} />
+                <img
+                  src={badmintonAsset(step.image)}
+                  alt={step.title}
+                  style={
+                    step.image.includes("onboarding-dolor")
+                      ? { objectFit: "contain", objectPosition: "center" }
+                      : { objectPosition: step.imagePosition }
+                  }
+                />
               </div>
               <div className="step-card-body">
                 <h3>{step.title}</h3>
@@ -544,91 +536,91 @@ const BadmintonLandingPage = () => {
       <div className="urgency-banner">
         <span className="urgency-icon">⏰</span>
         <span className="urgency-text">
-          Precio de lanzamiento — Termina en: <strong>{countdown}</strong>
+          {ui.urgency} <strong>{countdown}</strong>
         </span>
       </div>
 
       <section id="pricing" className="section-pad">
         <div className="pricing-header">
           <p className="emotional-bridge fade-up">
-            Ya sabes lo que pasa si no haces nada. Llevas tiempo aguantándolo.
+            {ui.pricingBridge1}
             <br />
-            La pregunta no es si quieres mejorar — es cuánto más vas a esperar.
+            {ui.pricingBridge2}
           </p>
-          <p className="pre-headline centered fade-up">SIN RIESGO. SIN COMPROMISO.</p>
+          <p className="pre-headline centered fade-up">{ui.pricingPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Empieza hoy. Los primeros 7 días son completamente gratis.
+            {ui.pricingTitle}
           </h2>
           <p className="sub fade-up" style={{ textAlign: "center", color: "rgba(255,255,255,0.72)", fontSize: "18px", marginTop: "12px" }}>
-            Cancela cuando quieras con un clic.
+            {ui.pricingSub}
           </p>
         </div>
 
         <div className="price-anchor fade-up">
           <div className="anchor-old">
-            <div className="label">Preparador físico privado</div>
-            <div className="price">40€ – 120€ por sesión</div>
+            <div className="label">{ui.anchorOldLabel}</div>
+            <div className="price">{ui.anchorOldPrice}</div>
           </div>
           <div className="anchor-vs">VS</div>
           <div className="anchor-new">
             <div className="label">Bivo</div>
-            <div className="price">Desde 7,50€/mes</div>
+            <div className="price">{ui.anchorNewPrice}</div>
           </div>
         </div>
 
         <div className="pricing-grid">
           <div className="price-card fade-up">
-            <div className="price-label">MENSUAL</div>
+            <div className="price-label">{ui.planMonthly}</div>
             <div className="price-amount">
-              14,99€ <span>/mes</span>
+              {ui.monthlyPrice} <span>{ui.perMonth}</span>
             </div>
-            <div className="price-sub">Sin compromiso</div>
+            <div className="price-sub">{ui.noCommitment}</div>
             <Link
               to={planSignupPath("monthly")}
               onClick={() => selectPlan("monthly")}
               className="cta-btn"
             >
-              Empieza 7 días gratis →
+              {ui.ctaFree}
             </Link>
           </div>
           <div className="price-card featured fade-up">
-            <div className="price-badge">⭐ MÁS POPULAR — PRECIO LANZAMIENTO</div>
-            <div className="price-label">TRIMESTRAL</div>
+            <div className="price-badge">{ui.popular}</div>
+            <div className="price-label">{ui.planQuarterly}</div>
             <div className="price-amount">
-              11,66€ <span>/mes</span>
+              {ui.quarterlyPrice} <span>{ui.perMonth}</span>
             </div>
-            <div className="price-amount-small">34,99€ cada 3 meses</div>
-            <div className="price-save">Ahorras un 22%</div>
+            <div className="price-amount-small">{ui.quarterlySmall}</div>
+            <div className="price-save">{ui.save22}</div>
             <Link
               to={planSignupPath("quarterly")}
               onClick={() => selectPlan("quarterly")}
               className="cta-btn"
             >
-              Empieza 7 días gratis →
+              {ui.ctaFree}
             </Link>
           </div>
           <div className="price-card fade-up">
             <div className="price-badge" style={{ background: "#1a1a1a", color: "var(--green)", border: "1px solid var(--green)" }}>
-              💎 MEJOR VALOR
+              {ui.bestValue}
             </div>
-            <div className="price-label">ANUAL</div>
+            <div className="price-label">{ui.planAnnual}</div>
             <div className="price-amount">
-              7,50€ <span>/mes</span>
+              {ui.annualPrice} <span>{ui.perMonth}</span>
             </div>
-            <div className="price-amount-small">89,99€ al año</div>
-            <div className="price-save">Ahorras un 50% · Ahorras 89,89€/año</div>
+            <div className="price-amount-small">{ui.annualSmall}</div>
+            <div className="price-save">{ui.save50}</div>
             <Link
               to={planSignupPath("annual")}
               onClick={() => selectPlan("annual")}
               className="cta-btn"
             >
-              Empieza 7 días gratis →
+              {ui.ctaFree}
             </Link>
           </div>
         </div>
 
         <div className="included-list fade-up">
-          {INCLUDED.map((item) => (
+          {ui.included.map((item) => (
             <div key={item} className="included-item">
               <span className="check">✓</span> {item}
             </div>
@@ -638,10 +630,9 @@ const BadmintonLandingPage = () => {
         <div className="guarantee-box fade-up">
           <span className="guarantee-icon">🛡️</span>
           <div>
-            <strong>Garantía de satisfacción 7 días</strong>
+            <strong>{ui.guaranteeTitle}</strong>
             <p>
-              Si en siete días no ves el valor, cancela sin costes con sólo dos clics desde dentro de la app. Sin
-              complicaciones.
+              {ui.guaranteeBody}
             </p>
           </div>
         </div>
@@ -649,13 +640,13 @@ const BadmintonLandingPage = () => {
 
       <section id="faq" className="section-pad">
         <div className="faq-header">
-          <p className="pre-headline centered fade-up">RESOLVEMOS TUS DUDAS</p>
+          <p className="pre-headline centered fade-up">{ui.faqPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Preguntas frecuentes
+            {ui.faqTitle}
           </h2>
         </div>
         <div className="faq-list">
-          {FAQ_ITEMS.map((item, index) => (
+          {faqItems.map((item, index) => (
             <div key={item.q} className={`faq-item${openFaq === index ? " open" : ""}`}>
               <button type="button" className="faq-question" onClick={() => toggleFaq(index)}>
                 <span className="faq-question-text">{item.q}</span>
@@ -668,22 +659,22 @@ const BadmintonLandingPage = () => {
           ))}
         </div>
         <div className="final-cta-box fade-up">
-          <h3 className="headline">¿Todavía tienes dudas?</h3>
-          <p className="sub">Pruébalo 7 días sin coste y decide tú mismo.</p>
+          <h3 className="headline">{ui.faqFinalTitle}</h3>
+          <p className="sub">{ui.faqFinalSub}</p>
           <Link to={signupPath} className="cta-btn">
-            Empieza tu prueba gratuita de 7 días →
+            {ui.ctaTrial}
           </Link>
-          <p className="micro-trust">✓ Sin compromiso · ✓ Cancela cuando quieras</p>
+          <p className="micro-trust">{ui.microNoCommitment}</p>
         </div>
       </section>
 
       <footer>
         <img src={badmintonAsset("assets/logo-green.png")} alt="Bivo" />
         <div className="footer-links">
-          <Link to={localePath(sportLegalPath("badminton", "privacy"))}>Política de Privacidad</Link>
-          <Link to={localePath(sportLegalPath("badminton", "terms"))}>Términos de Uso</Link>
+          <Link to={localePath(sportLegalPath("badminton", "privacy"))}>{ui.privacy}</Link>
+          <Link to={localePath(sportLegalPath("badminton", "terms"))}>{ui.terms}</Link>
         </div>
-        <p className="footer-copy">© 2025 Bivo Training. Todos los derechos reservados.</p>
+        <p className="footer-copy">{ui.footerCopy}</p>
       </footer>
     </div>
   );

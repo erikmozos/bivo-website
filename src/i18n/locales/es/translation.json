@@ -879,9 +879,18 @@
     },
     "auth": {
       "badge": "Cuenta Bivo",
+      "signupBadge": "Empieza con Bivo",
       "signupTitle": "Crea tu cuenta",
       "loginTitle": "Inicia sesión",
       "subtitle": "Crea tu cuenta para guardar tu progreso y generar tu plan personalizado.",
+      "signupSubtitle": "Tu preparación física para deportes de raqueta empieza aquí. Crea tu cuenta y genera tu plan personalizado.",
+      "signupSubtitleSport": "Tu preparación física para {sport} empieza aquí. Crea tu cuenta y genera tu plan personalizado.",
+      "sports": {
+        "padel": "pádel",
+        "tenis": "tenis",
+        "pickleball": "pickleball",
+        "badminton": "bádminton"
+      },
       "displayName": "Nombre",
       "email": "Email",
       "password": "Contraseña",

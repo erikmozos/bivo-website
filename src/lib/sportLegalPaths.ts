@@ -12,6 +12,25 @@ export const LEGAL_SLUGS = {
 export type LegalPage = keyof typeof LEGAL_SLUGS;
 export type SportLandingSlug = "padel" | "badminton" | "tenis" | "pickleball" | "estabilidad-hombro";
 
+/** Deportes de raqueta con mensaje propio en el registro. */
+export const RACKET_SPORT_SLUGS = ["padel", "tenis", "pickleball", "badminton"] as const;
+export type RacketSportSlug = (typeof RACKET_SPORT_SLUGS)[number];
+
+export function isRacketSportSlug(value: string | null | undefined): value is RacketSportSlug {
+  return !!value && (RACKET_SPORT_SLUGS as readonly string[]).includes(value);
+}
+
+export function registroPathWithSport(
+  localePath: (path: string) => string,
+  sport: RacketSportSlug,
+  plan?: string,
+): string {
+  const params = new URLSearchParams();
+  if (plan) params.set("plan", plan);
+  params.set("sport", sport);
+  return `${localePath("/registro")}?${params.toString()}`;
+}
+
 export const SPORT_LANDING_SLUGS: readonly SportLandingSlug[] = [
   "padel",
   "badminton",

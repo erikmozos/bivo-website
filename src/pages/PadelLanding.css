@@ -618,7 +618,7 @@
   min-height: 280px;
   overflow: hidden;
   position: relative;
-  background: #0f0f0f;
+  background: var(--surface-2);
 }
 :is(.padel-landing, .badminton-landing, .tenis-landing, .pickleball-landing) .benefit-photo img {
   width: 100%; height: 100%;
@@ -693,6 +693,7 @@
   aspect-ratio: 9/14;
   overflow: hidden;
   position: relative;
+  background: var(--surface-2);
 }
 :is(.padel-landing, .badminton-landing, .tenis-landing, .pickleball-landing) .step-card-img img {
   width: 100%; height: 100%;

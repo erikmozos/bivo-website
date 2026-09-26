@@ -1,5 +1,7 @@
 import SportLandingAccessGate from "@/components/sport-landing/SportLandingAccessGate";
 import SportVslLanding, { type SportVslConfig } from "@/components/sport-landing/SportVslLanding";
+import { localizeSportConfig, sportLandingText } from "@/content/sportLandingText";
+import { useLocale } from "@/hooks/useLocale";
 import { useSportLandingGate } from "@/hooks/useSportLandingGate";
 import { TENIS_APP_SCREEN_CAROUSEL } from "@/lib/tenisAppScreenCarousel";
 import { tenisAsset } from "@/lib/tenisLandingAssets";
@@ -139,6 +141,8 @@ const TENIS_CONFIG: SportVslConfig = {
 };
 
 const TenisLandingPage = () => {
+  const { lang } = useLocale();
+  const text = sportLandingText("tenis", lang);
   const { unlocked, login, submitting, error } = useSportLandingGate("tenis");
 
   if (!unlocked) {
@@ -147,8 +151,8 @@ const TenisLandingPage = () => {
         landingClass="tenis-landing"
         heroSrc={tenisAsset("img/tenis.jpg")}
         logoSrc={tenisAsset("assets/logo-green.png")}
-        title="Landing de tenis"
-        documentTitle="Bivo Training — Acceso tenis"
+        title={text.gateTitle}
+        documentTitle={text.gateDocumentTitle}
         onSubmit={login}
         submitting={submitting}
         error={error}
@@ -156,7 +160,7 @@ const TenisLandingPage = () => {
     );
   }
 
-  return <SportVslLanding config={TENIS_CONFIG} />;
+  return <SportVslLanding config={localizeSportConfig(TENIS_CONFIG, "tenis", lang)} />;
 };
 
 export default TenisLandingPage;

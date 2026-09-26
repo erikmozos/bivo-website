@@ -8,6 +8,7 @@ import { notifyFlowSessionChange, useAppFlow } from "@/hooks/useAppFlow";
 import { useLocale } from "@/hooks/useLocale";
 import { isFirebaseConfigured } from "@/lib/firebase";
 import { isPlanKey, writeFlowSession } from "@/lib/flowSession";
+import { isRacketSportSlug } from "@/lib/sportLegalPaths";
 import {
   getPasswordRequirementChecks,
   isSignupPasswordValid,
@@ -124,11 +125,18 @@ const AuthPage = () => {
     }
   };
 
+  const sportParam = searchParams.get("sport");
+  const signupSubtitle = isRacketSportSlug(sportParam)
+    ? t("appFlow.auth.signupSubtitleSport", {
+        sport: t(`appFlow.auth.sports.${sportParam}`),
+      })
+    : t("appFlow.auth.signupSubtitle");
+
   const content = (
     <FlowLayout
-      badge={t("appFlow.auth.badge")}
+      badge={mode === "signup" ? t("appFlow.auth.signupBadge") : t("appFlow.auth.badge")}
       title={mode === "signup" ? t("appFlow.auth.signupTitle") : t("appFlow.auth.loginTitle")}
-      subtitle={t("appFlow.auth.subtitle")}
+      subtitle={mode === "signup" ? signupSubtitle : t("appFlow.auth.subtitle")}
     >
       <div
         className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 backdrop-blur-sm"

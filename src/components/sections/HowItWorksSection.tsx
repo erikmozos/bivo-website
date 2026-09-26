@@ -55,7 +55,9 @@ const HowItWorksSection = () => {
               className="flow-card group relative overflow-hidden rounded-2xl flex flex-col justify-end p-6"
               style={{
                 minHeight: "360px",
-                background: `#141414 url('${step.image}') center top / cover no-repeat`,
+                background: step.image.includes("05-adapta")
+                  ? `#141414 url('${step.image}') center center / contain no-repeat`
+                  : `#141414 url('${step.image}') center top / cover no-repeat`,
                 border: "1px solid #1f1f1f",
                 isolation: "isolate",
                 transition: "transform 0.35s, border-color 0.3s, box-shadow 0.3s",

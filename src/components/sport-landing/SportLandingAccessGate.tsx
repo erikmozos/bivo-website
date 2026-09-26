@@ -1,4 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
+import { vslUi } from "@/content/vslUi";
+import { useLocale } from "@/hooks/useLocale";
 
 type SportLandingAccessGateProps = {
   landingClass: string;
@@ -21,6 +23,8 @@ const SportLandingAccessGate = ({
   submitting,
   error,
 }: SportLandingAccessGateProps) => {
+  const { lang } = useLocale();
+  const ui = vslUi(lang);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -51,12 +55,12 @@ const SportLandingAccessGate = ({
 
       <div className="sport-landing-gate-card">
         <img src={logoSrc} alt="Bivo" />
-        <p className="pre-headline">Acceso restringido</p>
+        <p className="pre-headline">{ui.gatePre}</p>
         <h1 className="headline">{title}</h1>
-        <p className="sport-landing-gate-copy">Introduce las credenciales de administrador para continuar.</p>
+        <p className="sport-landing-gate-copy">{ui.gateCopy}</p>
 
         <form onSubmit={handleSubmit} autoComplete="on">
-          <label htmlFor={`${landingClass}-user`}>Usuario</label>
+          <label htmlFor={`${landingClass}-user`}>{ui.gateUser}</label>
           <input
             id={`${landingClass}-user`}
             name="username"
@@ -68,7 +72,7 @@ const SportLandingAccessGate = ({
             required
           />
 
-          <label htmlFor={`${landingClass}-password`}>Contraseña</label>
+          <label htmlFor={`${landingClass}-password`}>{ui.gatePassword}</label>
           <input
             id={`${landingClass}-password`}
             name="password"
@@ -82,7 +86,7 @@ const SportLandingAccessGate = ({
           {error ? <p className="sport-landing-gate-error">{error}</p> : null}
 
           <button type="submit" className="cta-btn" disabled={submitting}>
-            {submitting ? "Comprobando..." : "Entrar"}
+            {submitting ? ui.gateChecking : ui.gateEnter}
           </button>
         </form>
       </div>

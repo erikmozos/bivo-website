@@ -1,5 +1,7 @@
 import SportLandingAccessGate from "@/components/sport-landing/SportLandingAccessGate";
 import SportVslLanding, { type SportVslConfig } from "@/components/sport-landing/SportVslLanding";
+import { localizeSportConfig, sportLandingText } from "@/content/sportLandingText";
+import { useLocale } from "@/hooks/useLocale";
 import { useSportLandingGate } from "@/hooks/useSportLandingGate";
 import { PICKLEBALL_APP_SCREEN_CAROUSEL } from "@/lib/pickleballAppScreenCarousel";
 import { pickleballAsset } from "@/lib/pickleballLandingAssets";
@@ -140,6 +142,8 @@ const PICKLEBALL_CONFIG: SportVslConfig = {
 };
 
 const PickleballLandingPage = () => {
+  const { lang } = useLocale();
+  const text = sportLandingText("pickleball", lang);
   const { unlocked, login, submitting, error } = useSportLandingGate("pickleball");
 
   if (!unlocked) {
@@ -148,8 +152,8 @@ const PickleballLandingPage = () => {
         landingClass="pickleball-landing"
         heroSrc={pickleballAsset("img/pickleball.jpg")}
         logoSrc={pickleballAsset("assets/logo-green.png")}
-        title="Landing de pickleball"
-        documentTitle="Bivo Training — Acceso pickleball"
+        title={text.gateTitle}
+        documentTitle={text.gateDocumentTitle}
         onSubmit={login}
         submitting={submitting}
         error={error}
@@ -157,7 +161,7 @@ const PickleballLandingPage = () => {
     );
   }
 
-  return <SportVslLanding config={PICKLEBALL_CONFIG} />;
+  return <SportVslLanding config={localizeSportConfig(PICKLEBALL_CONFIG, "pickleball", lang)} />;
 };
 
 export default PickleballLandingPage;

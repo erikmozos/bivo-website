@@ -6,82 +6,20 @@ import { BIVO_ATHLETES_COUNT } from "@/lib/bivoStats";
 import type { PlanKey } from "@/lib/config";
 import { writeFlowSession } from "@/lib/flowSession";
 import { APP_SCREEN_CAROUSEL } from "@/lib/appScreenCarousel";
-import { sportLegalPath, type SportLandingSlug } from "@/lib/sportLegalPaths";
+import {
+  isRacketSportSlug,
+  registroPathWithSport,
+  sportLegalPath,
+  type SportLandingSlug,
+} from "@/lib/sportLegalPaths";
+import { vslUi } from "@/content/vslUi";
 
-export const SPORT_VSL_VALUE_POINTS = [
-  "Diseñado por preparadores físicos de jugadores ATP",
-  "Adaptado a ti, no a una plantilla genérica",
-  "Previene lesiones antes de que ocurran",
-];
-
-export const SPORT_VSL_INCLUDED = [
-  "Entrenamiento personalizado con IA",
-  "Adaptación automática a tu nivel y lesiones",
-  "Estadísticas y seguimiento de progreso",
-  "Calendario y planificación de partidos",
-  "Acceso completo a todas las funciones",
-  "Actualizaciones incluidas",
-  "Soporte en español",
-];
-
-export const SPORT_VSL_STEPS = [
-  {
-    image: "img/vsl/onboarding-movilidad.jpg",
-    imagePosition: "center 14%",
-    title: "Bivo te valora y te conoce",
-    text: "Test inicial para entender tu nivel, deporte, objetivos, lesiones previas y disponibilidad.",
-  },
-  {
-    image: "img/flow/02-entrenamiento.jpg",
-    imagePosition: "center 12%",
-    title: "Entrenamiento personalizado",
-    text: "Plan específico para tu deporte de raqueta basado en tus datos, sin plantillas genéricas.",
-  },
-  {
-    image: "assets/app-screens/stats.png",
-    imagePosition: "center top",
-    title: "Registra tu mejora",
-    text: "Estadísticas claras de adherencia, velocidad y escudo de lesiones. Visualiza tu progreso.",
-  },
-  {
-    image: "assets/app-screens/agenda.png",
-    imagePosition: "center top",
-    title: "Gestiona tu calendario",
-    text: "Organiza tus sesiones, partidos y descansos en un mismo lugar. Sin solapamientos.",
-  },
-  {
-    image: "img/vsl/onboarding-dolor.png",
-    imagePosition: "center 10%",
-    title: "Se adapta a ti",
-    text: "¿Cambias de objetivo, te lesionas o tienes menos tiempo? Bivo recalcula tu plan automáticamente.",
-  },
-];
-
-export const SPORT_VSL_FAQ_SHARED = [
-  {
-    q: "¿Necesito ir al gimnasio o tener equipamiento especial?",
-    a: "No. Bivo está diseñado para que puedas entrenar donde quieras, ya sea en el gimnasio, en casa con tu propio material, en un club, de viaje o incluso en el jardín. Desde la aplicación podrás sincronizar el material que tienes en cada momento para reajustar el plan de manera inmediata.",
-  },
-  {
-    q: "¿Es apta si tengo una lesión crónica o una molestia habitual?",
-    a: "Sí. Uno de los pilares de Bivo es el trabajo preventivo y el respeto a las lesiones. En el test inicial indicas tus lesiones y zonas sensibles, y el plan las tiene en cuenta desde el primer día. Si durante el entrenamiento aparece alguna molestia, puedes reportarlo y el plan se ajusta de forma automática. No tienes que elegir entre jugar y cuidarte: Bivo lo gestiona.",
-  },
-  {
-    q: "¿Funciona si solo puedo entrenar 2 o 3 días a la semana?",
-    a: "Perfectamente. En el test inicial indicas tu disponibilidad real y Bivo crea el plan en base a eso. No hay un mínimo de días. Y lo mejor es que puedes ir ajustándolo sobre la marcha: si una semana tienes más disponibilidad y quieres entrenar más días, lo cambias desde dentro de la app y el plan se sincroniza al instante. Si otra semana tienes menos tiempo, reduces los días y Bivo lo reajusta para que sigas progresando con lo que tienes.",
-  },
-  {
-    q: "¿Qué pasa si tengo torneo un fin de semana y no puedo entrenar?",
-    a: "Bivo lo gestiona automáticamente. Introduces tu calendario de partidos y torneos en la app, y el plan se recalcula para que llegues en el mejor estado posible a cada competición. Sin solapamientos. Sin sobreentrenamiento.",
-  },
-  {
-    q: "¿Puedo cancelar cuando quiera?",
-    a: "Sí, en cualquier momento y con un solo clic desde la app. Sin llamadas, sin formularios, sin penalizaciones. Cancelas y listo.",
-  },
-  {
-    q: "¿Es para cualquier nivel, aunque sea principiante total?",
-    a: "Absolutamente. Bivo está diseñado para jugadores de todos los niveles, quienes acaban de empezar hasta jugadores profesionales que ya lo están usando también. Lo bueno que tiene es que, desde dentro de la aplicación, te hace un test inicial para saber exactamente dónde estás y empezar el plan ahí. Si tú luego quieres subir o bajar la dificultad desde dentro de la aplicación también podrás hacerlo y te lo ajusta al instante.",
-  },
+const STEP_MEDIA = [
+  { image: "img/vsl/onboarding-movilidad.jpg", imagePosition: "center 14%" },
+  { image: "img/flow/02-entrenamiento.jpg", imagePosition: "center 12%" },
+  { image: "assets/app-screens/stats.png", imagePosition: "center top" },
+  { image: "assets/app-screens/agenda.png", imagePosition: "center top" },
+  { image: "img/vsl/onboarding-dolor.png", imagePosition: "center 10%" },
 ];
 
 export type SportVslReview = {
@@ -149,9 +87,17 @@ const GooglePlayIcon = ({ size = 20 }: { size?: number }) => (
 );
 
 const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
-  const { localePath } = useLocale();
-  const signupPath = localePath("/registro");
-  const planSignupPath = (plan: PlanKey) => `${signupPath}?plan=${plan}`;
+  const { lang, localePath } = useLocale();
+  const ui = vslUi(lang);
+  const steps = ui.steps.map((step, index) => ({ ...STEP_MEDIA[index], ...step }));
+  const signupSport = isRacketSportSlug(config.slug) ? config.slug : null;
+  const signupPath = signupSport
+    ? registroPathWithSport(localePath, signupSport)
+    : localePath("/registro");
+  const planSignupPath = (plan: PlanKey) =>
+    signupSport
+      ? registroPathWithSport(localePath, signupSport, plan)
+      : `${localePath("/registro")}?plan=${plan}`;
   const selectPlan = (plan: PlanKey) => {
     writeFlowSession({ selectedPlanKey: plan });
     notifyFlowSessionChange();
@@ -167,7 +113,7 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
     countdown,
   } = usePadelLanding(config.pageTitle, config.carouselImages ?? APP_SCREEN_CAROUSEL);
 
-  const faqItems = [...SPORT_VSL_FAQ_SHARED, config.otherSportsFaq];
+  const faqItems = [...ui.faq, config.otherSportsFaq];
 
   return (
     <div className={config.className} ref={rootRef}>
@@ -190,7 +136,7 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
         <div className="hero-content">
           <p className="pre-headline">{config.hero.preHeadline}</p>
           <h1 className="headline">
-            ¿Tu <span className="accent">cuerpo</span> no aguanta los partidos que tu cabeza quiere jugar?
+            {ui.heroTitleBefore} <span className="accent">{ui.heroTitleAccent}</span> {ui.heroTitleAfter}
           </h1>
           <p className="hero-sub">{config.hero.sub}</p>
 
@@ -210,15 +156,15 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
               </span>
             </div>
             <span className="hsp-text">
-              Más de <strong>{BIVO_ATHLETES_COUNT} jugadores</strong> ya entrenan con Bivo
+              {ui.playersBefore} <strong>{BIVO_ATHLETES_COUNT}</strong> {ui.playersAfter}
             </span>
           </div>
 
           <div className="hero-cta-area">
             <a href="#pricing" className="cta-btn">
-              Empieza tu prueba gratuita de 7 días →
+              {ui.ctaTrial}
             </a>
-            <p className="micro-trust">✓ Garantía 7 días · ✓ Cancela cuando quieras</p>
+            <p className="micro-trust">{ui.microGuarantee}</p>
           </div>
         </div>
       </section>
@@ -239,7 +185,7 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
           />
         </div>
         <div className="agitation-inner">
-          <p className="pre-headline centered fade-up">¿TE SIENTES IDENTIFICADO?</p>
+          <p className="pre-headline centered fade-up">{ui.agitationPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
             {config.agitation.headline}
           </h2>
@@ -251,7 +197,7 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
               </div>
             ))}
           </div>
-          <p className="agitation-close fade-up">Si has dicho sí a alguna de estas... esto es exactamente para ti.</p>
+          <p className="agitation-close fade-up">{ui.agitationClose}</p>
           <span className="arrow-down fade-up">↓</span>
         </div>
       </section>
@@ -262,9 +208,9 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
           <div className="section-bg-overlay" />
         </div>
         <div className="root-inner">
-          <p className="pre-headline centered fade-up">EL VERDADERO PROBLEMA</p>
+          <p className="pre-headline centered fade-up">{ui.rootPre}</p>
           <h2 className="headline fade-up">
-            Tu cabeza quiere más partidos. Tu cuerpo te dice que <span className="accent">no puede</span>.
+            {ui.rootTitleBefore} <span className="accent">{ui.rootTitleAccent}</span>.
           </h2>
           {config.rootCause.blocks.map((block) => (
             <div key={block.title} className="root-block fade-up">
@@ -273,7 +219,7 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
             </div>
           ))}
           <p className="root-transition fade-up">
-            El problema no es tu esfuerzo. Es que nadie te había dado el plan correcto. Hasta ahora.
+            {ui.rootTransition}
           </p>
         </div>
       </section>
@@ -281,14 +227,14 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
       <section id="solution" className="section-pad">
         <div className="solution-grid">
           <div className="solution-text">
-            <p className="pre-headline fade-up">LA SOLUCIÓN</p>
+            <p className="pre-headline fade-up">{ui.solutionPre}</p>
             <h2 className="headline fade-up">
-              Bivo: la preparación física de los <span className="accent">{config.solution.accent}</span>, en tu
-              bolsillo.
+              {ui.solutionBefore} <span className="accent">{config.solution.accent}</span>
+              {ui.solutionAfter}
             </h2>
             <p className="solution-desc fade-up">{config.solution.desc}</p>
             <div className="value-points fade-up">
-              {SPORT_VSL_VALUE_POINTS.map((point) => (
+              {ui.valuePoints.map((point) => (
                 <div key={point} className="value-point">
                   <span className="check">✓</span> {point}
                 </div>
@@ -296,13 +242,13 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
             </div>
             <div className="credential-box fade-up">
               <span className="trophy">🏆</span>
-              <span>Premio Nacional a la Mejor Startup — Cámara de Comercio de España, 2024</span>
+              <span>{ui.credential}</span>
             </div>
           </div>
 
           <div className="phone-mockup fade-up">
             <div className="phone-mockup-wrap">
-              <button type="button" className="carousel-arrow prev" onClick={carouselPrev} aria-label="Anterior">
+              <button type="button" className="carousel-arrow prev" onClick={carouselPrev} aria-label={ui.prev}>
                 ‹
               </button>
               <div className="phone-frame">
@@ -311,13 +257,13 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
                     <img
                       key={image}
                       src={image}
-                      alt={`Bivo App — pantalla ${index + 1}`}
+                      alt={ui.screenAlt.replace("{n}", String(index + 1))}
                       className={index === carouselIndex ? "active" : ""}
                     />
                   ))}
                 </div>
               </div>
-              <button type="button" className="carousel-arrow next" onClick={carouselNext} aria-label="Siguiente">
+              <button type="button" className="carousel-arrow next" onClick={carouselNext} aria-label={ui.next}>
                 ›
               </button>
             </div>
@@ -331,9 +277,9 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
           <div className="section-bg-overlay" />
         </div>
         <div className="benefits-header">
-          <p className="pre-headline centered fade-up">LO QUE CAMBIA</p>
+          <p className="pre-headline centered fade-up">{ui.benefitsPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Cuando entrenas con Bivo, se nota en pista.
+            {ui.benefitsTitle}
           </h2>
         </div>
         <div className="benefits-grid">
@@ -343,7 +289,11 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
                 <img
                   src={config.asset(benefit.image)}
                   alt={benefit.title}
-                  style={{ objectPosition: benefit.imagePosition }}
+                  style={
+                    benefit.image.includes("onboarding-dolor")
+                      ? { objectFit: "contain", objectPosition: "center" }
+                      : { objectPosition: benefit.imagePosition }
+                  }
                 />
               </div>
               <div className="benefit-body">
@@ -355,19 +305,19 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
         </div>
         <div className="benefits-cta fade-up">
           <a href="#pricing" className="cta-btn">
-            Empieza tu prueba gratuita de 7 días →
+            {ui.ctaTrial}
           </a>
-          <p className="micro-trust">✓ Cancela cuando quieras · ✓ 7 días completamente gratis</p>
+          <p className="micro-trust">{ui.microCancel}</p>
         </div>
       </section>
 
       <section id="testimonials" className="section-pad">
         <div className="testimonials-header">
-          <p className="pre-headline centered fade-up">RESULTADOS REALES</p>
+          <p className="pre-headline centered fade-up">{ui.testimonialsPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
             {config.testimonialsHeadline}
           </h2>
-          <p className="sub fade-up">Opiniones reales. Sin filtros.</p>
+          <p className="sub fade-up">{ui.testimonialsSub}</p>
         </div>
 
         <div className="appstore-reviews fade-up">
@@ -407,37 +357,37 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
           <div className="section-bg-overlay" />
         </div>
         <div className="credibility-header">
-          <p className="pre-headline centered fade-up">NO LO DECIMOS NOSOTROS</p>
+          <p className="pre-headline centered fade-up">{ui.credibilityPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Bivo está reconocido y avalado por quienes saben de deporte y tecnología.
+            {ui.credibilityTitle}
           </h2>
         </div>
         <div className="awards-grid">
           <div className="award-card fade-up">
             <div className="award-card-bg">
-              <img src={config.asset("img/awards/dia-d-group.jpg")} alt="Equipo Bivo recogiendo el Premio Nacional" />
+              <img src={config.asset("img/awards/dia-d-group.jpg")} alt={ui.award1Alt} />
             </div>
             <div className="award-card-content">
               <div className="award-icon">🏆</div>
-              <div className="award-name">Premio Nacional a la Mejor Startup</div>
-              <div className="award-org">Programa Impulsa, Crea y Crece 2024 — Cámara de Comercio de España</div>
-              <div className="award-date">2 de abril de 2025</div>
+              <div className="award-name">{ui.award1Name}</div>
+              <div className="award-org">{ui.award1Org}</div>
+              <div className="award-date">{ui.award1Date}</div>
             </div>
           </div>
           <div className="award-card fade-up">
             <div className="award-card-bg">
-              <img src={config.asset("img/awards/dia-d-presentacion.jpg")} alt="Presentación de Bivo" />
+              <img src={config.asset("img/awards/dia-d-presentacion.jpg")} alt={ui.award2Alt} />
             </div>
             <div className="award-card-content">
               <div className="award-icon">🥇</div>
-              <div className="award-name">Mejor Idea de Negocio</div>
-              <div className="award-org">Cámara de Comercio de Menorca</div>
-              <div className="award-date">14 de enero de 2025</div>
+              <div className="award-name">{ui.award2Name}</div>
+              <div className="award-org">{ui.award2Org}</div>
+              <div className="award-date">{ui.award2Date}</div>
             </div>
           </div>
         </div>
         <div className="partners-block fade-up">
-          <p className="partners-label">Desarrollado con y para:</p>
+          <p className="partners-label">{ui.partnersLabel}</p>
           <div className="partners-logos">
             {config.partners.map((partner) => (
               <img key={partner.file} src={config.asset(partner.file)} alt={partner.alt} />
@@ -450,28 +400,33 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
           </div>
           <div>
             <div className="expert-name">Toni Bota</div>
-            <div className="expert-title">Preparador de jugadores amateurs y profesionales de raqueta</div>
-            <p className="expert-quote">
-              &quot;La metodología detrás de Bivo es la misma que aplico con deportistas de élite. Adaptada a tu nivel, a
-              tus lesiones y a tu vida.&quot;
-            </p>
+            <div className="expert-title">{ui.expertTitle}</div>
+            <p className="expert-quote">&quot;{ui.expertQuote}&quot;</p>
           </div>
         </div>
       </section>
 
       <section id="how-it-works" className="section-pad">
         <div className="how-header">
-          <p className="pre-headline centered fade-up">EN 5 PASOS</p>
+          <p className="pre-headline centered fade-up">{ui.stepsPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
             {config.howItWorksHeadline}
           </h2>
         </div>
         <div className="steps-grid">
-          {SPORT_VSL_STEPS.map((step, index) => (
+          {steps.map((step, index) => (
             <div key={step.title} className="step-card fade-up">
               <div className="step-card-number">{index + 1}</div>
               <div className="step-card-img">
-                <img src={config.asset(step.image)} alt={step.title} style={{ objectPosition: step.imagePosition }} />
+                <img
+                  src={config.asset(step.image)}
+                  alt={step.title}
+                  style={
+                    step.image.includes("onboarding-dolor")
+                      ? { objectFit: "contain", objectPosition: "center" }
+                      : { objectPosition: step.imagePosition }
+                  }
+                />
               </div>
               <div className="step-card-body">
                 <h3>{step.title}</h3>
@@ -485,79 +440,79 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
       <div className="urgency-banner">
         <span className="urgency-icon">⏰</span>
         <span className="urgency-text">
-          Precio de lanzamiento — Termina en: <strong>{countdown}</strong>
+          {ui.urgency} <strong>{countdown}</strong>
         </span>
       </div>
 
       <section id="pricing" className="section-pad">
         <div className="pricing-header">
           <p className="emotional-bridge fade-up">
-            Ya sabes lo que pasa si no haces nada. Llevas tiempo aguantándolo.
+            {ui.pricingBridge1}
             <br />
-            La pregunta no es si quieres mejorar — es cuánto más vas a esperar.
+            {ui.pricingBridge2}
           </p>
-          <p className="pre-headline centered fade-up">SIN RIESGO. SIN COMPROMISO.</p>
+          <p className="pre-headline centered fade-up">{ui.pricingPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Empieza hoy. Los primeros 7 días son completamente gratis.
+            {ui.pricingTitle}
           </h2>
           <p className="sub fade-up" style={{ textAlign: "center", color: "rgba(255,255,255,0.72)", fontSize: "18px", marginTop: "12px" }}>
-            Cancela cuando quieras con un clic.
+            {ui.pricingSub}
           </p>
         </div>
 
         <div className="price-anchor fade-up">
           <div className="anchor-old">
-            <div className="label">Preparador físico privado</div>
-            <div className="price">40€ – 120€ por sesión</div>
+            <div className="label">{ui.anchorOldLabel}</div>
+            <div className="price">{ui.anchorOldPrice}</div>
           </div>
           <div className="anchor-vs">VS</div>
           <div className="anchor-new">
             <div className="label">Bivo</div>
-            <div className="price">Desde 7,50€/mes</div>
+            <div className="price">{ui.anchorNewPrice}</div>
           </div>
         </div>
 
         <div className="pricing-grid">
           <div className="price-card fade-up">
-            <div className="price-label">MENSUAL</div>
+            <div className="price-label">{ui.planMonthly}</div>
             <div className="price-amount">
-              14,99€ <span>/mes</span>
+              {ui.monthlyPrice} <span>{ui.perMonth}</span>
             </div>
-            <div className="price-sub">Sin compromiso</div>
+            <div className="price-sub">{ui.noCommitment}</div>
             <Link to={planSignupPath("monthly")} onClick={() => selectPlan("monthly")} className="cta-btn">
-              Empieza 7 días gratis →
+              {ui.ctaFree}
             </Link>
           </div>
           <div className="price-card featured fade-up">
-            <div className="price-badge">⭐ MÁS POPULAR — PRECIO LANZAMIENTO</div>
-            <div className="price-label">TRIMESTRAL</div>
+            <div className="price-badge">{ui.popular}</div>
+            <div className="price-label">{ui.planQuarterly}</div>
             <div className="price-amount">
-              11,66€ <span>/mes</span>
+              {ui.quarterlyPrice} <span>{ui.perMonth}</span>
             </div>
-            <div className="price-amount-small">34,99€ cada 3 meses</div>
-            <div className="price-save">Ahorras un 22%</div>
+            <div className="price-amount-small">{ui.quarterlySmall}</div>
+            <div className="price-save">{ui.save22}</div>
             <Link to={planSignupPath("quarterly")} onClick={() => selectPlan("quarterly")} className="cta-btn">
-              Empieza 7 días gratis →
+              {ui.ctaFree}
             </Link>
           </div>
           <div className="price-card fade-up">
             <div className="price-badge" style={{ background: "#1a1a1a", color: "var(--green)", border: "1px solid var(--green)" }}>
-              💎 MEJOR VALOR
+              {ui.bestValue}
             </div>
-            <div className="price-label">ANUAL</div>
+            <div className="price-label">{ui.planAnnual}</div>
             <div className="price-amount">
-              7,50€ <span>/mes</span>
+              {ui.annualPrice} <span>{ui.perMonth}</span>
             </div>
-            <div className="price-amount-small">89,99€ al año</div>
-            <div className="price-save">Ahorras un 50% · Ahorras 89,89€/año</div>
+            <div className="price-amount-small">{ui.annualSmall}</div>
+            <div className="price-save">{ui.save50}</div>
             <Link to={planSignupPath("annual")} onClick={() => selectPlan("annual")} className="cta-btn">
-              Empieza 7 días gratis →
+              {ui.ctaFree}
             </Link>
           </div>
         </div>
 
         <div className="included-list fade-up">
-          {SPORT_VSL_INCLUDED.map((item) => (
+          {ui.included.map((item) => (
             <div key={item} className="included-item">
               <span className="check">✓</span> {item}
             </div>
@@ -567,20 +522,17 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
         <div className="guarantee-box fade-up">
           <span className="guarantee-icon">🛡️</span>
           <div>
-            <strong>Garantía de satisfacción 7 días</strong>
-            <p>
-              Si en siete días no ves el valor, cancela sin costes con sólo dos clics desde dentro de la app. Sin
-              complicaciones.
-            </p>
+            <strong>{ui.guaranteeTitle}</strong>
+            <p>{ui.guaranteeBody}</p>
           </div>
         </div>
       </section>
 
       <section id="faq" className="section-pad">
         <div className="faq-header">
-          <p className="pre-headline centered fade-up">RESOLVEMOS TUS DUDAS</p>
+          <p className="pre-headline centered fade-up">{ui.faqPre}</p>
           <h2 className="headline fade-up" style={{ textAlign: "center" }}>
-            Preguntas frecuentes
+            {ui.faqTitle}
           </h2>
         </div>
         <div className="faq-list">
@@ -597,22 +549,22 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
           ))}
         </div>
         <div className="final-cta-box fade-up">
-          <h3 className="headline">¿Todavía tienes dudas?</h3>
-          <p className="sub">Pruébalo 7 días sin coste y decide tú mismo.</p>
+          <h3 className="headline">{ui.faqFinalTitle}</h3>
+          <p className="sub">{ui.faqFinalSub}</p>
           <Link to={signupPath} className="cta-btn">
-            Empieza tu prueba gratuita de 7 días →
+            {ui.ctaTrial}
           </Link>
-          <p className="micro-trust">✓ Sin compromiso · ✓ Cancela cuando quieras</p>
+          <p className="micro-trust">{ui.microNoCommitment}</p>
         </div>
       </section>
 
       <footer>
         <img src={config.asset("assets/logo-green.png")} alt="Bivo" />
         <div className="footer-links">
-          <Link to={localePath(sportLegalPath(config.slug, "privacy"))}>Política de Privacidad</Link>
-          <Link to={localePath(sportLegalPath(config.slug, "terms"))}>Términos de Uso</Link>
+          <Link to={localePath(sportLegalPath(config.slug, "privacy"))}>{ui.privacy}</Link>
+          <Link to={localePath(sportLegalPath(config.slug, "terms"))}>{ui.terms}</Link>
         </div>
-        <p className="footer-copy">© 2025 Bivo Training. Todos los derechos reservados.</p>
+        <p className="footer-copy">{ui.footerCopy}</p>
       </footer>
     </div>
   );
