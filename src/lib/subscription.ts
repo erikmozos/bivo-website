@@ -8,12 +8,28 @@ import {
 } from "./config";
 import type { MemberDoc, SubscriptionStatusResponse } from "@/types/member";
 
-export async function redeemPromoCode(code: string) {
-  const callable = httpsCallable<{ code: string }, { success: boolean; message?: string }>(
+export type RedeemPromoResult = {
+  success: boolean;
+  type?: "free_access" | "subscription_discount";
+  code?: string;
+  discountPercent?: number;
+  message?: string;
+};
+
+export async function redeemPromoCode(code: string): Promise<RedeemPromoResult> {
+  const callable = httpsCallable<{ code: string }, RedeemPromoResult>(
     functions,
     FN_REDEEM_PROMO_CODE
   );
-  return callable({ code: code.trim().toUpperCase() });
+  const result = await callable({ code: code.trim().toUpperCase() });
+  return result.data;
+}
+
+export function promoCallableErrorCode(err: unknown): string {
+  if (typeof err === "object" && err && "code" in err) {
+    return String((err as { code: string }).code);
+  }
+  return "";
 }
 
 export async function getSubscriptionStatus(): Promise<SubscriptionStatusResponse> {

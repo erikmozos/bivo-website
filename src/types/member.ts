@@ -26,6 +26,10 @@ export interface MemberDoc {
   skillLevel?: string;
   gender?: string;
   currentPlanRefs?: string[];
+  /** Afiliado Basic: `commission` | `discount` | `hybrid`. */
+  affiliateOfferType?: string | null;
+  /** % de descuento en app (p. ej. 25). */
+  affiliateDiscountPercent?: number | null;
   createdAt?: { seconds: number; nanoseconds: number } | Date | string;
   updatedAt?: { seconds: number; nanoseconds: number } | Date | string;
 }

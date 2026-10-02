@@ -1,5 +1,9 @@
 import { Purchases, type Package } from "@revenuecat/purchases-js";
-import { RC_API_KEY, RC_ENTITLEMENT_ID } from "./config";
+import {
+  RC_API_KEY,
+  RC_ENTITLEMENT_ID,
+  RC_OFFERING_ID,
+} from "./config";
 import { assertWebBillingPackage } from "./revenuecatDiagnostics";
 
 let configuredForUser: string | null = null;
@@ -33,9 +37,37 @@ export async function configureRevenueCat(appUserId: string): Promise<void> {
   configuredForUser = appUserId;
 }
 
-export async function getCurrentOfferingPackages() {
-  const offerings = await Purchases.getSharedInstance().getOfferings({ currency: "EUR" });
-  const offering = offerings.current;
+/** True si el member debe ver el offering de descuento afiliado. */
+export function memberGetsAffiliateDiscountOffering(member: {
+  affiliateOfferType?: string | null;
+  affiliateDiscountPercent?: number | null;
+} | null | undefined): boolean {
+  if (!member) return false;
+  if (member.affiliateOfferType === "discount") return true;
+  const percent = member.affiliateDiscountPercent;
+  return typeof percent === "number" && percent >= 25;
+}
+
+export async function getCurrentOfferingPackages(options?: {
+  offeringId?: string;
+}) {
+  const preferredId = options?.offeringId?.trim();
+
+  const offerings = await Purchases.getSharedInstance().getOfferings({
+    currency: "EUR",
+    ...(preferredId ? { offeringIdentifier: preferredId } : {}),
+  });
+
+  const fromPreferred =
+    preferredId && offerings.all?.[preferredId]?.availablePackages?.length
+      ? offerings.all[preferredId]
+      : undefined;
+
+  const fromDefault = offerings.all?.[RC_OFFERING_ID]?.availablePackages?.length
+    ? offerings.all[RC_OFFERING_ID]
+    : undefined;
+
+  const offering = fromPreferred ?? fromDefault ?? offerings.current ?? null;
 
   if (!offering) {
     throw new Error("No current offering available");
