@@ -237,7 +237,7 @@
       "oldPrice": "€40 – €120 per session",
       "vs": "vs",
       "newLabel": "Bivo",
-      "newPrice": "From €7.50/month"
+      "newPrice": "From €8.33/month"
     },
     "features": [
       "Personalized AI training",
@@ -251,7 +251,7 @@
     "plans": [
       {
         "name": "Monthly",
-        "amount": "€14.99",
+        "amount": "€19.99",
         "period": "/mo",
         "billed": "No commitment",
         "badge": null,
@@ -259,19 +259,19 @@
       },
       {
         "name": "Quarterly",
-        "amount": "€11.66",
+        "amount": "€15.00",
         "period": "/mo",
-        "billed": "€34.99 every 3 months",
-        "savings": "Save 22%",
+        "billed": "€44.99 every 3 months",
+        "savings": "Save 25%",
         "badge": "● Most popular — Launch price",
         "badgeStyle": "popular"
       },
       {
         "name": "Annual",
-        "amount": "€7.50",
+        "amount": "€8.33",
         "period": "/mo",
-        "billed": "€89.99 per year",
-        "savings": "Save 50% · Save €89.89/year",
+        "billed": "€99.99 per year",
+        "savings": "Save 58% · Save €139.89/year",
         "badge": "💎 Best value",
         "badgeStyle": "value"
       }
@@ -1033,7 +1033,7 @@
         "oldPrice": "€40 – €120 per session",
         "vs": "vs",
         "newLabel": "Bivo",
-        "newPrice": "From €7.50/month"
+        "newPrice": "From €8.33/month"
       },
       "popular": "● Most popular — Launch price",
       "bestValue": "💎 Best value",
@@ -1053,8 +1053,8 @@
         "annual": "{price} per year"
       },
       "savings": {
-        "quarterly": "Save 22%",
-        "annual": "Save 50%"
+        "quarterly": "Save 25%",
+        "annual": "Save 58%"
       },
       "features": [
         "Personalized AI training",

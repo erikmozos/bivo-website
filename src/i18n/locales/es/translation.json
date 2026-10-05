@@ -231,7 +231,7 @@
       "oldPrice": "40€ – 120€ por sesión",
       "vs": "vs",
       "newLabel": "Bivo",
-      "newPrice": "Desde 7,50€/mes"
+      "newPrice": "Desde 8,33€/mes"
     },
     "features": [
       "Entrenamiento personalizado con IA",
@@ -245,7 +245,7 @@
     "plans": [
       {
         "name": "Mensual",
-        "amount": "14,99€",
+        "amount": "19,99€",
         "period": "/mes",
         "billed": "Sin compromiso",
         "badge": null,
@@ -253,19 +253,19 @@
       },
       {
         "name": "Trimestral",
-        "amount": "11,66€",
+        "amount": "15,00€",
         "period": "/mes",
-        "billed": "34,99€ cada 3 meses",
-        "savings": "Ahorras un 22%",
+        "billed": "44,99€ cada 3 meses",
+        "savings": "Ahorras un 25%",
         "badge": "● Más popular — Precio lanzamiento",
         "badgeStyle": "popular"
       },
       {
         "name": "Anual",
-        "amount": "7,50€",
+        "amount": "8,33€",
         "period": "/mes",
-        "billed": "89,99€ al año",
-        "savings": "Ahorras un 50% · Ahorras 89,89€/año",
+        "billed": "99,99€ al año",
+        "savings": "Ahorras un 58% · Ahorras 139,89€/año",
         "badge": "💎 Mejor valor",
         "badgeStyle": "value"
       }
@@ -1027,7 +1027,7 @@
         "oldPrice": "40€ – 120€ por sesión",
         "vs": "vs",
         "newLabel": "Bivo",
-        "newPrice": "Desde 7,50€/mes"
+        "newPrice": "Desde 8,33€/mes"
       },
       "popular": "● Más popular — Precio lanzamiento",
       "bestValue": "💎 Mejor valor",
@@ -1047,8 +1047,8 @@
         "annual": "{price} al año"
       },
       "savings": {
-        "quarterly": "Ahorras un 22%",
-        "annual": "Ahorras un 50%"
+        "quarterly": "Ahorras un 25%",
+        "annual": "Ahorras un 58%"
       },
       "features": [
         "Entrenamiento personalizado con IA",
