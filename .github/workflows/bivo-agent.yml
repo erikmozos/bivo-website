@@ -53,14 +53,15 @@ jobs:
       BRANCH: ${{ inputs.branch }}
       MODE: ${{ inputs.mode }}
       RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      OUT: ${{ runner.temp }}/bivo
     steps:
       - name: Validar parámetros
         id: validate
         run: |
           [[ "$BRANCH" =~ ^ai/[a-z0-9][a-z0-9-]{0,80}$ ]] || { echo "::error::Rama no permitida: debe empezar por ai/"; exit 1; }
           [[ "$RUN_ID" =~ ^[a-z0-9]{8,40}$ ]] || { echo "::error::Identificador de ejecución no válido"; exit 1; }
-          mkdir -p "$OUT"
+          # Carpeta de trabajo fuera del repositorio (el contexto `runner` no existe en el `env` del job).
+          echo "OUT=$RUNNER_TEMP/bivo" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/bivo"
 
       - uses: actions/checkout@v4
         with:
