@@ -1,0 +1,160 @@
+# Agente de desarrollo de Bivo Workspace (https://github.com/erikmozos/bivo-workspace-admin, decisiones 0005 y 0006).
+#
+# Lo lanza Bivo Workspace (workflow_dispatch). Claude Code trabaja en una rama `ai/…`, el workflow ejecuta lint y
+# build antes y después, sube los cambios SOLO a esa rama y avisa a Bivo Workspace con un mensaje firmado. Nunca
+# escribe en main ni crea PRs: la PR (en borrador) se crea en Bivo Workspace cuando una persona la aprueba.
+#
+# Seguridad:
+# - Claude solo puede leer y editar archivos (sin terminal ni red): no puede ejecutar código ni leer secretos.
+# - Lint y build ejecutan el código cambiado SIN ningún secreto en el entorno.
+# - El token de GitHub solo existe en el paso que sube a la rama `ai/…`; los cambios en .github/ se descartan y se
+#   comprueba que .git/config no se ha tocado; los hooks de git se desactivan.
+# - Antes de subir se rechaza cualquier cambio que contenga algo con forma de clave (Anthropic o GitHub).
+#
+# Requiere: secreto CLAUDE_CODE_OAUTH_TOKEN (`claude setup-token`), secreto BIVO_CALLBACK_SECRET (el mismo valor que
+# AGENT_CALLBACK_SECRET en Vercel) y variable BIVO_CALLBACK_URL (https://<bivo-workspace>/api/agent/callback).
+
+name: Bivo agent
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: Ejecución en Bivo Workspace
+        required: true
+        type: string
+      branch:
+        description: Rama de trabajo (ai/…)
+        required: true
+        type: string
+      mode:
+        description: new (rama nueva desde main) o correction (sobre la rama existente)
+        required: true
+        type: choice
+        options: [new, correction]
+      task:
+        description: Tarea para el agente
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bivo-agent
+  cancel-in-progress: false
+
+jobs:
+  agent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      RUN_ID: ${{ inputs.run_id }}
+      BRANCH: ${{ inputs.branch }}
+      MODE: ${{ inputs.mode }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      OUT: ${{ runner.temp }}/bivo
+    steps:
+      - name: Validar parámetros
+        id: validate
+        run: |
+          [[ "$BRANCH" =~ ^ai/[a-z0-9][a-z0-9-]{0,80}$ ]] || { echo "::error::Rama no permitida: debe empezar por ai/"; exit 1; }
+          [[ "$RUN_ID" =~ ^[a-z0-9]{8,40}$ ]] || { echo "::error::Identificador de ejecución no válido"; exit 1; }
+          mkdir -p "$OUT"
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Copia del script de aviso ANTES de que el agente pueda tocar el repositorio.
+      - name: Preparar el aviso a Bivo Workspace
+        run: cp .github/bivo-agent/report.mjs "$OUT/report.mjs"
+
+      - name: Avisar del inicio
+        env:
+          CALLBACK_URL: ${{ vars.BIVO_CALLBACK_URL }}
+          CALLBACK_SECRET: ${{ secrets.BIVO_CALLBACK_SECRET }}
+        run: node "$OUT/report.mjs" started
+
+      - name: Preparar la rama
+        run: |
+          if [ "$MODE" = "new" ]; then
+            if git rev-parse --verify --quiet "refs/remotes/origin/$BRANCH" >/dev/null; then echo "::error::La rama $BRANCH ya existe"; exit 1; fi
+            git checkout -q -b "$BRANCH" origin/main
+          else
+            git rev-parse --verify --quiet "refs/remotes/origin/$BRANCH" >/dev/null || { echo "::error::La rama $BRANCH no existe"; exit 1; }
+            git checkout -q -b "$BRANCH" "origin/$BRANCH"
+          fi
+          sha256sum .git/config > "$OUT/gitconfig.sha256"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci --no-audit --no-fund
+
+      - name: Comprobaciones antes de la ronda
+        run: |
+          set +e
+          npm run lint > /dev/null 2>&1; echo $? > "$OUT/lint.before"
+          npm run build > /dev/null 2>&1; echo $? > "$OUT/build.before"
+          exit 0
+
+      - name: Claude Code
+        id: claude
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          TASK: ${{ inputs.task }}
+        run: |
+          npm install --global --no-audit --no-fund @anthropic-ai/claude-code@2.1.308
+          printf '%s' "$TASK" > "$OUT/task.md"
+          set +e
+          claude -p "$(cat "$OUT/task.md")" \
+            --permission-mode dontAsk \
+            --allowedTools Read Edit Write Glob Grep \
+            --disallowedTools "Read(//proc/**)" "Grep(//proc/**)" \
+            --max-turns 60 \
+            --output-format json > "$OUT/claude.json" 2> "$OUT/claude.err"
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      # Sin secretos: aquí se ejecuta el código que ha cambiado el agente.
+      - name: Comprobaciones después de la ronda
+        run: |
+          set +e
+          npm run lint > "$OUT/lint.log" 2>&1; echo $? > "$OUT/lint.exit"
+          npm run build > "$OUT/build.log" 2>&1; echo $? > "$OUT/build.exit"
+          exit 0
+
+      - name: Subir los cambios a la rama
+        id: push
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sha256sum --check --quiet "$OUT/gitconfig.sha256" || { echo "::error::.git/config ha cambiado durante la ronda"; exit 1; }
+          rm -rf .git/hooks
+          git restore --source=HEAD --staged --worktree -- .github || true
+          git clean -fdq -- .github || true
+          G="git -c core.hooksPath=/dev/null -c core.fsmonitor="
+          $G add -A
+          if $G diff --cached --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if $G diff --cached | grep -qE '(sk-ant-[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})'; then
+            echo "::error::Los cambios contienen algo con forma de clave o token: no se suben."; exit 1
+          fi
+          $G -c user.name="bivo-agent" -c user.email="bivo-agent@users.noreply.github.com" commit -q -m "Agente Bivo: ronda $RUN_ID"
+          $G push -q "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/${BRANCH}"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Avisar del resultado
+        if: always() && steps.validate.outcome == 'success'
+        env:
+          CALLBACK_URL: ${{ vars.BIVO_CALLBACK_URL }}
+          CALLBACK_SECRET: ${{ secrets.BIVO_CALLBACK_SECRET }}
+          JOB_STATUS: ${{ job.status }}
+          CLAUDE_EXIT: ${{ steps.claude.outputs.exit }}
+          CHANGED: ${{ steps.push.outputs.changed }}
+          PUSH_OUTCOME: ${{ steps.push.outcome }}
+        run: node "$OUT/report.mjs" finished
