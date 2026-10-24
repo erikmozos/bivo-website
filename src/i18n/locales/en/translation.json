@@ -12,7 +12,15 @@
       "openMenu": "Open menu",
       "closeMenu": "Close menu"
     },
-    "logoAlt": "Bivo Training Logo"
+    "logoAlt": "Bivo Training Logo",
+    "coach": "BIVO Coach",
+    "coachPopover": {
+      "eyebrow": "For professionals",
+      "title": "Are you a coach, club, academy or federation?",
+      "text": "Offer personalised strength & conditioning to all your racket players with BIVO Coach. AI builds and adapts the plans automatically. You can supervise and adjust whenever you need.",
+      "highlight": "Less time planning. More time for your players.",
+      "cta": "Discover BIVO Coach"
+    }
   },
   "footer": {
     "brand": "Bivo",
@@ -59,7 +67,7 @@
     "subtitle": "Live like a person, train like a pro.",
     "description": "Padel, tennis, pickleball or badminton: Bivo adapts to you.",
     "tagline": "Train better, live better.",
-    "cta": "Try it 7 days free",
+    "cta": "Generate and see your personalized training now",
     "appScreens": {
       "alt": "Bivo app screen {index}"
     },
@@ -147,11 +155,11 @@
       },
       {
         "name": "C.T. La Salle",
-        "description": "C.T. La Salle already trusts Bivo. If you are a racket club and want to join, ask for more info!"
+        "description": "C.T. La Salle already trusts Bivo. If you are a racket club and want to join, <coachLink>ask for more info!</coachLink>"
       },
       {
         "name": "Sabadell Pickleball Club Academy",
-        "description": "We are the official physical preparation tool of Sabadell Pickleball Club Academy, 2026 Spanish team champions. Want Bivo at your club? Ask for more info!"
+        "description": "We are the official physical preparation tool of Sabadell Pickleball Club Academy, 2026 Spanish team champions. Want Bivo at your club? <coachLink>Ask for more info!</coachLink>"
       },
       {
         "name": "MQC",
@@ -159,7 +167,7 @@
       },
       {
         "name": "Pdpadel Club",
-        "description": "Pdpadel, one of the most important clubs in the Balearic Islands, already trusts Bivo. If you are a racket club and want to join, ask for more info!"
+        "description": "Pdpadel, one of the most important clubs in the Balearic Islands, already trusts Bivo. If you are a racket club and want to join, <coachLink>ask for more info!</coachLink>"
       },
       {
         "name": "EmprenBIT",
@@ -171,6 +179,20 @@
       "next": "Next alliance",
       "slide": "Go to alliance {index}"
     }
+  },
+  "coachSection": {
+    "eyebrow": "For clubs, academies, coaches and federations",
+    "heading": "BIVO Coach",
+    "subheading": "Strength & conditioning for all your players, on autopilot.",
+    "description": "BIVO Coach is the platform for racket-sport professionals. AI builds and adapts each player's plan automatically, and you supervise and adjust it from a single dashboard.",
+    "points": [
+      "Personalised plans for every player, without hiring more coaches.",
+      "Plans adapt on their own to injuries, competitions, equipment and availability.",
+      "Track your whole team in one dashboard: compliance, load and progress."
+    ],
+    "highlight": "Less time planning. More time for your players.",
+    "cta": "Discover BIVO Coach",
+    "imageAlt": "BIVO Coach dashboard showing a player's monthly plan"
   },
   "recognitions": {
     "heading": "Recognitions and awards",

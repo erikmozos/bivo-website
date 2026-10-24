@@ -2,4 +2,7 @@
 # This ensures all routes are handled by React Router
 
 # Redirect all non-file requests to index.html for client-side routing
+/coach        https://www.bivocoach.com/     301
+/es/coach     https://www.bivocoach.com/     301
+/en/coach     https://www.bivocoach.com/en   301
 /*    /index.html   200 

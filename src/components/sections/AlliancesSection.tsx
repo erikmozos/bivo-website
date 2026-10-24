@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
 import { getSectionId } from "@/lib/sectionIds";
+import { coachLandingUrl } from "@/lib/coachLinks";
 import {
   type CarouselApi,
   Carousel,
@@ -39,7 +40,7 @@ const AlliancesSection = () => {
   const alianzas = partnersData.map((partner, index) => ({
     nombre: partner.name,
     imagen: partnerImages[index],
-    descripcion: partner.description,
+    descripcionKey: `alliances.partners.${index}.description`,
   }));
 
   useEffect(() => {
@@ -125,7 +126,19 @@ const AlliancesSection = () => {
                       <h3 className="font-round text-xl font-semibold mb-2">
                         {alianza.nombre}
                       </h3>
-                      <p className="text-gray-600">{alianza.descripcion}</p>
+                      <p className="text-gray-600">
+                        <Trans
+                          i18nKey={alianza.descripcionKey}
+                          components={{
+                            coachLink: (
+                              <a
+                                href={coachLandingUrl(lang)}
+                                className="font-semibold text-black underline decoration-bivo-green decoration-2 underline-offset-4 hover:text-bivo-green"
+                              />
+                            ),
+                          }}
+                        />
+                      </p>
                     </div>
                   </article>
                 </CarouselItem>

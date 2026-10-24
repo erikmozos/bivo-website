@@ -14,6 +14,7 @@ export type VslUi = {
   playersBefore: string;
   playersAfter: string;
   ctaTrial: string;
+  ctaGenerate: string;
   microGuarantee: string;
   agitationPre: string;
   agitationClose: string;
@@ -102,6 +103,7 @@ const es: VslUi = {
   playersBefore: "Más de",
   playersAfter: "jugadores ya entrenan con Bivo",
   ctaTrial: "Empieza tu prueba gratuita de 7 días →",
+  ctaGenerate: "Genera y mira tu entrenamiento personalizado ahora",
   microGuarantee: "✓ Garantía 7 días · ✓ Cancela cuando quieras",
   agitationPre: "¿TE SIENTES IDENTIFICADO?",
   agitationClose: "Si has dicho sí a alguna de estas... esto es exactamente para ti.",
@@ -250,6 +252,7 @@ const en: VslUi = {
   playersBefore: "More than",
   playersAfter: "players already train with Bivo",
   ctaTrial: "Start your 7-day free trial →",
+  ctaGenerate: "Generate and see your personalized training now",
   microGuarantee: "✓ 7-day guarantee · ✓ Cancel anytime",
   agitationPre: "SOUND FAMILIAR?",
   agitationClose: "If you said yes to any of these... this is exactly for you.",

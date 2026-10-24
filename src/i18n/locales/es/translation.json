@@ -12,7 +12,15 @@
       "openMenu": "Abrir menú",
       "closeMenu": "Cerrar menú"
     },
-    "logoAlt": "Bivo Training Logo"
+    "logoAlt": "Bivo Training Logo",
+    "coach": "BIVO Coach",
+    "coachPopover": {
+      "eyebrow": "Para profesionales",
+      "title": "¿Eres entrenador, club, academia o federación?",
+      "text": "Ofrece preparación física personalizada a todos tus jugadores de raqueta con BIVO Coach. La IA crea y adapta los planes automáticamente. Tú puedes supervisar y ajustar cuando lo necesites.",
+      "highlight": "Menos tiempo planificando. Más tiempo para tus jugadores.",
+      "cta": "Descubre BIVO Coach"
+    }
   },
   "footer": {
     "brand": "Bivo",
@@ -59,7 +67,7 @@
     "subtitle": "Live like a person, train like a pro.",
     "description": "Pádel, tenis, pickleball o bádminton: Bivo se adapta a ti.",
     "tagline": "Entrena mejor, vive mejor.",
-    "cta": "Pruébalo 7 días gratis",
+    "cta": "Genera y mira tu entrenamiento personalizado ahora",
     "appScreens": {
       "alt": "Pantalla de la app Bivo {index}"
     },
@@ -147,11 +155,11 @@
       },
       {
         "name": "C.T. La Salle",
-        "description": "C.T. La Salle ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info!"
+        "description": "C.T. La Salle ya confía en Bivo. Si eres un club de raqueta y quieres unirte, <coachLink>¡pide más info!</coachLink>"
       },
       {
         "name": "Sabadell Pickleball Club Academy",
-        "description": "Somos la herramienta oficial de preparación física del Sabadell Pickleball Club Academy, campeón de España por equipos 2026. ¿Quieres Bivo en tu club? ¡Pide más info!"
+        "description": "Somos la herramienta oficial de preparación física del Sabadell Pickleball Club Academy, campeón de España por equipos 2026. ¿Quieres Bivo en tu club? <coachLink>¡Pide más info!</coachLink>"
       },
       {
         "name": "MQC",
@@ -159,7 +167,7 @@
       },
       {
         "name": "Club Pdpadel",
-        "description": "Pdpadel, uno de los clubes más importantes de Baleares, ya confía en Bivo. Si eres un club de raqueta y quieres unirte, ¡pide más info!"
+        "description": "Pdpadel, uno de los clubes más importantes de Baleares, ya confía en Bivo. Si eres un club de raqueta y quieres unirte, <coachLink>¡pide más info!</coachLink>"
       },
       {
         "name": "EmprenBIT",
@@ -171,6 +179,20 @@
       "next": "Siguiente alianza",
       "slide": "Ir a la alianza {index}"
     }
+  },
+  "coachSection": {
+    "eyebrow": "Para clubes, academias, entrenadores y federaciones",
+    "heading": "BIVO Coach",
+    "subheading": "La preparación física de todos tus jugadores, en piloto automático.",
+    "description": "BIVO Coach es la plataforma para profesionales de los deportes de raqueta. La IA crea y adapta los planes de cada jugador automáticamente y tú los supervisas y ajustas desde un único panel.",
+    "points": [
+      "Planes personalizados para cada jugador, sin contratar más preparadores.",
+      "Se adaptan solos a lesiones, competiciones, material y disponibilidad.",
+      "Seguimiento de todo tu equipo en un panel: cumplimiento, carga y progreso."
+    ],
+    "highlight": "Menos tiempo planificando. Más tiempo para tus jugadores.",
+    "cta": "Descubre BIVO Coach",
+    "imageAlt": "Panel de BIVO Coach con la planificación mensual de un jugador"
   },
   "recognitions": {
     "heading": "Reconocimientos y premios",

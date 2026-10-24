@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useLocale } from "@/hooks/useLocale";
 import { getHomeSectionIds, translateSectionHash } from "@/lib/sectionIds";
+import CoachPopover from "@/components/layout/CoachPopover";
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -73,6 +74,7 @@ const Navbar = () => {
               {label}
             </button>
           ))}
+          <CoachPopover />
           <button
             onClick={toggleLang}
             className="text-white hover:text-bivo-green transition-colors font-semibold text-sm border border-white/30 px-3 py-1 rounded hover:border-bivo-green"
@@ -115,6 +117,7 @@ const Navbar = () => {
                 {label}
               </button>
             ))}
+            <CoachPopover triggerClassName="py-2 self-start" />
           </div>
         </div>
       )}

@@ -5,6 +5,8 @@ import { usePadelLanding } from "@/hooks/usePadelLanding";
 import { BIVO_ATHLETES_COUNT } from "@/lib/bivoStats";
 import type { PlanKey } from "@/lib/config";
 import { writeFlowSession } from "@/lib/flowSession";
+import { PADEL_APP_SCREEN_CAROUSEL } from "@/lib/padelAppScreenCarousel";
+import { DEVELOPED_WITH_LOGOS } from "@/lib/developedWithLogos";
 import { padelAsset } from "@/lib/padelLandingAssets";
 import { sportLandingText } from "@/content/sportLandingText";
 import { vslUi } from "@/content/vslUi";
@@ -240,7 +242,7 @@ const PadelLandingPage = () => {
     countdown,
     playVsl,
     handleTestimonialClick,
-  } = usePadelLanding(text.pageTitle);
+  } = usePadelLanding(text.pageTitle, PADEL_APP_SCREEN_CAROUSEL);
 
   const primeTestimonialFrame = (video: HTMLVideoElement) => {
     if (video.duration === 0 || video.currentTime > 0.05) return;
@@ -332,9 +334,9 @@ const PadelLandingPage = () => {
           </div>
 
           <div className={`hero-cta-area${ctaUnlocked ? "" : " cta-locked"}`}>
-            <a href="#pricing" className="cta-btn">
-              {ui.ctaTrial}
-            </a>
+            <Link to={localePath("/onboarding")} className="cta-btn">
+              {ui.ctaGenerate}
+            </Link>
             <p className="micro-trust">{ui.microGuarantee}</p>
           </div>
         </div>
@@ -592,10 +594,14 @@ const PadelLandingPage = () => {
         <div className="partners-block fade-up">
           <p className="partners-label">{ui.partnersLabel}</p>
           <div className="partners-logos">
-            <img src={padelAsset("img/fpib.png")} alt={text.partnerAlts[0]} />
-            <img src={padelAsset("img/mqc.png")} alt={text.partnerAlts[1]} />
-            <img src={padelAsset("img/pdpadel.jpg")} alt={text.partnerAlts[2]} />
-            <img src={padelAsset("img/emprenbit.png")} alt={text.partnerAlts[3]} />
+            {DEVELOPED_WITH_LOGOS.map((logo) => (
+              <img
+                key={logo.src}
+                src={logo.src}
+                alt={logo.alt}
+                className={"crop" in logo && logo.crop ? "logo-crop" : undefined}
+              />
+            ))}
           </div>
         </div>
         <div className="expert-card fade-up">

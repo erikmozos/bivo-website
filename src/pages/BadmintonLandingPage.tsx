@@ -5,6 +5,7 @@ import { useBadmintonLanding } from "@/hooks/useBadmintonLanding";
 import { BIVO_ATHLETES_COUNT } from "@/lib/bivoStats";
 import type { PlanKey } from "@/lib/config";
 import { writeFlowSession } from "@/lib/flowSession";
+import { DEVELOPED_WITH_LOGOS } from "@/lib/developedWithLogos";
 import { badmintonAsset } from "@/lib/badmintonLandingAssets";
 import { sportLandingText } from "@/content/sportLandingText";
 import { vslUi } from "@/content/vslUi";
@@ -256,9 +257,9 @@ const BadmintonLandingPage = () => {
           </div>
 
           <div className="hero-cta-area">
-            <a href="#pricing" className="cta-btn">
-              {ui.ctaTrial}
-            </a>
+            <Link to={localePath("/onboarding")} className="cta-btn">
+              {ui.ctaGenerate}
+            </Link>
             <p className="micro-trust">{ui.microGuarantee}</p>
           </div>
         </div>
@@ -484,10 +485,14 @@ const BadmintonLandingPage = () => {
         <div className="partners-block fade-up">
           <p className="partners-label">{ui.partnersLabel}</p>
           <div className="partners-logos">
-            <img src={badmintonAsset("img/febab.png")} alt={text.partnerAlts[0]} />
-            <img src={badmintonAsset("img/mqc.png")} alt={text.partnerAlts[1]} />
-            <img src={badmintonAsset("img/logosalle.png")} alt={text.partnerAlts[2]} />
-            <img src={badmintonAsset("img/emprenbit.png")} alt={text.partnerAlts[3]} />
+            {DEVELOPED_WITH_LOGOS.map((logo) => (
+              <img
+                key={logo.src}
+                src={logo.src}
+                alt={logo.alt}
+                className={"crop" in logo && logo.crop ? "logo-crop" : undefined}
+              />
+            ))}
           </div>
         </div>
         <div className="expert-card fade-up">

@@ -1,8 +1,8 @@
 import { ArrowDown } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { useLocale } from "@/hooks/useLocale";
-import { getSectionId } from "@/lib/sectionIds";
 import { APP_SCREEN_CAROUSEL } from "@/lib/appScreenCarousel";
 
 const HERO_IMAGES = [
@@ -17,7 +17,7 @@ const SLIDE_INTERVAL_MS = 3000;
 
 const HeroSection = () => {
   const { t } = useTranslation();
-  const { lang } = useLocale();
+  const { localePath } = useLocale();
   const [activeSlide, setActiveSlide] = useState(0);
 
   const randomImage = useMemo(() => {
@@ -60,12 +60,12 @@ const HeroSection = () => {
             </p>
 
             <div className="mb-10">
-              <a
-                href={`#${getSectionId(lang, "pricing")}`}
-                className="inline-flex items-center bg-bivo-green text-black px-8 py-3 rounded-lg font-extrabold text-lg hover:bg-opacity-90 transition-all transform hover:scale-105"
+              <Link
+                to={localePath("/onboarding")}
+                className="inline-flex items-center justify-center text-center bg-bivo-green text-black px-8 py-3 rounded-lg font-extrabold text-lg leading-snug max-w-xl hover:bg-opacity-90 transition-all transform hover:scale-105"
               >
                 {t("hero.cta")}
-              </a>
+              </Link>
             </div>
 
             <div className="mt-8 flex justify-center lg:justify-start">
@@ -77,22 +77,20 @@ const HeroSection = () => {
 
           <div className="lg:w-1/2 flex flex-col items-center">
             <div className="relative w-[260px] sm:w-[280px] md:w-[300px]">
-              <div className="relative rounded-[2.5rem] border-[6px] border-gray-800 bg-gray-900 shadow-2xl overflow-hidden aspect-[9/19.5]">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-gray-800 rounded-b-xl z-20" />
-                <div className="absolute inset-0 pt-6 pb-2 px-1">
+              <div className="relative rounded-[2.5rem] border-[6px] border-gray-800 bg-black shadow-2xl overflow-hidden aspect-[9/19.5]">
+                <div className="absolute inset-0 overflow-hidden">
                   {APP_SCREEN_CAROUSEL.map((src, index) => (
                     <img
                       key={src}
                       src={src}
                       alt={t("hero.appScreens.alt", { index: index + 1 })}
-                      className={`absolute inset-0 w-full h-full object-cover object-top rounded-[2rem] transition-all duration-700 ease-in-out ${
-                        index === activeSlide
-                          ? "opacity-100 scale-100 translate-y-0"
-                          : "opacity-0 scale-95 translate-y-2"
+                      className={`absolute left-1/2 top-1/2 h-[108%] w-[108%] max-w-none -translate-x-1/2 -translate-y-1/2 object-cover object-center transition-opacity duration-700 ease-in-out ${
+                        index === activeSlide ? "opacity-100" : "opacity-0"
                       }`}
                     />
                   ))}
                 </div>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-gray-800 rounded-b-xl z-20" />
               </div>
             </div>
 

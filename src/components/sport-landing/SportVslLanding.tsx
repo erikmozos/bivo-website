@@ -6,6 +6,7 @@ import { BIVO_ATHLETES_COUNT } from "@/lib/bivoStats";
 import type { PlanKey } from "@/lib/config";
 import { writeFlowSession } from "@/lib/flowSession";
 import { APP_SCREEN_CAROUSEL } from "@/lib/appScreenCarousel";
+import { DEVELOPED_WITH_LOGOS } from "@/lib/developedWithLogos";
 import {
   isRacketSportSlug,
   registroPathWithSport,
@@ -161,9 +162,9 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
           </div>
 
           <div className="hero-cta-area">
-            <a href="#pricing" className="cta-btn">
-              {ui.ctaTrial}
-            </a>
+            <Link to={localePath("/onboarding")} className="cta-btn">
+              {ui.ctaGenerate}
+            </Link>
             <p className="micro-trust">{ui.microGuarantee}</p>
           </div>
         </div>
@@ -389,8 +390,13 @@ const SportVslLanding = ({ config }: { config: SportVslConfig }) => {
         <div className="partners-block fade-up">
           <p className="partners-label">{ui.partnersLabel}</p>
           <div className="partners-logos">
-            {config.partners.map((partner) => (
-              <img key={partner.file} src={config.asset(partner.file)} alt={partner.alt} />
+            {DEVELOPED_WITH_LOGOS.map((logo) => (
+              <img
+                key={logo.src}
+                src={logo.src}
+                alt={logo.alt}
+                className={"crop" in logo && logo.crop ? "logo-crop" : undefined}
+              />
             ))}
           </div>
         </div>

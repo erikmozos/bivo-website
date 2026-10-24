@@ -1,12 +1,5 @@
 @import "./PadelLanding.css";
 
-.badminton-landing .partners-logos img {
-  background: #fff;
-  border-radius: 8px;
-  padding: 8px 12px;
-  height: 64px;
-}
-
 .badminton-landing .appstore-reviews {
   margin-top: 8px;
 }

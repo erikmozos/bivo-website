@@ -3,6 +3,33 @@
   "buildCommand": "vite build",
   "devCommand": "vite --port $PORT",
   "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/coach",
+      "destination": "https://www.bivocoach.com/",
+      "permanent": true
+    },
+    {
+      "source": "/es/coach",
+      "destination": "https://www.bivocoach.com/",
+      "permanent": true
+    },
+    {
+      "source": "/es/coach/",
+      "destination": "https://www.bivocoach.com/",
+      "permanent": true
+    },
+    {
+      "source": "/en/coach",
+      "destination": "https://www.bivocoach.com/en",
+      "permanent": true
+    },
+    {
+      "source": "/en/coach/",
+      "destination": "https://www.bivocoach.com/en",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/en",

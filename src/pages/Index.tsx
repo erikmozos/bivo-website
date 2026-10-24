@@ -4,6 +4,7 @@ import HeroSection from "@/components/sections/HeroSection";
 import WhatIsBivoSection from "@/components/sections/WhatIsBivoSection";
 import HowItWorksSection from "@/components/sections/HowItWorksSection";
 import AlliancesSection from "@/components/sections/AlliancesSection";
+import CoachSection from "@/components/sections/CoachSection";
 import RecognitionsSection from "@/components/sections/RecognitionsSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import PricingSection from "@/components/sections/PricingSection";
@@ -50,6 +51,7 @@ const Index = () => {
         <WhatIsBivoSection />
         <HowItWorksSection />
         <AlliancesSection />
+        <CoachSection />
         <RecognitionsSection />
         <TestimonialsSection />
         <PricingSection />
