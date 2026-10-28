@@ -1,10 +1,15 @@
-import { Purchases, type Package } from "@revenuecat/purchases-js";
+import { Purchases, type Package, type PurchaseOption } from "@revenuecat/purchases-js";
 import {
   RC_API_KEY,
   RC_ENTITLEMENT_ID,
   RC_OFFERING_ID,
 } from "./config";
 import { assertWebBillingPackage } from "./revenuecatDiagnostics";
+
+function subscriptionOptionWithoutTrial(pkg: Package): PurchaseOption | undefined {
+  const options = Object.values(pkg.webBillingProduct?.subscriptionOptions ?? {});
+  return options.find((option) => !option.trial);
+}
 
 let configuredForUser: string | null = null;
 
@@ -88,12 +93,19 @@ export async function purchasePackage(
 ) {
   assertWebBillingPackage(pkg);
 
+  const discountCode = options?.discountCode?.trim() || undefined;
+  const purchaseOption = discountCode
+    ? subscriptionOptionWithoutTrial(pkg)
+    : undefined;
+
   const result = await Purchases.getSharedInstance().purchase({
     rcPackage: pkg,
     customerEmail: options?.customerEmail,
     selectedLocale: options?.locale ?? "es",
     defaultLocale: "es",
-    discountCode: options?.discountCode,
+    discountCode,
+    showDiscountCodeField: true,
+    purchaseOption,
     skipSuccessPage: true,
   });
 

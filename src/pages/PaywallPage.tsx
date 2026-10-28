@@ -36,6 +36,10 @@ import {
 } from "@/lib/subscription";
 import { notifyAppLifecycleEmail } from "@/services/sendpulseAppEmail";
 import { shouldShowPaywall } from "@/types/member";
+import {
+  startStripeCheckoutWithPromo,
+  stripeIdsForPackage,
+} from "@/lib/stripeCheckout";
 
 type PlanOption = {
   key: PlanKey;
@@ -124,13 +128,30 @@ const PaywallPage = () => {
   const [loadingOfferings, setLoadingOfferings] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
   const [promoCode, setPromoCode] = useState("");
-  const [appliedPromoCode, setAppliedPromoCode] = useState<string | null>(null);
+  const [appliedPromoCode, setAppliedPromoCode] = useState<string | null>(() =>
+    typeof window === "undefined"
+      ? null
+      : window.sessionStorage.getItem("bivo_applied_promo")
+  );
   const [redeemingPromo, setRedeemingPromo] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [apiErrorDetail, setApiErrorDetail] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const features = t("appFlow.paywall.features", { returnObjects: true }) as string[];
+
+  const rememberPromoCode = (code: string) => {
+    setAppliedPromoCode(code);
+    window.sessionStorage.setItem("bivo_applied_promo", code);
+  };
+
+  useEffect(() => {
+    if (appliedPromoCode) return;
+    const fromMember = member?.promoDiscountCode?.trim();
+    if (fromMember) {
+      rememberPromoCode(fromMember.toUpperCase());
+    }
+  }, [member, appliedPromoCode]);
 
   const goToDownload = () => navigate(localePath("/descargar"), { replace: true });
 
@@ -225,15 +246,42 @@ const PaywallPage = () => {
     setStatusMessage(null);
 
     try {
+      if (appliedPromoCode) {
+        const stripeIds = stripeIdsForPackage(selectedPlan.pkg);
+        if (!stripeIds.priceId && !stripeIds.productId) {
+          throw new Error(
+            "Este plan no está enlazado a un producto de Stripe. Revisa el offering en RevenueCat."
+          );
+        }
+
+        const checkoutUrl = await startStripeCheckoutWithPromo({
+          priceId: stripeIds.priceId,
+          productId: stripeIds.productId,
+          interval: stripeIds.interval,
+          intervalCount: stripeIds.intervalCount,
+          promoCode: appliedPromoCode,
+          email: user.email ?? "",
+          appUserId: user.uid,
+          successUrl: `${window.location.origin}${localePath("/descargar")}?checkout=success`,
+          cancelUrl: window.location.href,
+        });
+        window.location.assign(checkoutUrl);
+        return;
+      }
+
       await purchasePackage(selectedPlan.pkg, {
         locale: lang === "en" ? "en" : "es",
+        customerEmail: user.email ?? undefined,
         discountCode: appliedPromoCode ?? undefined,
       });
       await handleAfterPurchaseOrPromo();
     } catch (err) {
       logRevenueCatError("purchase", err);
       if (!isPurchaseCancelled(err)) {
-        setError(formatRevenueCatError(err) || t("appFlow.paywall.purchaseError"));
+        const fallback = err instanceof Error ? err.message : null;
+        setError(
+          fallback || formatRevenueCatError(err) || t("appFlow.paywall.purchaseError")
+        );
       }
     } finally {
       setPurchasing(false);
@@ -260,7 +308,7 @@ const PaywallPage = () => {
       }
 
       if (result.type === "subscription_discount") {
-        setAppliedPromoCode(result.code ?? code);
+        rememberPromoCode((result.code ?? code).toUpperCase());
         setStatusMessage(
           t("appFlow.paywall.promoDiscount", {
             percent: result.discountPercent ?? 25,

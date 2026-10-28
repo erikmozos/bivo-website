@@ -17,6 +17,8 @@ export interface MemberDoc {
   isTrial?: boolean;
   currentPeriodEndsAt?: { seconds: number; nanoseconds: number } | Date | string;
   email?: string;
+  promoDiscountCode?: string;
+  promoDiscountPercent?: number;
   displayName?: string;
   birthDate?: string;
   age?: number;
