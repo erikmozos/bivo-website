@@ -212,6 +212,9 @@ const PrivacyPolicyContent = () => {
       <p className="mb-4">
         Bivo Training S.L. tratará dichos datos de acuerdo con las finalidades, instrucciones y responsabilidades que le correspondan en cada caso, adoptando las medidas necesarias para garantizar su seguridad y confidencialidad.
       </p>
+      <p className="mb-4">
+        Para prestar soporte técnico, resolver incidencias, garantizar la seguridad del servicio y cumplir obligaciones contractuales u operativas, personal autorizado de Bivo Training S.L. podrá acceder de forma controlada a las cuentas y espacios de clubes, academias, federaciones, gimnasios, entrenadores u otras entidades o profesionales gestionados a través de BIVO COACH, incluyendo la información de deportistas, planificaciones, entrenamientos y demás datos necesarios para dichas finalidades. Este acceso se realiza mediante una cuenta de administración de plataforma de Bivo Training S.L., no forma parte del roster o equipo visible del club y se limita a lo necesario para el soporte, la seguridad y el correcto funcionamiento del servicio.
+      </p>
     </section>
 
     <section className="mb-12">
@@ -298,6 +301,7 @@ const PrivacyPolicyContent = () => {
         <li>podemos compartir información con otros miembros cuando el Usuario la divulgue a través del servicio;</li>
         <li>compartimos los datos necesarios con proveedores que respaldan nuestras operaciones, como servicios de alojamiento, infraestructura, análisis o atención al cliente;</li>
         <li>podemos compartir información con afiliados de BIVO TRAINING por motivos operativos y de seguridad;</li>
+        <li>personal autorizado de Bivo Training S.L. podrá acceder a datos tratados en BIVO COACH y en la aplicación BIVO TRAINING cuando resulte necesario para soporte técnico, seguridad, mantenimiento o resolución de incidencias, sin que ello implique ceder dichos datos a terceros ajenos a Bivo Training S.L.;</li>
         <li>podemos divulgar información para cumplir con procesos legales o proteger la seguridad de nuestros usuarios y servicios;</li>
         <li>podemos compartir información con terceros cuando contemos con el consentimiento del Usuario.</li>
       </ul>
