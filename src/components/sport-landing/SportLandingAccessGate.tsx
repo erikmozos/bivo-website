@@ -1,6 +1,8 @@
 import { FormEvent, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { vslUi } from "@/content/vslUi";
 import { useLocale } from "@/hooks/useLocale";
+import { PasswordInput } from "@/components/ui/password-input";
 
 type SportLandingAccessGateProps = {
   landingClass: string;
@@ -24,6 +26,7 @@ const SportLandingAccessGate = ({
   error,
 }: SportLandingAccessGateProps) => {
   const { lang } = useLocale();
+  const { t } = useTranslation();
   const ui = vslUi(lang);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -73,14 +76,17 @@ const SportLandingAccessGate = ({
           />
 
           <label htmlFor={`${landingClass}-password`}>{ui.gatePassword}</label>
-          <input
+          <PasswordInput
             id={`${landingClass}-password`}
             name="password"
-            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
             required
+            wrapperClassName="sport-landing-gate-password"
+            toggleClassName="sport-landing-gate-password-toggle"
+            showLabel={t("appFlow.auth.showPassword")}
+            hideLabel={t("appFlow.auth.hidePassword")}
           />
 
           {error ? <p className="sport-landing-gate-error">{error}</p> : null}

@@ -72,10 +72,41 @@
   padding: 12px 14px;
   margin-bottom: 16px;
   outline: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sport-landing-gate-card input:focus {
   border-color: #39ff14;
+}
+
+.sport-landing-gate-password {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.sport-landing-gate-password input {
+  margin-bottom: 0;
+  padding-right: 44px;
+}
+
+.sport-landing-gate-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sport-landing-gate-password-toggle:hover {
+  color: #fff;
 }
 
 .sport-landing-gate-error {

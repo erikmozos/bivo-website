@@ -922,6 +922,8 @@
       "displayName": "Name",
       "email": "Email",
       "password": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
       "signupCta": "Create account",
       "loginCta": "Sign in",
       "submitting": "Processing...",

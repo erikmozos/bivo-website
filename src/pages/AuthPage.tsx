@@ -13,6 +13,7 @@ import {
   getPasswordRequirementChecks,
   isSignupPasswordValid,
 } from "@/lib/passwordValidation";
+import { PasswordInput } from "@/components/ui/password-input";
 
 const inputClass =
   "w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-bivo-green/60 focus:border-bivo-green/40 transition";
@@ -205,15 +206,16 @@ const AuthPage = () => {
             <label htmlFor="password" className="block text-sm text-gray-400 mb-2">
               {t("appFlow.auth.password")}
             </label>
-            <input
+            <PasswordInput
               id="password"
-              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={inputClass}
               required
               minLength={mode === "signup" ? 8 : 6}
               autoComplete={mode === "signup" ? "new-password" : "current-password"}
+              showLabel={t("appFlow.auth.showPassword")}
+              hideLabel={t("appFlow.auth.hidePassword")}
             />
           </div>
 
@@ -254,14 +256,15 @@ const AuthPage = () => {
                 <label htmlFor="confirmPassword" className="block text-sm text-gray-400 mb-2">
                   {t("appFlow.auth.confirmPassword")}
                 </label>
-                <input
+                <PasswordInput
                   id="confirmPassword"
-                  type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className={inputClass}
                   required
                   autoComplete="new-password"
+                  showLabel={t("appFlow.auth.showPassword")}
+                  hideLabel={t("appFlow.auth.hidePassword")}
                 />
               </div>
             </>

@@ -916,6 +916,8 @@
       "displayName": "Nombre",
       "email": "Email",
       "password": "Contraseña",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
       "signupCta": "Crear cuenta",
       "loginCta": "Entrar",
       "submitting": "Procesando...",
