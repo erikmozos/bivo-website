@@ -131,10 +131,16 @@ const TermsConditionsContent = () => {
     <section className="mb-12">
       <h2 className="text-2xl font-semibold mb-4">{sectionTitle(3)}</h2>
       <p className="mb-4">
-        BIVO COACH es el servicio de Bivo Training S.L. destinado a clubes deportivos, academias, federaciones, gimnasios, entrenadores personales y otros profesionales o entidades deportivas (en adelante, la “Entidad”), que permite gestionar y realizar el seguimiento de sus deportistas, clientes, alumnos, usuarios o federados.
+        BIVO COACH es el servicio de Bivo Training S.L. destinado a clubes deportivos, academias, federaciones, gimnasios, entrenadores personales, preparadores físicos y otros profesionales o entidades deportivas (en adelante, la “Entidad”), que permite gestionar, planificar, supervisar y realizar el seguimiento de la preparación física de sus deportistas, clientes, alumnos, usuarios o federados.
       </p>
       <p className="mb-4">
-        La Entidad podrá utilizar BIVO COACH para crear y gestionar perfiles, vincular deportistas, asignar o realizar el seguimiento de entrenamientos, consultar información sobre su actividad y progreso y utilizar las demás funcionalidades disponibles en cada momento.
+        BIVO COACH constituye una herramienta tecnológica de apoyo a la preparación física, que incorpora o puede incorporar funcionalidades basadas en inteligencia artificial para facilitar la planificación, personalización, gestión y seguimiento de los entrenamientos y de la actividad deportiva.
+      </p>
+      <p className="mb-4">
+        La Entidad podrá utilizar BIVO COACH para crear y gestionar perfiles o grupos, vincular deportistas, crear, modificar o asignar entrenamientos, realizar su seguimiento, consultar información sobre su actividad y progreso y utilizar las demás funcionalidades disponibles en cada momento conforme al servicio contratado o habilitado.
+      </p>
+      <p className="mb-4">
+        La contratación de BIVO COACH otorga a la Entidad una licencia limitada, no exclusiva e intransferible de uso de la plataforma durante el periodo contratado, de acuerdo con los presentes Términos y Condiciones y con las condiciones particulares establecidas en la correspondiente oferta, propuesta, pedido, contrato o acuerdo comercial.
       </p>
       <p className="mb-4">
         La Entidad se compromete a utilizar BIVO COACH exclusivamente para finalidades legítimas relacionadas con su actividad y será responsable de la veracidad, licitud y adecuada utilización de la información que introduzca o gestione en la Plataforma.
@@ -143,13 +149,16 @@ const TermsConditionsContent = () => {
         Cuando la Entidad incorpore, gestione o facilite datos personales de deportistas, clientes, alumnos, usuarios, federados u otras personas, deberá disponer de una base jurídica válida para hacerlo y cumplir las obligaciones que le correspondan conforme a la normativa de protección de datos. Cuando resulte necesario, deberá haber obtenido previamente las autorizaciones o consentimientos correspondientes.
       </p>
       <p className="mb-4">
-        La Entidad será responsable de gestionar adecuadamente las altas, bajas y permisos de acceso de sus entrenadores, técnicos, empleados o colaboradores, así como de retirar dichos accesos cuando dejen de estar autorizados para utilizar BIVO COACH en su nombre.
+        La Entidad será responsable de gestionar adecuadamente las altas, bajas y permisos de acceso de sus administradores, entrenadores, preparadores físicos, técnicos, empleados o colaboradores, así como de retirar dichos accesos cuando dejen de estar autorizados para utilizar BIVO COACH en su nombre. Las cuentas y credenciales habilitadas para dichos profesionales serán personales y no deberán compartirse entre distintas personas.
       </p>
       <p className="mb-4">
         La información accesible a través de BIVO COACH deberá utilizarse exclusivamente para las finalidades deportivas, de gestión y seguimiento vinculadas a la relación existente entre la Entidad o profesional y el deportista, cliente, alumno, usuario o federado, quedando prohibido cualquier uso no autorizado o ajeno a dichas finalidades.
       </p>
       <p className="mb-4">
         Cuando finalice la relación entre la Entidad y un deportista, cliente, alumno, usuario o federado, la Entidad deberá dejar de acceder a su información a través de BIVO COACH cuando ya no exista una base legítima para dicho acceso, sin perjuicio de los plazos de conservación que resulten legalmente aplicables.
+      </p>
+      <p className="mb-4">
+        BIVO COACH constituye una herramienta tecnológica de apoyo y no sustituye el criterio profesional del entrenador, preparador físico o técnico responsable. La supervisión del entrenamiento y la decisión final sobre su aplicación, modificación o adaptación corresponderán a la Entidad o al profesional responsable cuando el deportista se encuentre bajo su supervisión. Asimismo, BIVO COACH no constituye un servicio médico o sanitario ni sustituye, cuando corresponda, la valoración o el criterio de médicos, fisioterapeutas u otros profesionales sanitarios.
       </p>
       <p className="mb-4">
         Cuando el acceso de un Usuario a BIVO TRAINING esté vinculado a una licencia, suscripción o acuerdo contratado por una Entidad, dicho acceso podrá finalizar o modificarse si termina, se suspende o cancela la relación entre la Entidad y BIVO TRAINING, o si la Entidad deja de incluir al Usuario entre sus beneficiarios.
@@ -163,7 +172,10 @@ const TermsConditionsContent = () => {
         Bivo Training S.L. prestará BIVO COACH conforme a las funcionalidades contratadas o habilitadas y tratará la información de acuerdo con las finalidades, instrucciones y responsabilidades que correspondan en cada caso.
       </p>
       <p className="mb-4">
-        Las condiciones económicas, número de usuarios o licencias, duración, funcionalidades contratadas y demás condiciones particulares del servicio podrán establecerse en la correspondiente oferta, pedido, contrato o acuerdo comercial, que complementará los presentes Términos y Condiciones.
+        La contratación y utilización de BIVO COACH implica el conocimiento y aceptación por parte de la Entidad de que Bivo Training S.L., mediante personal autorizado, podrá acceder a su entorno de gestión cuando resulte necesario para prestar asistencia técnica, realizar tareas de mantenimiento, resolver incidencias o garantizar la seguridad y el correcto funcionamiento del servicio, respetando en todo momento la confidencialidad de la información y la normativa aplicable en materia de protección de datos.
+      </p>
+      <p className="mb-4">
+        Las condiciones económicas, forma y periodicidad de pago, duración, renovación, número de usuarios o licencias, funcionalidades, servicios incluidos y demás condiciones particulares de BIVO COACH se establecerán, cuando corresponda, en la correspondiente oferta, propuesta, pedido, contrato o acuerdo comercial aceptado por la Entidad, que complementará los presentes Términos y Condiciones.
       </p>
     </section>
 
