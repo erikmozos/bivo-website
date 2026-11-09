@@ -1,16 +1,21 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useLegalPath } from "@/hooks/useLegalPath";
+import { useLocale } from "@/hooks/useLocale";
+import TermsConditionsContentEn from "./TermsConditionsContentEn";
 
 const TermsConditionsContent = () => {
   const { t } = useTranslation();
   const { privacyPath, cookiesPath } = useLegalPath();
+  const { lang } = useLocale();
 
   const sectionTitle = (index: number) => {
     const number = t(`legal.terms.sections.${index}.number`);
     const title = t(`legal.terms.sections.${index}.title`);
     return `${number}. ${title}`;
   };
+
+  if (lang === "en") return <TermsConditionsContentEn />;
 
   return (
   <div className="max-w-3xl mx-auto w-full min-w-0 [&_a]:break-all">

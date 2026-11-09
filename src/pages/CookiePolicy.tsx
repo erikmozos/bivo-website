@@ -3,10 +3,13 @@ import { useTranslation } from "react-i18next";
 import { useLegalPath } from "@/hooks/useLegalPath";
 import Layout from "@/components/layout/Layout";
 import { openCookiePreferences } from "@/components/ConsentBanner";
+import { useLocale } from "@/hooks/useLocale";
+import CookiePolicyContentEn from "@/components/legal/CookiePolicyContentEn";
 
 const CookiePolicy = () => {
   const { t } = useTranslation();
   const { privacyPath } = useLegalPath();
+  const { lang } = useLocale();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,6 +26,7 @@ const CookiePolicy = () => {
   return (
   <Layout>
     <div className="min-h-screen bg-white text-black pt-28 pb-16 px-4 sm:px-6 md:px-8 lg:px-12 w-full min-w-0 box-border">
+      {lang === "en" ? <CookiePolicyContentEn /> : (
       <div className="max-w-3xl mx-auto w-full min-w-0 [&_a]:break-all">
         <h1 className="text-3xl font-bold mb-6">{t("legal.cookies.heading")}</h1>
 
@@ -268,6 +272,7 @@ const CookiePolicy = () => {
           </p>
         </div>
       </div>
+      )}
     </div>
   </Layout>
   );
