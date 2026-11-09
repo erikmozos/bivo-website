@@ -14,6 +14,7 @@ import {
 const partnerImages = [
   "/img2/alliances/fpib.png",
   "/img2/alliances/febab.png",
+  "/img2/alliances/ftib.png",
   "/img2/alliances/logosalle-1.png",
   "/img2/alliances/sabadell-pickleball.png",
   "/img2/alliances/mqc.png",
@@ -22,7 +23,7 @@ const partnerImages = [
 ];
 
 const isPartnerLogo = (src: string) =>
-  /emprenbit|fpib|febab|logosalle|sabadell/.test(src);
+  /emprenbit|fpib|febab|ftib|logosalle|sabadell/.test(src);
 
 const AlliancesSection = () => {
   const { t } = useTranslation();
