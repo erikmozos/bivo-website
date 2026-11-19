@@ -879,9 +879,16 @@
   margin-bottom: 24px;
 }
 :is(.padel-landing, .badminton-landing, .tenis-landing, .pickleball-landing) .partners-logos {
-  display: flex; align-items: center;
+  /* Rejilla de 4 columnas (2 en móvil) para que ningún logo quede solo en una fila. */
+  display: grid; align-items: center;
   justify-content: center;
-  gap: 16px 22px; flex-wrap: wrap;
+  grid-template-columns: repeat(4, 132px);
+  gap: 16px 22px;
+}
+@media (max-width: 640px) {
+  :is(.padel-landing, .badminton-landing, .tenis-landing, .pickleball-landing) .partners-logos {
+    grid-template-columns: repeat(2, 132px);
+  }
 }
 :is(.padel-landing, .badminton-landing, .tenis-landing, .pickleball-landing) .partners-logos img {
   height: 72px;
