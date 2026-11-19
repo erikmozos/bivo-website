@@ -215,31 +215,35 @@
   "testimonials": {
     "badge": "Testimonios",
     "heading": "Lo que dicen nuestros usuarios",
-    "description": "Opiniones reales de jugadores y entrenadores que ya entrenan con Bivo.",
+    "description": "Reseñas reales de usuarios de Bivo en App Store y Google Play.",
+    "storesLabel": "Valoración media en las tiendas",
+    "rating": "5,0",
+    "source": {
+      "appStore": "Reseña en App Store",
+      "googlePlay": "Reseña en Google Play"
+    },
+    "translated": "Traducida del inglés",
     "list": [
       {
-        "name": "Marcos B.",
-        "text": "\"Desde que empecé a usar Bivo no he vuelto a tener molestias en mi rodilla y puedo jugar varios partidos seguidos.\""
+        "name": "Teresa G.",
+        "text": "\"Muy buena app de entrenamiento. Fácil de usar, bien organizada y con planes claros que ayudan a mantener la constancia y ver progresos. Muy recomendable. 💪🏻\""
       },
       {
-        "name": "Carlos M.",
-        "text": "\"Con Bivo ya aguanto tres partidos seguidos en los torneos de fin de semana sin ningún problema ni calambres.\""
+        "name": "Albertoduri",
+        "text": "\"App muy recomendada si practicas deporte de raqueta! Me estoy iniciando al pádel y sinceramente me está ayudando mucho en el aspecto físico 10/10\""
       },
       {
-        "name": "Laura S.",
-        "text": "\"Como entrenadora de tenis, Bivo me ayuda a tener la condición física necesaria para aguantar todas las horas de trabajo de cada día y muchas horas en pista seguidas con clientes.\""
+        "name": "Luis Francisco S.",
+        "text": "\"Entrenamientos totalmente personalizados a tus necesidades. Capacidad de entrenar donde y cuando quieras, con el material del que tú personalmente dispones y ajustándose a tu propio calendario. Sinceramente la mejor app de preparación física que he probado!\""
       },
       {
-        "name": "Javi R.",
-        "text": "\"Llevaba años entrenando por mi cuenta y siempre me faltaba estructura. Bivo organiza mi semana y por fin veo cómo mejoro partido tras partido.\""
+        "name": "Manuela Z.",
+        "text": "\"Un equipazo de profesionales, serios, con las ideas y los conocimientos muy claros. Muy bien estructurada la APP. GRACIAS!!!\""
       },
       {
-        "name": "Anna T.",
-        "text": "\"En pickleball es difícil encontrar prepa física específica. Bivo lo hace y se nota: muevo mejor los pies y reacciono más rápido.\""
-      },
-      {
-        "name": "Pedro G.",
-        "text": "\"Lo que más me gusta es que adapta los entrenos cuando le digo que estoy cansado o que tengo torneo. Como tener un preparador en el bolsillo.\""
+        "name": "John D. S.",
+        "text": "\"Una app increíble para mejorar en pista. Ahora puedo jugar 2 partidos seguidos sin dolores.\"",
+        "translated": true
       }
     ],
     "navigation": {

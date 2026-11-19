@@ -1,10 +1,15 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useLegalPath } from "@/hooks/useLegalPath";
+import { useLocale } from "@/hooks/useLocale";
+import PrivacyPolicyContentEn from "./PrivacyPolicyContentEn";
 
 const PrivacyPolicyContent = () => {
   const { t } = useTranslation();
   const { cookiesPath } = useLegalPath();
+  const { lang } = useLocale();
+
+  if (lang === "en") return <PrivacyPolicyContentEn />;
 
   return (
   <div className="max-w-3xl mx-auto w-full min-w-0 [&_a]:break-all">

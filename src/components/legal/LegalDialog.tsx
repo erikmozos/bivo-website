@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import PrivacyPolicyContent from "./PrivacyPolicyContent";
 import TermsConditionsContent from "./TermsConditionsContent";
+import { useLocale } from "@/hooks/useLocale";
 
 type LegalDialogType = "privacy" | "terms";
 
@@ -19,12 +20,21 @@ interface LegalDialogProps {
 }
 
 const LegalDialog = ({ type, children }: LegalDialogProps) => {
+  const { lang } = useLocale();
+  const en = lang === "en";
   const title =
-    type === "privacy" ? "Política de Privacidad" : "Términos y Condiciones";
+    type === "privacy"
+      ? en ? "Privacy Policy" : "Política de Privacidad"
+      : en ? "Terms and Conditions" : "Términos y Condiciones";
   const description =
     type === "privacy"
-      ? "Información sobre el tratamiento de tus datos personales por Bivo Training S.L."
-      : "Información legal y condiciones de uso del sitio web y de la app Bivo Training.";
+      ? en
+        ? "Information about how Bivo Training S.L. processes your personal data."
+        : "Información sobre el tratamiento de tus datos personales por Bivo Training S.L."
+      : en
+        ? "Legal information and terms of use of the Bivo Training website and app."
+        : "Información legal y condiciones de uso del sitio web y de la app Bivo Training.";
+  const closeLabel = en ? "Close" : "Cerrar";
 
   return (
     <Dialog>
@@ -37,11 +47,11 @@ const LegalDialog = ({ type, children }: LegalDialogProps) => {
             <span className="text-bivo-green">Bivo</span> · {title}
           </DialogTitle>
           <DialogClose
-            aria-label="Cerrar"
+            aria-label={closeLabel}
             className="inline-flex items-center justify-center rounded-md p-1.5 text-white opacity-90 transition hover:opacity-100 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-bivo-green focus:ring-offset-2 focus:ring-offset-black"
           >
             <X className="h-5 w-5" strokeWidth={2.5} />
-            <span className="sr-only">Cerrar</span>
+            <span className="sr-only">{closeLabel}</span>
           </DialogClose>
         </div>
         <DialogDescription className="sr-only">{description}</DialogDescription>

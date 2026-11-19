@@ -1,26 +1,58 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useLocale } from "@/hooks/useLocale";
+import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/storeLinks";
 
-const flags = ["🎾", "🏓", "🎾", "🏆", "🥒", "💪"];
+type Store = "appStore" | "googlePlay";
+
+// Tienda de origen de cada reseña real, en el mismo orden que testimonials.list
+const reviewStores: Store[] = ["googlePlay", "googlePlay", "appStore", "googlePlay", "googlePlay"];
+
+const storeUrls: Record<Store, string> = {
+  appStore: APP_STORE_URL,
+  googlePlay: GOOGLE_PLAY_URL,
+};
+
+const StoreIcon = ({ store, size = 14 }: { store: Store; size?: number }) =>
+  store === "appStore" ? (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+    </svg>
+  ) : (
+    <svg width={size} height={size} viewBox="0 0 512 512" aria-hidden="true">
+      <path fill="#00C1FF" d="M31.2 4.4C19.6 11 12 23.4 12 37.6v436.8c0 14.2 7.6 26.6 19.2 33.2l3.6 2L274 270.4v-5.4L34.8 2.4l-3.6 2z" />
+      <path fill="#FFD900" d="M352.6 348.8l-78.6-78.4v-5.4l78.6-78.6 1.8 1L456 249.6c29.2 16.6 29.2 43.8 0 60.4l-101.6 57.6-1.8 1.2z" />
+      <path fill="#FF3333" d="M354.4 347.6L274 267.2 31.2 509.6C40 518.8 53.4 519.4 68.4 511l286-163.4" />
+      <path fill="#00EE76" d="M354.4 188.4L68.4 25C53.4 16.4 40 17.2 31.2 26.4L274 268.8l80.4-80.4z" />
+    </svg>
+  );
+
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
 
 const VISIBLE = 3;
 
 const TestimonialsSection = () => {
   const { t } = useTranslation();
-  const { localePath } = useLocale();
   const [index, setIndex] = useState(0);
 
   const testimonialsData = t("testimonials.list", { returnObjects: true }) as {
     name: string;
     text: string;
+    translated?: boolean;
   }[];
 
   const testimonials = testimonialsData.map((item, i) => ({
-    flag: flags[i],
+    store: reviewStores[i] ?? "googlePlay",
     name: item.name,
     text: item.text,
+    translated: item.translated === true,
     featured: i === 1,
   }));
 
@@ -53,6 +85,30 @@ const TestimonialsSection = () => {
           <p className="max-w-2xl mx-auto" style={{ color: "#d1d5db" }}>
             {t("testimonials.description")}
           </p>
+
+          <div
+            className="mt-6 flex flex-wrap items-center justify-center gap-3"
+            aria-label={t("testimonials.storesLabel")}
+          >
+            {(["appStore", "googlePlay"] as Store[]).map((store) => (
+              <a
+                key={store}
+                href={storeUrls[store]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white transition-colors hover:border-bivo-green/60"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                }}
+              >
+                <StoreIcon store={store} size={16} />
+                <span className="font-semibold">{t("testimonials.rating")}</span>
+                <span className="text-bivo-green" aria-hidden="true">★</span>
+                <span style={{ color: "#9ca3af" }}>{t(`footer.${store}.store`)}</span>
+              </a>
+            ))}
+          </div>
         </div>
 
         <div className="relative max-w-5xl mx-auto" style={{ padding: "0 50px" }}>
@@ -87,11 +143,26 @@ const TestimonialsSection = () => {
                     padding: "28px 24px",
                   }}
                 >
-                  <div className="flex items-center gap-3 mb-3">
-                    <span style={{ fontSize: "18px" }}>{tItem.flag}</span>
-                    <span style={{ fontSize: "14px", fontWeight: 600, color: "#fff" }}>
-                      {tItem.name}
+                  <div className="flex items-center gap-3 mb-4">
+                    <span
+                      className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-bivo-green text-black"
+                      style={{ fontSize: "14px", fontWeight: 700 }}
+                      aria-hidden="true"
+                    >
+                      {initials(tItem.name)}
                     </span>
+                    <div className="min-w-0">
+                      <div style={{ fontSize: "14px", fontWeight: 600, color: "#fff" }}>
+                        {tItem.name}
+                      </div>
+                      <div
+                        className="flex items-center gap-1.5"
+                        style={{ fontSize: "12px", color: "#9ca3af" }}
+                      >
+                        <StoreIcon store={tItem.store} size={12} />
+                        {t(`testimonials.source.${tItem.store}`)}
+                      </div>
+                    </div>
                   </div>
                   <div
                     className="mb-2 text-bivo-green"
@@ -105,11 +176,15 @@ const TestimonialsSection = () => {
                       fontSize: "14px",
                       color: "#d1d5db",
                       lineHeight: 1.6,
-                      fontStyle: "italic",
                     }}
                   >
                     {tItem.text}
                   </p>
+                  {tItem.translated && (
+                    <p className="mt-3" style={{ fontSize: "11px", color: "#6b7280" }}>
+                      {t("testimonials.translated")}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
